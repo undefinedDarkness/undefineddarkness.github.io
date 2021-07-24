@@ -96,7 +96,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.length = exports.warn = exports.fail = exports.TAB = void 0;
+exports.warn = exports.fail = exports.TAB = void 0;
 var fs_1 = require("fs");
 var perf_hooks_1 = require("perf_hooks");
 var _builtin = __importStar(require("./builtin"));
@@ -121,11 +121,6 @@ var warn = function (msg) {
     console.error('\u001b[1m\u001b[33m[WARNING]\u001b[0m ' + msg);
 };
 exports.warn = warn;
-var length = function (m) {
-    // TODO: possible extra math here
-    return stringz_1.length(m);
-};
-exports.length = length;
 function filterObj(obj, test_) {
     return Object.fromEntries(Object.entries(obj).filter(function (_a) {
         var _b = __read(_a, 2), _ = _b[0], v = _b[1];
@@ -225,7 +220,7 @@ var Context = /** @class */ (function () {
                             try {
                                 for (var _b = __values(data.split('\n')), _c = _b.next(); !_c.done; _c = _b.next()) {
                                     var line = _c.value;
-                                    var l = exports.length(line);
+                                    var l = stringz_1.length(line);
                                     if (l > longest) {
                                         longest = l;
                                     }

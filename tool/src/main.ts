@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { performance } from 'perf_hooks'
 import * as _builtin from './builtin'
 import replaceAsync from 'string-replace-async';
-import {length as _length} from 'stringz'
+import {length} from 'stringz'
 
 const builtin = {..._builtin}
 export const TAB = '        '

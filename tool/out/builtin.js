@@ -206,7 +206,7 @@ exports.list = {
                         return [2 /*return*/, input.replace(/^-/gm, function () { i_1 += 1; return i_1.toString(); })];
                     }
                     default:
-                        return [2 /*return*/, input.replace(/^-/gm, main_1.length(type) > 0 ? type : '>')];
+                        return [2 /*return*/, input.replace(/^-/gm, stringz_1.length(type) > 0 ? type : '>')];
                 }
                 return [2 /*return*/];
             });
@@ -225,7 +225,7 @@ exports.center = {
             var longest_line;
             return __generator(this, function (_a) {
                 longest_line = parseInt(args);
-                return [2 /*return*/, input.split('\n').map(function (line) { return stringz_1.limit(line, (longest_line + main_1.length(line)) / 2, ' ', 'left'); }).join('\n')];
+                return [2 /*return*/, input.split('\n').map(function (line) { return stringz_1.limit(line, (longest_line + stringz_1.length(line)) / 2, ' ', 'left'); }).join('\n')];
             });
         });
     }
@@ -243,7 +243,7 @@ exports.preserve_center = {
                 }
                 document_longest_line = parseInt(args.trim());
                 inputs = input.split('\n');
-                value_longest_line = inputs.reduce(function (a, v) { return a = main_1.length(v) > a ? main_1.length(v) : a; }, 0);
+                value_longest_line = inputs.reduce(function (a, v) { return a = stringz_1.length(v) > a ? stringz_1.length(v) : a; }, 0);
                 return [2 /*return*/, inputs.map(function (line) { return "" + ' '.repeat((document_longest_line + value_longest_line) / 4) + line; }).join('\n')];
             });
         });
@@ -262,10 +262,10 @@ exports.box = {
                     return [2 /*return*/, "<div style=\"border: 1px solid; padding: 8px 16px;\">" + input + "</div>"];
                 }
                 lines = input.split('\n');
-                longest = lines.reduce(function (a, v) { return a = main_1.length(v) > a ? main_1.length(v) : a; }, 0);
+                longest = lines.reduce(function (a, v) { return a = stringz_1.length(v) > a ? stringz_1.length(v) : a; }, 0);
                 longest = 4 + longest + 4;
                 end_line = BOX_CHARS.h_bottom_corner_l + BOX_CHARS.h_fill.repeat(longest + 1) + BOX_CHARS.h_bottom_corner_r;
-                start_line = BOX_CHARS.h_top_corner_l + stringz_1.limit(stringz_1.limit(args, (1 + longest + main_1.length(args)) / 2, BOX_CHARS.h_fill, 'left'), longest + 1, BOX_CHARS.h_fill, 'right') + BOX_CHARS.h_top_corner_r;
+                start_line = BOX_CHARS.h_top_corner_l + stringz_1.limit(stringz_1.limit(args, (1 + longest + stringz_1.length(args)) / 2, BOX_CHARS.h_fill, 'left'), longest + 1, BOX_CHARS.h_fill, 'right') + BOX_CHARS.h_top_corner_r;
                 lines = input.replace(/#RIGHT-ALIGN([^]+?)#END RIGHT-ALIGN/, function (_, v) {
                     v = v.trim();
                     return v.split('\n').map(function (l) { return stringz_1.limit(l, longest - 4, ' ', 'left'); }).join('\n');

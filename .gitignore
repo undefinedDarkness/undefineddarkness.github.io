@@ -1,1 +1,4 @@
 node_modules
+tsconfig.tsbuildinfo
+test.txt
+test_out.txt

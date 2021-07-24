@@ -20,7 +20,7 @@ for file in ./src/*.fmt.txt; do
 	filen=$(basename $file)
 	outfilen="out/${filen%%.*}.html"
 	echo Building $file -\> $outfilen
-	build=$(node ../out/main.js $file --web --no-fix-emoji 2> /dev/null)
+	build=$(node ./tool/out/main.js $file --web --no-fix-emoji 2> /dev/null)
 	echo "$pre_template" > $outfilen
 	echo "$build" >> $outfilen
 	echo "$post_template" >> $outfilen
