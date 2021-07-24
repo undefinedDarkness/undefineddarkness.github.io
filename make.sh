@@ -20,11 +20,12 @@ for file in ./src/*.fmt.txt; do
 	filen=$(basename $file)
 	outfilen="out/${filen%%.*}.html"
 	echo Building $file -\> $outfilen
-	build=$(node ./tool/out/main.js $file --web --no-fix-emoji 2> /dev/null)
+	build=$(node ./tool/out/main.js $file --web --no-fix-emoji)
 	echo "$pre_template" > $outfilen
 	echo "$build" >> $outfilen
 	echo "$post_template" >> $outfilen
 	count=$(( count + 1 ))
 done
+mv './out/index.html' .
 _end=$(date +%s%3N)
 echo "Finished $count in $((_end - _start))ms"
