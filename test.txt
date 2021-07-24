@@ -1,0 +1,59 @@
+#PRESERVE-CENTER
+#COMMAND figlet -f ~/Downloads/Chunky.flf My rice#
+#END PRESERVE-CENTER
+
+#CENTER
+https://i.ibb.co/Drs8btt/R.png
+#END CENTER
+
+#CENTER
+#BOX INTRODUCTION
+
+Hello! - 123
+My dotfiles are all based on the awesome window manager (https://awesomewm.org/)
+and tailored to be as simple as possible. 
+Partially because I dont like remembering things :P
+
+#DIVIDER USAGE AND INSTALLATION
+
+Here are some of the main programs required for installation
+Window Manager: awesomewm
+Terminal: wezterm
+Compositer: picom
+Editor: nvim ~ mostly compatible with vim#
+
+Installation:
+#CODE
+git clone https://github.com/undefinedDarkness/rice.git
+cd rice
+bash make.sh push
+#END CODE
+
+#DIVIDER INSPIRATION
+
+
+JavaCafe's rice has been a great resource and inspiration
+and many parts have come from there and undergone modification
+(https://github.com/JavaCafe01/awedots)
+
+bunny's herbsluft rice has been an inspiration for the sidebar, dashboard etc
+(https://github.com/rayes0/dotfiles)
+
+no37's rice has been inspiration for the vertical bar and some sidebar design
+(https://github.com/Nooo37/dots)
+
+Cool stuff:
+
+Bling is an awesome library if you use awesomewm, it includes several high-quality
+widgets and many ease-of-use features
+(https://github.com/BlingCorp/bling)
+
+Eww is a widget framework that can be used to create amazing widgets in any wm!
+(https://github.com/elkowar/eww/)
+
+Elkowar's Phocus is a very nice gtk theme (for gruvbox) 
+and I have recreated its pretty window buttons for my rice
+(https://github.com/Elkowar/gtk)
+
+#END BOX
+#END CENTER

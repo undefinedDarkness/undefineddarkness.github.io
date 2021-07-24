@@ -1,0 +1,51 @@
+#PRESERVE-CENTER
+#COMMAND figlet GNU Grep#
+#END PRESERVE-CENTER
+
+#BOX
+
+What is grep?
+> Find patterns in files using regular expressions
+
+This is to serve as something of a reference for myself and a list of cool grep hacks that I find
+
+<b><a href="https://manpages.debian.org/buster/grep/grep.1.en.html">MANPAGE</a></b>
+
+<h2>Useful flags</h2>
+
+#TABLE Flag	Function 
+-r	Recursive directory search
+-o	Print only match
+-P	Enable PCRE regex
+-n	Line Number
+-H	Filename
+-b	Offset
+-v	Invert (Give opposite)
+#END TABLE
+
+<h2>How to cope with no capture groups</h2>
+
+Use look-aheads and look-behinds
+#HTML-AWARE
+#TABLE Syntax	Function
+(?=PATTERN)	+ve Lookahead
+(?!PATTERN)	-ve Lookahead
+(?<=PATTERN)	+ve Lookbehind
+(?<!PATTERN)	-ve Lookbehind
+#END TABLE
+#END HTML-AWARE
+
+Use \K to say, match but dont print everything before this
+
+#LIST *
+- Poor man's ack
+	> alias ack='grep -PbHnTr --binary-files=without-match  --color=always'
+
+- Count dpkg packages quicky
+	> pkgs="$(grep -G '^Package:' -c /var/lib/dpkg/status)"
+	> pkgs=$(( pkgs - 32 )) # to be consistent with apt list
+
+- [Vim] better :grep command
+	<a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3</a>
+#END LIST
+#END BOX

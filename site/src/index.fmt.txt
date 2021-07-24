@@ -1,0 +1,37 @@
+#PRESERVE-CENTER
+        ______
+       /     /\
+      /     /  \
+     /_____/----\_    (  
+    "     "          ).  
+   _ ___          o (:') o   
+  (@))_))        o ~/~~\~ o   
+                  o  o  o
+#END PRESERVE-CENTER
+
+#BOX Introduction
+🍲
+Hello, Welcome visitor!, take a place by the fireplace
+This is my little rented bit of the internet!
+It isnt much but its mine
+
+Site design is very heavily inspired by the <a href="https://kisslinux.org">kiss linux</a> website
+<!-- Built using my tool: slosci -->
+
+Here is list of some garbage ive written
+#SCRIPT
+	files=$(find . -name "*.fmt.txt" -not -name "index.fmt.txt")
+	for file in $files; do
+		y=$(basename $file)
+		x=${y%%.*}
+		echo "- <a href=\"/$x.html\">@/$x</a>"
+	done
+#END SCRIPT
+
+
+#RIGHT-ALIGN
+~ undefinedDarkness
+<a href="https://github.com/undefinedDarkness/site">site-repo</a> <a href="https://github.com/undefinedDarkness/">git</a>
+#END RIGHT-ALIGN
+#END BOX
+
