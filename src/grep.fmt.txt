@@ -1,5 +1,7 @@
 #PRESERVE-CENTER
-#COMMAND figlet GNU Grep#
+#SH-SCRIPT
+figlet GNU Grep
+#END SH-SCRIPT
 #END PRESERVE-CENTER
 
 #BOX
@@ -26,14 +28,14 @@ This is to serve as something of a reference for myself and a list of cool grep 
 <h2>How to cope with no capture groups</h2>
 
 Use look-aheads and look-behinds
-#HTML-AWARE
+#HTML-ESCAPE
 #TABLE Syntax	Function
 (?=PATTERN)	+ve Lookahead
 (?!PATTERN)	-ve Lookahead
 (?<=PATTERN)	+ve Lookbehind
 (?<!PATTERN)	-ve Lookbehind
 #END TABLE
-#END HTML-AWARE
+#END HTML-ESCAPE
 
 Use \K to say, match but dont print everything before this
 

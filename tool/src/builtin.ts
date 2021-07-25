@@ -2,15 +2,13 @@ import { promisify } from 'util'
 import { exec as _exec } from 'child_process'
 const exec = promisify(_exec)
 import { writeFile, unlink } from 'fs/promises'
-
 //@ts-ignore
 import AsciiTable from 'ascii-table';
-
-import { Transformer, fail, TAB } from './main'
+import { Transformer, fail, outputMode } from './main.js'
 import { length, limit } from 'stringz';
 
-const WEB = process.argv.includes('--web')
-const UNICODE = !process.argv.includes("--ascii")
+const TAB =  '        '
+const UNICODE = !(outputMode == 'ascii')
 
 const BOX_CHARS = {
 	v_fill: UNICODE ? '│' : '|',
@@ -23,25 +21,18 @@ const BOX_CHARS = {
 	bottom_table_corner: '\''
 }
 
-/** Inline Transforms {{{ */
-export const command: Transformer = {
+/* export const command: Transformer = {
 	fn: async (input: string): Promise<string> => {
-		return (await exec(input)).stdout
+		try { return (await exec(input)).stdout } catch(err) {
+			fail("Encountered error while trying to run user script: " + err, false)
+			return input
+		}
 	},
 	inline: true,
 	importance: 0
-}
+} */
 
-export const env: Transformer = {
-	fn: async (input: string): Promise<string> => {
-		return process.env[input] ?? input
-	},
-	inline: true,
-	importance: 0
-}
-/*}}}*/
-
-export const script: Transformer = {
+export const sh_script: Transformer = {
 	fn: async (input: string): Promise<string> => {
 		let file_path = '/tmp/'+Number(new Date()) // TODO: Make better
 		await writeFile(file_path, '#!/usr/bin/env bash\n'+input);
@@ -93,14 +84,6 @@ export const table: Transformer = {
 	importance: 0
 }
 
-export const html_aware: Transformer = {
-	inline: false,
-	importance: 3,
-	fn: async (input: string, args: string = ""): Promise<string> => {
-		return input.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-	}
-}
-
 export const list: Transformer = {
 	fn: async (input: string, type:string = ""): Promise<string> => {
 		switch (type) {
@@ -130,11 +113,6 @@ export const preserve_center: Transformer = {
 	importance: 3,
 	inline: false,
 	fn: async (input: string, args: string = '') => {
-
-		if (WEB) {
-			return `<div style='display:flex;justify-content:center;align-items:center;'><div>${input}</div></div>`
-		}
-
 		const document_longest_line = parseInt(args.trim())
 		const inputs = input.split('\n')
 		const value_longest_line = inputs.reduce((a,v)=> a = length(v)>a?length(v):a, 0)
@@ -143,14 +121,6 @@ export const preserve_center: Transformer = {
 }
 export const box: Transformer = {
 	fn: async (input: string, args: string= '') => {
-
-		if (WEB) {
-			input = input.replace(/#RIGHT-ALIGN([^]+?)#END RIGHT-ALIGN/, (_, v:string) => {
-				return `<div style='text-align:right'>${v}</div>`
-			})
-			return `<div style="border: 1px solid; padding: 8px 16px;">${input}</div>`
-		}
-
 		let lines = input.split('\n')
 		
 		let longest = lines.reduce((a,v)=>a=length(v)>a?length(v):a, 0)

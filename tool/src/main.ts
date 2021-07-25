@@ -1,13 +1,26 @@
 import { readFileSync } from 'fs'
 import { performance } from 'perf_hooks'
-import * as _builtin from './builtin'
 import replaceAsync from 'string-replace-async';
 import {length} from 'stringz'
 
-const builtin = {..._builtin}
-export const TAB = '        '
+import * as _web from './web.js'
+import * as _builtin from './builtin.js'
 
-enum Importance {
+export const outputMode = (() => {
+	let x = process.argv.find(i => i.startsWith('--mode='))
+	return x ? x.split('=')[1] : fail('Mode not provided!') 
+})()
+
+const builtin = (() => {
+	switch (outputMode) {
+		case "web":
+			return _web
+		default:
+			return _builtin
+	}
+})()
+
+export const enum Importance {
 	Anywhere = 0,
 	ResolveChildren = 1,
 	WillResolve = 2,
@@ -19,22 +32,26 @@ export interface Transformer {
 	importance: Importance;
 	fn: (a:string, args?: string) => Promise<string>;
 }
-type TransformerList = Record<string, Transformer>;
 
-export const fail = (msg:string, do_exit:boolean=true) => {
+export function fail(msg:string, do_exit:boolean=true) {
 	console.error('\u001b[1m\u001b[31m[ERROR]\u001b[0m '+msg)
 	do_exit ? process.exit(1) : null
 }
 
-export const warn = (msg: string) => {
+export function warn (msg: string) {
 	console.error('\u001b[1m\u001b[33m[WARNING]\u001b[0m '+msg)
 }
 
 function filterObj(obj: Record<string, Transformer>, test_: (a: Transformer) => boolean) {
 	return Object.fromEntries(Object.entries(obj).filter(([_, v]) => test_(v)))
 }
-async function useTransformer(data: string, obj: TransformerList, append_args='') {
-		return await replaceAsync(data, new RegExp(`[\t\ ]*#(${Object.keys(obj).map(x => x.toUpperCase().replace('_', '-')).join('|')})+([^\n]+)?([^]+?)#END \\1`, 'g'), async (match: string, tag: string, args: string, value: string) => {
+
+
+async function useBlockTransformer(data: string, obj: TransformerList, append_args='') {
+	if (Object.keys(obj).length <= 0) { return data }
+	let regex=new RegExp(`[\t\ ]*#(${Object.keys(obj).map(x => x.toUpperCase().replace('_', '-')).join('|')})+([^\n]+)?([^]+?)#END \\1`, 'g')
+	while(true) {
+		data =  await replaceAsync(data, regex, async (match: string, tag: string, args: string, value: string) => {
 			tag = tag.toLowerCase().replaceAll('-', '_')
 			args = (args ?? '') + append_args
 			try {
@@ -43,14 +60,18 @@ async function useTransformer(data: string, obj: TransformerList, append_args=''
 				fail(`Transformer: ${tag} failed to transform: ${value} ~ ${err}`);
 				return match
 			}
-		})	
+		})
+		if (!regex.test(data)) { break }
+	}
+	return data
 }
 
+type TransformerList = Record<string, Transformer>;
 class Context {
 	data: string;
 
-	inlineTransformers: TransformerList; // eg: #TAG VALUE#
-	simpleBlockTransformers: TransformerList; // eg #BEGIN TAG #END TAG
+	inlineTransformers: TransformerList;
+	simpleBlockTransformers: TransformerList;
 	complexBlockTransformers: TransformerList; 
 	resolvedBlockTransformers: TransformerList;
 	endBlockTransformers: TransformerList;
@@ -65,24 +86,29 @@ class Context {
 	}
 	
 	preTransform() {
-		if (process.argv.includes("--ascii")) {
+		if (outputMode == 'ascii') {
 			warn("Using ascii only chars, in accordance with `--ascii`")
 			this.data = this.data.replace(/[^\x00-\x7F]/g, "");
 		}
 
-		if (!process.argv.includes("--no-fix-emoji")) {
+		if (!(outputMode == 'ascii') && !process.argv.includes('--emoji-fix=no')) {
 			warn("Stripping all emojis (they break boxes), to ignore use `--no-fix-emoji`")
 			this.data = this.data.replace(/\p{Extended_Pictographic}/u, "")
 		}
 
-		this.data = this.data.replaceAll('\t', TAB)
+		this.data = this.data.replaceAll('\t', '        ') // Sorry tab gods
 	}
-	async transform() {
 
+	getLongest() {
+		return this.data.split('\n').reduce((a, v) => length(v)>a?length(v):a, 0).toString()
+	}
+
+	async transform() {
+		
 		// Replace Emoji & Unicode (if --ascii)
 		this.preTransform()
 
-		// -- Simple Processing --
+		// -- Inline Processing --
 		const matchInline = /#(\w+) (.*)#/g 
 		while (true) {
 			this.data = await replaceAsync(this.data, matchInline, async (_, tag: string, value: string) => {
@@ -92,32 +118,20 @@ class Context {
 			if (!matchInline.test(this.data)) { break }
 		}
 
-		this.data = await useTransformer(this.data, this.simpleBlockTransformers) 
+		// -- Simple Processing --
+		this.data = await useBlockTransformer(this.data, this.simpleBlockTransformers) 
 
 		// -- Complex Processing -- 
-		this.data = await useTransformer(this.data, this.complexBlockTransformers) 
-
-		// get longest line
-		let getLongest = (longest = 0, data = this.data) => {
-			for (let line of data.split('\n')) {
-				let l = length(line)
-				if (l > longest) { longest = l }
-			}
-			return longest
-		}
-
-		let longest = getLongest()
+		this.data = await useBlockTransformer(this.data, this.complexBlockTransformers) 
 
 		// -- Relative Processing --
-		this.data = await useTransformer(this.data, this.resolvedBlockTransformers, longest.toString()) 
-
-		longest = getLongest();
-		this.data = await useTransformer(this.data, this.endBlockTransformers, longest.toString())
+		this.data = await useBlockTransformer(this.data, this.resolvedBlockTransformers, this.getLongest()) 
+		this.data = await useBlockTransformer(this.data, this.endBlockTransformers, this.getLongest())
 
 	}
 }
 
-async function main() {
+(async () => {
 let instance = new Context(process.argv[2])
 
 const start = performance.now()
@@ -126,5 +140,4 @@ const end = performance.now()
 
 console.log(instance.data)
 console.error(`Finished transforming in \u001b[1m${Math.floor(end-start)}\u001b[0mms`)
-}
-main()
+})()

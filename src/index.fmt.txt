@@ -19,14 +19,14 @@ Site design is very heavily inspired by the <a href="https://kisslinux.org">kiss
 <!-- Built using my tool: slosci -->
 
 Here is list of some garbage ive written
-#SCRIPT
+#SH-SCRIPT
 	files=$(find src -name "*.fmt.txt" -not -name "index.fmt.txt")
 	for file in $files; do
 		y=$(basename $file)
 		x=${y%%.*}
 		echo "- <a href=\"/out/$x.html\">@/$x</a>"
 	done
-#END SCRIPT
+#END SH-SCRIPT
 
 
 #RIGHT-ALIGN
