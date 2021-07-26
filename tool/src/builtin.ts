@@ -53,7 +53,7 @@ export const sh_script: Transformer = {
 export const code: Transformer = {
 	fn: async (input: string, args:string = ""): Promise<string> => {
 		const type = args.split(TAB)[0]
-		return input.split('\n').map((line, index) => {
+		return input.split('\n')/*.filter(x => x.trim().length > 0)*/.map((line, index) => {
 			let block_indentation = ""
 			if (args.includes("INDENT-PRE-INDEX")) {
 				block_indentation = (line.match(/^\s*/) ?? ['']) [0]

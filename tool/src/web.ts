@@ -30,7 +30,7 @@ export const right_align: Transformer = {
 	importance: Importance.Anywhere,
 	inline: false,
 	fn: async (input: string) => {
-			return '<div style="align-text: right">' + input + '</div>'
+			return '<div style="text-align: right">' + input + '</div>'
 	}
 }
 
