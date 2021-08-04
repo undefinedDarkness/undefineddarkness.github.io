@@ -16,7 +16,7 @@ SEARCH:
 > <input type="text" placeholder="rubber duckies"></input>
 </div>
 <script>
-<!-- I need to use js here -->
+// I need to use js here 
 document.querySelector("input").addEventListener("keyup", e => {
 	if (e.key == "Enter") {
 		window.location.href = 'https://www.google.com/search?q=' + e.target.value
