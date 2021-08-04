@@ -64,7 +64,7 @@ augroup quickfix
 augroup END
 #END CODE
 
-<h4>Tabline</h4>
+<h4>Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 > set list lcs=tab:\│\ 
 

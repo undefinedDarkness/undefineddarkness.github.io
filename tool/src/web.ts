@@ -1,12 +1,13 @@
 import { table, sh_script, code, list } from './builtin.js'
 import {  Transformer } from './main.js'
 import { Importance } from './main'
+
 // May remove later 
 export const html_escape: Transformer = {
 	inline: false,
 	importance: Importance.ResolveChildren,
 	fn: async (input: string): Promise<string> => {
-		return input.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+		return input.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 	}
 }
 
@@ -36,10 +37,18 @@ export const right_align: Transformer = {
 
 export const box: Transformer = {
 	fn: async (input: string) => {
-		return `<div style="border: 1px solid; padding: 8px 16px;">${input}</div>`
+		return `<div style="border: 1px solid; padding: 8px 16px;">${input.trim()}</div>`
 	},
 	inline: false,
 	importance: Importance.Anywhere 
+}
+
+export const auto_link: Transformer = {
+	fn: async (input: string) => {
+		return input.replace(/(?<!<a.*href=")(https?:\/\/[\w.\/]+)/g, (_, link: string) => {
+			return `<a href="${link}">${link}</a>`
+		})
+	},inline:false, importance: Importance.Anywhere
 }
 
 export { table, code, sh_script, list }

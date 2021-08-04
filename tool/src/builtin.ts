@@ -1,7 +1,9 @@
 import { promisify } from 'util'
 import { exec as _exec } from 'child_process'
 const exec = promisify(_exec)
-import { writeFile, unlink } from 'fs/promises'
+import { writeFile as writeFile_, unlink as unlink_ } from 'fs'
+const writeFile = promisify(writeFile_)
+const unlink = promisify(unlink_)
 //@ts-ignore
 import AsciiTable from 'ascii-table';
 import { Transformer, fail, outputMode } from './main.js'
@@ -20,17 +22,6 @@ const BOX_CHARS = {
 	top_table_corner: '.',
 	bottom_table_corner: '\''
 }
-
-/* export const command: Transformer = {
-	fn: async (input: string): Promise<string> => {
-		try { return (await exec(input)).stdout } catch(err) {
-			fail("Encountered error while trying to run user script: " + err, false)
-			return input
-		}
-	},
-	inline: true,
-	importance: 0
-} */
 
 export const sh_script: Transformer = {
 	fn: async (input: string): Promise<string> => {

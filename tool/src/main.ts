@@ -52,7 +52,7 @@ async function useBlockTransformer(data: string, obj: TransformerList, append_ar
 	let regex=new RegExp(`[\t\ ]*#(${Object.keys(obj).map(x => x.toUpperCase().replace('_', '-')).join('|')})+([^\n]+)?([^]+?)#END \\1`, 'g')
 	while(true) {
 		data =  await replaceAsync(data, regex, async (match: string, tag: string, args: string, value: string) => {
-			tag = tag.toLowerCase().replaceAll('-', '_')
+			tag = tag.toLowerCase().replace(/-/g, '_')
 			args = (args ?? '') + append_args
 			try {
 				return (obj[tag] ? obj[tag].fn(value, args) : value)
@@ -96,7 +96,7 @@ class Context {
 			this.data = this.data.replace(/\p{Extended_Pictographic}/u, "")
 		}
 
-		this.data = this.data.replaceAll('\t', '        ') // Sorry tab gods
+		this.data = this.data.replace(/\t/g, '        ') // Sorry tab gods
 	}
 
 	getLongest() {

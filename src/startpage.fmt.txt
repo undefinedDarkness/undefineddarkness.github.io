@@ -1,0 +1,25 @@
+<style>a { display: none; }</style>
+
+#SH-SCRIPT
+bonsai -T -g 150 150 -s $(date +%s)  | ansi2html -i -u | sed -E 's/&crarr;|H|<hr>|\[\?25l\[\?7l|\[\?25h\[\?7h|<\/?pre.*>|//g; s/\)B/\)/g' | awk 'NF'	
+#END SH-SCRIPT
+
+<!--
+<footer style="text-align:center;">
+#SH-SCRIPT
+fortune -s
+#END SH-SCRIPT
+</footer>
+-->
+<div style="position:absolute; left: 30px; top: 50%; bottom: 0;">
+SEARCH:
+> <input type="text" placeholder="rubber duckies"></input>
+</div>
+<script>
+<!-- I need to use js here -->
+document.querySelector("input").addEventListener("keyup", e => {
+	if (e.key == "Enter") {
+		window.location.href = 'https://www.google.com/search?q=' + e.target.value
+	}
+})
+</script>

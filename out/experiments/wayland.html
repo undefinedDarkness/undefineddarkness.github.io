@@ -1,4 +1,45 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title></title> <style> /*-- Basic styling --*/ body pre:first-child { display: table; overflow-x: hidden; margin: 0 auto; margin-bottom: 30px; padding: 1em; } index.html make.sh out src template.html tool { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; } h1,h2,h3 { margin: 0; } a { text-decoration: none; } a:hover { cursor: pointer; text-decoration: underline; } body,html { margin: 0; width: 100%; height: 100%; padding: 0; overflow-x: hidden; } body { overflow-y: scroll; } /*-- Mobile --*/ @media only screen and (max-width: 600px) { body pre:first-child { font-size: 1.94vw; } } /*-- Dark Theme --*/ @media (prefers-color-scheme: dark) { body { background-color: #111; color: #fafafa; } a { color: skyblue } } </style> </head> <body> <pre>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<title>wayland</title>
+		<style>
+		pre {
+			display: table;
+			margin: 0 auto;
+			position: relative;
+		}
+		a {
+			text-decoration: none;
+		}
+		body {
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+		input {
+			background: inherit;
+			border: none;
+			color: #aaa;
+			font-family: inherit;
+			outline: 0;
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background: #000;
+				color: #fafafa;
+			}
+
+			a {
+				color:skyblue;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<pre>
+			
 <div style='display:flex;justify-content:center;align-items:center;'><div>
                   ,____
                    |---.\
@@ -20,6 +61,8 @@
 <i>Got a display server to kill</i>
 </div></div>
 This is intended to chronicle my adventures using Wayland
+The primary reason being terrible performance in X11 but that was later resolved. :)
+The journey continues tho 📔
 
 <h2>* Window Manager (Compositer)</h2>
 I know its called a compositer but I am going to call it a window manager >:(
@@ -51,7 +94,7 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
->git clone --recurse-submodules https://github.com/lbonn/rofi
+>git clone --recurse-submodules <a href="https://github.com/lbonn/rofi">https://github.com/lbonn/rofi</a>
 >cd rofi
 >meson setup build -Dwayland=enabled --prefix=/usr/local
 >ninja -C build
@@ -60,4 +103,23 @@ Although most of them required tweaking in some form or another
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 > MOZ_ENABLE_WAYLAND=1 firefox
 
-<a href="/index.html">Return Home</a> </pre> </body> </html>
+** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
+** Firefox crashed more often for me in wayland but that may or may not happen to you
+
+<h3>* Bars </h3>
+Compared to the choice on X11, bars in wayland are a bit ehhhh ig
+There are only 2 that I found:
+
+- Yambar:
+        <a href="https://codeberg.org/dnkl/yambar">https://codeberg.org/dnkl/yambar</a>
+- Waybar:
+        <a href="https://github.com/Alexays/Waybar">https://github.com/Alexays/Waybar</a>
+
+Since I couldnt compile yambar even tho it seems pretty nice :/ I was forced to use waybar
+Both of them take after polybar very much which I personally am not much a fan off
+but ig it makes sense, If I were to revisit the topic of bars I will definately look into using
+The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
+<a href="/index.html">Return Home</a>
+		</pre>
+	</body>
+</html>

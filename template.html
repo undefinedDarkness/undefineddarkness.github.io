@@ -3,60 +3,44 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title></title>
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<title>!TITLE!</title>
 		<style>
-		/*-- Basic styling --*/
-		body pre:first-child {
+		pre {
 			display: table;
-			overflow-x: hidden;
 			margin: 0 auto;
-			margin-bottom: 30px;
-			padding: 1em;
-		}
-		* {
-			font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-		}
-		h1,h2,h3 {
-			margin: 0;
+			position: relative;
 		}
 		a {
 			text-decoration: none;
 		}
-		a:hover {
-			cursor: pointer;
-			text-decoration: underline;
-		}
-		body,html {
-			margin: 0;
-			width: 100%;
-			height: 100%;
-			padding: 0;
+		body {
+			overflow-y: scroll;
 			overflow-x: hidden;
 		}
-
-		body { overflow-y: scroll; }
-
-		/*-- Mobile --*/
-		@media only screen and (max-width: 600px) {
-			body pre:first-child {
-				font-size: 1.94vw;
-			}
+		input {
+			background: inherit;
+			border: none;
+			color: #aaa;
+			font-family: inherit;
+			outline: 0;
 		}
-
-		/*-- Dark Theme --*/
 		@media (prefers-color-scheme: dark) {
 			body {
-				background-color: #111;
-				color:	#fafafa;
+				background: #000;
+				color: #fafafa;
 			}
-			a { color: skyblue }
+
+			a {
+				color:skyblue;
+			}
 		}
 		</style>
 	</head>
 	<body>
 		<pre>
 			!CONTENT!
-			<a href="/index.html">Return Home</a>
+<a href="/index.html">Return Home</a>
 		</pre>
 	</body>
 </html>

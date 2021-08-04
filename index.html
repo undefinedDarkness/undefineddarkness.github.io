@@ -1,5 +1,45 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title></title> <style> /*-- Basic styling --*/ body pre:first-child { display: table; overflow-x: hidden; margin: 0 auto; margin-bottom: 30px; padding: 1em; } index.html make.sh out src template.html tool { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; } h1,h2,h3 { margin: 0; } a { text-decoration: none; } a:hover { cursor: pointer; text-decoration: underline; } body,html { margin: 0; width: 100%; height: 100%; padding: 0; overflow-x: hidden; } body { overflow-y: scroll; } /*-- Mobile --*/ @media only screen and (max-width: 600px) { body pre:first-child { font-size: 1.94vw; } } /*-- Dark Theme --*/ @media (prefers-color-scheme: dark) { body { background-color: #111; color: #fafafa; } a { color: skyblue } } </style> </head> <body> <pre>
-<div style='display:flex;justify-content:center;align-items:center;'><div>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<title>index</title>
+		<style>
+		pre {
+			display: table;
+			margin: 0 auto;
+			position: relative;
+		}
+		a {
+			text-decoration: none;
+		}
+		body {
+			overflow-y: scroll;
+			overflow-x: hidden;
+		}
+		input {
+			background: inherit;
+			border: none;
+			color: #aaa;
+			font-family: inherit;
+			outline: 0;
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background: #000;
+				color: #fafafa;
+			}
+
+			a {
+				color:skyblue;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<pre>
+			<div style='display:flex;justify-content:center;align-items:center;'><div>
         ______
        /     /\
       /     /  \
@@ -10,8 +50,7 @@
                   o  o  o
 </div></div>
 
-<div style="border: 1px solid; padding: 8px 16px;">
-🍲
+<div style="border: 1px solid; padding: 8px 16px;">🍲
 Hello, Welcome visitor!, take a place by the fireplace
 This is my little rented bit of the internet! 
 for me to host my stupid opinions for all to see
@@ -21,16 +60,16 @@ Site design is very heavily inspired by the <a href="https://kisslinux.org">kiss
 <!-- Built using my tool: slosci -->
 
 Here is list of some garbage ive written
-<a href="out/scripting/vim.html">@/scripting/vim</a>
-<a href="out/experiments/wayland.html">@/experiments/wayland</a>
+<a href="out/scripting/vim.html">scripting/vim.html</a>
+<a href="out/experiments/wayland.html">experiments/wayland.html</a>
 
 
 
 <div style="text-align: right">
 ~ undefinedDarkness
 <a href="https://github.com/undefinedDarkness/site">site-repo</a> <a href="https://github.com/undefinedDarkness/">git</a>
-</div>
-</div>
-
-
-<a href="/index.html">Return Home</a> </pre> </body> </html>
+</div></div>
+<a href="/index.html">Return Home</a>
+		</pre>
+	</body>
+</html>
