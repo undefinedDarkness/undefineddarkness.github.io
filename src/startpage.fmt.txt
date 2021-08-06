@@ -1,4 +1,4 @@
-<style>a { display: none; }</style>
+<style>a[href="/index.html"] { display: none; } body { display: flex; align-items: center } body,html{ width: 100%; height: 100%; margin: 0; padding: 0; }</style>
 
 #SH-SCRIPT
 bonsai -T -g 150 150 -s $(date +%s)  | ansi2html -i -u | sed -E 's/&crarr;|H|<hr>|\[\?25l\[\?7l|\[\?25h\[\?7h|<\/?pre.*>|//g; s/\)B/\)/g' | awk 'NF'	
@@ -11,9 +11,10 @@ fortune -s
 #END SH-SCRIPT
 </footer>
 -->
-<div style="position:absolute; left: 30px; top: 50%; bottom: 0;">
+<div style="position:absolute; left: 30px; top: 40%; bottom: 0;">
 SEARCH:
 > <input type="text" placeholder="rubber duckies"></input>
+<!-- <a href="http://github.com">gh</a> -->
 </div>
 <script>
 // I need to use js here 
