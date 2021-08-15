@@ -1,62 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<title>vim</title>
-		<style>
-			pre {
-				display: table;
-				margin: 0 auto;
-			}
-			html {
-				background: #111;
-				color: #fafafa;
-			}
-			a {
-				text-decoration: none;
-				color: skyblue;
-			}
-		</style>
-	</head>
-	<body>
-		<pre>
-			<div style='display:flex;justify-content:center;align-items:center;'><div>
-
-figlet Vi Improved
-
-</div></div>
-<center>
+<div style="display: flex; justify-content: center; align-items: center"><div>__     ___   ___                                        _ 
+\ \   / (_) |_ _|_ __ ___  _ __  _ __ _____   _____  __| |
+ \ \ / /| |  | || '_ ` _ \| '_ \| '__/ _ \ \ / / _ \/ _` |
+  \ V / | |  | || | | | | | |_) | | | (_) \ V /  __/ (_| |
+   \_/  |_| |___|_| |_| |_| .__/|_|  \___/ \_/ \___|\__,_|
+                          |_|                             
 <i> Just a collection of cool stuff I find relatived to the vim text editor :) </i>
-</center>
 
 <h3>Plugins</h3>
 - <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
-        A great plugin that takes care of Linting, Formatting & Autocompletion
-        Quite customizable but some bits are a bit dated
+	A great plugin that takes care of Linting, Formatting & Autocompletion
+	Quite customizable but some bits are a bit dated
 
 - <a href="https://github.com/ap/vim-css-color">CSS Color</a>
-        Highlight hex codes & web names for colors with the actual color :), works really well
-        Lacks support for some languages (lua) but that can be easily fixed via autocommand.
+	Highlight hex codes & web names for colors with the actual color :), works really well
+	Lacks support for some languages (lua) but that can be easily fixed via autocommand.
 
 - <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
-        Language pack for vim
-        A good one to have since you dont notice it much unless you're very worried about startup times
+	Language pack for vim
+	A good one to have since you dont notice it much unless you're very worried about startup times
 
 - <a href="https://github.com/mattn/emmet-vim">Emmet</a>
-        Why would you not have this? especially if you edit html
+	Why would you not have this? especially if you edit html
 
 - <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
-        Infer your parens!
-        true bliss if you ever edit lisp code 😳
+	Infer your parens!
+	true bliss if you ever edit lisp code 😳
 
 - <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
-        Great alternative to NERDTree (Project Drawer) and imo a much better one
-        Feels pretty clean and nice to use
+	Great alternative to NERDTree (Project Drawer) and imo a much better one
+	Feels pretty clean and nice to use
 
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
-        I dont use a statusline but if I did I would use lightline, it works really well and is easy to customize
+	I dont use a statusline but if I did I would use lightline, it works really well and is easy to customize
 
 <h3>Configuration</h3>
 Making the most out of vanilla vim features
@@ -64,37 +39,32 @@ Making the most out of vanilla vim features
 <h4>NetRW</h4>
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
-> 
-> let g:netrw_banner = 0 " Hide the banner
-> let g:netrw_browse_split = 3 " Open in new tab
-> let g:netrw_winsize = 25 " Size
-> let g:netrw_liststyle = 3 " Show files in tree form
-> 
+let g:netrw_banner = 0 " Hide the banner
+let g:netrw_browse_split = 3 " Open in new tab
+let g:netrw_winsize = 25 " Size
+let g:netrw_liststyle = 3 " Show files in tree form
 See what each option does with `:help netrw-browser-settings`
 
 <h4>Improving vim's :grep command</h4>
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
-> 
-> function! Grep(...)
->     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-> endfunction
-> command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-> command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
-> augroup quickfix
->     autocmd!
->     autocmd QuickFixCmdPost cgetexpr cwindow
->     autocmd QuickFixCmdPost lgetexpr lwindow
-> augroup END
-> 
+function! Grep(...)
+    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost cgetexpr cwindow
+    autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END
 
 <h4>Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 > set list lcs=tab:\│\ 
 
-<center>
 <i>~ More to come.. maybe 🚧 ~</i>
-</center>
+
 <a href="/index.html">Return Home</a>
 		</pre>
 	</body>
