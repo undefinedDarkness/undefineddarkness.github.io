@@ -6,40 +6,38 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>index</title>
 		<style>
-		pre {
-			display: table;
-			margin: 0 auto;
-			position: relative;
-		}
-		a {
-			text-decoration: none;
-		}
-		body {
-			overflow-y: scroll;
-			overflow-x: hidden;
-		}
-		input {
-			background: inherit;
-			border: none;
-			color: #aaa;
-			font-family: inherit;
-			outline: 0;
-		}
-		@media (prefers-color-scheme: dark) {
-			body {
-				background: #000;
+			pre {
+				display: table;
+				margin: 0 auto;
+			}
+			html {
+				background: #111;
 				color: #fafafa;
 			}
-
 			a {
-				color:skyblue;
+				text-decoration: none;
+				color: skyblue;
 			}
-		}
 		</style>
 	</head>
 	<body>
 		<pre>
-			<div style='display:flex;justify-content:center;align-items:center;'><div>
+			<style>
+        pre {
+                margin: auto;
+        }
+        body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+        }
+        body, html {
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+        }
+</style>
+<div style='display:flex;justify-content:center;align-items:center;'><div>
         ______
        /     /\
       /     /  \
@@ -60,8 +58,8 @@ Site design is very heavily inspired by the <a href="https://kisslinux.org">kiss
 <!-- Built using my tool: slosci -->
 
 Here is list of some garbage ive written
-<a href="out/scripting/vim.html">scripting/vim.html</a>
 <a href="out/experiments/wayland.html">experiments/wayland.html</a>
+<a href="out/scripting/vim.html">scripting/vim.html</a>
 
 
 

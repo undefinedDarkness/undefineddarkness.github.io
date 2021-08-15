@@ -6,6 +6,13 @@ import {length} from 'stringz'
 import * as _web from './web.js'
 import * as _builtin from './builtin.js'
 
+function fromEntries (iterable: any[]) {
+  return [...iterable].reduce((obj, [key, val]) => {
+    obj[key] = val
+    return obj
+  }, {})
+}
+
 export const outputMode = (() => {
 	let x = process.argv.find(i => i.startsWith('--mode='))
 	return x ? x.split('=')[1] : fail('Mode not provided!') 
@@ -43,7 +50,7 @@ export function warn (msg: string) {
 }
 
 function filterObj(obj: Record<string, Transformer>, test_: (a: Transformer) => boolean) {
-	return Object.fromEntries(Object.entries(obj).filter(([_, v]) => test_(v)))
+	return fromEntries(Object.entries(obj).filter(([_, v]) => test_(v)))
 }
 
 

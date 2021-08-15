@@ -1,3 +1,21 @@
+<style>
+	pre {
+		margin: auto;
+	}
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	body, html {
+		height: 100vh;
+		margin: 0;
+		padding: 0;
+	}
+	a[href="/index.html"] {
+		display: none;
+	}
+</style>
 #PRESERVE-CENTER
         ______
        /     /\
