@@ -3,8 +3,7 @@
 
 /* The only reason this exists is that I had a stupid hard time doing it
  * all I wanted was simple string replacement but everything overcomplicated way too much
- * and sed / perl have escaping issues
- * */
+ * and sed / perl have escaping issues */
 
 void replaceAll(std::string& str, const std::string& from, const std::string& to) {
 	if(from.empty())

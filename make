@@ -34,8 +34,10 @@ build () {
 	out=${out/.fmt.txt/.html}
 	mkdir -p $(dirname $out)
 	printf "\nBuilding $1 -> $out\n"
-	
-	header="${pre/!TITLE!/$(basename $out .html)}" # Substitute Header
+
+	x=${out%%.html}
+	x=${x##out/}
+	header="${pre/!TITLE!/$x}" # Substitute Header
 	printf "$header" > "$out"
 	pong_debug=1 bash tool/pond.sh "$1" >> $out # Generate HTML
 	printf "$post" >> "$out" # Output To File
