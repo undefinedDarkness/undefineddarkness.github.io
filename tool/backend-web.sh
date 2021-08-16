@@ -36,7 +36,7 @@ center () {
 
 code () {
 	if [ $(wc -l <<< "$1") -lt 15 ]; then
-		echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n >' | head -n -1
+		echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n > ' | head -n -1
 	else
 		ll=0
 		while read -r line; do

@@ -43,7 +43,7 @@ get_between () {
 
 # Remove first and last line
 strip_head_and_tail () {
-	echo "$1" | awk NF | sed '1d;$d'
+	echo "$1" | sed '1d;$d'
 }
 
 
