@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 box () {
-	echo "<div style=\"border: 1px solid #fafafa; padding: 8px; \">\n$1\n</div>"
+	printf "<div style=\"border: 1px solid #fafafa; padding: 0px 16px; margin: 8px 0; \">\n$1\n</div>"
 }
 
 # Sandbox somehow?
@@ -13,22 +13,35 @@ sh_script () {
 }
 
 right_align () {
-	echo "<div style=\"text-align: right\">\n$1\n</div>"
+	printf "<div style=\"text-align: right\">\n$1\n</div>"
 }
 
 preserve_center () {
-	echo "<div style=\"display: flex; justify-content: center; align-items: center\"><div>\n$1\n</div></div>"
+	printf "<div style=\"display: flex; justify-content: center; align-items: center\"><div>\n$1\n</div></div>"
 }
 
 # TODO: Make functional
 auto_link () {
-	echo "$1"
+	out="$1"
+	IFS=$'\n'   
+	for link in $( echo "$1" | grep -Po '(?<!href=")https?://[\w-./]+' ); do
+		out=${out/$link/<a href="$link">$link</a>}
+	done
+	echo "$out"
 }
 
 center () {
-	echo "<div style=\"text-align:center\">\n$1\n</div>"
+	printf "<div style=\"text-align:center\">\n$1\n</div>"
 }
 
 code () {
-	echo "$1"
+	if [ $(wc -l <<< "$1") -lt 15 ]; then
+		echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n >' | head -n -1
+	else
+		ll=0
+		while read -r line; do
+			ll=$(( ll + 1 ))
+			printf "%02d│ $line\n" $ll
+		done <<< "$1"
+	fi
 }

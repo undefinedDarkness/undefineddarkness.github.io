@@ -36,8 +36,8 @@ build () {
 	printf "\nBuilding $1 -> $out\n"
 	
 	header="${pre/!TITLE!/$(basename $out .html)}" # Substitute Header
-	printf "$header" >> "$out"
-	#pong_debug=1 sh tool/pond.sh "$1" "$out" # Generate HTML
+	printf "$header" > "$out"
+	pong_debug=1 bash tool/pond.sh "$1" >> $out # Generate HTML
 	printf "$post" >> "$out" # Output To File
 }
 

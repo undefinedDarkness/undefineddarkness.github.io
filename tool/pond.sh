@@ -41,8 +41,6 @@ dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
 # $_out_f = OUT FILE
-_out_f=$(mktemp)
-cp "./$1" "$_out_f" # FIX
 file=$(cat "$1")
 in=$1
 
@@ -59,12 +57,12 @@ _line_number=0
 				# Detected Transformer!
 				transformer=${line#\#}
 				transformer=${transformer%% *}
-				if ! contains "$transformers" "$(normalize $transformer)"; then
+				if ! contains "$transformers" "$(_normalize $transformer)"; then
 					warn "Invalid Tranformer (DOES NOT EXIST IN BACKEND): $transformer @ $1:$_line_number"
 					continue
 				fi
 
-				ending=$(grep_from "$_line_number" "$_out_f" '-s -n -m1' "\#END $transformer")
+				ending=$(grep_from "$_line_number" "$file" '-s -n -m1' "\#END $transformer")
 				dbg "Found ending for: $_line_number:#$transformer at $ending"
 				ending=${ending%%:*}
 				ending=$(( _line_number + ending - 1 ))
@@ -73,30 +71,25 @@ _line_number=0
 					continue
 				fi
 				
-				original_contents=$(get_between $_out_f $((_line_number)) $((ending)) )
-				new_contents=$($(normalize $transformer) "$(strip_head_and_tail "$original_contents")" ) # add args support
-				echo "\n--- $transformer: $_line_number:$line ---\n$original_contents\n---\n"
-				# echo "\n---\n$(strip_head_and_tail "$original_contents")\n---\n$new_contents\n---\n"
+				original_contents=$(get_between "$file" $((_line_number)) $((ending)) )
+				new_contents=$($(_normalize $transformer) "$(strip_head_and_tail "$original_contents")" ) # add args support
+				#printf "\n---\n$(strip_head_and_tail "$original_contents")\n---\n$new_contents\n---\n"
 				new_file_contents=$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")
 				
 				# This check fixes stuff.. idk why
 				if [ -n "$new_file_contents" ]; then
-					echo "$new_file_contents" > $_out_f
 					file="$new_file_contents"
 				fi
 
-				echo "$new_file_contents"
-				#break
+				fn 
+				break
 			;;
 	esac
-done < $_out_f
+done <<< "$file"
 }
 
 fn
-echo "$(perl -p0e 's/#.*\n//g' $_out_f)" > $_out_f
-echo "FINAL:"
-cat $_out_f
-rm $_out_f
+echo "$file"
 
 _end=$(ms)
 dbg "Finished in $(( end - start ))ms"
