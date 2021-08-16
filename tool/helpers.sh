@@ -41,3 +41,22 @@ grep_from () {
 get_between () {
 	sed -n "${2},${3}p" $1
 }
+
+# Remove first and last line
+strip_head_and_tail () {
+	echo "$1" | awk NF | sed '1d;$d'
+}
+
+fnr() {
+    # Replace all occurrences of substrings with substrings. This
+    # function takes pairs of arguments iterating two at a time
+    # until everything has been replaced.
+    _fnr=$1
+    shift 1
+
+    while :; do case $_fnr-$# in
+        *"$1"*) _fnr=${_fnr%"$1"*}${2}${_fnr##*"$1"} ;;
+           *-2) break ;;
+             *) shift 2
+    esac done
+}

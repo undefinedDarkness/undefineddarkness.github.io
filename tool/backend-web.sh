@@ -17,5 +17,18 @@ right_align () {
 }
 
 preserve_center () {
-	echo "<div style=\"display: flex; justify-content: center; align-items: center\"><div>$1</div></div>"
+	echo "<div style=\"display: flex; justify-content: center; align-items: center\"><div>\n$1\n</div></div>"
+}
+
+# TODO: Make functional
+auto_link () {
+	echo "$1"
+}
+
+center () {
+	echo "<div style=\"text-align:center\">\n$1\n</div>"
+}
+
+code () {
+	echo "$1"
 }
