@@ -6,9 +6,11 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>index</title>
 		<style>
-			pre {
+			article {
 				display: table;
 				margin: 0 auto;
+				white-space: pre-line;
+				font-family: monospace;
 			}
 			html {
 				background: #111;
@@ -18,10 +20,28 @@
 				text-decoration: none;
 				color: skyblue;
 			}
+			pre {
+				margin: 0;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				display: block;
+                margin: 8px 0;
+			}
+			table {
+				border-collapse: collapse;
+				border-right: 1px solid;
+				border-bottom: 1px solid;
+			}
+
+			td,th {
+				border-left: 1px solid;
+				border-top: 1px solid;
+				padding: 8px;
+			}
 		</style>
 	</head>
 	<body>
-		<pre>
+		<article>
 			<style>
 	pre {
 		margin: auto;
@@ -40,7 +60,7 @@
 		display: none;
 	}
 </style>
-<div style="display: flex; justify-content: center; align-items: center"><div>
+<div style="display: flex; justify-content: center; align-items: center"><pre>
         ______
        /     /\
       /     /  \
@@ -49,30 +69,32 @@
    _ ___          o (:') o   
   (@))_))        o ~/~~\~ o   
                   o  o  o
-</div></div>
+</pre></div>
 
-<div style="border: 1px solid #fafafa; padding: 0px 16px; margin: 8px 0; ">
+<div style="border: 1px solid; padding: 0px 16px; margin: 8px 0; ">
 🍲
-Hello, Welcome visitor!, take a place by the fireplace
+Hello & Welcome visitor!, take a place by the fireplace
 This is my little rented bit of the internet! 
 for me to host my stupid opinions for all to see
 It isnt much but its mine
 
-Site design is very heavily inspired by the <a href="https://kisslinux.org">kiss linux</a> website
-<!-- Built using my tool: slosci -->
+Site design is very heavily inspired by the <a href="<a href=https://kisslinux.org>https://kisslinux.org</a>">kiss linux</a> website
 
-Here is list of some garbage ive written
-<a href="out/experiments/wayland.html">experiments/wayland.html</a>
-<a href="out/scripting/vim.html">scripting/vim.html</a>
+Here is list of some garbage I have written
+<a href="out/scripting/ricing.html">scripting/ricing</a>
+<a href="out/experiments/wayland.html">experiments/wayland</a>
+<a href="out/scripting/vim.html">scripting/vim</a>
 
 
 <div style="text-align: right">
 ~ undefinedDarkness
-<a href="https://github.com/undefinedDarkness/site">site-repo</a> <a href="https://github.com/undefinedDarkness/">git</a>
+<a href="<a href=<a href=https://github.com/undefinedDarkness/>https://github.com/undefinedDarkness/</a>site>https://github.com/undefinedDarkness/site</a>">site-repo</a> <a href="https://github.com/undefinedDarkness/">git</a>
 </div>
 </div>
 
-<a href="/index.html">Return Home</a>
-		</pre>
+			<footer>
+				<a href="/index.html">Return Home</a>
+			</footer>
+		</article>
 	</body>
 </html>

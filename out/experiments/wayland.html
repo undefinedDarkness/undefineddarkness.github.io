@@ -6,9 +6,11 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>experiments/wayland</title>
 		<style>
-			pre {
+			article {
 				display: table;
 				margin: 0 auto;
+				white-space: pre-line;
+				font-family: monospace;
 			}
 			html {
 				background: #111;
@@ -18,11 +20,29 @@
 				text-decoration: none;
 				color: skyblue;
 			}
+			pre {
+				margin: 0;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				display: block;
+                margin: 8px 0;
+			}
+			table {
+				border-collapse: collapse;
+				border-right: 1px solid;
+				border-bottom: 1px solid;
+			}
+
+			td,th {
+				border-left: 1px solid;
+				border-top: 1px solid;
+				padding: 8px;
+			}
 		</style>
 	</head>
 	<body>
-		<pre>
-			<div style="display: flex; justify-content: center; align-items: center"><div>
+		<article>
+			<div style="display: flex; justify-content: center; align-items: center"><pre>
                   ,____
                    |---.\
            ___     |    `
@@ -41,14 +61,14 @@
     (_.-.__.__./  /
 
 <i>Got a display server to kill</i>
-</div></div>
+</pre></div>
 This is intended to chronicle my adventures using Wayland
 The primary reason being terrible performance in X11 but that was later resolved. :)
 The journey continues tho 📔
 
 <h2>* Window Manager (Compositer)</h2>
 I know its called a compositer but I am going to call it a window manager >:(
-To fulfill this purpose I chose <a href="https://swaywm.org/">sway</a> as its the one I felt I could most get used to
+To fulfill this purpose I chose <a href="<a href=https://swaywm.org/>https://swaywm.org/</a>">sway</a> as its the one I felt I could most get used to
 since I had used its Xorg brother (i3) for a long while
 
 And..
@@ -57,13 +77,13 @@ I have a few scruples with its config format and its refusal to add features i3 
 not like I'm gonna be writing my own compositer any time soon
 
 Coming from awesomewm, I would have liked to find something similar 
-and that sort of exists in the form of <a href="https://taiwins.org/index.html">Taiwins</a> but its very different from what I am used to 
+and that sort of exists in the form of <a href="<a href=https://taiwins.org/index.html>https://taiwins.org/index.html</a>">Taiwins</a> but its very different from what I am used to 
 and I am not keen on using it as it is rather unstable and documentation is lacking
 
 <h3>** Screenshots</h3>
 What is the point of making a epic rice if there is no way to showcase it!
 Wayland seems a bit more fiddly compared to the centeralized xorg in terms of recording 
-but its not that bad. I had to use <a href="https://github.com/emersion/grim">grim</a> along with this <a href="https://github.com/swaywm/sway/blob/master/contrib/grimshot">script</a> from sway to get
+but its not that bad. I had to use <a href="<a href=https://github.com/emersion/grim>https://github.com/emersion/grim</a>">grim</a> along with this <a href="<a href=https://github.com/swaywm/sway/blob/master/contrib/grimshot>https://github.com/swaywm/sway/blob/master/contrib/grimshot</a>">script</a> from sway to get
 Nothing particularly difficult but not as cohesive as id like :/
 
 <h2>* Moving from Xorg</h2>
@@ -76,16 +96,15 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
->git clone --recurse-submodules <a href=https://github.com/lbonn/rofi>https://github.com/lbonn/rofi</a>
->cd rofi
->meson setup build -Dwayland=enabled --prefix=/usr/local
->ninja -C build
->ninja -C build install
-
+> git clone --recurse-submodules <a href=https://github.com/lbonn/rofi>https://github.com/lbonn/rofi</a>
+> cd rofi
+> meson setup build -Dwayland=enabled --prefix=/usr/local
+> ninja -C build
+> ninja -C build install
+<p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 > MOZ_ENABLE_WAYLAND=1 firefox
-
-** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
+** Wezterm has issues with the wayland clipboard. I think using <a href="<a href=https://codeberg.org/dnkl/foot>https://codeberg.org/dnkl/foot</a>">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 
 <h3>* Bars </h3>
@@ -100,9 +119,11 @@ There are only 2 that I found:
 Since I couldnt compile yambar even tho it seems pretty nice :/ I was forced to use waybar
 Both of them take after polybar very much which I personally am not much a fan off
 but ig it makes sense, If I were to revisit the topic of bars I will definately look into using
-The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
+The one and only <a href="<a href=https://github.com/elkowar/eww/>https://github.com/elkowar/eww/</a>">eww</a> for this purpose.
 
-<a href="/index.html">Return Home</a>
-		</pre>
+			<footer>
+				<a href="/index.html">Return Home</a>
+			</footer>
+		</article>
 	</body>
 </html>

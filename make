@@ -47,20 +47,21 @@ case $1 in
 
 	# Serve files with hot reloading
 	live)
-		live-server --port=$port --no-browser --ignore=src --ignore=out & 
-		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)" | entr ./make
+		live-server --no-browser --port=$port --ignore=out --ignore=src & 
+		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")" | entr ./make
 		;;
 
 	# Generates a super simple index of all the articles found
 	index)
 		for file in $(find out/ -type f -not -name "index.html" -not -name "startpage.html"); do
-			printf "<a href=\"$file\">${file/out\//}</a>\n"
+			filename=${file%%.html}
+			printf "<a href=\"$file\">${filename/out\//}</a>\n"
 		done
 		;;
 
 	# Serve without hot realoading
 	serve)
-		python3 -m http.server $port
+		python3 -m http.server $port &
 		;;
 
 	# Build Files

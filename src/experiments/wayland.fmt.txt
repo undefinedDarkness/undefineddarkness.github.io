@@ -1,4 +1,3 @@
-#AUTO-LINK
 #PRESERVE-CENTER
                   ,____
                    |---.\
@@ -53,15 +52,18 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
->git clone --recurse-submodules https://github.com/lbonn/rofi
->cd rofi
->meson setup build -Dwayland=enabled --prefix=/usr/local
->ninja -C build
->ninja -C build install
-
+#CODE
+git clone --recurse-submodules https://github.com/lbonn/rofi
+cd rofi
+meson setup build -Dwayland=enabled --prefix=/usr/local
+ninja -C build
+ninja -C build install
+#END CODE
+<p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
-> MOZ_ENABLE_WAYLAND=1 firefox
-
+#CODE
+MOZ_ENABLE_WAYLAND=1 firefox
+#END CODE
 ** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 
@@ -78,4 +80,3 @@ Since I couldnt compile yambar even tho it seems pretty nice :/ I was forced to 
 Both of them take after polybar very much which I personally am not much a fan off
 but ig it makes sense, If I were to revisit the topic of bars I will definately look into using
 The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
-#END AUTO-LINK

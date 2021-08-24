@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Get time in milliseconds
-ms () {
-	date +"%T.%3N"
+# Time in milliseconds
+ns () {
+	 date +%s%3N
 }
 
+# Warning / Error / Debug
 warn () {
 	printf "\e[33m[WARN]\e[0m %s\n" "$@" 1>&2
 }
@@ -15,7 +16,7 @@ err () {
 
 dbg () {
 	if [ -n "$pond_debug" ]; then
-		printf "$@\n"
+		printf "$*\n"
 	fi
 }
 
@@ -25,15 +26,15 @@ _normalize () {
 }
 
 
+# Check if a "string list" contains a word.
 contains() {
-    # Check if a "string list" contains a word.
     case " $1 " in *" $2 "*) return 0; esac; return 1
 }
 
 # Start grepping from line
 grep_from () {
-	# 1 = Line Number, 2 = File, 3 = Grep Options 4 = Regex
-	echo "$2" | tail +"$1"  | grep  "$4" $3
+	# 1 = File 2 = Line Number, 3 = Grep Options 4 = Regex
+	echo "$1" | tail +"$2"  | grep  "$4" $3
 }
 
 # Get everything between 2 line numbers
@@ -42,8 +43,7 @@ get_between () {
 }
 
 # Remove first and last line
-strip_head_and_tail () {
+snip () {
 	echo "$1" | sed '1d;$d'
 }
-
 

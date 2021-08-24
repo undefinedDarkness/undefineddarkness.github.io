@@ -6,9 +6,11 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>!TITLE!</title>
 		<style>
-			pre {
+			article {
 				display: table;
 				margin: 0 auto;
+				white-space: pre-line;
+				font-family: monospace;
 			}
 			html {
 				background: #111;
@@ -18,12 +20,32 @@
 				text-decoration: none;
 				color: skyblue;
 			}
+			pre {
+				margin: 0;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				display: block;
+                margin: 8px 0;
+			}
+			table {
+				border-collapse: collapse;
+				border-right: 1px solid;
+				border-bottom: 1px solid;
+			}
+
+			td,th {
+				border-left: 1px solid;
+				border-top: 1px solid;
+				padding: 8px;
+			}
 		</style>
 	</head>
 	<body>
-		<pre>
+		<article>
 			!CONTENT!
-<a href="/index.html">Return Home</a>
-		</pre>
+			<footer>
+				<a href="/index.html">Return Home</a>
+			</footer>
+		</article>
 	</body>
 </html>

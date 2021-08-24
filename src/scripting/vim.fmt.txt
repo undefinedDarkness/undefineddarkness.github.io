@@ -7,7 +7,7 @@ figlet Vi Improved
 <i> Just a collection of cool stuff I find relatived to the vim text editor :) </i>
 #END CENTER
 
-<h3>Plugins</h3>
+--- Plugins ---
 - <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
 	A great plugin that takes care of Linting, Formatting & Autocompletion
 	Quite customizable but some bits are a bit dated
@@ -34,10 +34,10 @@ figlet Vi Improved
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
 	I dont use a statusline but if I did I would use lightline, it works really well and is easy to customize
 
-<h3>Configuration</h3>
+--- Configuration ---
 Making the most out of vanilla vim features
 
-<h4>NetRW</h4>
+---- NetRW ----
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
 #CODE
@@ -48,7 +48,7 @@ let g:netrw_liststyle = 3 " Show files in tree form
 #END CODE
 See what each option does with `:help netrw-browser-settings`
 
-<h4>Improving vim's :grep command</h4>
+---- Improving vim's :grep command ----
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
 #CODE
@@ -64,7 +64,7 @@ augroup quickfix
 augroup END
 #END CODE
 
-<h4>Tab Indicator</h4>
+---- Tab Indicator ---
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 > set list lcs=tab:\│\ 
 

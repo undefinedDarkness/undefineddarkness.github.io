@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Taken from sh bible
 dirname() {
@@ -19,8 +19,8 @@ _script_dir=$(dirname $0)
 
 # Load backend
 backend=$_script_dir/backend-${pond_backend:-web}.sh
-_start=$(ms)
-dbg "Pond v0"
+_start=$(ns)
+dbg "Pond v${pond_version:-0}"
 
 # Check that files exists
 if ! [ -f "$1" ]; then
@@ -36,15 +36,17 @@ fi
 # Load backend
 dbg "Using backend: \e[33m$backend\e[0m"
 . $backend
-transformers="$(grep -Po '.*(?=\(\))' $backend | tr '\n' ' ')" # POSIX ify
+transformers="${transfomers:-$(grep -Po '.*(?=\(\))' $backend | tr '\n' ' ')}" 
 dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
-# $_out_f = OUT FILE
 file=$(cat "$1")
-in=$1
 
-# Loop over lines
+# Comes from backend
+if contains "$transformers" "initial_transformer"; then
+	file=$(initial_transformer "$file")
+fi
+
 fn () {
 _line_number=0
  while read -r line; do
@@ -56,24 +58,33 @@ _line_number=0
 		"#"*)
 				# Detected Transformer!
 				transformer=${line#\#}
+				transformer=$( echo "$transformer" | tr $'\t' ' ' ) # Take care of tabs
 				transformer=${transformer%% *}
+
+				# Check that transformer exists
 				if ! contains "$transformers" "$(_normalize $transformer)"; then
-					warn "Invalid Tranformer (DOES NOT EXIST IN BACKEND): $transformer @ $1:$_line_number"
+					warn "Tranformer $transformer does not exist in the provided backend. (@ $1:$_line_number)"
 					continue
 				fi
 
-				ending=$(grep_from "$_line_number" "$file" '-s -n -m1' "\#END $transformer")
-				dbg "Found ending for: $_line_number:#$transformer at $ending"
-				ending=${ending%%:*}
-				ending=$(( _line_number + ending - 1 ))
+				ending=$(grep_from "$file" "$_line_number" '-s -n -m1' "\#END $transformer")
+				
 				if [ -z "$ending" ]; then
-					warn "Invalid Transfomer (DOES NOT HAVE AN END): $transformer @ $1:$_line_number"
+					warn "Tranformer $transformer does not have an ending. (@ $1:$_line_number)"
 					continue
 				fi
+
+				ending=${ending%%:*}
+				ending=$(( _line_number + ending - 1 ))
+				dbg "Found ending for: $_line_number:#$transformer at $ending"
 				
+				# Original Contents
 				original_contents=$(get_between "$file" $((_line_number)) $((ending)) )
-				new_contents=$($(_normalize $transformer) "$(strip_head_and_tail "$original_contents")" ) # add args support
-				#printf "\n---\n$(strip_head_and_tail "$original_contents")\n---\n$new_contents\n---\n"
+				
+				# Modified Contents
+				new_contents=$( $(_normalize $transformer) "$(snip "$original_contents")" ${line###BEGIN $tranformer} )
+				
+				# Entire Modified File Contents
 				new_file_contents=$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")
 				
 				# This check fixes stuff.. idk why
@@ -81,15 +92,20 @@ _line_number=0
 					file="$new_file_contents"
 				fi
 
-				fn 
+				fn "$1" 
 				break
 			;;
 	esac
 done <<< "$file"
 }
 
-fn
+fn "$1"
+
+# Comes from backend
+if contains "$transformers" "final_transformer"; then
+	file=$(final_transformer "$file")
+fi
+
 echo "$file"
 
-_end=$(ms)
-dbg "Finished in $(( end - start ))ms"
+echo "Finished in $(( $(ns) - _start ))ns" 1>&2
