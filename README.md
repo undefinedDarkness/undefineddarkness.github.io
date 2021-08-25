@@ -22,7 +22,7 @@ It also supports a HTML format file for styling and such
 Toad will substitute `!TITLE!` in the template file with the path to the article
 and `!CONTENT!` with the generated content
 
-###🏞️ Pond
+### 🏞️ Pond
 This is the default formatter to come with Toad and the one I have here, Its format isnt too hard and is as follows:
 ```
 - Heading -
