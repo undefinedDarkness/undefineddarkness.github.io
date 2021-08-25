@@ -44,7 +44,7 @@ build () {
 	x=${x##out/}
 	header="${pre/!TITLE!/$x}" # Substitute Header
 	printf "$header" > "$out"
-	pong_debug=1 bash tool/pond.sh "$1" >> $out # Generate HTML
+	pong_debug=1 bash tool/pond.sh "$1" >> $out # Generate HTML -- CHANGE
 	printf "$post" >> "$out" # Output To File
 }
 

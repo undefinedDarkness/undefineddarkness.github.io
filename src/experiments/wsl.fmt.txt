@@ -45,3 +45,19 @@ esac
 
 Now just run any graphical program (like say `xterm`) and bam! it should show up in windows,
 long as VcXsrv is running.
+
+--- Filesystem ---
+Accessing the linux filesystem from windows & vice versa
+
+In Linux, accessing the Windows filesystem is as simple as navigating to `/mnt/c`
+which represents the C: drive in windows
+
+From windows, typing `\\wsl$` in the file explorer search box or the run box will navigate to a directory
+with each distribution's `/` directory.
+
+* Probably useful to setup shortcuts to these.
+
+--- Web Servers ---
+Since I got confused a bit here, they work exactly how you would expect,
+You can access linux web servers from windows so
+`localhost:5000` can be accessed as `localhost:5000` on windows too
