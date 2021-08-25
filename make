@@ -19,7 +19,6 @@ dirname() {
 
 # Toad:
 # This is meant to be my super minimal SSG and meant to only fulfill my needs and do nothing more
-# Its written in POSIX shell but does require GNU grep :)
 
 # Configuration
 port=5000
@@ -31,6 +30,12 @@ post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
 # Primary Build Function
 build () {
 	out=${1/src/out}
+
+	# if is html, directly copy
+	if [ ${out##*.} = "html" ]; then
+		cp -r $1 $out
+	fi
+
 	out=${out/.fmt.txt/.html}
 	mkdir -p $(dirname $out)
 	printf "\nBuilding $1 -> $out\n"

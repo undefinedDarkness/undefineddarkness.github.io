@@ -79,10 +79,10 @@ _line_number=0
 				dbg "Found ending for: $_line_number:#$transformer at $ending"
 				
 				# Original Contents
-				original_contents=$(get_between "$file" $((_line_number)) $((ending)) )
-				
+				original_contents="$(get_between "$file" $((_line_number)) $((ending)) )"
+
 				# Modified Contents
-				new_contents=$( $(_normalize $transformer) "$(snip "$original_contents")" ${line###BEGIN $tranformer} )
+				new_contents="$( $(_normalize "$transformer") "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
 				
 				# Entire Modified File Contents
 				new_file_contents=$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")

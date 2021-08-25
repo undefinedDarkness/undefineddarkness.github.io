@@ -9,7 +9,8 @@
 			article {
 				display: table;
 				margin: 0 auto;
-				white-space: pre-line;
+				white-space: pre;
+				tab-size: 4;
 				font-family: monospace;
 			}
 			html {
@@ -20,9 +21,9 @@
 				text-decoration: none;
 				color: skyblue;
 			}
-			pre {
+			/* pre {
 				margin: 0;
-			}
+			} */
 			h1,h2,h3,h4,h5,h6 {
 				display: block;
                 margin: 8px 0;
@@ -38,6 +39,7 @@
 				border-top: 1px solid;
 				padding: 8px;
 			}
+			footer { display: flex }
 		</style>
 	</head>
 	<body>
@@ -66,9 +68,9 @@ This is intended to chronicle my adventures using Wayland
 The primary reason being terrible performance in X11 but that was later resolved. :)
 The journey continues tho 📔
 
-<h2>* Window Manager (Compositer)</h2>
-I know its called a compositer but I am going to call it a window manager >:(
-To fulfill this purpose I chose <a href="<a href=https://swaywm.org/>https://swaywm.org/</a>">sway</a> as its the one I felt I could most get used to
+<h2> Window Manager (Compositer)</h2>
+<i>I know its called a compositer but I am going to call it a window manager >:(</i>
+To fulfill this purpose I chose <a href="https://swaywm.org/">sway</a> as its the one I felt I could most get used to
 since I had used its Xorg brother (i3) for a long while
 
 And..
@@ -77,16 +79,16 @@ I have a few scruples with its config format and its refusal to add features i3 
 not like I'm gonna be writing my own compositer any time soon
 
 Coming from awesomewm, I would have liked to find something similar 
-and that sort of exists in the form of <a href="<a href=https://taiwins.org/index.html>https://taiwins.org/index.html</a>">Taiwins</a> but its very different from what I am used to 
+and that sort of exists in the form of <a href="https://taiwins.org/index.html">Taiwins</a> but its very different from what I am used to 
 and I am not keen on using it as it is rather unstable and documentation is lacking
 
-<h3>** Screenshots</h3>
+<h3> Screenshots</h3>
 What is the point of making a epic rice if there is no way to showcase it!
 Wayland seems a bit more fiddly compared to the centeralized xorg in terms of recording 
-but its not that bad. I had to use <a href="<a href=https://github.com/emersion/grim>https://github.com/emersion/grim</a>">grim</a> along with this <a href="<a href=https://github.com/swaywm/sway/blob/master/contrib/grimshot>https://github.com/swaywm/sway/blob/master/contrib/grimshot</a>">script</a> from sway to get
+but its not that bad. I had to use <a href="https://github.com/emersion/grim">grim</a> along with this <a href="https://github.com/swaywm/sway/blob/master/contrib/grimshot">script</a> from sway to get
 Nothing particularly difficult but not as cohesive as id like :/
 
-<h2>* Moving from Xorg</h2>
+<h2> Moving from Xorg</h2>
 This is a bit of a generic header but oh well
 
 Much to my surprise this wasnt as bad as I thought it would be,
@@ -104,10 +106,10 @@ Although most of them required tweaking in some form or another
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 > MOZ_ENABLE_WAYLAND=1 firefox
-** Wezterm has issues with the wayland clipboard. I think using <a href="<a href=https://codeberg.org/dnkl/foot>https://codeberg.org/dnkl/foot</a>">foot</a> would be a better idea
+** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 
-<h3>* Bars </h3>
+<h3> Bars</h3>
 Compared to the choice on X11, bars in wayland are a bit ehhhh ig
 There are only 2 that I found:
 
@@ -119,7 +121,7 @@ There are only 2 that I found:
 Since I couldnt compile yambar even tho it seems pretty nice :/ I was forced to use waybar
 Both of them take after polybar very much which I personally am not much a fan off
 but ig it makes sense, If I were to revisit the topic of bars I will definately look into using
-The one and only <a href="<a href=https://github.com/elkowar/eww/>https://github.com/elkowar/eww/</a>">eww</a> for this purpose.
+The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
 
 			<footer>
 				<a href="/index.html">Return Home</a>

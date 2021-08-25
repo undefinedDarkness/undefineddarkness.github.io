@@ -9,7 +9,8 @@
 			article {
 				display: table;
 				margin: 0 auto;
-				white-space: pre-line;
+				white-space: pre;
+				tab-size: 4;
 				font-family: monospace;
 			}
 			html {
@@ -20,9 +21,9 @@
 				text-decoration: none;
 				color: skyblue;
 			}
-			pre {
+			/* pre {
 				margin: 0;
-			}
+			} */
 			h1,h2,h3,h4,h5,h6 {
 				display: block;
                 margin: 8px 0;
@@ -38,6 +39,7 @@
 				border-top: 1px solid;
 				padding: 8px;
 			}
+			footer { display: flex }
 		</style>
 	</head>
 	<body>
@@ -55,37 +57,37 @@ __     ___   ___                                        _
 </p>
 
 <h3> Plugins</h3>
-- <a href="<a href=https://github.com/dense-analysis/ale>https://github.com/dense-analysis/ale</a>">Asynchronous Linting Engine</a> (ALE) 🍺
+- <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
 	A great plugin that takes care of Linting, Formatting & Autocompletion
 	Quite customizable but some bits are a bit dated
 
-- <a href="<a href=https://github.com/ap/vim-css-color>https://github.com/ap/vim-css-color</a>">CSS Color</a>
+- <a href="https://github.com/ap/vim-css-color">CSS Color</a>
 	Highlight hex codes & web names for colors with the actual color :), works really well
 	Lacks support for some languages (lua) but that can be easily fixed via autocommand.
 
-- <a href="<a href=https://github.com/sheerun/vim-polyglot>https://github.com/sheerun/vim-polyglot</a>">Polygot</a>
+- <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
 	Language pack for vim
 	A good one to have since you dont notice it much unless you're very worried about startup times
 
-- <a href="<a href=https://github.com/mattn/emmet-vim>https://github.com/mattn/emmet-vim</a>">Emmet</a>
+- <a href="https://github.com/mattn/emmet-vim">Emmet</a>
 	Why would you not have this? especially if you edit html
 
-- <a href="<a href=https://github.com/bhurlow/vim-parinfer>https://github.com/bhurlow/vim-parinfer</a>">Parinfer</a> <a href="<a href=https://github.com/eraserhd/parinfer-rust>https://github.com/eraserhd/parinfer-rust</a>"> (rs) </a>
+- <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
 	Infer your parens!
 	true bliss if you ever edit lisp code 😳
 
-- <a href="<a href=https://github.com/lambdalisue/fern.vim>https://github.com/lambdalisue/fern.vim</a>">Fern</a> 🍀
+- <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
 	Great alternative to NERDTree (Project Drawer) and imo a much better one
 	Feels pretty clean and nice to use
 
-- <a href="<a href=https://github.com/itchyny/lightline.vim>https://github.com/itchyny/lightline.vim</a>">Lightline</a>
+- <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
 	I dont use a statusline but if I did I would use lightline, it works really well and is easy to customize
 
 <h3> Configuration</h3>
 Making the most out of vanilla vim features
 
 <h4> NetRW</h4>
-From <a href="<a href=https://shapeshed.com/vim-netrw/>https://shapeshed.com/vim-netrw/</a>">this post</a>
+From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
 > let g:netrw_banner = 0 " Hide the banner
 > let g:netrw_browse_split = 3 " Open in new tab
@@ -94,7 +96,7 @@ tldr:
 See what each option does with `:help netrw-browser-settings`
 
 <h4> Improving vim's :grep command</h4>
-See the <a href="<a href=https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3>https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3</a>">full gist</a> it explains everything
+See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
 > function! Grep(...)
 >     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
@@ -107,7 +109,7 @@ final snippet:
 >     autocmd QuickFixCmdPost lgetexpr lwindow
 > augroup END
 
----- Tab Indicator ---
+<h4> Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 > set list lcs=tab:\│\ 
 

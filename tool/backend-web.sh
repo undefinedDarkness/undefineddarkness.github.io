@@ -26,10 +26,11 @@ initial_transformer () {
 	out="$1"
 	
 	while read -r a; do
-		read -r -a parts <<< "$(echo "$a" | tr -d '[])' | tr '(' ' ')"
-		mod="<a href='${parts[1]}'>${parts[0]}</a>"
+		url=$( echo "$a" | grep -Po '(?<=\().*(?=\))' )
+		text=$(echo "$a" | grep -Po '(?<=\[)[^\]]+(?=\])')
+		mod="<a href=\"${url}\">${text}</a>"
 		out="${out/"$a"/"$mod"}"
-	done <<< "$( grep -Eo '\[.*\]\(.*\)' <<< "$out" )"
+	done <<< "$( grep -Po '\[[^\]]+\]\(.*\)' <<< "$out" )"
 
 	while read -r header; do
 		prefix=${header%% *}
@@ -46,7 +47,7 @@ final_transformer () {
 	#echo "$1"
 	while read -r link; do
 		out=${out/$link/<a href="$link">$link</a>}
-	done <<< "$( grep -Po '(?<!href=)https?://[\w-./]+' <<< "$out" )"
+	done <<< "$( grep -Po '(?<!href=")https?://[^\s]+' <<< "$out" )"
 	echo "$out"
 }
 
@@ -59,18 +60,11 @@ code () {
 		echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n> ' | head -n -1
 	else
 		ll=0
-		while read -r line; do
+		while IFS= read -r line; do
 			ll=$(( ll + 1 ))
-			printf "%02d│ $line\n" $ll
+			printf "%03d│ $line\n" $ll
 		done <<< "$1"
 	fi
-}
-
-color_codes () {
-	f=$(mktemp)
-	echo "$1" >> $f
-	npx ansi-to-html $f
-	rm $f
 }
 
 table () {
