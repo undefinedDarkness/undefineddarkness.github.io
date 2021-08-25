@@ -1,6 +1,1 @@
-node_modules
-package_lock.json
-tsconfig.tsbuildinfo
-test.txt
-test_out.txt
-tool/out/**/*
+tool/reeplace

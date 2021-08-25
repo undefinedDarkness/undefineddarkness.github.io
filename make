@@ -29,6 +29,7 @@ post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
 
 # Primary Build Function
 build () {
+	# Output File Path
 	out=${1/src/out}
 
 	# if is html, directly copy
@@ -44,7 +45,7 @@ build () {
 	x=${x##out/}
 	header="${pre/!TITLE!/$x}" # Substitute Header
 	printf "$header" > "$out"
-	pong_debug=1 bash tool/pond.sh "$1" >> $out # Generate HTML -- CHANGE
+	bash tool/pond.sh "$1" >> $out # Generate HTML -- CHANGE
 	printf "$post" >> "$out" # Output To File
 }
 
@@ -58,7 +59,7 @@ case $1 in
 
 	# Generates a super simple index of all the articles found
 	index)
-		for file in $(find out/ -type f -not -name "index.html" -not -name "startpage.html"); do
+		for file in $(find out/ -type f -not -name "index.html"); do
 			filename=${file%%.html}
 			printf "<a href=\"$file\">${filename/out\//}</a>\n"
 		done
