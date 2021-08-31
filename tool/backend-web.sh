@@ -56,15 +56,16 @@ center () {
 }
 
 code () {
-	if [ $(wc -l <<< "$1") -lt 15 ]; then
-		echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n> ' | head -n -1
-	else
-		ll=0
-		while IFS= read -r line; do
-			ll=$(( ll + 1 ))
-			printf "%03d│ $line\n" $ll
-		done <<< "$1"
-	fi
+	# if [ $(wc -l <<< "$1") -lt 15 ]; then
+	# 	echo "> $1" | awk 'NF' | $_script_dir/reeplace $'\n' $'\n> ' | head -n -1
+	# else
+	# 	ll=0
+	# 	while IFS= read -r line; do
+	# 		ll=$(( ll + 1 ))
+	# 		printf "%03d│ $line\n" $ll
+	# 	done <<< "$1"
+	# fi
+	echo "<pre><code>$1</pre></code>"
 }
 
 table () {

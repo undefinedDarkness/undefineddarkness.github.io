@@ -11,35 +11,20 @@
 				margin: 0 auto;
 				white-space: pre;
 				tab-size: 4;
-				font-family: monospace;
+				font-family: serif;
 			}
-			html {
-				background: #111;
+			body {
+				background-color: #111;
 				color: #fafafa;
 			}
 			a {
-				text-decoration: none;
 				color: skyblue;
-			}
-			/* pre {
-				margin: 0;
-			} */
-			h1,h2,h3,h4,h5,h6 {
-				display: block;
-                margin: 8px 0;
-			}
-			table {
-				border-collapse: collapse;
-				border-right: 1px solid;
-				border-bottom: 1px solid;
-			}
-
-			td,th {
-				border-left: 1px solid;
-				border-top: 1px solid;
-				padding: 8px;
+				text-decoration: none;
 			}
 			footer { display: flex }
+			h1,h2,h3,h4,h5,h6 {
+				margin-block-end: 0.5em;
+			}
 		</style>
 	</head>
 	<body>
@@ -98,14 +83,14 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
-> git clone --recurse-submodules <a href=https://github.com/lbonn/rofi>https://github.com/lbonn/rofi</a>
-> cd rofi
-> meson setup build -Dwayland=enabled --prefix=/usr/local
-> ninja -C build
-> ninja -C build install
+<pre><code>git clone --recurse-submodules <a href=https://github.com/lbonn/rofi>https://github.com/lbonn/rofi</a>
+cd rofi
+meson setup build -Dwayland=enabled --prefix=/usr/local
+ninja -C build
+ninja -C build install</pre></code>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
-> MOZ_ENABLE_WAYLAND=1 firefox
+<pre><code>MOZ_ENABLE_WAYLAND=1 firefox</pre></code>
 ** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 

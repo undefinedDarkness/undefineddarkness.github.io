@@ -11,35 +11,20 @@
 				margin: 0 auto;
 				white-space: pre;
 				tab-size: 4;
-				font-family: monospace;
+				font-family: serif;
 			}
-			html {
-				background: #111;
+			body {
+				background-color: #111;
 				color: #fafafa;
 			}
 			a {
-				text-decoration: none;
 				color: skyblue;
-			}
-			/* pre {
-				margin: 0;
-			} */
-			h1,h2,h3,h4,h5,h6 {
-				display: block;
-                margin: 8px 0;
-			}
-			table {
-				border-collapse: collapse;
-				border-right: 1px solid;
-				border-bottom: 1px solid;
-			}
-
-			td,th {
-				border-left: 1px solid;
-				border-top: 1px solid;
-				padding: 8px;
+				text-decoration: none;
 			}
 			footer { display: flex }
+			h1,h2,h3,h4,h5,h6 {
+				margin-block-end: 0.5em;
+			}
 		</style>
 	</head>
 	<body>
@@ -89,25 +74,25 @@ Making the most out of vanilla vim features
 <h4> NetRW</h4>
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
-> let g:netrw_banner = 0 " Hide the banner
-> let g:netrw_browse_split = 3 " Open in new tab
-> let g:netrw_winsize = 25 " Size
-> let g:netrw_liststyle = 3 " Show files in tree form
+<pre><code>let g:netrw_banner = 0 " Hide the banner
+let g:netrw_browse_split = 3 " Open in new tab
+let g:netrw_winsize = 25 " Size
+let g:netrw_liststyle = 3 " Show files in tree form</pre></code>
 See what each option does with `:help netrw-browser-settings`
 
 <h4> Improving vim's :grep command</h4>
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
-> function! Grep(...)
->     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-> endfunction
-> command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-> command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
-> augroup quickfix
->     autocmd!
->     autocmd QuickFixCmdPost cgetexpr cwindow
->     autocmd QuickFixCmdPost lgetexpr lwindow
-> augroup END
+<pre><code>function! Grep(...)
+    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost cgetexpr cwindow
+    autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END</pre></code>
 
 <h4> Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:

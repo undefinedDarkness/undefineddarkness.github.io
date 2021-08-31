@@ -69,6 +69,9 @@ case $1 in
 	serve)
 		python3 -m http.server $port &
 		;;
+	clean)
+		rm -r out index.html
+		;;
 
 	# Build Files
 	*)
