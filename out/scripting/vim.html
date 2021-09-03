@@ -16,6 +16,7 @@
 			body {
 				background-color: #111;
 				color: #fafafa;
+				font-size: 1em;
 			}
 			a {
 				color: skyblue;
@@ -26,11 +27,23 @@
 				margin-bottom: 0;
 				margin-block-end: 0;
 			}
+			pre {
+				background: #222;
+				padding: 8px;
+				font-size:1.1em;
+				border-radius: 5px;
+				display: table;
+			}
+			@media only screen and (max-width: 600px) {
+  body {
+	  font-size: 0.8em;
+  }
+}
 		</style>
 	</head>
 	<body>
 		<article>
-			<div style="display: flex; justify-content: center; align-items: center"><pre>
+			<div style="display: flex; justify-content: center; align-items: center"><pre style="all: revert">
 __     ___   ___                                        _ 
 \ \   / (_) |_ _|_ __ ___  _ __  _ __ _____   _____  __| |
  \ \ / /| |  | || '_ ` _ \| '_ \| '__/ _ \ \ / / _ \/ _` |
@@ -42,7 +55,7 @@ __     ___   ___                                        _
 <i> Just a collection of cool stuff I find relatived to the vim text editor :) </i>
 </p>
 
-<h3> Plugins</h3>
+<h3>Plugins</h3>
 - <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
 	A great plugin that takes care of Linting, Formatting & Autocompletion
 	Quite customizable but some bits are a bit dated
@@ -53,13 +66,13 @@ __     ___   ___                                        _
 
 - <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
 	Language pack for vim
-	A good one to have since you dont notice it much unless you're very worried about startup times
+	A good one to have since you do not notice it much unless you're very worried about startup times
 
 - <a href="https://github.com/mattn/emmet-vim">Emmet</a>
-	Why would you not have this? especially if you edit html
+	Why would you not have this? Especially if you edit html
 
 - <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
-	Infer your parens!
+	Infer your parenthesis!
 	True bliss if you ever edit lisp code 😳
 
 - <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
@@ -69,10 +82,10 @@ __     ___   ___                                        _
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
 	I don't use a status line but if I did I would use lightline, it works really well and is easy to customize
 
-<h3> Configuration</h3>
+<h3>Configuration</h3>
 Making the most out of vanilla vim features
 
-<h4> NetRW</h4>
+<h4>NetRW</h4>
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
 <pre><code>let g:netrw_banner = 0 " Hide the banner
@@ -81,7 +94,7 @@ let g:netrw_winsize = 25 " Size
 let g:netrw_liststyle = 3 " Show files in tree form</pre></code>
 See what each option does with <code>:help netrw-browser-settings</code>
 
-<h4> Improving vim's :grep command</h4>
+<h4>Improving vim's :grep command</h4>
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
 <pre><code>function! Grep(...)
@@ -95,19 +108,27 @@ augroup quickfix
     autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END</pre></code>
 
-<h4> Tab Indicator</h4>
+<h4>Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 <code>set list lcs=tab:\│\</code>
 
-<h4> Improving :help and :Man</h4>
+<h4>Export to HTML</h4>
+This is a pretty neat capability I did not know vim had,
+By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML that will be opened in a new buffer
+And you can script it! Like so:
+<pre><code>nvim -E -s -c "let g:html_no_progress=1" -c "syntax on" -c "set ft=c" -c "runtime syntax/2html.vim" -cwqa myfile.c</pre></code>
+You can see more options for it here: <a href=https://vimhelp.org/syntax.txt.html#%3ATOhtml>https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
+<a href="/assets/make.html">Here</a> is a example file from the make script of this website.
+
+<h4>Improving :help and :Man</h4>
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
 <code>au FileType help,man nnoremap <buffer> <CR> <C-]></code>
 This makes it so hitting enter in a help buffer will try to just to the currently selected word 
 (the world the cursor is on.)
 
-<h5> Using vim as a man pager</h5>
+<h5>Using vim as a man pager</h5>
 There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but 
-the simplest way I found is to simple alias <code>man</code>, like so:
+the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:
 <pre><code>man () {
 	nvim +"Man $2 $1" +"only"
 }</pre></code>

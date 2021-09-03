@@ -18,13 +18,13 @@ figlet Vi Improved
 
 - <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
 	Language pack for vim
-	A good one to have since you dont notice it much unless you're very worried about startup times
+	A good one to have since you do not notice it much unless you're very worried about startup times
 
 - <a href="https://github.com/mattn/emmet-vim">Emmet</a>
-	Why would you not have this? especially if you edit html
+	Why would you not have this? Especially if you edit html
 
 - <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
-	Infer your parens!
+	Infer your parenthesis!
 	True bliss if you ever edit lisp code 😳
 
 - <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
@@ -68,6 +68,16 @@ augroup END
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 > set list lcs=tab:\│\
 
+---- Export to HTML ----
+This is a pretty neat capability I did not know vim had,
+By the power of an included plugin, You can run `:TOhtml` to convert the entire current file to a HTML that will be opened in a new buffer
+And you can script it! Like so:
+#CODE
+nvim -E -s -c "let g:html_no_progress=1" -c "syntax on" -c "set ft=c" -c "runtime syntax/2html.vim" -cwqa myfile.c
+#END CODE
+You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
+[Here](/assets/make.html) is a example file from the make script of this website.
+
 ---- Improving :help and :Man ----
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
 > au FileType help,man nnoremap <buffer> <CR> <C-]>
@@ -76,7 +86,7 @@ This makes it so hitting enter in a help buffer will try to just to the currentl
 
 ----- Using vim as a man pager -----
 There are lots of ways to do it (documented [here](https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix) but 
-the simplest way I found is to simple alias `man`, like so:
+the simplest way I found is to simple alias `man`, like so in your shell configuration file:
 #CODE
 man () {
 	nvim +"Man $2 $1" +"only"

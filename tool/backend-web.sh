@@ -21,7 +21,7 @@ right_align () {
 }
 
 preserve_center () {
-	printf "<div style=\"display: flex; justify-content: center; align-items: center\"><pre>\n%s\n</pre></div>" "$1"
+	printf "<div style=\"display: flex; justify-content: center; align-items: center\"><pre style=\"all: revert\">\n%s\n</pre></div>" "$1"
 }
 
 # TODO: Make functional
@@ -48,11 +48,12 @@ initial_transformer () {
 	# Headers
 	if [ -z "$MARKDOWN_COMPAT" ] || [ -n "${ENABLE_HEADERS:-}" ]; then
 		while read -r header; do
-			prefix=${header%% *}
-			content=${header##$prefix}
-			v="<h${#prefix}>${content}</h${#prefix}>"
-			out=${out/$header $prefix/$v}
-		done < <(grep -Po '\-+[^-]+' <<< "$out")
+			h=${header%% *}
+			h=${#h}
+			v=${header#* }
+			v=${v% *}
+			out=${out/$header/<h$h>$v</h$h>}
+		done < <(grep -Po '\-+ [^-]+? \-+' <<< "$out")
 	fi
 
 	# Line by line processing
