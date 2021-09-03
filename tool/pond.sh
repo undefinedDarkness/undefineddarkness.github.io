@@ -1,25 +1,16 @@
 #!/usr/bin/env bash
 
-# Taken from sh bible
-dirname() {
-    dir=${1:-.}
-    dir=${dir%%"${dir##*[!/]}"}
-    [ "${dir##*/*}" ] && dir=.
-    dir=${dir%/*}
-    dir=${dir%%"${dir##*[!/]}"}
-    printf '%s\n' "${dir:-/}"
-}
+# Only used once so its fine to call the binary
+_script_dir=$(dirname "$0")
 
-_script_dir=$(dirname $0)
-
-. $_script_dir/helpers.sh
+# shellcheck source=helpers.sh
+. "$_script_dir/helpers.sh"
 
 # Simple Formatting System - Meant to be used with the toad ssg
 # Requires GNU Coreutils
 
 # Load backend
 backend=$_script_dir/backend-${pond_backend:-web}.sh
-_start=$(ns)
 dbg "Pond v${pond_version:-0}"
 
 # Check that files exists
@@ -35,8 +26,9 @@ fi
 
 # Load backend
 dbg "Using backend: \e[33m$backend\e[0m"
-. $backend
-transformers="${transfomers:-$(grep -Po '.*(?=\(\))' $backend | tr '\n' ' ')}" 
+# shellcheck source=backend-web.sh
+. "$backend"
+transformers="${transfomers:-$(grep -Po '.*(?=\(\))' "$backend" | tr '\n' ' ')}" 
 dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
@@ -85,7 +77,7 @@ _line_number=0
 				new_contents="$( $(_normalize "$transformer") "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
 				
 				# Entire Modified File Contents
-				new_file_contents=$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")
+				new_file_contents=${file/"$original_contents"/"$new_contents"} #$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")
 				
 				# This check fixes stuff.. idk why
 				if [ -n "$new_file_contents" ]; then
@@ -107,5 +99,3 @@ if contains "$transformers" "final_transformer"; then
 fi
 
 echo "$file"
-
-echo "Finished in $(( $(ns) - _start ))ns" 1>&2

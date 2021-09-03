@@ -60,4 +60,4 @@ Any html in the source will be preserved, HTML is meant to be used freely for an
 ```
 
 ## TODO:
-- [ ] Get rid of `reeplace`
+- [x] Get rid of `reeplace`

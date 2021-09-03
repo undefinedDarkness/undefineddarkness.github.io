@@ -25,14 +25,14 @@ figlet Vi Improved
 
 - <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
 	Infer your parens!
-	true bliss if you ever edit lisp code 😳
+	True bliss if you ever edit lisp code 😳
 
 - <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
 	Great alternative to NERDTree (Project Drawer) and imo a much better one
 	Feels pretty clean and nice to use
 
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
-	I dont use a statusline but if I did I would use lightline, it works really well and is easy to customize
+	I don't use a status line but if I did I would use lightline, it works really well and is easy to customize
 
 --- Configuration ---
 Making the most out of vanilla vim features
@@ -66,7 +66,25 @@ augroup END
 
 ---- Tab Indicator ----
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
-> set list lcs=tab:\│\ 
+> set list lcs=tab:\│\
+
+---- Improving :help and :Man ----
+I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
+> au FileType help,man nnoremap <buffer> <CR> <C-]>
+This makes it so hitting enter in a help buffer will try to just to the currently selected word 
+(the world the cursor is on.)
+
+----- Using vim as a man pager -----
+There are lots of ways to do it (documented [here](https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix) but 
+the simplest way I found is to simple alias `man`, like so:
+#CODE
+man () {
+	nvim +"Man $2 $1" +"only"
+}
+#END CODE
+If you use vim, remember to add this to your vimrc:
+> runtime ftplugin/man.vim
+as `:help ft-man-plugin` instructs you to.
 
 #CENTER
 <i>~ More to come.. maybe 🚧 ~</i>

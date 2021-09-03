@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=2059
 # Taken from pure-sh-bible
 basename() {
     dir=${1%${1##*[!/]}}
@@ -27,26 +28,41 @@ port=5000
 pre=$(grep -Pzo '[^$]+(?=!CONTENT!)' template.html | tr -d '\0') # Posixify
 post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
 
-# Primary Build Function
-build () {
-	# Output File Path
-	out=${1/src/out}
-
-	# if is html, directly copy
-	if [ ${out##*.} = "html" ]; then
-		cp -r $1 $out
-	fi
-
-	out=${out/.fmt.txt/.html}
-	mkdir -p $(dirname $out)
+# General build process
+process () {
+	out=${2/.${out#*.}/.html}
+	mkdir -p "$(dirname "$out")"
 	printf "\nBuilding $1 -> $out\n"
 
 	x=${out%%.html}
 	x=${x##out/}
 	header="${pre/!TITLE!/$x}" # Substitute Header
-	printf "$header" > "$out"
-	bash tool/pond.sh "$1" >> $out # Generate HTML -- CHANGE
-	printf "$post" >> "$out" # Output To File
+	printf '%s' "$header" > "$out"
+	$3 "$1" 1>> "$out" # Generate HTML -- CHANGE
+	printf '%s' "$post" >> "$out" # Output To File
+}
+
+# Primary Build Function - handles every file
+build () {
+	# Output File Path
+	out=${1/src/out}
+
+	case "${out#*.}" in
+		# HTML
+		"html")
+			cp -fv "$1" "$out"
+			return
+			;;
+		# Pond's Format
+		"fmt.txt")
+			process "$1" "$out" 'env MARKDOWN_COMPAT=1; ENABLE_HEADERS=1; ENABLE_CODE_LINES=1; bash tool/pond.sh'
+			;;
+		# Markdown
+		"md")
+			process "$1" "$out" 'env MARKDOWN_COMPAT=1 bash tool/pond.sh'
+		;;
+	esac
+
 }
 
 case $1 in
@@ -59,10 +75,10 @@ case $1 in
 
 	# Generates a super simple index of all the articles found
 	index)
-		for file in $(find out/ -type f -not -name "index.html"); do
+		while read -r file; do
 			filename=${file%%.html}
 			printf "<a href=\"$file\">${filename/out\//}</a>\n"
-		done
+		done < <(find out/ -type f -not -name "index.html")
 		;;
 
 	# Serve without hot realoading
@@ -77,7 +93,7 @@ case $1 in
 	*)
 		mkdir -p src out
 		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt}; do
-			build $file
+			build "$file"
 		done
 		mv ./out/index.html .
 		printf "\nFinished!\n"

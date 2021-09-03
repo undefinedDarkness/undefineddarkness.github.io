@@ -22,8 +22,9 @@
 				text-decoration: none;
 			}
 			footer { display: flex }
-			h1,h2,h3,h4,h5,h6 {
-				margin-block-end: 0.5em;
+			pre,h1,h2,h3,h4,h5,h6 {
+				margin-bottom: 0;
+				margin-block-end: 0;
 			}
 		</style>
 	</head>
@@ -60,7 +61,7 @@ WSL-G is a wip and rn only available for windows insiders so I havent got a chan
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
 - Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>
-- Run `XLaunch`
+- Run <code>XLaunch</code>
 - Select 'Multiple Windows' if you want applications to behave like regular applications in windows or
 one large screen if you want to work within a linux de / wm
 - Start with no client
@@ -68,7 +69,7 @@ one large screen if you want to work within a linux de / wm
 - Add any additional arguments you may want from <a href=http://www.straightrunning.com/XmingNotes/manual.php#sect6>http://www.straightrunning.com/XmingNotes/manual.php#sect6</a>
 - Run
 
-& Add the following to SHELL-rc file and do `exec $SHELL`:
+& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
 <pre><code>case "$(uname -r)" in
 	*microsoft-standard-WSL2)
 		# For WSL (Windows Subsystem For Linux)
@@ -79,24 +80,24 @@ one large screen if you want to work within a linux de / wm
 		;;
 esac</pre></code>
 
-Now just run any graphical program (like say `xterm`) and bam! it should show up in windows,
+Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,
 long as VcXsrv is running.
 
 <h3> Filesystem</h3>
 Accessing the linux filesystem from windows & vice versa
 
-In Linux, accessing the Windows filesystem is as simple as navigating to `/mnt/c`
+In Linux, accessing the Windows filesystem is as simple as navigating to <code>/mnt/c</code>
 which represents the C: drive in windows
 
-From windows, typing `\\wsl$` in the file explorer search box or the run box will navigate to a directory
-with each distribution's `/` directory.
+From windows, typing <code>\\wsl$</code> in the file explorer search box or the run box will navigate to a directory
+with each distribution's <code>/</code> directory.
 
 * Probably useful to setup shortcuts to these.
 
 <h3> Web Servers</h3>
 Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
-`localhost:5000` can be accessed as `localhost:5000` on windows too
+<code>localhost:5000</code> can be accessed as <code>localhost:5000</code> on windows too
 
 			<footer>
 				<a href="/index.html">Return Home</a>

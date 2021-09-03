@@ -22,8 +22,9 @@
 				text-decoration: none;
 			}
 			footer { display: flex }
-			h1,h2,h3,h4,h5,h6 {
-				margin-block-end: 0.5em;
+			pre,h1,h2,h3,h4,h5,h6 {
+				margin-bottom: 0;
+				margin-block-end: 0;
 			}
 		</style>
 	</head>
@@ -78,7 +79,7 @@ tldr:
 let g:netrw_browse_split = 3 " Open in new tab
 let g:netrw_winsize = 25 " Size
 let g:netrw_liststyle = 3 " Show files in tree form</pre></code>
-See what each option does with `:help netrw-browser-settings`
+See what each option does with <code>:help netrw-browser-settings</code>
 
 <h4> Improving vim's :grep command</h4>
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
@@ -96,10 +97,26 @@ augroup END</pre></code>
 
 <h4> Tab Indicator</h4>
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
-> set list lcs=tab:\│\ 
+<code>set list lcs=tab:\│\</code>
+
+<h4> Improving :help and :Man</h4>
+I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
+<code>au FileType help,man nnoremap <buffer> <CR> <C-]></code>
+This makes it so hitting enter in a help buffer will try to just to the currently selected word 
+(the world the cursor is on.)
+
+<h5> Using vim as a man pager</h5>
+There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but 
+the simplest way I found is to simple alias <code>man</code>, like so:
+<pre><code>man () {
+	nvim +"Man $2 $1" +"only"
+}</pre></code>
+If you use vim, remember to add this to your vimrc:
+<code>runtime ftplugin/man.vim</code>
+as <code>:help ft-man-plugin</code> instructs you to.
 
 <p style="text-align:center">
-<i>~ More to come.. maybe 🚩� ~</i>
+<i>~ More to come.. maybe 🚧 ~</i>
 </p>
 
 			<footer>

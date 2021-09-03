@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Time in milliseconds
-ns () {
-	 date +%s%3N
-}
-
 # Warning / Error / Debug
 warn () {
 	printf "\e[33m[WARN]\e[0m %s\n" "$@" 1>&2
@@ -15,8 +10,8 @@ err () {
 }
 
 dbg () {
-	if [ -n "$pond_debug" ]; then
-		printf "$*\n"
+	if [ -n "${pond_debug:-}" ]; then
+		printf "%s\n" "$*"
 	fi
 }
 
@@ -34,7 +29,8 @@ contains() {
 # Start grepping from line
 grep_from () {
 	# 1 = File 2 = Line Number, 3 = Grep Options 4 = Regex
-	echo "$1" | tail +"$2"  | grep  "$4" $3
+	# shellcheck disable=2086
+	echo "$1" | tail +"$2"  | grep $3 -- "$4"
 }
 
 # Get everything between 2 line numbers
@@ -47,3 +43,11 @@ snip () {
 	echo "$1" | sed '1d;$d'
 }
 
+trim() {
+    local var="$*"
+    # remove leading whitespace characters
+    var="${var#"${var%%[![:space:]]*}"}"
+    # remove trailing whitespace characters
+    var="${var%"${var##*[![:space:]]}"}"   
+    printf '%s' "$var"
+}
