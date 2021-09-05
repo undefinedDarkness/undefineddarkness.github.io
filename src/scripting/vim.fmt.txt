@@ -7,7 +7,7 @@ figlet Vi Improved
 <i> Just a collection of cool stuff I find relatived to the vim text editor :) </i>
 #END CENTER
 
---- Plugins ---
+### Plugins
 - <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
 	A great plugin that takes care of Linting, Formatting & Autocompletion
 	Quite customizable but some bits are a bit dated
@@ -34,24 +34,24 @@ figlet Vi Improved
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
 	I don't use a status line but if I did I would use lightline, it works really well and is easy to customize
 
---- Configuration ---
+### Configuration 
 Making the most out of vanilla vim features
 
----- NetRW ----
+#### NetRW 
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
-#CODE
+```vim
 let g:netrw_banner = 0 " Hide the banner
 let g:netrw_browse_split = 3 " Open in new tab
 let g:netrw_winsize = 25 " Size
 let g:netrw_liststyle = 3 " Show files in tree form
-#END CODE
+```
 See what each option does with `:help netrw-browser-settings`
 
----- Improving vim's :grep command ----
+#### Improving vim's :grep command 
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
-#CODE
+```vim
 function! Grep(...)
     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
@@ -62,38 +62,40 @@ augroup quickfix
     autocmd QuickFixCmdPost cgetexpr cwindow
     autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
-#END CODE
+```
 
----- Tab Indicator ----
+#### Tab Indicator 
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
-> set list lcs=tab:\│\
+`set list lcs=tab:\│\`
 
----- Export to HTML ----
+### Export to HTML 
 This is a pretty neat capability I did not know vim had,
 By the power of an included plugin, You can run `:TOhtml` to convert the entire current file to a HTML that will be opened in a new buffer
 And you can script it! Like so:
-#CODE
+```sh
 nvim -E -s -c "let g:html_no_progress=1" -c "syntax on" -c "set ft=c" -c "runtime syntax/2html.vim" -cwqa myfile.c
-#END CODE
+```
 You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
 [Here](/assets/make.html) is a example file from the make script of this website.
+* This is now used to generate code syntax highlighting for this site.
 
----- Improving :help and :Man ----
+#### Improving :help and :Man 
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
-> au FileType help,man nnoremap <buffer> <CR> <C-]>
+`au FileType help,man nnoremap <buffer> <CR> <C-]>`
 This makes it so hitting enter in a help buffer will try to just to the currently selected word 
 (the world the cursor is on.)
+Here are some more nice shortcuts: https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation
 
------ Using vim as a man pager -----
+#### Using vim as a man pager 
 There are lots of ways to do it (documented [here](https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix) but 
 the simplest way I found is to simple alias `man`, like so in your shell configuration file:
-#CODE
+```sh
 man () {
 	nvim +"Man $2 $1" +"only"
 }
-#END CODE
+```
 If you use vim, remember to add this to your vimrc:
-> runtime ftplugin/man.vim
+`runtime ftplugin/man.vim`
 as `:help ft-man-plugin` instructs you to.
 
 #CENTER

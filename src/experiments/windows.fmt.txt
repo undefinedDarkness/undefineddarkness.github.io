@@ -1,31 +1,31 @@
-- Colemak -
+# Colemak
 After installing the [exe](https://colemak.com/Windows) from the colemak website...
 You can easily enough change the language while using windows but it presents a program while being 
 logging in (it uses the QWERTY layout at that time.),
 The detailed [solution](https://forum.colemak.com/topic/494-howto-set-colemak-as-windows-xp-login-screen-layout-and-more/) can be found here.
 /* I dunno why I felt like this was worth writing here. */
 
-- WSL2 -
+# WSL2
 I was honestly surprised how good it was, it is amazing how well WSL works!
 Installation is a bit murky because the docs are spread out but basically all you need to do is follow the steps here:
 https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
 
-After that you can install a distrubtion from the microsoft store which is simple enough, you can install any distro of your choosing but
+After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
 I think thats a fair bit more tricky.
 
--- Terminal --
+## Terminal
 The choice should be obvious (I hope): The [windows terminal](https://github.com/microsoft/terminal) works ootb with WSL and will even automatically add Distro profiles.
-From there its just a few clicks and you're up and running with a almost perfect command line linux experiance!
+From there its just a few clicks and you're up and running with a almost perfect command line linux experience!
 
---- Clipboard ---
+### Clipboard 
 Just right clicking to paste should work well for most things, but vim has a few issues with it, if you are using neovim though and you should be
 This can be easily remedied:
 https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 
 The rest should just work
 
--- Graphical Enviroment --
-WSL-G is a wip and rn only available for windows insiders so I havent got a chance to use it although it seems pretty slick.
+## Graphical Enviroment 
+WSL-G is a wip and rn only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
 - Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/)
@@ -38,7 +38,7 @@ one large screen if you want to work within a linux de / wm
 - Run
 
 & Add the following to SHELL-rc file and do `exec $SHELL`:
-#CODE
+```sh
 case "$(uname -r)" in
 	*microsoft-standard-WSL2)
 		# For WSL (Windows Subsystem For Linux)
@@ -48,12 +48,12 @@ case "$(uname -r)" in
 		export LIBGL_ALWAYS_INDIRECT=1
 		;;
 esac
-#END CODE
+```
 
 Now just run any graphical program (like say `xterm`) and bam! it should show up in windows,
 long as VcXsrv is running.
 
---- Filesystem ---
+### Filesystem 
 Accessing the linux filesystem from windows & vice versa
 
 In Linux, accessing the Windows filesystem is as simple as navigating to `/mnt/c`
@@ -64,7 +64,7 @@ with each distribution's `/` directory.
 
 * Probably useful to setup shortcuts to these.
 
---- Web Servers ---
+### Web Servers 
 Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
 `localhost:5000` can be accessed as `localhost:5000` on windows too

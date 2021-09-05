@@ -1,23 +1,5 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=2059
-# Taken from pure-sh-bible
-basename() {
-    dir=${1%${1##*[!/]}}
-    dir=${dir##*/}
-    dir=${dir%"$2"}
-    printf '%s\n' "${dir:-/}"
-}
-
-dirname() {
-    dir=${1:-.}
-    dir=${dir%%"${dir##*[!/]}"}
-    [ "${dir##*/*}" ] && dir=.
-    dir=${dir%/*}
-    dir=${dir%%"${dir##*[!/]}"}
-    printf '%s\n' "${dir:-/}"
-}
-
 # Toad:
 # This is meant to be my super minimal SSG and meant to only fulfill my needs and do nothing more
 
@@ -28,7 +10,7 @@ port=5000
 pre=$(grep -Pzo '[^$]+(?=!CONTENT!)' template.html | tr -d '\0') # Posixify
 post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
 
-# General build process
+# General multi purpose build process
 process () {
 	out=${2/.${out#*.}/.html}
 	mkdir -p "$(dirname "$out")"
@@ -54,13 +36,10 @@ build () {
 			return
 			;;
 		# Pond's Format
-		"fmt.txt")
-			process "$1" "$out" 'env MARKDOWN_COMPAT=1; ENABLE_HEADERS=1; ENABLE_CODE_LINES=1; bash tool/pond.sh'
+		# + Markdown
+		"fmt.txt"|"md")
+			process "$1" "$out" 'bash tool/pond.sh'
 			;;
-		# Markdown
-		"md")
-			process "$1" "$out" 'env MARKDOWN_COMPAT=1 bash tool/pond.sh'
-		;;
 	esac
 
 }
@@ -85,8 +64,10 @@ case $1 in
 	serve)
 		python3 -m http.server $port &
 		;;
+
+	# Clean output directory and index.
 	clean)
-		rm -r out index.html
+		rm -rv out index.html
 		;;
 
 	# Build Files

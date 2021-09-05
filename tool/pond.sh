@@ -3,10 +3,9 @@
 # Only used once so its fine to call the binary
 _script_dir=$(dirname "$0")
 
-# shellcheck source=helpers.sh
 . "$_script_dir/helpers.sh"
 
-# Simple Formatting System - Meant to be used with the toad ssg
+# Pond Simple Formatting System - Meant to be used with the toad ssg
 # Requires GNU Coreutils
 
 # Load backend
@@ -28,7 +27,7 @@ fi
 dbg "Using backend: \e[33m$backend\e[0m"
 # shellcheck source=backend-web.sh
 . "$backend"
-transformers="${transfomers:-$(grep -Po '.*(?=\(\))' "$backend" | tr '\n' ' ')}" 
+transformers="${transfomers:-$(grep -Po '^\w+ (?=\(\))' "$backend" | tr '\n' ' ')}" 
 dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
@@ -36,10 +35,13 @@ file=$(cat "$1")
 
 # Comes from backend
 if contains "$transformers" "initial_transformer"; then
+	dbg "Running initial transformer."
 	file=$(initial_transformer "$file")
+	dbg "Done."
 fi
 
 fn () {
+
 _line_number=0
  while read -r line; do
 	_line_number=$(( _line_number + 1 ))
@@ -54,7 +56,7 @@ _line_number=0
 				transformer=${transformer%% *}
 
 				# Check that transformer exists
-				if ! contains "$transformers" "$(_normalize $transformer)"; then
+				if ! contains "$transformers" "$(_normalize "$transformer")"; then
 					warn "Tranformer $transformer does not exist in the provided backend. (@ $1:$_line_number)"
 					continue
 				fi
