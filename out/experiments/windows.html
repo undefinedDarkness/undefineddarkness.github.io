@@ -5,42 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>experiments/windows</title>
-		<style>
-			article {
-				display: table;
-				margin: 0 auto;
-				white-space: pre;
-				tab-size: 4;
-				font-family: system-ui;
-			}
-			body {
-				background-color: #111;
-				color: #fafafa;
-				font-size: 1em;
-			}
-			a {
-				color: skyblue;
-				text-decoration: none;
-			}
-			footer { display: flex }
-			pre,h1,h2,h3,h4,h5,h6 {
-				margin-bottom: 0;
-				margin-block-end: 0;
-			}
-			pre {
-				background: #222;
-				padding: 8px;
-				font-size:1.1em;
-				border-radius: 5px;
-				display: table;
-			}
-			@media only screen and (max-width: 600px) {
-			  body {
-				  font-size: 0.8em;
-			  }
-			}
-		</style>
-		<script src="https://cdn.jsdelivr.net/npm/style-scoped@0.2.2/scoped.min.js"></script>
+		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
 		<article>
@@ -54,7 +19,7 @@ The detailed <a href="https://forum.colemak.com/topic/494-howto-set-colemak-as-w
 <h1>WSL2</h1>
 I was honestly surprised how good it was, it is amazing how well WSL works!
 Installation is a bit murky because the docs are spread out but basically all you need to do is follow the steps here:
-https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
+<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps">https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps</a>
 
 After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
 I think thats a fair bit more tricky.
@@ -66,7 +31,7 @@ From there its just a few clicks and you're up and running with a almost perfect
 <h3>Clipboard</h3> 
 Just right clicking to paste should work well for most things, but vim has a few issues with it, if you are using neovim though and you should be
 This can be easily remedied:
-https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+<a href="https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl">https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl</a>
 
 The rest should just work
 
@@ -80,59 +45,12 @@ You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?
 one large screen if you want to work within a linux de / wm
 - Start with no client
 - Tick disable access control !IMPORTANT!
-- Add any additional arguments you may want from http://www.straightrunning.com/XmingNotes/manual.php#sect6
+- Add any additional arguments you may want from <a href="http://www.straightrunning.com/XmingNotes/manual.php#sect6">http://www.straightrunning.com/XmingNotes/manual.php#sect6</a>
 - Run
 
 & Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.String { color: #b5bd68; }
-.Statement { color: #cc6666; }
-.Operator { color: #c5c8c6; }
-.Identifier { color: #cc6666; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.Comment { color: #969896; }
-.Special { color: #8abeb7; }
-.PreProc { color: #f0c674; }
-.Number { color: #de935f; }
-.Conditional { color: #b294bb; }
-</style>
-	<pre>
-	<code lang="sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Conditional">case</span> <span class="Operator">&quot;</span><span class="PreProc">$(</span><span class="Special">uname </span><span class="Special">-r</span><span class="PreProc">)</span><span class="Operator">&quot;</span> <span class="Conditional">in</span>
+<pre class=vim-highlight>
+	<code class="language-sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Conditional">case</span> <span class="Operator">&quot;</span><span class="PreProc">$(</span><span class="Special">uname </span><span class="Special">-r</span><span class="PreProc">)</span><span class="Operator">&quot;</span> <span class="Conditional">in</span>
 <span id="L2" class="LineNr" data-LineNr-content="2 "><input type='invalid_input_type' class="LineNr" value="2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>    *microsoft-standard-WSL2<span class="Statement">)</span>
 <span id="L3" class="LineNr" data-LineNr-content="3 "><input type='invalid_input_type' class="LineNr" value="3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>        <span class="Comment"># For WSL (Windows Subsystem For Linux)</span>
 <span id="L4" class="LineNr" data-LineNr-content="4 "><input type='invalid_input_type' class="LineNr" value="4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>        <span class="Statement">export</span> <span class="Identifier">DISPLAY</span>=<span class="Operator">&quot;</span><span class="PreProc">$(</span><span class="Statement">grep</span><span class="Special"> nameserver /etc/resolv.conf </span><span class="Operator">|</span><span class="Special"> </span><span class="Statement">sed</span><span class="Special"> </span><span class="Operator">'</span><span class="String">s/nameserver //</span><span class="Operator">'</span><span class="PreProc">)</span><span class="String">:0</span><span class="Operator">&quot;</span>
@@ -142,7 +60,7 @@ input.LineNr { cursor: default; }
 <span id="L8" class="LineNr" data-LineNr-content="8 "><input type='invalid_input_type' class="LineNr" value="8" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>        <span class="Statement">;;</span>
 <span id="L9" class="LineNr" data-LineNr-content="9 "><input type='invalid_input_type' class="LineNr" value="9" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Conditional">esac</span>
 </code>
-	</pre></div>
+	</pre>
 
 Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,
 long as VcXsrv is running.

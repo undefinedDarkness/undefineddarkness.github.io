@@ -5,46 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>experiments/wayland</title>
-		<style>
-			article {
-				display: table;
-				margin: 0 auto;
-				white-space: pre;
-				tab-size: 4;
-				font-family: system-ui;
-			}
-			body {
-				background-color: #111;
-				color: #fafafa;
-				font-size: 1em;
-			}
-			a {
-				color: skyblue;
-				text-decoration: none;
-			}
-			footer { display: flex }
-			pre,h1,h2,h3,h4,h5,h6 {
-				margin-bottom: 0;
-				margin-block-end: 0;
-			}
-			pre {
-				background: #222;
-				padding: 8px;
-				font-size:1.1em;
-				border-radius: 5px;
-				display: table;
-			}
-			@media only screen and (max-width: 600px) {
-			  body {
-				  font-size: 0.8em;
-			  }
-			}
-		</style>
-		<script src="https://cdn.jsdelivr.net/npm/style-scoped@0.2.2/scoped.min.js"></script>
+		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
 		<article>
-			<div style="display: flex; justify-content: center; align-items: center"><pre style="all: revert">
+			<div class='preserve-center'><pre>
                   ,____
                    |---.\
            ___     |    `
@@ -98,55 +63,14 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.Operator { color: #c5c8c6; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.Special { color: #8abeb7; }
-.Statement { color: #cc6666; }
-</style>
-	<pre>
-	<code lang="sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>git clone <span class="Special">--recurse-submodules</span> <a href="https://github.com/lbonn/rofi">https://github.com/lbonn/rofi</a>
+<pre class=vim-highlight>
+	<code class="language-sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>git clone <span class="Special">--recurse-submodules</span> <a href="https://github.com/lbonn/rofi"><a href="https://github.com/lbonn/rofi</a>">https://github.com/lbonn/rofi</a></a>
 <span id="L2" class="LineNr" data-LineNr-content="2 "><input type='invalid_input_type' class="LineNr" value="2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">cd</span> rofi
 <span id="L3" class="LineNr" data-LineNr-content="3 "><input type='invalid_input_type' class="LineNr" value="3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>meson setup build <span class="Special">-Dwayland</span><span class="Operator">=</span>enabled <span class="Special">--prefix</span><span class="Operator">=</span>/usr/<span class="Statement">local</span>
 <span id="L4" class="LineNr" data-LineNr-content="4 "><input type='invalid_input_type' class="LineNr" value="4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>ninja <span class="Special">-C</span> build
 <span id="L5" class="LineNr" data-LineNr-content="5 "><input type='invalid_input_type' class="LineNr" value="5" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>ninja <span class="Special">-C</span> build install
 </code>
-	</pre></div>
+	</pre>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 <pre><code lang="">MOZ_ENABLE_WAYLAND=1 firefox
@@ -159,9 +83,9 @@ Compared to the choice on X11, bars in wayland are a bit ehhhh ig
 There are only 2 that I found:
 
 - Yambar:
-	https://codeberg.org/dnkl/yambar
+	<a href="https://codeberg.org/dnkl/yambar">https://codeberg.org/dnkl/yambar</a>
 - Waybar:
-	https://github.com/Alexays/Waybar
+	<a href="https://github.com/Alexays/Waybar">https://github.com/Alexays/Waybar</a>
 
 Since I couldn't compile yambar even tho it seems pretty nice :/ I was forced to use waybar
 Both of them take after polybar very much which I personally am not much a fan off

@@ -1,0 +1,91 @@
+/*-- Broad Styles --*/
+article {
+	display: table;
+	margin: 0 auto;
+	white-space: pre;
+	tab-size: 4;
+	font-family: system-ui;
+}
+body {
+	background-color: #111;
+	color: #fafafa;
+	font-size: 1em;
+}
+a {
+	color: skyblue;
+	text-decoration: none;
+}
+footer { display: flex }
+pre {
+	background: #222;
+	padding: 8px;
+	font-size:1.1em;
+	border-radius: 5px;
+	display: table;
+	margin-bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+	body {
+		font-size: 0.8em;
+	}
+}
+/*-- Styling For Transformers --*/
+.box {
+	border: 1px solid;
+	padding: 0px 16px;
+	margin: 8px 0; 
+}
+.preserve-center {
+	display: flex;
+	justify-content: center; 
+	align-items: center
+}
+.preserve-center pre {
+	all: revert;
+}
+/*-- Vim Specific Styles --*/
+pre.vim-highlight { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
+.vim-highlight input { border: none; margin: 0; padding: 0; font-family: monospace; }
+.vim-highlight input[size='1'] { width: 1em; width: 1ch; }
+.vim-highlight input[size='2'] { width: 2em; width: 2ch; }
+.vim-highlight input[size='3'] { width: 3em; width: 3ch; }
+.vim-highlight input[size='4'] { width: 4em; width: 4ch; }
+.vim-highlight input[size='5'] { width: 5em; width: 5ch; }
+.vim-highlight input[size='6'] { width: 6em; width: 6ch; }
+.vim-highlight input[size='7'] { width: 7em; width: 7ch; }
+.vim-highlight input[size='8'] { width: 8em; width: 8ch; }
+.vim-highlight input[size='9'] { width: 9em; width: 9ch; }
+.vim-highlight input[size='10'] { width: 10em; width: 10ch; }
+.vim-highlight input[size='11'] { width: 11em; width: 11ch; }
+.vim-highlight input[size='12'] { width: 12em; width: 12ch; }
+.vim-highlight input[size='13'] { width: 13em; width: 13ch; }
+.vim-highlight input[size='14'] { width: 14em; width: 14ch; }
+.vim-highlight input[size='15'] { width: 15em; width: 15ch; }
+.vim-highlight input[size='16'] { width: 16em; width: 16ch; }
+.vim-highlight input[size='17'] { width: 17em; width: 17ch; }
+.vim-highlight input[size='18'] { width: 18em; width: 18ch; }
+.vim-highlight input[size='19'] { width: 19em; width: 19ch; }
+.vim-highlight input[size='20'] { width: 20em; width: 20ch; }
+/* Note: IE does not support @supports conditionals, but also does not fully support
+   "content:" with custom content, so we *want* the check to fail */
+@supports ( content: attr(data-custom-content) ) {
+  .LineNr { user-select: none; }
+  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
+  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
+  span[data-LineNr-content]::before { cursor: default; }
+  .vim-highlight input { display: none; }
+.vim-highlight input.LineNr { cursor: default; }
+.Operator { color: #c5c8c6; }
+.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
+.Special { color: #8abeb7; }
+.Statement { color: #cc6666; }
+.String { color: #b5bd68; }
+.Identifier { color: #cc6666; }
+.Comment { color: #969896; }
+.PreProc { color: #f0c674; }
+.Number { color: #de935f; }
+.Conditional { color: #b294bb; }
+.Function { color: #81a2be; }
+.Type { color: #f0c674; }
+.Normal { color: #c5c8c6; background-color: #1d1f21; padding-bottom: 1px; }
+.Delimiter { color: #a3685a; }

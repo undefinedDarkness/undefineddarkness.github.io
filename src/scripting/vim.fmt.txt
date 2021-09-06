@@ -73,7 +73,16 @@ This is a pretty neat capability I did not know vim had,
 By the power of an included plugin, You can run `:TOhtml` to convert the entire current file to a HTML that will be opened in a new buffer
 And you can script it! Like so:
 ```sh
-nvim -E -s -c "let g:html_no_progress=1" -c "syntax on" -c "set ft=c" -c "runtime syntax/2html.vim" -cwqa myfile.c
+lang="$2"
+f=$(mktemp)
+echo "$0" | head -n -1 | nvim -n --headless \
+	+"let g:html_no_progress = 0"\
+	+"let g:html_ignore_folding = 0"\
+	+'let g:html_prevent_copy = "fn"'\
+	+"set ft=$1"\
+	+"runtime! syntax/1html.vim"\
+	+"wq! $f"\
+	+"q!" - 1> /dev/null
 ```
 You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
 [Here](/assets/make.html) is a example file from the make script of this website.
@@ -86,7 +95,7 @@ This makes it so hitting enter in a help buffer will try to just to the currentl
 (the world the cursor is on.)
 Here are some more nice shortcuts: https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation
 
-#### Using vim as a man pager 
+##### Using vim as a man pager 
 There are lots of ways to do it (documented [here](https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix) but 
 the simplest way I found is to simple alias `man`, like so in your shell configuration file:
 ```sh

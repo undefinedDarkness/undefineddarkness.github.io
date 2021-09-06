@@ -26,6 +26,14 @@ contains() {
     case " $1 " in *" $2 "*) return 0; esac; return 1
 }
 
+# Contains but for an array
+containsArray () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
 # Start grepping from line
 grep_from () {
 	# 1 = File 2 = Line Number, 3 = Grep Options 4 = Regex

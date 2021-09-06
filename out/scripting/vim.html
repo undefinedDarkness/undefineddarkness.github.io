@@ -5,46 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>scripting/vim</title>
-		<style>
-			article {
-				display: table;
-				margin: 0 auto;
-				white-space: pre;
-				tab-size: 4;
-				font-family: system-ui;
-			}
-			body {
-				background-color: #111;
-				color: #fafafa;
-				font-size: 1em;
-			}
-			a {
-				color: skyblue;
-				text-decoration: none;
-			}
-			footer { display: flex }
-			pre,h1,h2,h3,h4,h5,h6 {
-				margin-bottom: 0;
-				margin-block-end: 0;
-			}
-			pre {
-				background: #222;
-				padding: 8px;
-				font-size:1.1em;
-				border-radius: 5px;
-				display: table;
-			}
-			@media only screen and (max-width: 600px) {
-			  body {
-				  font-size: 0.8em;
-			  }
-			}
-		</style>
-		<script src="https://cdn.jsdelivr.net/npm/style-scoped@0.2.2/scoped.min.js"></script>
+		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
 		<article>
-			<div style="display: flex; justify-content: center; align-items: center"><pre style="all: revert">
+			<div class='preserve-center'><pre>
 __     ___   ___                                        _ 
 \ \   / (_) |_ _|_ __ ___  _ __  _ __ _____   _____  __| |
  \ \ / /| |  | || '_ ` _ \| '_ \| '__/ _ \ \ / / _ \/ _` |
@@ -89,111 +54,20 @@ Making the most out of vanilla vim features
 <h4>NetRW</h4> 
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.Number { color: #de935f; }
-.Operator { color: #c5c8c6; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.Comment { color: #969896; }
-.Statement { color: #cc6666; }
-.Identifier { color: #cc6666; }
-</style>
-	<pre>
-	<code lang="vim"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">let</span> <span class="Identifier">g:netrw_banner</span> <span class="Operator">=</span> <span class="Number">0</span> <span class="Comment">&quot; Hide the banner</span>
+<pre class=vim-highlight>
+	<code class="language-vim"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">let</span> <span class="Identifier">g:netrw_banner</span> <span class="Operator">=</span> <span class="Number">0</span> <span class="Comment">&quot; Hide the banner</span>
 <span id="L2" class="LineNr" data-LineNr-content="2 "><input type='invalid_input_type' class="LineNr" value="2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">let</span> <span class="Identifier">g:netrw_browse_split</span> <span class="Operator">=</span> <span class="Number">3</span> <span class="Comment">&quot; Open in new tab</span>
 <span id="L3" class="LineNr" data-LineNr-content="3 "><input type='invalid_input_type' class="LineNr" value="3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">let</span> <span class="Identifier">g:netrw_winsize</span> <span class="Operator">=</span> <span class="Number">25</span> <span class="Comment">&quot; Size</span>
 <span id="L4" class="LineNr" data-LineNr-content="4 "><input type='invalid_input_type' class="LineNr" value="4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">let</span> <span class="Identifier">g:netrw_liststyle</span> <span class="Operator">=</span> <span class="Number">3</span> <span class="Comment">&quot; Show files in tree form</span>
 </code>
-	</pre></div>
+	</pre>
 See what each option does with <code>:help netrw-browser-settings</code>
 
 <h4>Improving vim's :grep command</h4> 
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.Identifier { color: #cc6666; }
-.Function { color: #81a2be; }
-.Operator { color: #c5c8c6; }
-.Type { color: #f0c674; }
-.Normal { color: #c5c8c6; background-color: #1d1f21; padding-bottom: 1px; }
-.Special { color: #8abeb7; }
-.Statement { color: #cc6666; }
-.PreProc { color: #f0c674; }
-.Delimiter { color: #a3685a; }
-.String { color: #b5bd68; }
-</style>
-	<pre>
-	<code lang="vim"><span id="L1" class="LineNr" data-LineNr-content=" 1 "><input type='invalid_input_type' class="LineNr" value=" 1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">function</span>! Grep<span class="Delimiter">(</span><span class="Operator">...</span><span class="Delimiter">)</span>
+<pre class=vim-highlight>
+	<code class="language-vim"><span id="L1" class="LineNr" data-LineNr-content=" 1 "><input type='invalid_input_type' class="LineNr" value=" 1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">function</span>! Grep<span class="Delimiter">(</span><span class="Operator">...</span><span class="Delimiter">)</span>
 <span id="L2" class="LineNr" data-LineNr-content=" 2 "><input type='invalid_input_type' class="LineNr" value=" 2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    <span class="Statement">return</span> <span class="Function">system</span><span class="Delimiter">(</span><span class="Function">join</span><span class="Delimiter">(</span>[&amp;grepprg] <span class="Operator">+</span> [<span class="Function">expandcmd</span><span class="Delimiter">(</span><span class="Function">join</span><span class="Delimiter">(</span><span class="Identifier">a:000</span>, <span class="String">' '</span><span class="Delimiter">))</span>], <span class="String">' '</span><span class="Delimiter">))</span>
 <span id="L3" class="LineNr" data-LineNr-content=" 3 "><input type='invalid_input_type' class="LineNr" value=" 3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">endfunction</span>
 <span id="L4" class="LineNr" data-LineNr-content=" 4 "><input type='invalid_input_type' class="LineNr" value=" 4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">command</span><span class="Operator">!</span> <span class="Operator">-</span><span class="PreProc">nargs</span><span class="Operator">=+</span> <span class="Operator">-</span><span class="PreProc">complete</span><span class="Operator">=</span><span class="Type">file_in_path</span> <span class="Operator">-</span><span class="PreProc">bar</span> Grep  <span class="Statement">cgetexpr</span> <span class="Normal">Grep</span>(<span class="Delimiter">&lt;</span><span class="Special">f-args</span><span class="Delimiter">&gt;</span>)
@@ -204,7 +78,7 @@ input.LineNr { cursor: default; }
 <span id="L9" class="LineNr" data-LineNr-content=" 9 "><input type='invalid_input_type' class="LineNr" value=" 9" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    <span class="Statement">autocmd</span> <span class="Type">QuickFixCmdPost</span> lgetexpr <span class="Statement">lwindow</span>
 <span id="L10" class="LineNr" data-LineNr-content="10 "><input type='invalid_input_type' class="LineNr" value="10" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">augroup</span> END
 </code>
-	</pre></div>
+	</pre>
 
 <h4>Tab Indicator</h4> 
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
@@ -214,52 +88,20 @@ If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 This is a pretty neat capability I did not know vim had,
 By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML that will be opened in a new buffer
 And you can script it! Like so:
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.Operator { color: #c5c8c6; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.String { color: #b5bd68; }
-.Special { color: #8abeb7; }
-</style>
-	<pre>
-	<code lang="sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>nvim <span class="Special">-E</span> <span class="Special">-s</span> <span class="Special">-c</span> <span class="Operator">&quot;</span><span class="String">let g:html_no_progress=1</span><span class="Operator">&quot;</span> <span class="Special">-c</span> <span class="Operator">&quot;</span><span class="String">syntax on</span><span class="Operator">&quot;</span> <span class="Special">-c</span> <span class="Operator">&quot;</span><span class="String">set ft=c</span><span class="Operator">&quot;</span> <span class="Special">-c</span> <span class="Operator">&quot;</span><span class="String">runtime syntax/2html.vim</span><span class="Operator">&quot;</span> <span class="Special">-cwqa</span> myfile.c
+<pre class=vim-highlight>
+	<code class="language-sh"><span id="L1" class="LineNr" data-LineNr-content=" 1 "><input type='invalid_input_type' class="LineNr" value=" 1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Identifier">lang</span>=<span class="Operator">&quot;</span><span class="PreProc">$2</span><span class="Operator">&quot;</span>
+<span id="L2" class="LineNr" data-LineNr-content=" 2 "><input type='invalid_input_type' class="LineNr" value=" 2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Identifier">f</span>=<span class="PreProc">$(</span><span class="Special">mktemp</span><span class="PreProc">)</span>
+<span id="L3" class="LineNr" data-LineNr-content=" 3 "><input type='invalid_input_type' class="LineNr" value=" 3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span><span class="Statement">echo</span><span class="String"> </span><span class="Operator">&quot;</span><span class="PreProc">$0</span><span class="Operator">&quot;</span><span class="String"> </span>| head <span class="Special">-n</span> <span class="Number">-1</span> | nvim <span class="Special">-n</span> <span class="Special">--headless</span> <span class="Operator">\</span>
+<span id="L4" class="LineNr" data-LineNr-content=" 4 "><input type='invalid_input_type' class="LineNr" value=" 4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">let g:html_no_progress = 0</span><span class="Operator">&quot;</span><span class="Operator">\</span>
+<span id="L5" class="LineNr" data-LineNr-content=" 5 "><input type='invalid_input_type' class="LineNr" value=" 5" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">let g:html_ignore_folding = 0</span><span class="Operator">&quot;</span><span class="Operator">\</span>
+<span id="L6" class="LineNr" data-LineNr-content=" 6 "><input type='invalid_input_type' class="LineNr" value=" 6" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">'</span><span class="String">let g:html_prevent_copy = &quot;fn&quot;</span><span class="Operator">'</span><span class="Operator">\</span>
+<span id="L7" class="LineNr" data-LineNr-content=" 7 "><input type='invalid_input_type' class="LineNr" value=" 7" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">set ft=</span><span class="PreProc">$1</span><span class="Operator">&quot;</span><span class="Operator">\</span>
+<span id="L8" class="LineNr" data-LineNr-content=" 8 "><input type='invalid_input_type' class="LineNr" value=" 8" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">runtime! syntax/1html.vim</span><span class="Operator">&quot;</span><span class="Operator">\</span>
+<span id="L9" class="LineNr" data-LineNr-content=" 9 "><input type='invalid_input_type' class="LineNr" value=" 9" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">wq! </span><span class="PreProc">$f</span><span class="Operator">&quot;</span><span class="Operator">\</span>
+<span id="L10" class="LineNr" data-LineNr-content="10 "><input type='invalid_input_type' class="LineNr" value="10" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="3"></span>    +<span class="Operator">&quot;</span><span class="String">q!</span><span class="Operator">&quot;</span> - <span class="Number">1</span><span class="Operator">&gt;</span> /dev/null
 </code>
-	</pre></div>
-You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
+	</pre>
+You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
 <a href="/assets/make.html">Here</a> is a example file from the make script of this website.
 * This is now used to generate code syntax highlighting for this site.
 
@@ -268,59 +110,17 @@ I find vim's help pages annoying to navigate since by default, its difficult to 
 <code>au FileType help,man nnoremap <buffer> <CR> <C-]></code>
 This makes it so hitting enter in a help buffer will try to just to the currently selected word 
 (the world the cursor is on.)
-Here are some more nice shortcuts: https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation
+Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation">https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation</a>
 
-<h4>Using vim as a man pager</h4> 
+<h5>Using vim as a man pager</h5> 
 There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but 
 the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:
-<div style='display: grid'>
-	<style scoped>
-pre { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-body { font-family: monospace; color: #c5c8c6; background-color: #1d1f21; }
-* { font-size: 1em; }
-input { border: none; margin: 0; padding: 0; font-family: monospace; }
-input[size='1'] { width: 1em; width: 1ch; }
-input[size='2'] { width: 2em; width: 2ch; }
-input[size='3'] { width: 3em; width: 3ch; }
-input[size='4'] { width: 4em; width: 4ch; }
-input[size='5'] { width: 5em; width: 5ch; }
-input[size='6'] { width: 6em; width: 6ch; }
-input[size='7'] { width: 7em; width: 7ch; }
-input[size='8'] { width: 8em; width: 8ch; }
-input[size='9'] { width: 9em; width: 9ch; }
-input[size='10'] { width: 10em; width: 10ch; }
-input[size='11'] { width: 11em; width: 11ch; }
-input[size='12'] { width: 12em; width: 12ch; }
-input[size='13'] { width: 13em; width: 13ch; }
-input[size='14'] { width: 14em; width: 14ch; }
-input[size='15'] { width: 15em; width: 15ch; }
-input[size='16'] { width: 16em; width: 16ch; }
-input[size='17'] { width: 17em; width: 17ch; }
-input[size='18'] { width: 18em; width: 18ch; }
-input[size='19'] { width: 19em; width: 19ch; }
-input[size='20'] { width: 20em; width: 20ch; }
-/* Note: IE does not support @supports conditionals, but also does not fully support
-   "content:" with custom content, so we *want* the check to fail */
-@supports ( content: attr(data-custom-content) ) {
-  .LineNr { user-select: none; }
-  [data-LineNr-content]::before { content: attr(data-LineNr-content); }
-  [data-LineNr-content]::before { padding-bottom: 1px; display: inline-block; /* match the 1-px padding of standard items with background */ }
-  span[data-LineNr-content]::before { cursor: default; }
-  input { display: none; }
-}
-input.LineNr { cursor: default; }
-.String { color: #b5bd68; }
-.Operator { color: #c5c8c6; }
-.LineNr { color: #969896; background-color: #282a2e; padding-bottom: 1px; }
-.PreProc { color: #f0c674; }
-.Function { color: #81a2be; }
-</style>
-	<pre>
-	<code lang="sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Function">man () {</span>
+<pre class=vim-highlight>
+	<code class="language-sh"><span id="L1" class="LineNr" data-LineNr-content="1 "><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Function">man () {</span>
 <span id="L2" class="LineNr" data-LineNr-content="2 "><input type='invalid_input_type' class="LineNr" value="2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>    nvim +<span class="Operator">&quot;</span><span class="String">Man </span><span class="PreProc">$2</span><span class="String"> </span><span class="PreProc">$1</span><span class="Operator">&quot;</span> +<span class="Operator">&quot;</span><span class="String">only</span><span class="Operator">&quot;</span>
 <span id="L3" class="LineNr" data-LineNr-content="3 "><input type='invalid_input_type' class="LineNr" value="3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Function">}</span>
 </code>
-	</pre></div>
+	</pre>
 If you use vim, remember to add this to your vimrc:
 <code>runtime ftplugin/man.vim</code>
 as <code>:help ft-man-plugin</code> instructs you to.

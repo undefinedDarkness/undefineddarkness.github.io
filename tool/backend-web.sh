@@ -21,11 +21,9 @@
 
 # UTILITIES:
 
-IMPORT_POLYFILL=0
 # Generate syntax highlighted html code
 # using Vim's :TOHtml command
 __syntax_hl () {
-	IMPORT_POLYFILL=1
 	lang="$2"
 	f=$(mktemp)
 	echo "$1" | head -n -1 | nvim -n --headless \
@@ -38,20 +36,39 @@ __syntax_hl () {
 		+"q!" - 2> /dev/null 
 	l=$(cat "$f")
 	
+	(
 	style=${l#</style>*}
 	style=${style%*<style>}
 	style=${style#*<!--}
 	style=${style%%-->*}
-	
+	style=${style/pre \{/pre.vim-highlight \{}
+	style=${style//input/.vim-highlight input}
+	IFS=$'\n' 
+	read -d '' -r -a existing_styles < ./assets/styles.css
+
+	while read -r line; do
+		case "$line" in
+			"*"*|"body"*)
+				continue
+				;;
+		esac
+		if containsArray "$line" "${existing_styles[@]}"; then
+				continue
+			else
+			# assume style is not found.
+			existing_styles+=("$line")
+		fi
+	done <<< "$style"
+	printf "${existing_styles[*]}" > ./assets/styles.css
+	) &
+
 	code=${l%</pre>*}
 	code=${code#*<pre id=\'vimCodeElement\'>$'\n'}
 
 	# TODO: Fix vim's css and dont rely on scoped css to make the problem magically go away!
-	echo "<div style='display: grid'>
-	<style scoped>$style</style>
-	<pre>
-	<code lang=\"$lang\">$code</code>
-	</pre></div>"
+	echo "<pre class="vim-highlight">
+	<code class=\"language-$lang\">$code</code>
+	</pre>"
 
 	rm "$f"
 }
@@ -60,7 +77,7 @@ __syntax_hl () {
 
 # Put the content in a box. Simple enough
 box () {
-	printf "<div style=\"border: 1px solid; padding: 0px 16px; margin: 8px 0; \">\n%s\n</div>" "$1"
+	printf "<div class='box'>\n%s\n</div>" "$1"
 }
 
 # NOTE: This is very unsafe.
@@ -79,7 +96,7 @@ right_align () {
 
 # Center align text while preserving indentation: useful for ascii art
 preserve_center () {
-	printf "<div style=\"display: flex; justify-content: center; align-items: center\"><pre style=\"all: revert\">\n%s\n</pre></div>" "$1"
+	printf "<div class='preserve-center'><pre>\n%s\n</pre></div>" "$1"
 }
 
 # Center align without preserving.
@@ -160,3 +177,10 @@ initial_transformer () {
 	echo "$out"
 }
 
+final_transformer () {
+	out="$1"
+	while read -r a; do
+		out=${out/"$a"/<a href=\"$a\">$a</a>}
+	done < <(grep -Po '(?<!")https?://\S+' <<< "$out")
+	echo "$out"
+}
