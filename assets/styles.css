@@ -15,7 +15,7 @@ a {
 	color: skyblue;
 	text-decoration: none;
 }
-footer { display: flex }
+footer { display: flex; margin-top: 2em; }
 pre {
 	background: #222;
 	padding: 8px;

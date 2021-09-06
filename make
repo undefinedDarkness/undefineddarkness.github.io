@@ -14,7 +14,7 @@ post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
 process () {
 	out=${2/.${out#*.}/.html}
 	mkdir -p "$(dirname "$out")"
-	printf "\nBuilding $1 -> $out\n"
+	printf "\nBuilding \033[34m$1\033[0m \033[32m->\033[0m \033[34m$out\033[0m\n"
 
 	x=${out%%.html}
 	x=${x##out/}
@@ -48,15 +48,15 @@ case $1 in
 
 	# Serve files with hot reloading
 	live)
-		live-server --no-browser --port=$port --ignore=out --ignore=src & 
-		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")" | entr ./make
+		live-server --no-browser --port=$port --ignore=out --ignore=src &  
+		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr ./make
 		;;
 
 	# Generates a super simple index of all the articles found
 	index)
 		while read -r file; do
 			filename=${file%%.html}
-			printf "<a href=\"$file\">${filename/out\//}</a>\n"
+			printf "<a href=\"$file\">${filename##out/}</a>\n"
 		done < <(find out/ -type f -not -name "index.html")
 		;;
 
@@ -76,7 +76,13 @@ case $1 in
 		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt}; do
 			build "$file"
 		done
+		# Post Build
 		mv ./out/index.html .
+		
+		echo "${pre/!TITLE!/Full Index}" > out/index.html
+		NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
+		echo "$post" >> out/index.html
+
 		printf "\nFinished!\n"
 	;;
 esac
