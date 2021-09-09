@@ -145,7 +145,7 @@ initial_transformer () {
 		text=$(echo "$a" | grep -Po '(?<=\[)[^\]]+(?=\])')
 		mod="<a href=\"${url}\">${text}</a>"
 		out=${out/"$a"/"$mod"}
-	done < <( grep -Po '\[[^\]]+\]\(.*\)' <<< "$out" )
+	done < <( grep -Po '\[[^\]]+\]\(.*?\)' <<< "$out" )
 	
 	# Markdown Code
 	while read -r -d $'\0' match; do
