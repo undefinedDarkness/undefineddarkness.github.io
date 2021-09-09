@@ -4,7 +4,7 @@ figlet Vi Improved
 #END SH-SCRIPT
 #END PRESERVE-CENTER
 #CENTER
-<i> Just a collection of cool stuff I find relatived to the vim text editor :) </i>
+<i> Just a collection of cool stuff I find related to the vim text editor :) </i>
 #END CENTER
 
 ### Plugins
@@ -38,6 +38,7 @@ figlet Vi Improved
 Making the most out of vanilla vim features
 
 #### NetRW 
+Using NetRW as a file tree.
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
 ```vim
@@ -48,7 +49,8 @@ let g:netrw_liststyle = 3 " Show files in tree form
 ```
 See what each option does with `:help netrw-browser-settings`
 
-#### Improving vim's :grep command 
+#### :Grep
+Improving the :grep command to work similar to how [ack.vim](https://github.com/mileszs/ack.vim) works
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
 final snippet:
 ```vim
@@ -68,7 +70,7 @@ augroup END
 If and only if you indent with tabs, vim can bestow upon you a slick tabline:
 `set list lcs=tab:\│\`
 
-### Export to HTML 
+#### Export to HTML 
 This is a pretty neat capability I did not know vim had,
 By the power of an included plugin, You can run `:TOhtml` to convert the entire current file to a HTML that will be opened in a new buffer
 And you can script it! Like so:
@@ -80,7 +82,7 @@ echo "$0" | head -n -1 | nvim -n --headless \
 	+"let g:html_ignore_folding = 0"\
 	+'let g:html_prevent_copy = "fn"'\
 	+"set ft=$1"\
-	+"runtime! syntax/1html.vim"\
+	+"runtime! syntax/2html.vim"\
 	+"wq! $f"\
 	+"q!" - 1> /dev/null
 ```
@@ -106,6 +108,19 @@ man () {
 If you use vim, remember to add this to your vimrc:
 `runtime ftplugin/man.vim`
 as `:help ft-man-plugin` instructs you to.
+
+* This has some issues like files like `./local.man` but I dont often use this so its not a problem for me.
+
+#### Linting 
+Here are a few useful gists on the topic:
+https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252
+https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
+ 
+What I did to get `shellcheck` to work:
+- Setup an autocommand to set the `compiler` to `shellcheck -f gcc` for any shell files
+- Used https://github.com/mh21/errormarker.vim to get ALE like markings
+- From errormarker's readme: `let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat`
+- Made vim run `:make` on file write.
 
 #CENTER
 <i>~ More to come.. maybe 🚧 ~</i>

@@ -72,6 +72,7 @@ case $1 in
 
 	# Build Files
 	*)
+		rm -r out
 		mkdir -p src out
 		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt}; do
 			build "$file"
