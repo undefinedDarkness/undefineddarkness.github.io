@@ -7,8 +7,11 @@
 port=5000
 
 # Extract relevant parts of the template
-pre=$(grep -Pzo '[^$]+(?=!CONTENT!)' template.html | tr -d '\0') # Posixify
-post=$(grep -Pzo '(?<=!CONTENT!)[^$]+' template.html | tr -d '\0') # Posixify
+template=$(cat template.html)
+pre=${template%%\!CONTENT\!*} # Posixify
+post=${template##*\!CONTENT\!} # Posixify
+
+server="deno run --unstable -A ./tool/server/server.ts"
 
 # General multi purpose build process
 process () {
@@ -48,8 +51,9 @@ case $1 in
 
 	# Serve files with hot reloading
 	live)
-		live-server --no-browser --port=$port --ignore=out --ignore=src &  
-		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr ./make
+		pkill "${server% *}"
+		$server --port=$port --ignore=out,src --live=false &  
+		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr -p ./make build /_
 		;;
 
 	# Generates a super simple index of all the articles found
@@ -62,7 +66,8 @@ case $1 in
 
 	# Serve without hot realoading
 	serve)
-		python3 -m http.server $port &
+		$server --live=false --port=$port &
+		#python3 -m http.server $port &
 		;;
 
 	# Clean output directory and index.
@@ -70,7 +75,17 @@ case $1 in
 		rm -rv out index.html
 		;;
 
+
 	# Build Files
+	
+	build)
+		shift
+		for file in "$@"; do
+			build "$file"
+		done
+		kill -s SIGUSR1 $(pgrep deno) 2> /dev/null 
+		;;
+
 	*)
 		rm -r out
 		mkdir -p src out
@@ -81,8 +96,10 @@ case $1 in
 		mv ./out/index.html .
 		
 		echo "${pre/!TITLE!/Full Index}" > out/index.html
-		NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
+		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
+
+		kill -s SIGUSR1 $(pgrep deno) 2> /dev/null 
 
 		printf "\nFinished!\n"
 	;;

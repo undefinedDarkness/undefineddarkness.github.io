@@ -59,3 +59,15 @@ trim() {
     var="${var%"${var##*[![:space:]]}"}"   
     printf '%s' "$var"
 }
+
+# Find And Replace - Taken from https://github.com/kisslinux/kiss/blob/master/kiss#L106-L118 
+fnr() {
+    _fnr=$1
+    shift 1
+
+    while :; do case $_fnr-$# in
+        *"$1"*) _fnr=${_fnr%"$1"*}${2}${_fnr##*"$1"} ;;
+           *-2) break ;;
+             *) shift 2
+    esac done
+}

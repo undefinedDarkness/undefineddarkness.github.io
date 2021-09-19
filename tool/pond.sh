@@ -25,7 +25,6 @@ fi
 
 # Load backend
 dbg "Using backend: \e[33m$backend\e[0m"
-# shellcheck source=backend-web.sh
 . "$backend"
 transformers="${transfomers:-$(grep -Po '^\w+ (?=\(\))' "$backend" | tr '\n' ' ')}" 
 dbg "Available Transformers: $transformers"
@@ -79,7 +78,9 @@ _line_number=0
 				new_contents="$( $(_normalize "$transformer") "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
 				
 				# Entire Modified File Contents
-				new_file_contents=${file/"$original_contents"/"$new_contents"} #$(echo "$file" | $_script_dir/reeplace "$original_contents" "$new_contents")
+				new_file_contents=${file/"$original_contents"/"$new_contents"}
+				#fnr "$file" "$original_contents" "$new_contents"
+				#new_file_contents="$_fnr"
 				
 				# This check fixes stuff.. idk why
 				if [ -n "$new_file_contents" ]; then
