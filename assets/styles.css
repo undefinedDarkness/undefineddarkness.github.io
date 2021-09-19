@@ -127,3 +127,18 @@ pre.vim-highlight { font-family: monospace; color: #afafaf; background-color: #2
 .Type { color: #d7af87; }
 .Normal { color: #afafaf; background-color: #262626; padding-bottom: 1px; }
 .Function { color: #00afff; }
+pre.vim-highlight { font-family: monospace; color: #d7d7d7; background-color: #3a3a3a; }
+.Operator { color: #ffffd7; }
+.LineNr { color: #a8a8a8; background-color: #262626; padding-bottom: 1px; }
+.Statement { color: #d7d7af; }
+.Special { color: #d7afaf; }
+.String { color: #d78787; }
+.Identifier { color: #ffd7af; }
+.PreProc { color: #ffd7af; font-weight: bold; }
+.Comment { color: #87af87; }
+.Conditional { color: #ffd7af; font-weight: bold; }
+.Number { color: #87d7d7; }
+.Delimiter { color: #8a8a8a; }
+.Type { color: #d7d7af; font-weight: bold; }
+.Normal { color: #d7d7d7; background-color: #3a3a3a; padding-bottom: 1px; }
+.Function { color: #ffff87; }

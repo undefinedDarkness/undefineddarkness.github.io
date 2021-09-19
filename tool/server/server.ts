@@ -1,15 +1,14 @@
 // File System, Argument Parser, Path Library
 import {
   basename,
-  extname,
   globToRegExp,
   join,
 } from "https://deno.land/std@0.107.0/path/mod.ts";
-import { existsSync } from "https://deno.land/std@0.107.0/fs/mod.ts";
 import { parse } from "https://deno.land/std@0.107.0/flags/mod.ts";
 
 // Helpers
-import { getMimeType, getTree, humanFileSize } from "./helpers.ts";
+// TODO: Implement Some Class
+import { humanFileSize, serveFile } from "./helpers.ts";
 
 // Initialize Server.
 const args = parse(Deno.args, {
@@ -50,7 +49,6 @@ socket.addEventListener('close', () => { console.log('🔥: Connection Closed') 
 </script>
 `;
 
-// {{{
 let sockets: WebSocket[] = [];
 const loadedFiles: Set<string> = new Set();
 
@@ -60,13 +58,11 @@ async function serveConnection(conn: Deno.Conn) {
 
   for await (const request of connection) {
     // TODO: maybe the join isnt required?
-    let path = join(
+    const path = join(
       ".",
       request.request.url
         .replace(/https?:\/\/[^\/]+/, ""), // Strip everything but route
     );
-
-    const headers = new Headers();
 
     if (path == "ws-connect") {
       const { socket, response } = Deno.upgradeWebSocket(request.request);
@@ -79,86 +75,12 @@ async function serveConnection(conn: Deno.Conn) {
         "\u001b[32mWS-CONNECT\u001b[0m Total connected sockets: " +
           sockets.length,
       );
-      return;
+    } else {
+      const x = await serveFile(path, request, SCRIPT);
+      !!x && loadedFiles.add(x);
     }
-
-    if (!existsSync(path)) {
-      request.respondWith(
-        new Response("File Not Found.", {
-          status: 404,
-          headers,
-        }),
-      );
-      return;
-    }
-
-    const info = await Deno.stat(path);
-
-    if (
-      info.isDirectory && existsSync(join(path, "index.html"))
-    ) {
-      path = join(path, "index.html");
-    }
-    console.log("\u001b[34mREQ\u001b[0m " + path);
-
-    // Embed Script {{{
-    if (path.includes(".html")) {
-      // Embed Script & Return
-      headers.set("content-type", "text/html");
-
-      const data = new TextDecoder("utf-8").decode(await Deno.readFile(path)) +
-        SCRIPT;
-
-      request.respondWith(
-        new Response(data, {
-          status: 200,
-          headers,
-        }),
-      );
-
-      loadedFiles.add(path);
-    } // }}}
-
-    // Guess Mime Type & Return File {{{
-    else if (info.isFile) {
-      let mimeType;
-      switch (extname(path)) {
-        case ".css":
-          mimeType = "text/css";
-          break;
-        case ".js":
-          mimeType = "text/javascript";
-          break;
-        case ".html":
-          mimeType = "text/html";
-          break;
-        default:
-          mimeType = await getMimeType(path);
-      }
-      headers.set("content-type", mimeType);
-      request.respondWith(
-        new Response(await Deno.readFile(path), {
-          status: 200,
-          headers,
-        }),
-      );
-      loadedFiles.add(path);
-    } 
-
-    // File Tree {{{
-    else if (info.isDirectory) {
-      headers.set("content-type", "text/html");
-      request.respondWith(
-        new Response(await getTree(path), {
-          status: 200,
-          headers,
-        }),
-      );
-    }
-    // }}}
   }
 }
-// }}}
 
 async function server() {
   const server = Deno.listen({ port: PORT });
@@ -185,13 +107,13 @@ async function fileWatcher() {
       event.paths = event.paths.filter((path) =>
         !args.ignorePatterns.some((pat: RegExp) => path.match(pat))
       );
-      
-	  if (
-        event.paths.length > 0 &&
-        event.paths.some((f) => loadedFiles.has(basename(f)))
+
+      if (
+        event.paths.length > 0 && // Make sure list isnt empty
+        event.paths.some((f) => loadedFiles.has(basename(f))) // See if any file has been loaded
       ) {
         console.log("\u001b[31mFS\u001b[0m Loaded file was updated");
-        sockets.forEach((sock) => sock.send("UPDATE")); // TODO: complex shit here
+        sockets.forEach((sock) => sock.send("UPDATE"));
       }
       lastEvent = now;
     }
@@ -200,7 +122,7 @@ async function fileWatcher() {
 
 const listenToSignals = async () => {
   for await (const _ of Deno.signal("SIGUSR1")) {
-	  console.log('\u001b[34mSIG\u001b[0m Update Signal Recieved')
+    console.log("\u001b[34mSIG\u001b[0m Update Signal Recieved");
     sockets.forEach((sock) => sock.send("UPDATE"));
   }
 };
