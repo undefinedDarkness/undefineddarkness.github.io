@@ -1,8 +1,20 @@
-import { existsSync } from "https://deno.land/std@0.107.0/fs/mod.ts";
 import {
   extname,
   join,
 } from "https://deno.land/std@0.107.0/path/mod.ts";
+
+function existsSync(filePath: string): boolean {
+  try {
+    Deno.lstatSync(filePath);
+    return true;
+  } catch (err) {
+    if (err instanceof Deno.errors.NotFound) {
+      return false;
+    }
+    throw err;
+  }
+}
+
 // Use `file` to get mime type
 export async function getMimeType(path: string) {
   const process = Deno.run({

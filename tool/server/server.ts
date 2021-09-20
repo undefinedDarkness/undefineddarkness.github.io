@@ -47,7 +47,7 @@ port         - Port number
 args.ignorePatterns = [];
 args.ignore.split(",").forEach((item: string) => {
   if (item.length > 0) {
-    args.ignorePatters.push(
+    args.ignorePatterns.push(
       globToRegExp(item, { extended: true, globstar: true }),
     );
   }

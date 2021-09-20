@@ -30,7 +30,6 @@ process () {
 	#out=${2/.${out#*.}/.html}
 	fnr "$2" ".${2#*.}" ".html"
 	out=$_fnr
-	
 
 	mkdir -p "$(dirname "$out")"
 	printf "\nBuilding \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n" "$1" "$out"
@@ -47,8 +46,6 @@ process () {
 
 # Primary Build Function - handles every file
 build () {
-	# Output File Path
-	#out=${1/src/out}
 	fnr "$1" "src" "out"
 	out=$_fnr
 
@@ -65,6 +62,13 @@ build () {
 			;;
 	esac
 
+}
+
+gen_index () {
+		fnr "$pre" "!TITLE!" "Full Index"
+		echo "$_fnr" > out/index.html # TODO: Integrate tree script here
+		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
+		echo "$post" >> out/index.html
 }
 
 case $1 in
@@ -103,6 +107,7 @@ case $1 in
 			build "$file"
 		done
 		kill -s USR1 "$(pgrep deno)" # In POSIX, There is no SIG... prefix 
+		gen_index &
 		;;
 
 	*)
@@ -113,11 +118,8 @@ case $1 in
 		done
 		# Post Build
 		mv ./out/index.html .
-	
-		fnr "$pre" "!TITLE!" "Full Index"
-		echo "$_fnr" > out/index.html # TODO: Integrate tree script here
-		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
-		echo "$post" >> out/index.html
+		gen_index 
+
 
 		p=$(pgrep deno)
 		[ -n "$p" ] && kill -s USR1 "$p" # 2> /dev/null 
