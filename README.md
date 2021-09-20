@@ -1,7 +1,7 @@
 👋 Hello! This is the repo for my [site](https://undefineddarkness.github.io/) and
 some of the tools used to make it.
 
-Ngl, I mostly make the site as a fun programming challenge so there isnt much of a actual content
+Not gonna lie, I mostly make the site as a fun programming challenge so there is not much of a actual content
 
 ## Pond & Toad
 Both toad and pond are written in bash and should be fairly simple to modify.
@@ -10,13 +10,13 @@ Both toad and pond are written in bash and should be fairly simple to modify.
 <summary>Reasoning</summary>
 
 Because I like it this way, and I learnt something making them (mostly how to make bad regex but minor details >:) )
-Most SSG's I have tried (tho I havent tried many) - make me feel limited and I cant figure out a way to do it withuot breaking the 
+Most SSG's I have tried (tho I have not tried many) - make me feel limited and I cant figure out a way to do it withuot breaking the 
 SSG's structure - they also have a super complicated themeing setup and generally force you to do things *their* way.
-I like to think toad doesnt do this since it is just one plaintext file and everything can be modified to fit your needs perfectly
+I like to think toad does not do this since it is just one plain text file and everything can be modified to fit your needs perfectly
 
 Pond I made because I was unhappy with how markdown handles newlines and wanted some more customization over how my format generated html.
 Its really simple to extend and its entire syntax can be changed by modifying 2 files: `pond.sh` & `backend-web.sh`
-I plan to allow pond to generate Manpages at some point but that is in the far future.
+I plan to allow pond to generate Man pages at some point but that is in the far future.
 
 </details>
 
@@ -68,6 +68,10 @@ Its functions are very simple:
 
 ## TODO:
 - [ ] Integrate tree script with `make`
+- [ ] Refactor large parts of `pond`
+- [ ] Implement bold, italic, strikethrough
+- [ ] Make `<h2>` automatically create summaries (for folding)
 - [x] Get rid of `reeplace`
 - [x] Make pond faster
 - [x] Documentation for bento
+

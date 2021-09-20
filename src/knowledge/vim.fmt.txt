@@ -119,9 +119,12 @@ https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
 What I did to get `shellcheck` to work:
 - Setup an autocommand to set the `compiler` to `shellcheck -f gcc` for any shell files
 - Used https://github.com/mh21/errormarker.vim to get ALE like markings
-- From errormarker's readme: `let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat`
+- From error marker's readme: `let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat`
 - Made vim run `:make` on file write.
 
+Actually I have reconsidered this, its way too painful for anything complicated or over multiple lines, its a lot
+simpler to just use ALE.
+
 #CENTER
-<i>~ More to come.. maybe 🚧 ~</i>
+<i>~ More to come.. Maybe 🚧 ~</i>
 #END CENTER
