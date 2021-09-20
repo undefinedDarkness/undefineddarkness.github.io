@@ -67,6 +67,7 @@ Its functions are very simple:
 - Be reasonably performant
 
 ## TODO:
+- [ ] Integrate tree script with `make`
 - [x] Get rid of `reeplace`
-- [ ] Make pond faster
-- [ ] Documentation for bento
+- [x] Make pond faster
+- [x] Documentation for bento

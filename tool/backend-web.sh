@@ -19,11 +19,34 @@
 
 # !!: Indicates a transformer that should be available everywhere
 
+# This is mostly for shellcheck, helpers are already imported when this is run
+# shellcheck source=helpers.sh
+#. $( dirname $0 )/helpers.sh
+
 # UTILITIES:
 
 # Generate syntax highlighted html code
 # using Vim's :TOHtml command
+
 __syntax_hl () {
+	printf "<pre>"
+	printf "$1" | highlight\
+		--syntax "$2"\
+		-q\
+		--force \
+		--stdout \
+		-l \
+		-f \
+		--inline-css \
+		--pretty-symbols \
+		--config-file=assets/zenburn.theme \
+		--no-version-info
+	printf "</pre>"
+}
+
+# TODO: Replace with GNU Source-Highlight, This is way too slow
+# There might be a way to make this faster but rn its slow as fuck
+__SLOW_syntax_hl () {
 	lang="$2"
 	f=$(mktemp)
 	echo "$1" | head -n -1 | nvim -n --headless \
@@ -36,6 +59,7 @@ __syntax_hl () {
 		+"q!" - 2> /dev/null 
 	l=$(cat "$f")
 	
+	# This is soo dumb ;-;
 	(
 	style=${l#</style>*}
 	style=${style%*<style>}
@@ -65,8 +89,7 @@ __syntax_hl () {
 	code=${l%</pre>*}
 	code=${code#*<pre id=\'vimCodeElement\'>$'\n'}
 
-	# TODO: Fix vim's css and dont rely on scoped css to make the problem magically go away!
-	echo "<pre class="vim-highlight">
+	echo "<pre class=\"vim-highlight\">
 	<code class=\"language-$lang\">$code</code>
 	</pre>"
 
@@ -83,10 +106,11 @@ box () {
 # NOTE: This is very unsafe.
 # !! Run a shell script and return its output.
 sh_script () {
-	f=$(mktemp)
-	echo "$1" >> "$f"
-	$SHELL "$f"
-	rm "$f" 
+	#f=$(mktemp)
+	#echo "$1" >> "$f"
+	#$SHELL "$f"
+	#rm "$f"
+	$1
 }
 
 # Right align text
@@ -138,15 +162,17 @@ table () {
 # Its counterpart: final_transformer is also available.
 initial_transformer () {
 	out="$1"
-	
+
+	# TODO: Use prebuilt parser?
 	# Markdown Links
 	while read -r a; do
 		url=$( echo "$a" | grep -Po '(?<=\().*(?=\))' )
 		text=$(echo "$a" | grep -Po '(?<=\[)[^\]]+(?=\])')
 		mod="<a href=\"${url}\">${text}</a>"
+		replaceList+=( "$a" "$mod" )
 		out=${out/"$a"/"$mod"}
 	done < <( grep -Po '\[[^\]]+\]\(.*?\)' <<< "$out" )
-	
+
 	# Markdown Code
 	while read -r -d $'\0' match; do
 		v=${match#\`\`\`}
@@ -155,7 +181,9 @@ initial_transformer () {
 		v=${v#$lang}
 		v=${v#$'\n'}
 		if [ -n "$lang" ]; then
-			v=$( __syntax_hl "$v" "$lang" )
+			v=$( __syntax_hl "$v" "$lang" ) 
+			# __syntax_hl only adds ~100ms
+			# __SLOW_syntax_hl makes the program take 10s instead of 0.5s
 		else
 			v="<pre><code lang=\"$lang\">$v</code></pre>"
 		fi
@@ -166,7 +194,7 @@ initial_transformer () {
 		v=${a#\`}
 		v=${v%\`}
 		out=${out/"$a"/<code>$v</code>}
-	done < <(grep -Po '`.*`' <<< "$out")
+	done < <(grep -Po '`.*?`' <<< "$out")
 
 	# Headers 
 	while read -r a; do

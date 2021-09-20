@@ -32,6 +32,7 @@ export async function getTree(path: string) {
   return output + "</html>";
 }
 
+const canUseFile = await Deno.permissions.query({ name: "run", command: "file" })
 export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT: string) {
 	const headers = new Headers();
     if (!existsSync(path)) {
@@ -83,7 +84,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
           mimeType = "text/html";
           break;
         default:
-          mimeType = await getMimeType(path);
+          mimeType = canUseFile ? await getMimeType(path) : ""
       }
       headers.set("content-type", mimeType);
       request.respondWith(

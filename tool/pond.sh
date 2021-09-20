@@ -35,8 +35,9 @@ file=$(cat "$1")
 # Comes from backend
 if contains "$transformers" "initial_transformer"; then
 	dbg "Running initial transformer."
+	timer start
 	file=$(initial_transformer "$file")
-	dbg "Done."
+	timer end
 fi
 
 fn () {
@@ -69,6 +70,7 @@ _line_number=0
 
 				ending=${ending%%:*}
 				ending=$(( _line_number + ending - 1 ))
+				timer start
 				dbg "Found ending for: $_line_number:#$transformer at $ending"
 				
 				# Original Contents
@@ -87,6 +89,7 @@ _line_number=0
 					file="$new_file_contents"
 				fi
 
+				timer end
 				fn "$1" 
 				break
 			;;

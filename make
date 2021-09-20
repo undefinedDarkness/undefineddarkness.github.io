@@ -86,7 +86,7 @@ case $1 in
 
 	# Serve without hot realoading
 	serve)
-		$server --live=false --port=$port &
+		$server --live=false --port=$port 
 		#python3 -m http.server $port &
 		;;
 
@@ -102,7 +102,7 @@ case $1 in
 		for file in "$@"; do
 			build "$file"
 		done
-		kill -s SIGUSR1 "$(pgrep deno)" 2> /dev/null 
+		kill -s USR1 "$(pgrep deno)" # In POSIX, There is no SIG... prefix 
 		;;
 
 	*)
@@ -115,11 +115,12 @@ case $1 in
 		mv ./out/index.html .
 	
 		fnr "$pre" "!TITLE!" "Full Index"
-		echo "$_fnr" > out/index.html
+		echo "$_fnr" > out/index.html # TODO: Integrate tree script here
 		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
 
-		kill -s SIGUSR1 "$(pgrep deno)" 2> /dev/null 
+		p=$(pgrep deno)
+		[ -n "$p" ] && kill -s USR1 "$p" # 2> /dev/null 
 
 		printf "\nFinished!\n"
 	;;

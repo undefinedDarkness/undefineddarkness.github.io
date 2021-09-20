@@ -88,7 +88,7 @@ echo "$0" | head -n -1 | nvim -n --headless \
 ```
 You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
 [Here](/assets/make.html) is a example file from the make script of this website.
-* This is now used to generate code syntax highlighting for this site.
+* <strike>~~This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow
 
 #### Improving :help and :Man 
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:

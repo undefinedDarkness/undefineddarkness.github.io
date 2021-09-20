@@ -63,14 +63,12 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
-<pre class=vim-highlight>
-	<code class="language-sh"><span id="L1" class="LineNr"><input type='invalid_input_type' class="LineNr" value="1" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>git clone <span class="Special">--recurse-submodules</span> <a href="https://github.com/lbonn/rofi"><a href="https://github.com/lbonn/rofi</a>">https://github.com/lbonn/rofi</a></a>
-<span id="L2" class="LineNr"><input type='invalid_input_type' class="LineNr" value="2" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span><span class="Statement">cd</span> rofi
-<span id="L3" class="LineNr"><input type='invalid_input_type' class="LineNr" value="3" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>meson setup build <span class="Special">-Dwayland</span><span class="Operator">=</span>enabled <span class="Special">--prefix=/usr/local</span>
-<span id="L4" class="LineNr"><input type='invalid_input_type' class="LineNr" value="4" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>ninja <span class="Special">-C</span> build
-<span id="L5" class="LineNr"><input type='invalid_input_type' class="LineNr" value="5" onselect='this.blur(); return false;' onmousedown='this.blur(); return false;' onclick='this.blur(); return false;' readonly='readonly' size="2"></span>ninja <span class="Special">-C</span> build install
-</code>
-	</pre>
+<pre><span style="color:#9fafaf">    1 </span>git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
+<span style="color:#9fafaf">    2 </span><span style="color:#dfdfbf; font-weight:bold">cd</span> rofi
+<span style="color:#9fafaf">    3 </span>meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
+<span style="color:#9fafaf">    4 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
+<span style="color:#9fafaf">    5 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
+</pre>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 <pre><code lang="">MOZ_ENABLE_WAYLAND=1 firefox

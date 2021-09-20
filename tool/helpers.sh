@@ -2,16 +2,16 @@
 
 # Warning / Error / Debug
 warn () {
-	printf "\e[33m[WARN]\e[0m %s\n" "$@" 1>&2
+	printf "\033[33m[WARN]\033[0m %s\n" "$@" 1>&2
 }
 
 err () {
-	printf "\e[31m[ERR]\e[0m %s\n" "$@" 1>&2
+	printf "\033[31m[ERR]\033[0m %s\n" "$@" 1>&2
 }
 
 dbg () {
 	if [ -n "${pond_debug:-}" ]; then
-		printf "%s\n" "$*"
+		printf "$*\n" #"$*"
 	fi
 }
 
@@ -60,7 +60,7 @@ trim() {
     printf '%s' "$var"
 }
 
-# Find And Replace - Taken from https://github.com/kisslinux/kiss/blob/master/kiss#L106-L118 
+# POSIX Find And Replace - Taken from https://github.com/kisslinux/kiss/blob/master/kiss#L106-L118 
 fnr() {
     _fnr=$1
     shift 1
@@ -70,4 +70,27 @@ fnr() {
            *-2) break ;;
              *) shift 2
     esac done
+}
+
+# Calculations
+calc() { awk "BEGIN{print $*}"; }
+
+# Time in Milliseconds
+ms () {
+	date +"%s%3N"
+}
+
+_start=0
+timer () {
+
+	[ -z "$pond_debug" ] && return
+
+	case $1 in
+		start)
+			_start=$(ms)
+			;;
+		end)
+			printf "Finished in \033[31m%d\033[0m ms\n\n" "$( calc "$(ms)-$_start" )"
+			;;
+	esac
 }

@@ -17,14 +17,41 @@ const args = parse(Deno.args, {
     superhuman: false,
     port: 5000,
     live: true,
+    help: false,
   },
-  boolean: ["superhuman", "live"],
+  boolean: ["superhuman", "live", "help"],
   string: ["ignorePatterns"],
   alias: { ignorePatterns: "ignore" },
 });
-args.ignorePatterns = args.ignore.split(",").map((item: string) =>
-  globToRegExp(item, { extended: true, globstar: true })
-);
+
+if (args.help) {
+  console.log(`
+\u001b[1m🍱 Bento\u001b[0m: A simple live server in deno
+----------------
+
+\u001b[4mUsage:\u001b[0m
+> deno run --unstable --allow-read --allow-net --allow-run server.ts [options]
+
+\u001b[4mOptions:\u001b[0m
+ignore       - A set of glob patterns to ignore file updates with (seperated with ,)
+superhuman   - Respond to every single fs event (no debouncing)
+live         - Enable/Disable File System Watching
+port         - Port number
+
+* The server uses the \`file\` program to get mimetypes, it can be run without the --allow-run flag
+    `);
+	Deno.exit(0);
+}
+
+// TODO: maybe a set here?
+args.ignorePatterns = [];
+args.ignore.split(",").forEach((item: string) => {
+  if (item.length > 0) {
+    args.ignorePatters.push(
+      globToRegExp(item, { extended: true, globstar: true }),
+    );
+  }
+});
 console.dir("Parsed Arguments: " + JSON.stringify(args, null, 2));
 const PORT = args.port;
 
