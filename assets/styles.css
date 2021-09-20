@@ -9,6 +9,7 @@ article {
 body {
 	background-color: #111;
 	color: #fafafa;
+	overflow-x: hidden;
 	font-size: 1em;
 }
 a {
@@ -43,4 +44,13 @@ pre {
 .preserve-center pre {
 	all: revert;
 }
+
+td,th {
+	border: 1px solid;
+	padding: 5px;
+}
+table {
+	border-collapse: collapse;
+}
+
 

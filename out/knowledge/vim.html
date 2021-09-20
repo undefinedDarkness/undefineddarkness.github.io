@@ -129,11 +129,14 @@ Here are a few useful gists on the topic:
 What I did to get <code>shellcheck</code> to work:
 - Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files
 - Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings
-- From errormarker's readme: <code>let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat</code>
+- From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat</code>
 - Made vim run <code>:make</code> on file write.
 
+Actually I have reconsidered this, its way too painful for anything complicated or over multiple lines, its a lot
+simpler to just use ALE.
+
 <p style="text-align:center">
-<i>~ More to come.. maybe 🚧 ~</i>
+<i>~ More to come.. Maybe 🚧 ~</i>
 </p>
 
 			<footer>

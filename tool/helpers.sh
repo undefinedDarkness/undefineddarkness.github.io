@@ -94,3 +94,7 @@ timer () {
 			;;
 	esac
 }
+
+export NEWL="
+"
+export TAB="	"

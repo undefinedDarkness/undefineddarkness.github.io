@@ -77,7 +77,7 @@ case $1 in
 	live)
 		pkill "${server% *}"
 		$server --port=$port --ignore=out,src --live=false &  
-		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr -p ./make build /_
+		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr ./make # build /_
 		;;
 
 	# Generates a super simple index of all the articles found

@@ -133,25 +133,29 @@ center () {
 # and the rows denoted by newlines
 table () {
 	content="$1"
-	shift 2
-
-	printf "<table>\n<tr>\n"
-	for column in "$@"; do
-		echo "<th>$column</th>"
-	done
-	echo "</tr>"
-
-	while read -r row; do
+	shift
+	printf "<table>\n"
+	print_row () {
+		columns=${1#\#TABLE}
+		IFS=$TAB
 		echo "<tr>"
-		IFS=$'\t'
-		for column in $row; do
-			[ -z "$column" ] && continue;
-			echo "<td>$( trim "$column" )</td>"
+		for column in $columns; do
+			# Problem? Use a bashism!
+			if [ -n "${column// }" ]; then
+				echo "<${2:-td}>$column</${2:-td}>"
+			fi
 		done
 		echo "</tr>"
+	}
+
+	echo "<thead>"
+	print_row "$1" "th"
+	printf "</thead>\n<tbody>\n"
+	while read -r row; do
+		print_row "$row"
 	done <<< "$content"
 
-	echo "</table>"
+	echo "</tbody></table>"
 }
 
 # PREDEFINED TRANSFORMERS

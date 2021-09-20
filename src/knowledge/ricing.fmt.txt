@@ -37,4 +37,16 @@ Besides colors, in terms of functionality you are free to find / forge whatever 
 // TODO: List popular plugins here
 
 ## Terminal
-I am bored now.
+
+
+### Comparison
+#TABLE	NAME	Ligatures	True Color	Fallback Fonts	Open Type Features	Bitmaps	Wayland	Tabs / Splits	Images	Config			GPU		✨
+Wezterm			Y			Y			Y				Y					Y		Y		Y			  Y		Lua				Y		10/10
+Alacritty		P			Y			N				N					Y		Y		N			  N		Yaml			Y		5/10
+Kitty			Y			Y			N				Y					N		Y		Y			  Y		Custom			Y		8/10
+Xterm			N			N			N				N					Y		N		N			  N		Xres			N		5/10
+St				P			Y			P				N					Y		N		N			  P		C Header		N		8/10
+Foot			N			Y			Y				N					Y		Y		N			  Y		INI				N		~
+#END TABLE
+
+Foot is wayland only.
