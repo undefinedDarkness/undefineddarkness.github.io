@@ -21,7 +21,7 @@
 
 # This is mostly for shellcheck, helpers are already imported when this is run
 # shellcheck source=helpers.sh
-#. $( dirname $0 )/helpers.sh
+. $( dirname $0 )/helpers.sh
 
 # UTILITIES:
 
@@ -30,7 +30,7 @@
 
 __syntax_hl () {
 	printf "<pre>"
-	printf "$1" | highlight\
+	highlight\
 		--syntax "$2"\
 		-q\
 		--force \
@@ -40,12 +40,11 @@ __syntax_hl () {
 		--inline-css \
 		--pretty-symbols \
 		--config-file=assets/zenburn.theme \
-		--no-version-info
+		--no-version-info <<< "$1"
 	printf "</pre>"
 }
 
-# TODO: Replace with GNU Source-Highlight, This is way too slow
-# There might be a way to make this faster but rn its slow as fuck
+# Replaced. {{{
 __SLOW_syntax_hl () {
 	lang="$2"
 	f=$(mktemp)
@@ -95,6 +94,7 @@ __SLOW_syntax_hl () {
 
 	rm "$f"
 }
+# }}}
 
 # TRANSFORMERS:
 
@@ -165,48 +165,78 @@ table () {
 # following the markdown syntax.
 # Its counterpart: final_transformer is also available.
 initial_transformer () {
-	out="$1"
+	line_no=0
 
-	# TODO: Use prebuilt parser?
-	# Markdown Links
-	while read -r a; do
-		url=$( echo "$a" | grep -Po '(?<=\().*(?=\))' )
-		text=$(echo "$a" | grep -Po '(?<=\[)[^\]]+(?=\])')
-		mod="<a href=\"${url}\">${text}</a>"
-		replaceList+=( "$a" "$mod" )
-		out=${out/"$a"/"$mod"}
-	done < <( grep -Po '\[[^\]]+\]\(.*?\)' <<< "$out" )
+	code_lang=
+	code_block=
+	code_content=
 
-	# Markdown Code
-	while read -r -d $'\0' match; do
-		v=${match#\`\`\`}
-		v=${v%\`\`\`}
-		lang=$( grep -Po -m1 '```\K.*' <<< "$match" )
-		v=${v#$lang}
-		v=${v#$'\n'}
-		if [ -n "$lang" ]; then
-			v=$( __syntax_hl "$v" "$lang" ) 
-			# __syntax_hl only adds ~100ms
-			# __SLOW_syntax_hl makes the program take 10s instead of 0.5s
-		else
-			v="<pre><code lang=\"$lang\">$v</code></pre>"
+	
+	IFS=''
+	while read -r line; do
+		line_no=$(( line_no + 1 ))
+		case "$line" in
+			# Headings
+			"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
+				heading=${line%% *}
+				echo "<h${#heading}>${line##${heading} }</h${#heading}>"
+				;;
+			
+			# Block of code
+			'```'*)
+				# Not currently in code block
+				if [ -z "$code_block" ]; then
+					code_lang=${line#'```'}
+					code_block=1
+				else
+					#printf "$code_content"
+					__syntax_hl "${code_content#-$NEWL}" "$code_lang"
+					code_content=
+					code_block= 
+					code_lang=
+				fi
+				;;
+			
+			# Inline code
+			*\`*\`*)
+				while true; do
+					if  [[ "$line" =~ \`[^\`]+\` ]]; then
+						fnr "$line" "${BASH_REMATCH[0]}" "<code>${BASH_REMATCH//\`/}</code>"
+						line=$_fnr
+					else
+						break
+					fi
+				done
+				;;&
+			# Markdown links
+			*\[*\]\(*\)*)
+				while true; do
+					if  [[ "$line" =~ \[.*\]\(.*\) ]]; then
+						txt=${BASH_REMATCH#*[}
+						txt=${txt%]*}
+						link=${BASH_REMATCH%)*}
+						link=${BASH_REMATCH#*(}
+						line=${line/${BASH_REMATCH[0]}/<a href=\"${link}\">${txt}</a>}
+						#fnr "$line" "${BASH_REMATCH[0]}" "<a href=\"${link}\">${txt}</a>"
+						line=$_fnr
+					else
+						break
+					fi
+				done
+			;;
+
+			# Nothing, just reprint
+			*)
+				[ -z "$code_block" ] && echo "$line"
+		esac
+		
+			
+		if [ -n "$code_block" ] && [ -n "$code_content" ]; then
+			code_content="$code_content"$NEWL"$line"
+		elif [ -n "$code_block" ]; then
+			code_content="-"
 		fi
-		out=${out/"$match"/"$v"}
-	done < <(grep -Pzo '(?s)```.*?```' <<< "$out")
-
-	while read -r a; do
-		v=${a#\`}
-		v=${v%\`}
-		out=${out/"$a"/<code>$v</code>}
-	done < <(grep -Po '`.*?`' <<< "$out")
-
-	# Headers 
-	while read -r a; do
-		h=${a%% *}
-		out=${out/"$a"/<h${#h}>${a#* }</h${#h}>}
-	done < <(grep -Po '^#+ .*' <<< "$out")
-
-	echo "$out"
+	done <<< "$1"
 }
 
 final_transformer () {

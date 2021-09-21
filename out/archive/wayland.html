@@ -33,7 +33,7 @@ This is intended to chronicle my adventures using Wayland
 The primary reason being terrible performance in X11 but that was later resolved. :)
 The journey continues tho 📔
 
-<h2>Window Manager (Compositor)</h2> 
+<h2>Window Manager (Compositor) </h2>
 <i>I know its called a compositer but I am going to call it a window manager >:(</i>
 To fulfill this purpose I chose <a href="https://swaywm.org/">sway</a> as its the one I felt I could most get used to
 since I had used its Xorg brother (i3) for a long while
@@ -53,7 +53,7 @@ Wayland seems a bit more fiddly compared to the centralized xorg in terms of rec
 but its not that bad. I had to use <a href="https://github.com/emersion/grim">grim</a> along with this <a href="https://github.com/swaywm/sway/blob/master/contrib/grimshot">script</a> from sway to get
 Nothing particularly difficult but not as cohesive as id like :/
 
-<h2>Moving from Xorg</h2> 
+<h2>Moving from Xorg </h2>
 This is a bit of a generic header but oh well
 
 Much to my surprise this wasnt as bad as I thought it would be,
@@ -68,12 +68,10 @@ Although most of them required tweaking in some form or another
 <span style="color:#9fafaf">    3 </span>meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
 <span style="color:#9fafaf">    4 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
 <span style="color:#9fafaf">    5 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
-</pre>
-<p></p>
+</pre><p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
-<pre><code lang="">MOZ_ENABLE_WAYLAND=1 firefox
-</code></pre>
-** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
+<pre><span style="color:#9fafaf">    1 </span>MOZ_ENABLE_WAYLAND=1 firefox
+</pre>** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 
 <h3>Bars</h3>

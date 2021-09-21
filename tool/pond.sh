@@ -30,6 +30,7 @@ transformers="${transfomers:-$(grep -Po '^\w+ (?=\(\))' "$backend" | tr '\n' ' '
 dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
+__start=$(ms)
 file=$(cat "$1")
 
 # Comes from backend
@@ -101,7 +102,11 @@ fn "$1"
 
 # Comes from backend
 if contains "$transformers" "final_transformer"; then
+	dbg "Final Transformer"
+	timer start
 	file=$(final_transformer "$file")
+	timer end
 fi
 
 echo "$file"
+dbg "Finished in \033[34m$(calc "$(ms)-$__start")\033[0mms"

@@ -68,7 +68,7 @@ Its functions are very simple:
 
 ## TODO:
 - [ ] Integrate tree script with `make`
-- [ ] Refactor large parts of `pond`
+- [x] Refactor large parts of `pond`
 - [ ] Implement bold, italic, strikethrough
 - [ ] Make `<h2>` automatically create summaries (for folding)
 - [x] Get rid of `reeplace`
