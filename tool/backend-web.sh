@@ -21,7 +21,7 @@
 
 # This is mostly for shellcheck, helpers are already imported when this is run
 # shellcheck source=helpers.sh
-. $( dirname $0 )/helpers.sh
+. "$( dirname "$0" )"/helpers.sh
 
 # UTILITIES:
 
@@ -189,8 +189,8 @@ initial_transformer () {
 					code_lang=${line#'```'}
 					code_block=1
 				else
-					#printf "$code_content"
 					__syntax_hl "${code_content#-$NEWL}" "$code_lang"
+					# Reset state
 					code_content=
 					code_block= 
 					code_lang=
@@ -201,28 +201,18 @@ initial_transformer () {
 			*\`*\`*)
 				while true; do
 					if  [[ "$line" =~ \`[^\`]+\` ]]; then
-						fnr "$line" "${BASH_REMATCH[0]}" "<code>${BASH_REMATCH//\`/}</code>"
-						line=$_fnr
+						#fnr "$line" "${BASH_REMATCH[0]}" "<code>${BASH_REMATCH//\`/}</code>"
+						#line=$_fnr
+						line=${line/${BASH_REMATCH[0]}/<code>${BASH_REMATCH//\`/}</code>}
 					else
 						break
 					fi
 				done
-				;;&
+				;;
 			# Markdown links
-			*\[*\]\(*\)*)
-				while true; do
-					if  [[ "$line" =~ \[.*\]\(.*\) ]]; then
-						txt=${BASH_REMATCH#*[}
-						txt=${txt%]*}
-						link=${BASH_REMATCH%)*}
-						link=${BASH_REMATCH#*(}
-						line=${line/${BASH_REMATCH[0]}/<a href=\"${link}\">${txt}</a>}
-						#fnr "$line" "${BASH_REMATCH[0]}" "<a href=\"${link}\">${txt}</a>"
-						line=$_fnr
-					else
-						break
-					fi
-				done
+			*'['*']('*')'*)
+				# Tried doing it in bash but it has weird escaping issues
+				sed -E 's!\[([^]]+)\]\(([^\)]+)\)!<a href="\2">\1</a>!g' - <<< "$line"
 			;;
 
 			# Nothing, just reprint
@@ -240,6 +230,7 @@ initial_transformer () {
 }
 
 final_transformer () {
+	# No real good way to do this, :/
 	out="$1"
 	while read -r a; do
 		out=${out/"$a"/<a href=\"$a\">$a</a>}
