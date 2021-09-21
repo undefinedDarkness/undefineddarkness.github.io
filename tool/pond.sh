@@ -26,7 +26,8 @@ fi
 # Load backend
 dbg "Using backend: \e[33m$backend\e[0m"
 . "$backend"
-transformers="${transfomers:-$(grep -Po '^\w+ (?=\(\))' "$backend" | tr '\n' ' ')}" 
+transformers="${transfomers:-$(grep -Eo '^\w+ ' "$backend" )}" 
+transformers=${transformers//$NEWL/ }
 dbg "Available Transformers: $transformers"
 
 # $1 = IN FILE
@@ -53,17 +54,20 @@ _line_number=0
 		"#"*)
 				# Detected Transformer!
 				transformer=${line#\#}
-				transformer=$( echo "$transformer" | tr $'\t' ' ' ) # Take care of tabs
+				#transformer=$( echo "$transformer" | tr $'\t' ' ' ) # Take care of tabs
+				transformer=${transformer//$TAB/ }
 				transformer=${transformer%% *}
+				ntransformer=$(_normalize "$transformer")
 
 				# Check that transformer exists
-				if ! contains "$transformers" "$(_normalize "$transformer")"; then
+				if ! contains "$transformers" "$ntransformer"; then
 					warn "Tranformer $transformer does not exist in the provided backend. (@ $1:$_line_number)"
 					continue
 				fi
 
+				# TODO: Replace this with something better!
 				ending=$(grep_from "$file" "$_line_number" '-s -n -m1' "\#END $transformer")
-				
+
 				if [ -z "$ending" ]; then
 					warn "Tranformer $transformer does not have an ending. (@ $1:$_line_number)"
 					continue
@@ -78,7 +82,7 @@ _line_number=0
 				original_contents="$(get_between "$file" $((_line_number)) $((ending)) )"
 
 				# Modified Contents
-				new_contents="$( $(_normalize "$transformer") "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
+				new_contents="$($ntransformer  "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
 				
 				# Entire Modified File Contents
 				new_file_contents=${file/"$original_contents"/"$new_contents"}
