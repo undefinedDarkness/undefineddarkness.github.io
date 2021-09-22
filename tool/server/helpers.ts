@@ -45,7 +45,7 @@ export async function getTree(path: string) {
 }
 
 const canUseFile = await Deno.permissions.query({ name: "run", command: "file" })
-export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT: string) {
+export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT: string, log: boolean) {
 	const headers = new Headers();
     if (!existsSync(path)) {
       request.respondWith(
@@ -64,7 +64,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
     ) {
       path = join(path, "index.html");
     }
-    console.log("\u001b[34mREQ\u001b[0m " + path);
+    log && console.log("\u001b[34mREQ\u001b[0m " + path);
 
     if (path.includes(".html")) {
       // Embed Script & Return

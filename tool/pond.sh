@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Only used once so its fine to call the binary
 _script_dir=$(dirname "$0")
 
 . "$_script_dir/helpers.sh"
@@ -38,7 +37,9 @@ file=$(cat "$1")
 if contains "$transformers" "initial_transformer"; then
 	dbg "Running initial transformer."
 	timer start
-	file=$(initial_transformer "$file")
+	#initial_transformer "$file"
+	#file=$transfomer_out
+	file=$(initial_transformer "$file" 2> /dev/stdout)
 	timer end
 fi
 

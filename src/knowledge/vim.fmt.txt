@@ -113,7 +113,7 @@ as `:help ft-man-plugin` instructs you to.
 
 #### Linting 
 Here are a few useful gists on the topic:
-https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252
+https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252<br> 
 https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
  
 What I did to get `shellcheck` to work:

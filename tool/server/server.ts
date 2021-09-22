@@ -18,8 +18,9 @@ const args = parse(Deno.args, {
     port: 5000,
     live: true,
     help: false,
+	log: true
   },
-  boolean: ["superhuman", "live", "help"],
+  boolean: ["superhuman", "live", "help", "log"],
   string: ["ignorePatterns"],
   alias: { ignorePatterns: "ignore" },
 });
@@ -98,12 +99,12 @@ async function serveConnection(conn: Deno.Conn) {
         sockets = sockets.splice(idx, 1);
       };
       request.respondWith(response);
-      console.log(
+      args.log && console.log(
         "\u001b[32mWS-CONNECT\u001b[0m Total connected sockets: " +
           sockets.length,
       );
     } else {
-      const x = await serveFile(path, request, SCRIPT);
+      const x = await serveFile(path, request, SCRIPT, args.log);
       !!x && loadedFiles.add(x);
     }
   }
@@ -127,7 +128,7 @@ async function fileWatcher() {
     // Events That Change Files:
     if (event.kind == "create" || event.kind == "modify") {
       const now = performance.now();
-      if (0.8 > (now - lastEvent)) {
+      if (!args.superhuman && (0.8 > (now - lastEvent))) {
         continue;
       }
 
@@ -139,7 +140,7 @@ async function fileWatcher() {
         event.paths.length > 0 && // Make sure list isnt empty
         event.paths.some((f) => loadedFiles.has(basename(f))) // See if any file has been loaded
       ) {
-        console.log("\u001b[31mFS\u001b[0m Loaded file was updated");
+        args.log && console.log("\u001b[31mFS\u001b[0m Loaded file was updated");
         sockets.forEach((sock) => sock.send("UPDATE"));
       }
       lastEvent = now;
@@ -167,7 +168,7 @@ if (args.live) {
 }
 
 // Print Memory Usage, Every 2 Minutes
-setInterval(() => {
+args.log && setInterval(() => {
   console.log(
     `\u001b[35mPERF\u001b[0m Memory usage: ${
       humanFileSize(Deno.memoryUsage().heapTotal)

@@ -21,7 +21,7 @@
 
 # This is mostly for shellcheck, helpers are already imported when this is run
 # shellcheck source=helpers.sh
-. "$( dirname "$0" )"/helpers.sh
+# . "$( dirname "$0" )"/helpers.sh
 
 # UTILITIES:
 
@@ -151,6 +151,7 @@ table () {
 	echo "<thead>"
 	print_row "$1" "th"
 	printf "</thead>\n<tbody>\n"
+	
 	while read -r row; do
 		print_row "$row"
 	done <<< "$content"
@@ -170,20 +171,25 @@ initial_transformer () {
 	code_lang=
 	code_block=
 	code_content=
-
 	
+	#line=$()
+
 	IFS=''
 	while read -r line; do
+		#line=$( <<< "$line")
+		
 		line_no=$(( line_no + 1 ))
 		case "$line" in
 			# Headings
 			"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
+				dbg ">> Found a heading"
 				heading=${line%% *}
 				echo "<h${#heading}>${line##${heading} }</h${#heading}>"
 				;;
 			
 			# Block of code
 			'```'*)
+				dbg ">> Found a code block"
 				# Not currently in code block
 				if [ -z "$code_block" ]; then
 					code_lang=${line#'```'}
@@ -196,24 +202,6 @@ initial_transformer () {
 					code_lang=
 				fi
 				;;
-			
-			# Inline code
-			*\`*\`*)
-				while true; do
-					if  [[ "$line" =~ \`[^\`]+\` ]]; then
-						#fnr "$line" "${BASH_REMATCH[0]}" "<code>${BASH_REMATCH//\`/}</code>"
-						#line=$_fnr
-						line=${line/${BASH_REMATCH[0]}/<code>${BASH_REMATCH//\`/}</code>}
-					else
-						break
-					fi
-				done
-				;;
-			# Markdown links
-			*'['*']('*')'*)
-				# Tried doing it in bash but it has weird escaping issues
-				sed -E 's!\[([^]]+)\]\(([^\)]+)\)!<a href="\2">\1</a>!g' - <<< "$line"
-			;;
 
 			# Nothing, just reprint
 			*)
@@ -222,18 +210,24 @@ initial_transformer () {
 		
 			
 		if [ -n "$code_block" ] && [ -n "$code_content" ]; then
+			#shellcheck disable=2027
 			code_content="$code_content"$NEWL"$line"
 		elif [ -n "$code_block" ]; then
 			code_content="-"
 		fi
-	done <<< "$1"
+	done <<< "$1" | sed -E \
+		-e 's!\[([^]]+)\]\(([^\)]+)\)!<a href="\2">\1</a>!g'\
+		-e 's!`([^`]+)`!<code>\1</code>!g' \
+		-e 's!\*([^\*]+)\*!<b>\1</b>!g' -
+		# For links, code and bold, you might be able to do it in bash if you really wanted to but I dont so :)
+
 }
 
 final_transformer () {
 	# No real good way to do this, :/
 	out="$1"
 	while read -r a; do
-		out=${out/"$a"/<a href=\"$a\">$a</a>}
+		out=${out/"${a}"/<a href=\"$a\">$a</a>}
 	done < <(grep -Po '(?<!")https?://\S+' <<< "$out")
 	echo "$out"
 }

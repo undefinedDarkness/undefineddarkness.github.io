@@ -20,10 +20,10 @@ fnr() {
 
 # Extract relevant parts of the template
 template=$(cat template.html)
-pre=${template%%\!CONTENT\!*} # Posixify
-post=${template##*\!CONTENT\!} # Posixify
+pre=${template%%\!CONTENT\!*}
+post=${template##*\!CONTENT\!}
 
-server="deno run --unstable -A ./tool/server/server.ts"
+server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
 # General multi purpose build process
 process () {
@@ -76,8 +76,13 @@ case $1 in
 	# Serve files with hot reloading
 	live)
 		pkill "${server% *}"
-		$server --port=$port --ignore=out,src --live=false &  
-		printf "$(find src -name "*.fmt.txt")\n$(realpath ./template.html)\n$(find tool -name "*.sh")\n$0" | entr ./make # build /_
+		$server &  
+		(
+		find src -name "*.fmt.txt"
+		realpath ./template.html
+		find tool -name "*.sh"
+		echo $0
+		) | entr ./make # build /_
 		;;
 
 	# Generates a super simple index of all the articles found
@@ -90,7 +95,7 @@ case $1 in
 
 	# Serve without hot realoading
 	serve)
-		$server --live=false --port=$port 
+		$server
 		#python3 -m http.server $port &
 		;;
 
@@ -108,6 +113,24 @@ case $1 in
 		done
 		kill -s USR1 "$(pgrep deno)" # In POSIX, There is no SIG... prefix 
 		gen_index &
+		;;
+
+	--help|help)
+		printf "
+\033[1m🐸 Toad: A simple diet ssg\033[0m
+--------------------
+
+\033[4mUsage:\033[0m
+> ./make [subcommand] [subcommand-args]
+
+\033[4mSubcommands:\033[0m
+build	- Builds a single file & updates the index
+clean	- Remove old build output
+serve 	- Simply serve the site ( = python3 -m http.server)
+index 	- Print every recognized article
+live	- Live server with hot reloading
+
+"
 		;;
 
 	*)

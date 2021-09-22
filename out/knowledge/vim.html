@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<title>knowledge/vim</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+		<article>
+			<div class='preserve-center'><pre>
+__     ___   ___                                        _ 
+\ \   / (_) |_ _|_ __ ___  _ __  _ __ _____   _____  __| |
+ \ \ / /| |  | || '_ ` _ \| '_ \| '__/ _ \ \ / / _ \/ _` |
+  \ V / | |  | || | | | | | |_) | | | (_) \ V /  __/ (_| |
+   \_/  |_| |___|_| |_| |_| .__/|_|  \___/ \_/ \___|\__,_|
+                          |_|                             
+</pre></div>
+<p style="text-align:center">
+<i> Just a collection of cool stuff I find related to the vim text editor :) </i>
+</p>
+
+<h3>Plugins</h3>
+- <a href="https://github.com/dense-analysis/ale">Asynchronous Linting Engine</a> (ALE) 🍺
+	A great plugin that takes care of Linting, Formatting & Autocompletion
+	Quite customizable but some bits are a bit dated
+
+- <a href="https://github.com/ap/vim-css-color">CSS Color</a>
+	Highlight hex codes & web names for colors with the actual color :), works really well
+	Lacks support for some languages (lua) but that can be easily fixed via autocommand.
+
+- <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
+	Language pack for vim
+	A good one to have since you do not notice it much unless you're very worried about startup times
+
+- <a href="https://github.com/mattn/emmet-vim">Emmet</a>
+	Why would you not have this? Especially if you edit html
+
+- <a href="https://github.com/bhurlow/vim-parinfer">Parinfer</a> <a href="https://github.com/eraserhd/parinfer-rust"> (rs) </a>
+	Infer your parenthesis!
+	True bliss if you ever edit lisp code 😳
+
+- <a href="https://github.com/lambdalisue/fern.vim">Fern</a> 🍀
+	Great alternative to NERDTree (Project Drawer) and imo a much better one
+	Feels pretty clean and nice to use
+
+- <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
+	I don't use a status line but if I did I would use lightline, it works really well and is easy to customize
+
+<h3>Configuration </h3>
+Making the most out of vanilla vim features
+
+<h4>NetRW </h4>
+Using NetRW as a file tree.
+From <a href="https://shapeshed.com/vim-netrw/">this post</a>
+tldr:
+<pre><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_banner <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0</span> <span style="color:#7f9f7f; font-style:italic">&quot; Hide the banner</span>
+<span style="color:#9fafaf">    2 </span><span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_browse_split <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Open in new tab</span>
+<span style="color:#9fafaf">    3 </span><span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_winsize <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">25</span> <span style="color:#7f9f7f; font-style:italic">&quot; Size</span>
+<span style="color:#9fafaf">    4 </span><span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_liststyle <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Show files in tree form</span>
+</pre>See what each option does with <code>:help netrw-browser-settings</code>
+
+<h4>:Grep</h4>
+Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works
+See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
+final snippet:
+<pre><span style="color:#9fafaf">    1 </span>function<span style="color:#dcdccc">!</span> Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">...)</span>
+<span style="color:#9fafaf">    2 </span>    return system<span style="color:#dcdccc">(</span><span style="color:#aabfe3">join([&amp;grepprg] + [expandcmd(join(a:000, &apos; &apos;))], &apos; &apos;))</span>
+<span style="color:#9fafaf">    3 </span>endfunction
+<span style="color:#9fafaf">    4 </span>command<span style="color:#dcdccc">! -</span>nargs<span style="color:#dcdccc">=+ -</span>complete<span style="color:#dcdccc">=</span>file_in_path <span style="color:#dcdccc">-</span>bar Grep  cgetexpr Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&lt;f-args&gt;)</span>
+<span style="color:#9fafaf">    5 </span>command<span style="color:#dcdccc">! -</span>nargs<span style="color:#dcdccc">=+ -</span>complete<span style="color:#dcdccc">=</span>file_in_path <span style="color:#dcdccc">-</span>bar LGrep lgetexpr Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&lt;f-args&gt;)</span>
+<span style="color:#9fafaf">    6 </span><span style="color:#e3ceab">augroup</span> quickfix
+<span style="color:#9fafaf">    7 </span>    <span style="color:#e3ceab">autocmd</span><span style="color:#dcdccc">!</span>
+<span style="color:#9fafaf">    8 </span>    <span style="color:#e3ceab">autocmd</span> QuickFixCmdPost cgetexpr cwindow
+<span style="color:#9fafaf">    9 </span>    <span style="color:#e3ceab">autocmd</span> QuickFixCmdPost lgetexpr lwindow
+<span style="color:#9fafaf">   10 </span><span style="color:#e3ceab">augroup END</span>
+</pre>
+<h4>Tab Indicator </h4>
+If and only if you indent with tabs, vim can bestow upon you a slick tabline:
+<code>set list lcs=tab:\│\</code>
+
+<h4>Export to HTML </h4>
+This is a pretty neat capability I did not know vim had,
+By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML that will be opened in a new buffer
+And you can script it! Like so:
+<pre><span style="color:#9fafaf">    1 </span>lang<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;</span><span style="color:#c07abe">$2</span><span style="color:#cc9393">&quot;</span>
+<span style="color:#9fafaf">    2 </span>f<span style="color:#dcdccc">=</span>$<span style="color:#dcdccc">(</span>mktemp<span style="color:#dcdccc">)</span>
+<span style="color:#9fafaf">    3 </span><span style="color:#dfdfbf; font-weight:bold">echo</span> <span style="color:#cc9393">&quot;</span><span style="color:#c07abe">$0</span><span style="color:#cc9393">&quot;</span> | <span style="color:#aae3b2">head</span> <span style="color:#dfdfbf; font-weight:bold">-n -1</span> | nvim <span style="color:#dfdfbf; font-weight:bold">-n --headless</span> \
+<span style="color:#9fafaf">    4 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_no_progress = 0&quot;</span>\
+<span style="color:#9fafaf">    5 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_ignore_folding = 0&quot;</span>\
+<span style="color:#9fafaf">    6 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&apos;let g:html_prevent_copy = &quot;fn&quot;&apos;</span>\
+<span style="color:#9fafaf">    7 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;set ft=</span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span>\
+<span style="color:#9fafaf">    8 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;runtime! syntax/2html.vim&quot;</span>\
+<span style="color:#9fafaf">    9 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;wq!</span> <span style="color:#c07abe">$f</span><span style="color:#cc9393">&quot;</span>\
+<span style="color:#9fafaf">   10 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;q!&quot;</span> <span style="color:#dcdccc">-</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">&gt; /</span>dev<span style="color:#dcdccc">/</span>null
+</pre>You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
+<a href="/assets/make.html">Here</a> is a example file from the make script of this website.
+* <strike>~~This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow
+
+<h4>Improving :help and :Man </h4>
+I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
+<code>au FileType help,man nnoremap <buffer> <CR> <C-]></code>
+This makes it so hitting enter in a help buffer will try to just to the currently selected word 
+(the world the cursor is on.)
+Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation">https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation</a>
+
+<h5>Using vim as a man pager </h5>
+There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but 
+the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:
+<pre><span style="color:#9fafaf">    1 </span>man <span style="color:#dcdccc">() {</span>
+<span style="color:#9fafaf">    2 </span>	nvim <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;Man</span> <span style="color:#c07abe">$2</span> <span style="color:#cc9393"></span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span> <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;only&quot;</span>
+<span style="color:#9fafaf">    3 </span><span style="color:#dcdccc">}</span>
+</pre>If you use vim, remember to add this to your vimrc:
+<code>runtime ftplugin/man.vim</code>
+as <code>:help ft-man-plugin</code> instructs you to.
+
+* This has some issues like files like <code>./local.man</code> but I dont often use this so its not a problem for me.
+
+<h4>Linting </h4>
+Here are a few useful gists on the topic:
+<a href="https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252<br>">https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252<br></a> 
+<a href="https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29">https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29</a>
+ 
+What I did to get <code>shellcheck</code> to work:
+- Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files
+- Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings
+- From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%<b>[^:]:%m,%f:%l: %t%</b>[^:]:%m," . &errorformat</code>
+- Made vim run <code>:make</code> on file write.
+
+Actually I have reconsidered this, its way too painful for anything complicated or over multiple lines, its a lot
+simpler to just use ALE.
+
+<p style="text-align:center">
+<i>~ More to come.. Maybe 🚧 ~</i>
+</p>
+
+			<footer>
+				<a href="/index.html">Return Home</a>
+			</footer>
+		</article>
+	</body>
+</html>
