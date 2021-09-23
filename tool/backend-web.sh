@@ -41,7 +41,7 @@ __syntax_hl () {
 		--pretty-symbols \
 		--config-file=assets/zenburn.theme \
 		--no-version-info <<< "$1"
-	printf "</pre>"
+	printf "</pre>\n"
 }
 
 # Replaced. {{{
@@ -172,7 +172,6 @@ initial_transformer () {
 	code_block=
 	code_content=
 
-	used_detail_tag=
 	
 	#line=$()
 
