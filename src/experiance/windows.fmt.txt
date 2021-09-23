@@ -1,13 +1,13 @@
 # Colemak
 After installing the [exe](https://colemak.com/Windows) from the colemak website...
-You can easily enough change the language while using windows but it presents a program while being 
+You can easily enough change the language while using windows but it presents a problem while being 
 logging in (it uses the QWERTY layout at that time.),
-The detailed [solution](https://forum.colemak.com/topic/494-howto-set-colemak-as-windows-xp-login-screen-layout-and-more/) can be found here.
-/* I dunno why I felt like this was worth writing here. */
+The detailed solution can be found [here](https://forum.colemak.com/topic/494-howto-set-colemak-as-windows-xp-login-screen-layout-and-more/).
+// I dunno why I felt like this was worth writing here. 
 
 # WSL2
 I was honestly surprised how good it was, it is amazing how well WSL works!
-Installation is a bit murky because the docs are spread out but basically all you need to do is follow the steps here:
+Installation is a bit murky because the docs are spread out (I am just dumb.) but basically all you need to do is follow the steps here:
 https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
 
 After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
@@ -25,7 +25,7 @@ https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-
 The rest should just work
 
 ## Graphical Enviroment 
-WSL-G is a wip and rn only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
+WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
 - Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/)
@@ -54,7 +54,7 @@ Now just run any graphical program (like say `xterm`) and bam! it should show up
 long as VcXsrv is running.
 
 ### Filesystem 
-Accessing the linux filesystem from windows & vice versa
+Accessing the linux file system from windows & vice versa
 
 In Linux, accessing the Windows filesystem is as simple as navigating to `/mnt/c`
 which represents the C: drive in windows

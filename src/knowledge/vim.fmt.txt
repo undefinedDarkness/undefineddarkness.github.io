@@ -51,7 +51,7 @@ See what each option does with `:help netrw-browser-settings`
 
 #### :Grep
 Improving the :grep command to work similar to how [ack.vim](https://github.com/mileszs/ack.vim) works
-See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a> it explains everything
+See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything
 final snippet:
 ```vim
 function! Grep(...)
@@ -67,8 +67,8 @@ augroup END
 ```
 
 #### Tab Indicator 
-If and only if you indent with tabs, vim can bestow upon you a slick tabline:
-`set list lcs=tab:\│\`
+If and only if you indent with tabs, vim can bestow upon you a slick tab line:
+`set list lcs=tab:\│\ " There is a space here :)`
 
 #### Export to HTML 
 This is a pretty neat capability I did not know vim had,
@@ -88,7 +88,7 @@ echo "$0" | head -n -1 | nvim -n --headless \
 ```
 You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
 [Here](/assets/make.html) is a example file from the make script of this website.
-* <strike>~~This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow
+* ~~This is now used to generate code syntax highlighting for this site.~~ - Turns out it was way too slow
 
 #### Improving :help and :Man 
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:

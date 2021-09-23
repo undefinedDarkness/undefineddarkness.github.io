@@ -1,22 +1,30 @@
-/*-- Broad Styles --*/
+/*-- Default Styles --*/
+
+* { margin: 0; padding: 0; }
+
 article {
 	display: table;
-	margin: 0 auto;
-	white-space: pre;
+	margin: 2.5em auto 0 auto;
+	white-space: pre-line;
 	tab-size: 4;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 }
+
+
 body {
 	background-color: #111;
 	color: #fafafa;
 	overflow-x: hidden;
 	font-size: 1em;
 }
+
 a {
 	color: skyblue;
 	text-decoration: none;
 }
-footer { display: flex; margin-top: 2em; }
+
+footer { display: flex; margin: 2em 0; }
+
 pre {
 	padding: 8px;
 	font-size:1.1em;
@@ -25,11 +33,13 @@ pre {
 	color: #dcdccc;
 	background-color:#1f1f1f;
 }
+
 @media only screen and (max-width: 600px) {
 	body {
 		font-size: 0.8em;
 	}
 }
+
 td,th {
 	border: 1px solid;
 	padding: 5px;
@@ -38,6 +48,14 @@ table {
 	border-collapse: collapse;
 }
 
+details:not(:first-of-type) {
+	margin-top: 1em;
+}
+summary h2 {
+	display: inline;
+}
+
+details p { margin-top: -1.5em; }
 
 /*-- Styling For Transformers --*/
 .box {
@@ -54,3 +72,13 @@ table {
 	all: revert;
 }
 
+/*-- Animations --*/
+
+details[open] summary ~ * {
+  animation: sweep .5s ease-in-out;
+}
+
+@keyframes sweep {
+  0%    {opacity: 0; margin-left: -10px}
+  100%  {opacity: 1; margin-left: 0px}
+}

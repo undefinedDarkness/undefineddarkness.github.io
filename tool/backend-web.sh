@@ -171,6 +171,8 @@ initial_transformer () {
 	code_lang=
 	code_block=
 	code_content=
+
+	used_detail_tag=
 	
 	#line=$()
 
@@ -184,7 +186,14 @@ initial_transformer () {
 			"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
 				dbg ">> Found a heading"
 				heading=${line%% *}
-				echo "<h${#heading}>${line##${heading} }</h${#heading}>"
+				if [ "${#heading}" -eq 2 ]; then
+					echo "${used_detail:+</p></details>}
+<details${used_detail:- open}>
+<summary><h2>${line##${heading} }</h2></summary><p>" # cheeky uwu
+					used_detail=" " # this bit makes sure the first one is open.
+				else
+					echo "<h${#heading}>${line##${heading} }</h${#heading}>"
+				fi
 				;;
 			
 			# Block of code
@@ -215,19 +224,17 @@ initial_transformer () {
 		elif [ -n "$code_block" ]; then
 			code_content="-"
 		fi
-	done <<< "$1" | sed -E \
-		-e 's!\[([^]]+)\]\(([^\)]+)\)!<a href="\2">\1</a>!g'\
-		-e 's!`([^`]+)`!<code>\1</code>!g' \
-		-e 's!\*([^\*]+)\*!<b>\1</b>!g' -
-		# For links, code and bold, you might be able to do it in bash if you really wanted to but I dont so :)
+	done <<< "$1" | perl -p \
+	-e '
+		s!\`(.*?)\`!<code>\1</code>!g;
+		s!\*\*(.*?)\*\*!<b>\1</b>!g;
+		s!\[(.*?)\]\((.*?)\)!<a href="\2">\1</a>!g;
+		s!\*(.*?)\*!<i>\1</i>!g;
+		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
+		s!~(.*?)~!<strike>\1</strike>!g
+	' # Markdown has returned to its roots :euphoria:
+
 
 }
 
-final_transformer () {
-	# No real good way to do this, :/
-	out="$1"
-	while read -r a; do
-		out=${out/"${a}"/<a href=\"$a\">$a</a>}
-	done < <(grep -Po '(?<!")https?://\S+' <<< "$out")
-	echo "$out"
-}
+

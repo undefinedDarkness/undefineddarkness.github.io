@@ -68,9 +68,10 @@ Its functions are very simple:
 
 ## TODO:
 - [ ] Integrate tree script with `make`
+- [ ] Make pond automatically close tags (for h2 details)
 - [x] Refactor large parts of `pond`
-- [ ] Implement bold, italic, strikethrough
-- [ ] Make `<h2>` automatically create summaries (for folding)
+- [x] Implement bold, italic, strikethrough
+- [x] Make `<h2>` automatically create summaries (for folding)
 - [x] Get rid of `reeplace`
 - [x] Make pond faster
 - [x] Documentation for bento

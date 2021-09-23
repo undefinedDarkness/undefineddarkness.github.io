@@ -14,7 +14,7 @@ After installing the <a href="https://colemak.com/Windows">exe</a> from the cole
 You can easily enough change the language while using windows but it presents a program while being 
 logging in (it uses the QWERTY layout at that time.),
 The detailed <a href="https://forum.colemak.com/topic/494-howto-set-colemak-as-windows-xp-login-screen-layout-and-more/">solution</a> can be found here.
-/<b> I dunno why I felt like this was worth writing here. </b>/
+// I dunno why I felt like this was worth writing here. 
 
 <h1>WSL2</h1>
 I was honestly surprised how good it was, it is amazing how well WSL works!
@@ -24,7 +24,9 @@ Installation is a bit murky because the docs are spread out but basically all yo
 After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
 I think thats a fair bit more tricky.
 
-<h2>Terminal</h2>
+
+<details open>
+<summary><h2>Terminal</h2></summary><p>
 The choice should be obvious (I hope): The <a href="https://github.com/microsoft/terminal">windows terminal</a> works ootb with WSL and will even automatically add Distro profiles.
 From there its just a few clicks and you're up and running with a almost perfect command line linux experience!
 
@@ -35,8 +37,10 @@ This can be easily remedied:
 
 The rest should just work
 
-<h2>Graphical Enviroment </h2>
-WSL-G is a wip and rn only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
+</p></details>
+<details >
+<summary><h2>Graphical Enviroment </h2></summary><p>
+WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
 - Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>
@@ -63,7 +67,7 @@ Now just run any graphical program (like say <code>xterm</code>) and bam! it sho
 long as VcXsrv is running.
 
 <h3>Filesystem </h3>
-Accessing the linux filesystem from windows & vice versa
+Accessing the linux file system from windows & vice versa
 
 In Linux, accessing the Windows filesystem is as simple as navigating to <code>/mnt/c</code>
 which represents the C: drive in windows
@@ -78,7 +82,7 @@ Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
 <code>localhost:5000</code> can be accessed as <code>localhost:5000</code> on windows too
 
-			<footer>
+			</details><footer>
 				<a href="/index.html">Return Home</a>
 			</footer>
 		</article>

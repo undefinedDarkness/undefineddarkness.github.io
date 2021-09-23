@@ -37,7 +37,7 @@ Besides colors, in terms of functionality you are free to find / forge whatever 
 // TODO: List popular plugins here
 
 ## Terminal
-
+There are a great many terminals.
 
 ### Comparison
 #TABLE	NAME	Ligatures	True Color	Fallback Fonts	Open Type Features	Bitmaps	Wayland	Tabs / Splits	Images	Config			GPU		✨
