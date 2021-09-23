@@ -57,6 +57,10 @@ summary h2 {
 
 details p { margin-top: -1.5em; }
 
+h3,h4,h5,h6 {
+	margin-top: 1em;
+}
+
 /*-- Styling For Transformers --*/
 .box {
 	border: 1px solid;
