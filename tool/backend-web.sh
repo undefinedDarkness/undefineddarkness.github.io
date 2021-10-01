@@ -225,12 +225,12 @@ initial_transformer () {
 		fi
 	done <<< "$1" | perl -p \
 	-e '
-		s!\`(.*?)\`!<code>\1</code>!g;
-		s!\*\*(.*?)\*\*!<b>\1</b>!g;
-		s!\[(.*?)\]\((.*?)\)!<a href="\2">\1</a>!g;
-		s!\*(.*?)\*!<i>\1</i>!g;
+		s!\`(.+?)\`!<code>\1</code>!g;
+		s!\*\*(.+?)\*\*!<b>\1</b>!g;
+		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
+		s!\*(.+?)\*!<i>\1</i>!g;
 		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
-		s!~(.*?)~!<strike>\1</strike>!g
+		s!~~(.+?)~~!<strike>\1</strike>!g
 	' # Markdown has returned to its roots :euphoria:
 
 

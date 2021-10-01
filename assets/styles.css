@@ -23,7 +23,10 @@ a {
 	text-decoration: none;
 }
 
-footer { display: flex; margin: 2em 0; }
+footer { 
+	display: flex; 
+	margin: 2em 0;
+}
 
 pre {
 	padding: 8px;
@@ -55,7 +58,9 @@ summary h2 {
 	display: inline;
 }
 
-details p { margin-top: -1.5em; }
+details p { 
+	margin-top: -1.5em;
+}
 
 h3,h4,h5,h6 {
 	margin-top: 1em;
