@@ -67,7 +67,7 @@ build () {
 gen_index () {
 		fnr "$pre" "!TITLE!" "Full Index"
 		echo "$_fnr" > out/index.html # TODO: Integrate tree script here
-		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" ~/tree src 1>> out/index.html
+		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" tool/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
 }
 
@@ -124,11 +124,12 @@ case $1 in
 > ./make [subcommand] [subcommand-args]
 
 \033[4mSubcommands:\033[0m
-build	- Builds a single file & updates the index
-clean	- Remove old build output
-serve 	- Simply serve the site ( = python3 -m http.server)
-index 	- Print every recognized article
-live	- Live server with hot reloading
+build   - Builds a single file & updates the index
+clean   - Remove old build output
+serve   - Simply serve the site ( = python3 -m http.server)
+index   - Print every recognized article
+live    - Live server with hot reloading
+*       - Build everything
 
 "
 		;;
@@ -145,7 +146,7 @@ live	- Live server with hot reloading
 
 
 		p=$(pgrep deno)
-		[ -n "$p" ] && kill -s USR1 "$p" # 2> /dev/null 
+		[ -n "$p" ] && kill -s USR1 "$p" 
 
 		printf "\nFinished!\n"
 	;;

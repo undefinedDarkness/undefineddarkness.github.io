@@ -11,13 +11,14 @@ err () {
 
 dbg () {
 	if [ -n "${pond_debug:-}" ]; then
+		# shellcheck disable=2059
 		printf "$*\n" #"$*"
 	fi
 }
 
 # Normalize to lowercase & replace - with _
 _normalize () {
-	echo "$1" | tr '[:upper:]' '[:lower:]' | tr '-' '_'
+	echo "${1//-/_}" | tr '[:upper:]' '[:lower:]' # | tr '-' '_'
 }
 
 
