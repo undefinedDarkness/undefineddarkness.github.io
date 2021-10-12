@@ -9,13 +9,14 @@
 	</head>
 	<body>
 		<article>
-			<h1>🌾 How do I rice X?</h1>
+			<!-- vim: set nolist: -->
+<h1>🌾 How do I rice X?</h1>
 My own take at a ricing guide.
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.
 
 
 <details open>
-<summary><h2>Firefox</h2></summary><p>
+<summary><h2>🦊 Firefox</h2></summary><p>
 You can customize the User Interface (Chrome) with Firefox CSS,
 See the following:
 - <a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials</a>
@@ -51,14 +52,17 @@ There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, 
 And of course if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-// TODO: List popular plugins here
+See more on vim & neovim: <a href="/out/knowledge/vim.html">here</a>
 
 </p></details>
 <details >
 <summary><h2>Terminal</h2></summary><p>
-There are a great many terminals.
+This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
+to implement, its just 16 colors after all :P
 
 <h3>Comparison</h3>
+This is a general comparison of the most common terminal emulators as of October 2021.
+
 <table>
 <thead>
 <tr>
@@ -66,7 +70,7 @@ There are a great many terminals.
 <th>Ligatures</th>
 <th>True Color</th>
 <th>Fallback Fonts</th>
-<th>Open Type Features</th>
+<th>OTF</th>
 <th>Bitmaps</th>
 <th>Wayland</th>
 <th>Tabs / Splits</th>
@@ -163,7 +167,32 @@ There are a great many terminals.
 </tr>
 </tbody></table>
 
+<b>Notes:</b>
+OTF = Open Type Features such as stylistic sets and the like
+P = With a patch or a fork
 Foot is wayland only.
+If you are looking into using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">https://github.com/bakkeby/st-flexipatch</a> instead as it is much easier to use and modify.
+<!-- TODO: Add links to the forks / patches here -->
+</details>
+
+<h1>🎨 Design Recommendations</h1>
+Stuff related to the general design of a rice
+
+</p></details>
+<details >
+<summary><h2>Typography</h2></summary><p>
+<q>The style and appearance of printed matter.</q>
+
+This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice as well as its usability.
+Generally you will need 3 font faces:
+- A sans serif face for general user interface
+- A mono space font for code
+- A serif fonts for documents
+
+More on the differences between serif, sans-serif and mono space: <a href="https://www.canva.com/learn/serif-vs-sans-serif-fonts/">https://www.canva.com/learn/serif-vs-sans-serif-fonts/</a>
+
+Here are a fonts I personally like for each one:
+<!-- TODO: a full article or more links here -->
 
 			</details><footer>
 				<a href="/index.html">Return Home</a>

@@ -80,3 +80,8 @@ Since I couldn't compile yambar even tho it seems pretty nice :/ I was forced to
 Both of them take after polybar very much which I personally am not much a fan off
 but ig it makes sense, If I were to revisit the topic of bars I will definitely look into using
 The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
+
+---
+🚧 This has been archived since I have not had the time to give a proper look at wayland, I do plan on looking at it again at some point,
+since whether I like it or not, it seems to be the future of Linux Desktop
+---

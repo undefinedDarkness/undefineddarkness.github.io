@@ -172,9 +172,8 @@ initial_transformer () {
 	code_block=
 	code_content=
 
+	quote_block=
 	
-	#line=$()
-
 	IFS=''
 	while read -r line; do
 		#line=$( <<< "$line")
@@ -210,6 +209,16 @@ initial_transformer () {
 					code_lang=
 				fi
 				;;
+			'>>>'*) # this doesnt work for nested stuffs
+				dbg '>> Found a quote block'
+				if [ -z "$quote_block" ]; then # is not in quote block
+					quote_block=1
+					printf "<blockquote>"
+				else # is in quote block
+					quote_block=0
+					printf "</blockquote>"
+				fi
+				;;
 
 			# Nothing, just reprint
 			*)
@@ -230,7 +239,8 @@ initial_transformer () {
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
 		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
-		s!~~(.+?)~~!<strike>\1</strike>!g
+		s!~~(.+?)~~!<strike>\1</strike>!g;
+		s!^> (.+)!<q>\1</q>!g
 	' # Markdown has returned to its roots :euphoria:
 
 

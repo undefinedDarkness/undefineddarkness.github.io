@@ -66,7 +66,8 @@ build () {
 
 gen_index () {
 		fnr "$pre" "!TITLE!" "Full Index"
-		echo "$_fnr" > out/index.html # TODO: Integrate tree script here
+		echo "$_fnr" > out/index.html
+		echo "<style>article { white-space: pre }</style>" >> out/index.html
 		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" tool/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
 }

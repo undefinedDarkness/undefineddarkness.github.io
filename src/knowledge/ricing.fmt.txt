@@ -1,8 +1,9 @@
+<!-- vim: set nolist: -->
 # 🌾 How do I rice X?
 My own take at a ricing guide.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 
-## Firefox
+## 🦊 Firefox
 You can customize the User Interface (Chrome) with Firefox CSS,
 See the following:
 - https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials
@@ -34,19 +35,45 @@ There even exist generators for it. ([Pinto](https://pintovim.dev/), [Vivify](ht
 And of course if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-// TODO: List popular plugins here
+See more on vim & neovim: [here](/out/knowledge/vim.html)
 
 ## Terminal
-There are a great many terminals.
+This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
+to implement, its just 16 colors after all :P
 
 ### Comparison
-#TABLE	NAME	Ligatures	True Color	Fallback Fonts	Open Type Features	Bitmaps	Wayland	Tabs / Splits	Images	Config			GPU		✨
-Wezterm			Y			Y			Y				Y					Y		Y		Y			  Y		Lua				Y		10/10
-Alacritty		P			Y			N				N					Y		Y		N			  N		Yaml			Y		5/10
-Kitty			Y			Y			N				Y					N		Y		Y			  Y		Custom			Y		8/10
-Xterm			N			N			N				N					Y		N		N			  N		Xres			N		5/10
-St				P			Y			P				N					Y		N		N			  P		C Header		N		8/10
-Foot			N			Y			Y				N					Y		Y		N			  Y		INI				N		~
+This is a general comparison of the most common terminal emulators as of October 2021.
+
+#TABLE	NAME	Ligatures	True Color	Fallback Fonts	OTF	Bitmaps	Wayland	Tabs / Splits	Images	Config			GPU		✨
+Wezterm			Y			Y			Y				Y		Y		Y		Y			  Y		Lua				Y		10/10
+Alacritty		P			Y			N				N		Y		Y		N			  N		Yaml			Y		5/10
+Kitty			Y			Y			N				Y		N		Y		Y			  Y		Custom			Y		8/10
+Xterm			N			N			N				N		Y		N		N			  N		Xres			N		5/10
+St				P			Y			P				N		Y		N		N			  P		C Header		N		8/10
+Foot			N			Y			Y				N		Y		Y		N			  Y		INI				N		~
 #END TABLE
 
+**Notes:**
+OTF = Open Type Features such as stylistic sets and the like
+P = With a patch or a fork
 Foot is wayland only.
+If you are looking into using st, I highly suggest you use https://github.com/bakkeby/st-flexipatch instead as it is much easier to use and modify.
+<!-- TODO: Add links to the forks / patches here -->
+</details>
+
+# 🎨 Design Recommendations
+Stuff related to the general design of a rice
+
+## Typography
+> The style and appearance of printed matter.
+
+This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice as well as its usability.
+Generally you will need 3 font faces:
+- A sans serif face for general user interface
+- A mono space font for code
+- A serif fonts for documents
+
+More on the differences between serif, sans-serif and mono space: https://www.canva.com/learn/serif-vs-sans-serif-fonts/
+
+Here are a fonts I personally like for each one:
+<!-- TODO: a full article or more links here -->

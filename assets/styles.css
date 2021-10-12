@@ -39,8 +39,16 @@ pre {
 
 @media only screen and (max-width: 600px) {
 	body {
-		font-size: 0.8em;
+		font-size: 1.2em;
 	}
+	
+	article {
+		margin: 1em;
+	}
+}
+
+q {
+	font-style: italic;
 }
 
 td,th {
@@ -51,7 +59,7 @@ table {
 	border-collapse: collapse;
 }
 
-details:not(:first-of-type) {
+details:not(:first-of-type), h1:not(:first-of-type) {
 	margin-top: 1em;
 }
 summary h2 {
@@ -90,4 +98,10 @@ details[open] summary ~ * {
 @keyframes sweep {
   0%    {opacity: 0; margin-left: -10px}
   100%  {opacity: 1; margin-left: 0px}
+}
+
+@media (prefers-reduced-motion) {
+  details[open] summary ~ * {
+  	animation: none;
+  }
 }

@@ -1,3 +1,6 @@
+This is gonna document my time, using the one and only Windows 10 :/
+Mostly because nvidia forced me to but oh well...
+
 # Colemak
 After installing the [exe](https://colemak.com/Windows) from the colemak website...
 You can easily enough change the language while using windows but it presents a problem while being 
@@ -24,7 +27,7 @@ https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-
 
 The rest should just work
 
-## Graphical Enviroment 
+## Graphical Environment 
 WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
@@ -68,3 +71,6 @@ with each distribution's `/` directory.
 Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
 `localhost:5000` can be accessed as `localhost:5000` on windows too
+
+## De bloating Windows
+This powershell script works rather well: https://github.com/Sycnex/Windows10Debloater for most of the obvious things anyway.
