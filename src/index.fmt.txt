@@ -32,7 +32,7 @@
 Hello & welcome traveller, take a place by the fireplace
 This is my little rented bit of the internet!
 I have written some stuff on Linux, Tech & God knows what else
-It isn't much but its mine
+This place isn't much but its mine
 
 Here is some stuff I have written: [full index](/out/index.html) 
 #SH-SCRIPT
