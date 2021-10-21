@@ -1,107 +1,69 @@
-/*-- Default Styles --*/
+body {
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+	font-family: monospace;
+	width: 100%;
+}
 
-* { margin: 0; padding: 0; }
+*, a { font-size: 1.045em !important; }
 
 article {
-	display: table;
-	margin: 2.5em auto 0 auto;
+	padding: 1em 4em;
+	flex: 1;
 	white-space: pre-line;
-	tab-size: 4;
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 }
 
-
-body {
-	background-color: #111;
-	color: #fafafa;
-	overflow-x: hidden;
-	font-size: 1em;
+nav {
+	border-right: 1px solid;
+	min-width: 10%;
+}
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+a { color: lightblue; text-decoration: none; }
+nav ul li { 
+	margin: 8px;
+	text-align : center;
+	vertical-align: middle;
 }
 
-a {
-	color: skyblue;
-	text-decoration: none;
-}
-
-footer { 
-	display: flex; 
-	margin: 2em 0;
-}
-
-pre {
-	padding: 8px;
-	font-size:1.1em;
-	border-radius: 5px;
-	display: block;
-	color: #dcdccc;
-	background-color:#1f1f1f;
-}
-
-@media only screen and (max-width: 600px) {
-	body {
-		font-size: 1.2em;
-	}
-	
-	article {
-		margin: 1em;
-	}
-}
-
-q {
+footer {
 	font-style: italic;
 }
 
-td,th {
-	border: 1px solid;
-	padding: 5px;
-}
-table {
-	border-collapse: collapse;
+summary * {
+	display:inline;
 }
 
-details:not(:first-of-type), h1:not(:first-of-type) {
-	margin-top: 1em;
-}
-summary h2 {
-	display: inline;
-}
-
-details p { 
-	margin-top: -1.5em;
-}
-
-h3,h4,h5,h6 {
-	margin-top: 1em;
-}
-
-/*-- Styling For Transformers --*/
-.box {
-	border: 1px solid;
-	padding: 0px 16px;
-	margin: 8px 0; 
-}
-.preserve-center {
+.txt-c { text-align: center }
+.txt-l { text-align: left; }
+.c-red { color: firebrick; }
+.txt-c .txt-l { display:inline-flex; }
+.vrt-ord { 
 	display: flex;
-	justify-content: center; 
-	align-items: center
-}
-.preserve-center pre {
-	all: revert;
 }
 
-/*-- Animations --*/
-
-details[open] summary ~ * {
-  animation: sweep .5s ease-in-out;
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #111;
+		color: #d3d3d3;
+	}
 }
 
-@keyframes sweep {
-  0%    {opacity: 0; margin-left: -10px}
-  100%  {opacity: 1; margin-left: 0px}
-}
-
-@media (prefers-reduced-motion) {
-  details[open] summary ~ * {
-  	animation: none;
-  }
+/* Responsive */
+@media only screen and (max-device-width: 480px) {
+	body {
+		flex-direction: column;
+	}
+	li {
+		display: inline-block;
+	}
+	nav {
+		border-right: none;
+		border-bottom: 1px solid;
+	}
 }

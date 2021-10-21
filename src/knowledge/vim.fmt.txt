@@ -1,9 +1,5 @@
-#PRESERVE-CENTER
-#SH-SCRIPT
-figlet Vi Improved
-#END SH-SCRIPT
-#END PRESERVE-CENTER
 #CENTER
+![vim](https://www.vim.org/images/vim_created_wq.gif)
 <i>This is just a bunch of neat stuff I find related to Vim, maybe plugins, scripts or just neat settings.</i>
 #END CENTER
 

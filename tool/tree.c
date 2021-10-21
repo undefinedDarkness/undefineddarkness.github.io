@@ -120,7 +120,7 @@ void print_dir(char *path, int depth) {
 #ifdef LINK_TREE
 			char* x = str_replace(full_path, ".fmt.txt", ".html");
 			char* y = str_replace(x, "src/", "out/");
-			printf("<a href=\"%s\">", x);
+			printf("<a href=\"/%s\">", y);
 			free(x);
 			free(y);
 #endif

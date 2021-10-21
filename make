@@ -36,7 +36,6 @@ process () {
 
 	x=${out%%.html}
 	x=${x##out/}
-	#header="${pre/!TITLE!/$x}" # Substitute Header
 	fnr "$pre" "!TITLE!" "$x"
 	header=$_fnr
 	printf '%s' "$header" > "$out"
@@ -67,8 +66,17 @@ build () {
 gen_index () {
 		fnr "$pre" "!TITLE!" "Full Index"
 		echo "$_fnr" > out/index.html
-		echo "<style>article { white-space: pre }</style>" >> out/index.html
-		no_icon=1 NO_COLOR=1 make_link_tree=1 folder_icon="📁" tool/tree src 1>> out/index.html
+		echo "<style>
+		article { 
+			text-align: left;
+			white-space: pre-wrap;
+			display: inline-block;
+		}
+		body {
+		text-align: center;
+		}
+	</style>" >> out/index.html
+		tool/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
 }
 
@@ -78,8 +86,11 @@ case $1 in
 	live)
 		pkill "${server% *}"
 		$server &  
+		
+
+		# Paths to watch
 		(
-		find src -name "*.fmt.txt"
+		find src -name "*.fmt.txt" -or -name '*.html'
 		realpath ./template.html
 		find tool -name "*.sh"
 		echo $0
@@ -97,7 +108,6 @@ case $1 in
 	# Serve without hot realoading
 	serve)
 		$server
-		#python3 -m http.server $port &
 		;;
 
 	# Clean output directory and index.
@@ -138,8 +148,23 @@ live    - Live server with hot reloading
 	*)
 		rm -r out
 		mkdir -p src out
-		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt}; do
-			build "$file"
+		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt src/*.html src/**/*.html}; do
+			case "$file" in
+				'src/*.fmt.txt')
+					continue
+					;;
+				'src/*.html')
+					continue
+					;;
+				'src/**/*.html')
+					continue
+					;;
+				'src/**/*.fmt.txt')
+					continue
+					;;
+				*)
+					build "$file"
+			esac
 		done
 		# Post Build
 		mv ./out/index.html .

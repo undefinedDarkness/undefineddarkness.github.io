@@ -120,7 +120,7 @@ right_align () {
 
 # Center align text while preserving indentation: useful for ascii art
 preserve_center () {
-	printf "<div class='preserve-center'><pre>\n%s\n</pre></div>" "$1"
+	printf "<div class='txt-c'><pre>\n%s\n</pre></div>" "$1"
 }
 
 # Center align without preserving.
@@ -236,6 +236,7 @@ initial_transformer () {
 	-e '
 		s!\`(.+?)\`!<code>\1</code>!g;
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
+		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" loading="lazy"></img>@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
 		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
