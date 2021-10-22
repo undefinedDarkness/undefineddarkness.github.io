@@ -3,7 +3,17 @@ body {
 	padding: 0;
 	margin: 0;
 	overflow-x: hidden;
-	font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+	font-family: ui-monospace, 
+             Menlo, Monaco, 
+             "Cascadia Mono", "Segoe UI Mono", 
+             "Roboto Mono", 
+             "Oxygen Mono", 
+             "Ubuntu Monospace", 
+             "Source Code Pro",
+             "Fira Mono", 
+             "Droid Sans Mono", 
+             "Courier New", monospace;
+	background: ghostwhite;
 	width: 100%;
 }
 
@@ -108,6 +118,7 @@ section {
 	body {
 		flex-direction: column;
 	}
+	article { padding: 1em 2em; }
 	li {
 		display: inline-block;
 	}
@@ -115,6 +126,9 @@ section {
 		border-right: none;
 		border-bottom: 1px solid;
 		min-height: auto;
+	}
+	pre {
+		overflow-x: auto;
 	}
 	.grd-2 {
 		grid-template-columns: 1fr;

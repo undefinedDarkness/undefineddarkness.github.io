@@ -124,13 +124,6 @@ case $1 in
 		rm -rv out index.html
 		;;
 
-	# Generate projects page
-	projects)
-		fnr "$pre" "!TITLE!" "Projects"
-		echo "$_fnr$sidebar" > out/projects.html
-		deno run --allow-net tool/fetch-projects.ts >> out/projects.html
-		echo "$post" >> out/projects.html
-		;;
 
 	# Build Files
 	

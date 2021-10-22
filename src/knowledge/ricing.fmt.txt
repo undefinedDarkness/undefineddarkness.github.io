@@ -6,8 +6,8 @@ Most of it is useless if you already know, and it only covers the **very** very 
 #- 🦊 Firefox
 You can customize the User Interface (Chrome) with Firefox CSS,
 See the following:
-- https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials
-- https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/
+- [Getting started guide](https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials)
+- [How to create & live debug userChrome.css](https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/)
 
 ### Start Page
 You will need basic knowledge of HTML, CSS & JS
