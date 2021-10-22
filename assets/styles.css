@@ -110,5 +110,6 @@ section {
 	nav {
 		border-right: none;
 		border-bottom: 1px solid;
+		min-height: auto;
 	}
 }
