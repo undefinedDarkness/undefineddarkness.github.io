@@ -3,7 +3,7 @@
 My own take at a ricing guide.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 
-## 🦊 Firefox
+#- 🦊 Firefox
 You can customize the User Interface (Chrome) with Firefox CSS,
 See the following:
 - https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials
@@ -20,14 +20,14 @@ site hosting service (GitHub Pages, Netlify, Surge.sh)
 Then use [this](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) extension to set the URL.
 Chromium Users can use [this](https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia) instead (chrome places no limitations)
 
-## GTK
+#- GTK
 This is most easily accomplished by forking an existing theme and modifying them, Most themes are open source and
 are easily modifiable (if you know CSS). Phocus is a nice one to start with. (https://github.com/phocus/gtk)
 
 GTK CSS Reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
 
-## (Neo)Vim
+#- (Neo)Vim
 This is an interesting one, If you use a pre - made colorscheme chances are a [base16](https://github.com/chriskempson/base16) or other vim theme
 already exists for it, Otherwise you can make a base16 theme or make one from a wide variety of templates,
 There even exist generators for it. ([Pinto](https://pintovim.dev/), [Vivify](https://bytefluent.com/vivify/))
@@ -37,7 +37,7 @@ And of course if a colorscheme is similar to yours, you can easily fork it and m
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
 See more on vim & neovim: [here](/out/knowledge/vim.html)
 
-## Terminal
+#- Terminal
 This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
 to implement, its just 16 colors after all :P
 

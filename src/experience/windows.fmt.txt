@@ -16,7 +16,7 @@ https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-s
 After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
 I think thats a fair bit more tricky.
 
-## Terminal
+#- Terminal
 The choice should be obvious (I hope): The [windows terminal](https://github.com/microsoft/terminal) works ootb with WSL and will even automatically add Distro profiles.
 From there its just a few clicks and you're up and running with a almost perfect command line linux experience!
 
@@ -72,5 +72,5 @@ Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
 `localhost:5000` can be accessed as `localhost:5000` on windows too
 
-## De bloating Windows
+#- De bloating Windows
 This powershell script works rather well: https://github.com/Sycnex/Windows10Debloater for most of the obvious things anyway.

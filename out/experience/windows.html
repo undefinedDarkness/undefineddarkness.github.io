@@ -40,9 +40,7 @@ This can be easily remedied:
 
 The rest should just work
 
-</p></details>
-<details >
-<summary><h2>Graphical Environment </h2></summary><p>
+<h2>Graphical Environment </h2>
 WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
@@ -56,7 +54,7 @@ one large screen if you want to work within a linux de / wm
 - Run
 
 & Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
-<pre><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">case</span> <span style="color:#cc9393">&quot;$(uname -r)&quot;</span> <span style="color:#e3ceab">in</span>
+<pre class="code"><code><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">case</span> <span style="color:#cc9393">&quot;$(uname -r)&quot;</span> <span style="color:#e3ceab">in</span>
 <span style="color:#9fafaf">    2 </span>	<span style="color:#dcdccc">*</span>microsoft-standard-WSL2<span style="color:#dcdccc">)</span>
 <span style="color:#9fafaf">    3 </span>		<span style="color:#7f9f7f; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
 <span style="color:#9fafaf">    4 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
@@ -65,7 +63,7 @@ one large screen if you want to work within a linux de / wm
 <span style="color:#9fafaf">    7 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#dcdccc">=</span><span style="color:#dca3a3; font-weight:bold">1</span>
 <span style="color:#9fafaf">    8 </span>		<span style="color:#dcdccc">;;</span>
 <span style="color:#9fafaf">    9 </span><span style="color:#e3ceab">esac</span>
-</pre>
+</code></pre>
 
 Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,
 long as VcXsrv is running.

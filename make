@@ -23,6 +23,9 @@ template=$(cat template.html)
 pre=${template%%\!CONTENT\!*}
 post=${template##*\!CONTENT\!}
 
+# Extract sidebar from the index
+sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' src/index.html | tr -d '\0')
+
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
 # General multi purpose build process
@@ -32,7 +35,7 @@ process () {
 	out=$_fnr
 
 	mkdir -p "$(dirname "$out")"
-	printf "\nBuilding \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n" "$1" "$out"
+	printf "Building \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n\n" "$1" "$out"
 
 	x=${out%%.html}
 	x=${x##out/}
@@ -52,7 +55,7 @@ build () {
 		# HTML
 		"html")
 			cp -fv "$1" "$out"
-			return
+			printf '\n'
 			;;
 		# Pond's Format
 		# + Markdown
@@ -78,6 +81,12 @@ gen_index () {
 	</style>" >> out/index.html
 		tool/tree src 1>> out/index.html
 		echo "$post" >> out/index.html
+		printf "Generated Article Index\n"
+}
+
+post_build () {
+		mv ./out/index.html .
+		gen_index 
 }
 
 case $1 in
@@ -115,6 +124,14 @@ case $1 in
 		rm -rv out index.html
 		;;
 
+	# Generate projects page
+	projects)
+		fnr "$pre" "!TITLE!" "Projects"
+		echo "$_fnr$sidebar" > out/projects.html
+		deno run --allow-net tool/fetch-projects.ts >> out/projects.html
+		echo "$post" >> out/projects.html
+		;;
+
 	# Build Files
 	
 	build)
@@ -146,7 +163,7 @@ live    - Live server with hot reloading
 		;;
 
 	*)
-		rm -r out
+		#rm -r out
 		mkdir -p src out
 		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt src/*.html src/**/*.html}; do
 			case "$file" in
@@ -166,14 +183,12 @@ live    - Live server with hot reloading
 					build "$file"
 			esac
 		done
-		# Post Build
-		mv ./out/index.html .
-		gen_index 
 
+		post_build
 
 		p=$(pgrep deno)
 		[ -n "$p" ] && kill -s USR1 "$p" 
 
-		printf "\nFinished!\n"
+		printf "Finished!\n"
 	;;
 esac

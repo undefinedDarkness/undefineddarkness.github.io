@@ -29,7 +29,7 @@
 # using Vim's :TOHtml command
 
 __syntax_hl () {
-	printf "<pre>"
+	printf "<pre class=\"code\"><code>"
 	highlight\
 		--syntax "$2"\
 		-q\
@@ -41,7 +41,7 @@ __syntax_hl () {
 		--pretty-symbols \
 		--config-file=assets/zenburn.theme \
 		--no-version-info <<< "$1"
-	printf "</pre>\n"
+	printf "</code></pre>\n"
 }
 
 # Replaced. {{{
@@ -181,16 +181,16 @@ initial_transformer () {
 		line_no=$(( line_no + 1 ))
 		case "$line" in
 			# Headings
-			"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
+			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
 				dbg ">> Found a heading"
 				heading=${line%% *}
-				if [ "${#heading}" -eq 2 ]; then
+				if [ "$heading" = "#-" ] ; then
 					echo "${used_detail:+</p></details>}
 <details${used_detail:- open}>
 <summary><h2>${line##${heading} }</h2></summary><p>" # cheeky uwu
 					used_detail=" " # this bit makes sure the first one is open.
 				else
-					echo "<h${#heading}>${line##${heading} }</h${#heading}>"
+					echo "<h${#heading}>${line#${heading}* }</h${#heading}>"
 				fi
 				;;
 			
@@ -236,7 +236,7 @@ initial_transformer () {
 	-e '
 		s!\`(.+?)\`!<code>\1</code>!g;
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
-		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" loading="lazy"></img>@g;
+		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
 		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
