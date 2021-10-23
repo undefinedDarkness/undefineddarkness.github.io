@@ -18,7 +18,7 @@ body {
 }
 
 /* Try to force font size */
-* { font-size: 15px !important; }
+* { font-size: 1.045em !important; }
 
 article {
 	padding: 1em 4em;
@@ -29,8 +29,7 @@ article {
 /* Sidebar */
 nav {
 	border-right: 1px solid #444;
-	min-width: 10%;
-	min-height: 100vh;
+	padding: 0 1em;
 }
 nav ul {
 	list-style-type: none;
