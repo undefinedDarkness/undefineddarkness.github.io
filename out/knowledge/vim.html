@@ -16,46 +16,28 @@
 </p>
 
 <h1>Plugins</h1>
-- <a href="https://github.com/dense-analysis/ale">🍻 Asynchronous Linting Engine</a>
-A great plugin that takes care of Linting, Formatting & Autocompletion
+<ul><li><a href="https://github.com/dense-analysis/ale">🍻 Asynchronous Linting Engine</a>A great plugin that takes care of Linting, Formatting & Autocompletion
 Quite customizable but some bits are a bit dated by default.
-
-- <a href="https://github.com/ap/vim-css-color">CSS Color</a>
-Highlight hex codes & web names for colors with the actual color :), works really well
+</li></ul><ul><li><a href="https://github.com/ap/vim-css-color">CSS Color</a>Highlight hex codes & web names for colors with the actual color :), works really well
 Lacks support for some languages (lua) but that can be easily fixed via autocommand.
-
-- <a href="https://github.com/sheerun/vim-polyglot">Polygot</a>
-Language pack for vim,
+</li></ul><ul><li><a href="https://github.com/sheerun/vim-polyglot">Polygot</a>Language pack for vim,
 A good one to have since you do not notice it much unless you're very worried about startup times
-
-- <a href="https://github.com/mattn/emmet-vim">Emmet</a>
-Essential if you edit HTML, You probably already know about this one.	
-
-- <a href="https://github.com/eraserhd/parinfer-rust">Parinfer</a>
-Infer your parenthesis!
+</li></ul><ul><li><a href="https://github.com/mattn/emmet-vim">Emmet</a>Essential if you edit HTML, You probably already know about this one.	
+</li></ul><ul><li><a href="https://github.com/eraserhd/parinfer-rust">Parinfer</a>Infer your parenthesis!
 True bliss if you ever edit lisp code 😳
 Also use this, it helps a lot: <a href="https://github.com/junegunn/rainbow_parentheses.vim">junegunn/rainbow_parentheses.vim</a>
-
-- <a href="https://github.com/lambdalisue/fern.vim">🌵 Fern</a>
-Great alternative to NERDTree / netrw and imo a much better one
+</li></ul><ul><li><a href="https://github.com/lambdalisue/fern.vim">🌵 Fern</a>Great alternative to NERDTree / netrw and imo a much better one
 Feels pretty clean and nice to use,
 If you're using neovim, <a href="kyazdani42/nvim-tree.lua">nvim-tree</a> will work much better for you & it has some nicer features.
-
-<!-- Replace with something better -->
-- <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
-I don't use a status line but if I did I would use lightline, it works really well and is easy to customize (<a href="https://i.imgflip.com/5pb8qw.jpg">MEME</a>)
-
-- <a href="https://github.com/nvim-telescope/telescope.nvim">🔭 Telescope</a>
-I wish I had learnt about this before, its a really nice plugin, it generates a menu for you that allows to
+</li></ul><!-- Replace with something better -->
+<ul><li><a href="https://github.com/itchyny/lightline.vim">Lightline</a>I don't use a status line but if I did I would use lightline, it works really well and is easy to customize (<a href="https://i.imgflip.com/5pb8qw.jpg">MEME</a>)
+</li></ul><ul><li><a href="https://github.com/nvim-telescope/telescope.nvim">🔭 Telescope</a>I wish I had learnt about this before, its a really nice plugin, it generates a menu for you that allows to
 search through files, content of files, anything and it can be mightly handy instead of fiddling with the wildmenu all day.
 Vim users have <a href="junegunn/fzf.vim">fzf.vim</a> which does some similar stuff.
-
-- <a href="https://folke/zen-mode.nvim">Zen Mode</a>
-This is an interesting one, What it does is slim down vim's UI so it becomes very bare bones, this is really useful
+</li></ul><ul><li><a href="https://folke/zen-mode.nvim">Zen Mode</a>This is an interesting one, What it does is slim down vim's UI so it becomes very bare bones, this is really useful
 for when you are editing documents instead of code and need vim to done down the hacker man aesthetic.
 This plugin is <a href="https://github.com/junegunn/goyo.vim">goyo</a> for vim users.
-
-<h1>Configuration </h1>
+</li></ul><h1>Configuration </h1>
 Making the most out of vanilla vim features
 
 
@@ -108,7 +90,8 @@ And you can script it! Like so:
 <span style="color:#9fafaf">    4 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_no_progress = 0&quot;</span>\
 <span style="color:#9fafaf">    5 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_ignore_folding = 0&quot;</span>\
 <span style="color:#9fafaf">    6 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&apos;let g:html_prevent_copy = &quot;fn&quot;&apos;</span>\
-<span style="color:#9fafaf">    7 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;set ft=</span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span>\
+<span style="color:#9fafaf">    7 </span>	<span style="color:#dcdccc">+</span><spatool/backend-web.sh: line 198: printf: `:': invalid format character
+n style="color:#cc9393">&quot;set ft=</span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span>\
 <span style="color:#9fafaf">    8 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;runtime! syntax/2html.vim&quot;</span>\
 <span style="color:#9fafaf">    9 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;wq!</span> <span style="color:#c07abe">$f</span><span style="color:#cc9393">&quot;</span>\
 <span style="color:#9fafaf">   10 </span>	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;q!&quot;</span> <span style="color:#dcdccc">-</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">&gt; /</span>dev<span style="color:#dcdccc">/</span>null
@@ -147,12 +130,7 @@ Here are a few useful gists on the topic:
 <a href="https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29">https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29</a>
  
 What I did to get <code>shellcheck</code> to work:
-- Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files
-- Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings
-- From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%<i>[^:]:%m,%f:%l: %t%</i>[^:]:%m," . &errorformat</code>
-- Made vim run <code>:make</code> on file write.
-
-✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot
+<ul><li>Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files</li><li>Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings</li><li>From error marker's readme: <code>let &errorformat="0.000000:</li><li>Made vim run </code>:make` on file write.</li></ul>✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot
 simpler to just use ALE for those, fine for stuff like GCC or Shell check tho
 
 </p></details>
@@ -160,12 +138,7 @@ simpler to just use ALE for those, fine for stuff like GCC or Shell check tho
 <summary><h2>Spell Checking & Dictionary Completion</h2></summary><p>
 As much as I hate to link a luke smith video, this one actually explains stuff so here ya go: <a href="https://www.youtube.com/watch?v=ez1XBUqbS68">https://www.youtube.com/watch?v=ez1XBUqbS68</a>
 But basically:
-- Enable spell checking with <code>:set spell</code>
-- Add words to the white list with <code>zg</code>
-- Add words to the black list with <code>zug</code>
-- Go through the suggest corrections with <code>z=</code> while your cursor is over misspelled word.
-
-For dictionary completion, you can use the following snippet:
+<ul><li>Enable spell checking with <code>:set spell</code></li><li>Add words to the white list with <code>zg</code></li><li>Add words to the black list with <code>zug</code></li><li>Go through the suggest corrections with <code>z=</code> while your cursor is over misspelled word.</li></ul>For dictionary completion, you can use the following snippet:
 You might need to rewrite it in vim script for vim...
 <pre class="code"><code><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">local</span> spell_complete <span style="color:#dcdccc">=</span> vim<span style="color:#dcdccc">.</span>api<span style="color:#dcdccc">.</span><span style="color:#aabfe3">nvim_replace_termcodes</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&apos;&lt;C-x&gt;&lt;C-k&gt;&apos;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">)</span> 
 <span style="color:#9fafaf">    2 </span><span style="color:#e3ceab">local</span> M <span style="color:#dcdccc">= {}</span>

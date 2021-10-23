@@ -44,16 +44,8 @@ The rest should just work
 WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)
 
-- Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>
-- Run <code>XLaunch</code>
-- Select 'Multiple Windows' if you want applications to behave like regular applications in windows or
-one large screen if you want to work within a linux de / wm
-- Start with no client
-- Tick disable access control !IMPORTANT!
-- Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> 
-- Run
-
-& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
+<ul><li>Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a></li><li>Run <code>XLaunch</code></li><li>Select 'Multiple Windows' if you want applications to behave like regular applications in windows orone large screen if you want to work within a linux de / wm
+</li><li>Start with no client</li><li>Tick disable access control !IMPORTANT!</li><li>Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> </li><li>Run</li></ul>& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
 <pre class="code"><code><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">case</span> <span style="color:#cc9393">&quot;$(uname -r)&quot;</span> <span style="color:#e3ceab">in</span>
 <span style="color:#9fafaf">    2 </span>	<span style="color:#dcdccc">*</span>microsoft-standard-WSL2<span style="color:#dcdccc">)</span>
 <span style="color:#9fafaf">    3 </span>		<span style="color:#7f9f7f; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>

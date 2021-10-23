@@ -18,7 +18,7 @@ body {
 }
 
 /* Try to force font size */
-* { font-size: 1.045em !important; }
+* { font-size: 1.005em !important; }
 
 article {
 	padding: 1em 4em;

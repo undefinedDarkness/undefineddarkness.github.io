@@ -140,7 +140,6 @@ table () {
 		IFS=$TAB
 		echo "<tr>"
 		for column in $columns; do
-			# Problem? Use a bashism!
 			if [ -n "${column// }" ]; then
 				echo "<${2:-td}>$column</${2:-td}>"
 			fi
@@ -173,13 +172,32 @@ initial_transformer () {
 	code_content=
 
 	quote_block=
+
+	in_list=
 	
 	IFS=''
 	while read -r line; do
-		#line=$( <<< "$line")
-		
 		line_no=$(( line_no + 1 ))
+		
+		# Empty line & is in list
+		if [ -z "$line" ] && [ -n "$in_list" ]; then
+			printf '</li></ul>' # close the last item and the list itself
+			in_list=
+			continue
+		fi
+
 		case "$line" in
+			# Lists
+			'- '*)
+				line=${line#- }
+				if [ -z "$in_list" ]; then
+					# Open a new list and start a new item in that list.
+					printf "<ul><li>${line}" 
+					in_list=1
+				else
+					printf "</li><li>${line}"
+				fi
+			;;
 			# Headings
 			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
 				dbg ">> Found a heading"
@@ -209,7 +227,8 @@ initial_transformer () {
 					code_lang=
 				fi
 				;;
-			'>>>'*) # this doesnt work for nested stuffs
+			# Block quote
+			'>>>'*)
 				dbg '>> Found a quote block'
 				if [ -z "$quote_block" ]; then # is not in quote block
 					quote_block=1
