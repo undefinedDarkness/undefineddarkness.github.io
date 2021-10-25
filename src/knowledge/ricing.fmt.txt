@@ -75,5 +75,50 @@ Generally you will need 3 font faces:
 
 More on the differences between serif, sans-serif and mono space: https://www.canva.com/learn/serif-vs-sans-serif-fonts/
 
-Here are a fonts I personally like for each one:
-<!-- TODO: a full article or more links here -->
+Here are a fonts I personally like for each one,
+You can find most of them on [Google Fonts](https://fonts.google.com)
+
+- Monospace:
+	IBM Plex Mono
+	Roboto Mono
+	JetBrains Mono
+	Iosevka Mono
+	Recursive Mono
+- Serif:
+	[ET Bembo](https://edwardtufte.github.io/et-book/)
+	Merriweather
+	[Piazzolla](https://piazzolla.huertatipografica.com/)
+	Libre Baskerville
+- Sans Serif:
+	Roboto
+	IBM Plex Sans
+	Iosevka Sans
+	Lexend Deca
+	Poppins
+
+## General Information On Ricing
+
+### Most common parts of a rice
+<img class="pxl hide-m" alt="illustration" src="/assets/ricing-guide.png" />
+
+### Workflow
+Finding a colorscheme -> Finding a wallpaper -> Themeing most commonly used apps -> Widgets / bar / etc -> ??? -> Profit
+
+
+## CSS Box Model
+<aside>
+
+<p>This is important in many parts of ricing,
+and is the general method to define spacing in most applications.
+
+Content is your text, image whatever
+Padding is spacing around the content but still within the box
+Border is a border around the box...
+Margin is spacing between the box and its siblings / parent box.
+
+Better explanation can be found at [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
+
+</p>
+
+<img class="pxl" alt="illustration" src="/assets/box-model.png" />
+</aside>

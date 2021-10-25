@@ -22,8 +22,7 @@ From there its just a few clicks and you're up and running with a almost perfect
 
 ### Clipboard 
 Just right clicking to paste should work well for most things, but vim has a few issues with it, if you are using neovim though and you should be
-This can be easily remedied:
-https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+This can be easily remedied with the instructions here: https://0x0.st/N0sx
 
 The rest should just work
 

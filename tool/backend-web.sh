@@ -146,11 +146,11 @@ table () {
 		done
 		echo "</tr>"
 	}
-
+	
 	echo "<thead>"
 	print_row "$1" "th"
 	printf "</thead>\n<tbody>\n"
-	
+
 	while read -r row; do
 		print_row "$row"
 	done <<< "$content"
@@ -192,10 +192,10 @@ initial_transformer () {
 				line=${line#- }
 				if [ -z "$in_list" ]; then
 					# Open a new list and start a new item in that list.
-					printf "<ul><li>${line}" 
+					printf "<ul><li>${line}\n" 
 					in_list=1
 				else
-					printf "</li><li>${line}"
+					printf "</li><li>${line}\n"
 				fi
 			;;
 			# Headings
