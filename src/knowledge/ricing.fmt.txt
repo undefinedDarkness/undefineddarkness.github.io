@@ -218,6 +218,9 @@ And just being good at programming isn't all you need, You need to have a good e
 If you cant do that, maybe ricing isn't for you, No harm just using a Desktop Environment.
 
 #### Getting help
+Found a nice article on the topic, Read it: 
+http://www.catb.org/esr/faqs/smart-questions.html
+
 Ask for help in a community related to that one piece of software you want help for,
 Usually there is at least Github Discussions, a IRC Chat room or a Matrix space / discord server for most things,
 Make good use of them, you'll meet developers of the software and actual users of the software there
