@@ -54,11 +54,9 @@ After installing, you have to make changes the following changes
 <b>For QT4:</b> Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:
 
     ~/.config/Trolltech.conf
---- 
-    ...
-    [Qt]
+<pre class="code" data-language=""><code>    [Qt]
     style=GTK+
-    ...
+</code></pre>
 
 <b>For QT5:</b> set the environment variable <code>QT_QPA_PLATFORMTHEME=gtk2</code>
 
@@ -68,7 +66,8 @@ After installing, you have to make changes the following changes
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
 
-    QT_QPA_PLATFORMTHEME=gnome</details>
+<pre class="code" data-language=""><code>    QT_QPA_PLATFORMTHEME=gnome
+</code></pre></details>
 
 <details><summary><h3>(Neo)Vim</h3></summary>This is an interesting one, If you use a pre - made colorscheme chances are a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme
 already exists for it, Otherwise you can make a base16 theme or make one from a wide variety of templates,

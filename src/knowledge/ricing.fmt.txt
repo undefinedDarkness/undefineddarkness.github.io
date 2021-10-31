@@ -47,11 +47,10 @@ After installing, you have to make changes the following changes
 **For QT4:** Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:
 
     ~/.config/Trolltech.conf
---- 
-    ...
+```
     [Qt]
     style=GTK+
-    ...
+```
 
 **For QT5:** set the environment variable `QT_QPA_PLATFORMTHEME=gtk2`
 
@@ -61,7 +60,9 @@ After installing, you have to make changes the following changes
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
 
+```
     QT_QPA_PLATFORMTHEME=gnome
+```
 
 #END f
 
