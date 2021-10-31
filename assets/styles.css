@@ -1,28 +1,28 @@
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+/* Import Ubuntu font, bold & normal variant */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
 
 /* Colors */
 :root {
 	--dark-bg: #111;
 	--dark-border: #444;
+	--dark-subtle: #888;
 	--dark-fg: #fafafa;
 	--light-bg: ghostwhite;
+	--ui-font: 'Ubuntu', sans-serif;
 }
 
 *, *::before, *::after {
 	box-sizing: border-box;
+	-webkit-print-color-adjust: exact !important; 
+    color-adjust: exact !important;              
 }
 
 /* Primary Page Styles */
-html, body {
-	width: 100vw;
-	height: 100vh;
-}
 body {
 	padding: 0;
 	margin: 0;
 	overflow-x: hidden;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: var(--ui-font);
 	background: var(--light-bg);
 	tab-size: 4;
 	font-size: 1em;
@@ -56,7 +56,7 @@ nav ul li {
 table { 
 	border-collapse: collapse;
 	table-layout:fixed;
-	border: 1px solid;
+	border: 1px solid var(--dark-border);
 }
 
 table * {
@@ -72,17 +72,16 @@ th,td {
 }
 
 td,th {
-	border-right: 1px solid;
+	border-right: 1px solid var(--dark-border);
 }
 
 thead tr { 
-	border-bottom: 1px solid;
+	border-bottom: 1px solid var(--dark-border);
 }
 
 
 
 /* Content */
-
 li {
 	white-space: pre-wrap;
 }
@@ -103,14 +102,24 @@ footer {
 	margin-top: 4em;
 }
 
+/* Details / Summary container */
+summary { 
+	cursor: pointer;
+	position: relative;
+}
+
+details[open] summary {
+	margin-bottom: 1em;
+}
+
 summary * {
-	display:inline;
+	margin: 0;
+	display: inline-block;
 }
 
 img {
 	max-width: 20vw;
 	height: auto;
-	border: 1px solid var(--dark-border);
 }
 
 aside {
@@ -120,13 +129,55 @@ aside *:nth-child(2) {
 	margin-left: auto;
 }
 
-
+/* Code blocks & Inline code */
 pre.code { 
 	background: var(--dark-bg); 
 	color: var(--dark-fg);
-	padding: 1em 0;
+	overflow-x: auto;
+	position: relative;
+	display: flex;
+}
+
+pre.code[data-language]::before {
+	padding: 3px;
+	display: block;
+	background: var(--dark-border);
+	content: attr(data-language);
+	writing-mode: vertical-lr;
+	font-family: var(--ui-font);
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 0.8em;
+	color: var(--dark-subtle);
+}
+
+pre code {
+	display: inline;
+	margin: 0;
+	padding: 1em;
+	border-radius: 0;
+}
+
+code * {font-style:inherit;} /* fix issues with the preprocessor by forcing everything to be normal. */
+
+/* Special styling for comments */
+pre.code code span[style="color:#7f9f7f; font-style:italic"] {
+	font-family: cursive, monospace;
+}
+
+code {
+	background: var(--dark-bg);
+	color: var(--dark-fg);
+	padding: 5px 0;
 	border-radius: 5px;
-	font-size: 1.1em;
+	display: inline-block;
+	font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    Menlo,
+    Courier,
+    monospace;
 }
 
 figure {
@@ -137,6 +188,8 @@ h1,h2,h3,h4,h5,h6 {
 	margin-bottom: 0;
 }
 
+h1:first-child { margin-top: 0; }
+
 section { 
 	margin-top: 3em;
 }
@@ -144,6 +197,7 @@ section {
 /* Tiny helper classes */
 .txt-c { text-align: center }
 .txt-l { text-align: left; }
+.ovr-x {overflow-x:auto}
 .no-ovr { overflow: hidden; }
 .c-red { color: firebrick; }
 .txt-c .txt-l { display:inline-flex; }
@@ -193,6 +247,11 @@ section {
 	a { color: lightblue; }
 }
 
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+	:root { --dark-subtle: #f0f0f0; }
+}
+
 /* Responsive */
 @media only screen and (max-device-width: 480px) {
 	body,aside {
@@ -200,13 +259,15 @@ section {
 	}
 	aside * { margin-left: 0 !important; }
 	article { padding: 1em 2em; }
-	img { max-width: 50vw; }
+	img { 
+		max-width: 50vw;
+	}
 	li {
 		display: inline-block;
 	}
 	nav {
 		border-right: none;
-		border-bottom: 1px solid;
+		border-bottom: 1px solid var(--dark-border);
 		min-height: auto;
 	}
 	pre {
@@ -216,4 +277,16 @@ section {
 		grid-template-columns: 1fr;
 	}
 	.hide-m { display: none; }
+}
+
+@media print {
+	pre.code[data-language]::before { width:100%;writing-mode: initial;position: absolute;top:0;padding:5px; }
+	pre.code { display:inline-block; }
+	pre.code code {display:block; margin-top:1em;}
+	article { padding: 0; }
+	summary { list-style-type:none; }
+	body {background:none;color:#000; }
+	img {border:1px solid var(--dark-border)}
+	a { color: darkblue; }
+	/* :root { --ui-font: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif; } */
 }

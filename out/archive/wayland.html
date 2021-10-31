@@ -64,15 +64,15 @@ natively (without Xwayland) on wayland
 Although most of them required tweaking in some form or another
 
 <b>ROFI:</b> This does use a fork
-<pre class="code"><code><span style="color:#9fafaf">    1 </span>git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
-<span style="color:#9fafaf">    2 </span><span style="color:#dfdfbf; font-weight:bold">cd</span> rofi
-<span style="color:#9fafaf">    3 </span>meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
-<span style="color:#9fafaf">    4 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
-<span style="color:#9fafaf">    5 </span>ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
+<pre class="code" data-language="sh"><code>git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
+<span style="color:#dfdfbf; font-weight:bold">cd</span> rofi
+meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
+ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
+ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
 </code></pre>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
-<pre class="code"><code><span style="color:#9fafaf">    1 </span>MOZ_ENABLE_WAYLAND=1 firefox
+<pre class="code" data-language=""><code>MOZ_ENABLE_WAYLAND=1 firefox
 </code></pre>
 ** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
@@ -100,4 +100,5 @@ since whether I like it or not, it seems to be the future of Linux Desktop
 			</footer>
 		</article>
 	</body>
+	<script src="/assets/fix.js" defer />
 </html>

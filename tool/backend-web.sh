@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=2016,2059
 
 # This is a example implementation of a backend 
 # for the pond formatting system.
@@ -29,13 +28,12 @@
 # using Vim's :TOHtml command
 
 __syntax_hl () {
-	printf "<pre class=\"code\"><code>"
+	printf "<pre class=\"code\" data-language=\"%s\"><code>" "$2"
 	highlight\
 		--syntax "$2"\
 		-q\
 		--force \
 		--stdout \
-		-l \
 		-f \
 		--inline-css \
 		--pretty-symbols \
@@ -82,7 +80,7 @@ __SLOW_syntax_hl () {
 			existing_styles+=("$line")
 		fi
 	done <<< "$style"
-	printf "${existing_styles[*]}" > ./assets/styles.css
+	printf '%s' "${existing_styles[*]}" > ./assets/styles.css
 	) &
 
 	code=${l%</pre>*}
@@ -113,9 +111,16 @@ sh_script () {
 	$1
 }
 
+# Folded text
+f () {
+	content=$1
+	shift
+	printf "<details><summary><h3>%s</h3></summary>%s</details>" "${*#'#f '}" "$content"
+}
+
 # Right align text
 right_align () {
-	printf "<div style=\"text-align: right\">\n$1\n</div>"
+	printf "<div style=\"text-align: right\">\n%s\n</div>" "$1"
 }
 
 # Center align text while preserving indentation: useful for ascii art
@@ -125,7 +130,7 @@ preserve_center () {
 
 # Center align without preserving.
 center () {
-	printf "<p style=\"text-align:center\">\n$1\n</p>"
+	printf "<p style=\"text-align:center\">\n%s\n</p>" "$1"
 }
 
 # Create a table with
@@ -134,7 +139,7 @@ center () {
 table () {
 	content="$1"
 	shift
-	printf "<table>\n"
+	printf "<div class=\"ovr-x\"><table>\n"
 	print_row () {
 		columns=${1#\#TABLE}
 		IFS=$TAB
@@ -155,7 +160,7 @@ table () {
 		print_row "$row"
 	done <<< "$content"
 
-	echo "</tbody></table>"
+	echo "</tbody></table></div>"
 }
 
 # PREDEFINED TRANSFORMERS
@@ -192,24 +197,17 @@ initial_transformer () {
 				line=${line#- }
 				if [ -z "$in_list" ]; then
 					# Open a new list and start a new item in that list.
-					printf "<ul><li>${line}\n" 
+					printf "<ul><li>%s\n"  "$line"
 					in_list=1
 				else
-					printf "</li><li>${line}\n"
+					printf "</li><li>%s\n" "$line"
 				fi
 			;;
 			# Headings
 			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
 				dbg ">> Found a heading"
 				heading=${line%% *}
-				if [ "$heading" = "#-" ] ; then
-					echo "${used_detail:+</p></details>}
-<details${used_detail:- open}>
-<summary><h2>${line##${heading} }</h2></summary><p>" # cheeky uwu
-					used_detail=" " # this bit makes sure the first one is open.
-				else
-					echo "<h${#heading}>${line#${heading}* }</h${#heading}>"
-				fi
+				echo "<h${#heading}>${line#${heading}* }</h${#heading}>"
 				;;
 			
 			# Block of code
@@ -253,12 +251,12 @@ initial_transformer () {
 		fi
 	done <<< "$1" | perl -p \
 	-e '
-		s!\`(.+?)\`!<code>\1</code>!g;
+		s!`(.+?)`!<code>\1</code>!g;
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
 		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-		s!(?<\!")(https?://[^<\s]+)!<a href="\1">\1</a>!g;
+		s!(?<\!")(https?://[^<\s\)]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!^> (.+)!<q>\1</q>!g
 	' # Markdown has returned to its roots :euphoria:

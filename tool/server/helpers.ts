@@ -70,8 +70,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
       // Embed Script & Return
       headers.set("content-type", "text/html");
 
-      const data = new TextDecoder("utf-8").decode(await Deno.readFile(path)) +
-        SCRIPT;
+      const data = new TextDecoder("utf-8").decode(await Deno.readFile(path)).replace('</body>', SCRIPT+'</body>') // add to end of body tag
 
       request.respondWith(
         new Response(data, {

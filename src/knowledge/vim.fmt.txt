@@ -47,7 +47,7 @@ This plugin is [goyo](https://github.com/junegunn/goyo.vim) for vim users.
 # Configuration 
 Making the most out of vanilla vim features
 
-#- NetRW 
+#f NetRW 
 Using NetRW as a file tree.
 From <a href="https://shapeshed.com/vim-netrw/">this post</a>
 tldr:
@@ -58,8 +58,9 @@ let g:netrw_winsize = 25 " Size
 let g:netrw_liststyle = 3 " Show files in tree form
 ```
 See what each option does with `:help netrw-browser-settings`
+#END f
 
-#- :Grep
+#f :Grep
 Improving the :grep command to work similar to how [ack.vim](https://github.com/mileszs/ack.vim) works
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything
 final snippet:
@@ -75,12 +76,14 @@ augroup quickfix
     autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 ```
+#END f
 
-#- Tab Indicator 
+#f Tab Indicator 
 If and only if you indent with tabs, vim can bestow upon you a slick tab line:
 `set list lcs=tab:\│\ " There is a space here :)`
+#END f
 
-#- Export to HTML 
+#f Export to HTML 
 This is a pretty neat capability I did not know vim had,
 By the power of an included plugin, You can run `:TOhtml` to convert the entire current file to a HTML with all of vim's
 syntax highlighted goodness,
@@ -100,15 +103,16 @@ echo "$0" | head -n -1 | nvim -n --headless \
 You can see more options for it here: https://vimhelp.org/syntax.txt.html#%3ATOhtml ,
 [Here](/assets/make.html) is a example file from the make script of this website.
 * ✏ ~~This is now used to generate code syntax highlighting for this site.~~ - Turns out it was way too slow
+#END f
 
-#- Improving :help and :Man 
+#f Improving :help and :Man 
 I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
 `au FileType help,man nnoremap <buffer> <CR> <C-]>`
 This makes it so hitting enter in a help buffer will try to just to the currently selected word 
 (the world the cursor is on.)
 Here are some more nice shortcuts: https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation
 
-### Using vim as a man pager 
+#### Using vim as a man pager 
 There are lots of ways to do it (documented [here](https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix) but 
 the simplest way I found is to simple alias `man`, like so in your shell configuration file:
 ```sh
@@ -121,8 +125,9 @@ If you use vim, remember to add this to your vimrc:
 as `:help ft-man-plugin` instructs you to.
 
 * This has some issues like files like `./local.man` but I do not often use this so its not a problem for me.
+#END f
 
-#- Linting 
+#f Linting 
 Here are a few useful gists on the topic:
 https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252<br> 
 https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
@@ -135,8 +140,9 @@ What I did to get `shellcheck` to work:
 
 ✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot
 simpler to just use ALE for those, fine for stuff like GCC or Shell check tho
+#END f
 
-#- Spell Checking & Dictionary Completion
+#f Spell Checking & Dictionary Completion
 As much as I hate to link a luke smith video, this one actually explains stuff so here ya go: https://www.youtube.com/watch?v=ez1XBUqbS68
 But basically:
 - Enable spell checking with `:set spell`
@@ -167,6 +173,7 @@ vim.cmd [[ au FileType markdown,html lua require('auto').setup_spell() ]]
 return M 
 ```
 It works, fairly ~~well.~~ badly, it has lots of issues when you have multiple buffers open...
+#END f
 
 #CENTER
 <i>~ More to come.. Maybe 🚧 ~</i>

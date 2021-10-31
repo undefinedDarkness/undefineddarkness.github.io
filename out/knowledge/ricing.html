@@ -13,15 +13,15 @@
 <h1>🌾 How do I rice X?</h1>
 My own take at a ricing guide.
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.
+List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a>
 
-
-<details open>
-<summary><h2>🦊 Firefox</h2></summary><p>
-You can customize the User Interface (Chrome) with Firefox CSS,
+<details><summary><h3>🦊 Firefox</h3></summary>You can customize the User Interface (Chrome) with Firefox CSS,
 See the following:
 <ul><li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a>
 </li><li><a href="https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/">How to create & live debug userChrome.css</a>
-</li></ul><h3>Start Page</h3>
+</li></ul>You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of a certain sites.
+
+<h4>Start Page</h4>
 You will need basic knowledge of HTML, CSS & JS
 <a href="https://developer.mozilla.org/en-US/">MDN</a> is a nice place to learn
 
@@ -30,21 +30,15 @@ Firefox has quite a few limitations on setting local files as your start page
 site hosting service (GitHub Pages, Netlify, Surge.sh)
 
 Then use <a href="https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/">this</a> extension to set the URL.
-Chromium Users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (chrome places no limitations)
+Chromium Users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (chrome places no limitations)</details>
 
-</p></details>
-<details >
-<summary><h2>GTK</h2></summary><p>
-This is most easily accomplished by forking an existing theme and modifying them, Most themes are open source and
-are easily modifiable (if you know CSS). Phocus is a nice one to start with. (<a href="https://github.com/phocus/gtk)">https://github.com/phocus/gtk)</a>
+<details><summary><h3>GTK</h3></summary>This is most easily accomplished by forking an existing theme and modifying them, Most themes are open source and
+are easily modifiable (if you know CSS). Phocus is a nice one to start with. (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)
 
 GTK CSS Reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a>
-Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)
+Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)</details>
 
-</p></details>
-<details >
-<summary><h2>(Neo)Vim</h2></summary><p>
-This is an interesting one, If you use a pre - made colorscheme chances are a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme
+<details><summary><h3>(Neo)Vim</h3></summary>This is an interesting one, If you use a pre - made colorscheme chances are a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme
 already exists for it, Otherwise you can make a base16 theme or make one from a wide variety of templates,
 There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, <a href="https://bytefluent.com/vivify/">Vivify</a>)
 
@@ -53,16 +47,16 @@ And of course if a colorscheme is similar to yours, you can easily fork it and m
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
 See more on vim & neovim: <a href="/out/knowledge/vim.html">here</a>
 
-</p></details>
-<details >
-<summary><h2>Terminal</h2></summary><p>
-This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
+How to make a vim colorscheme: <a href="https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/">Reddit</a>
+Colorscheme Template: <a href="https://github.com/romainl/vim-rnb">RNB</a></details>
+
+<details><summary><h3>Terminal</h3></summary>This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
 to implement, its just 16 colors after all :P
 
-<h3>Comparison</h3>
+<h4>Comparison</h4>
 This is a general comparison of the most common terminal emulators as of October 2021.
 
-<table>
+<div class="ovr-x"><table>
 <thead>
 <tr>
 <th>NAME</th>
@@ -164,21 +158,77 @@ This is a general comparison of the most common terminal emulators as of October
 <td>N</td>
 <td>~</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 
 <b>Notes:</b>
 OTF = Open Type Features such as stylistic sets and the like
 P = With a patch or a fork
+Alacritty is the most commonly used terminal, (in the UP discord)
 Foot is wayland only.
 If you are looking into using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">https://github.com/bakkeby/st-flexipatch</a> instead as it is much easier to use and modify.
 <!-- TODO: Add links to the forks / patches here -->
-</details>
+
+Fork for ligatures in alacritty (super out of date and the alacritty author recommends just using another terminal):
+<a href="https://github.com/zenixls2/alacritty">https://github.com/zenixls2/alacritty</a>
+
+ST patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/patches/</a>
+
+<h4>Images in the Terminal</h4>
+This is a often sought after feature and often used with fetch scripts.
+Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">sixel</a> tho so maybe that will end up being the standard.
+For terminals without image support entirely, there are hacks using <code>w3m-img</code> and <code>uberzerg</code> to get them...
+But they're finicky and don't just work ™, So I'd recommend against them.
+<a href="https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal">Full article</a>
+
+But here's a overview:
+Alacritty doesn't support images and needs a hack,
+Wezterm natively supports iterms2's image format & sixel
+Kitty has its own format 
+St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch">patch</a>
+and it needs a patch for the w3m hack to work too.</details>
+
+<details><summary><h3>🥴 Picom</h3></summary><i>The definition of compositor changes from X11 to Wayland, I am talking about X11 only:</i>
+Picom is a composite (that is a thing that sits between your window manager and X11 and makes stuff like, transparency work.
+Recently however, compositors have been used to implement blur / rounded corners / animations for a window manager to behave more like a desktop enviroment.)
+
+<h4>I just want transparency and or transparency</h4>
+You're in luck, Lots of choice for you,
+You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code> anything you want
+and generally it'll just work™™™
+
+I still suggest using picom as it has the latest technology / optimizations, beside being the
+most commonly used & most supported one.
+⛔: <i>Forcing application transparency without blur is also fairly shitty.</i>
+
+<h4>I want blur too</h4>
+Just build the latest <a href="https://github.com/yshui/picom">master</a>, Dual kawase blur has been implemented for the experimental backends.
+⛔: <i>Using blur is cringe and in 99.99% of cases is unnecessary or used in a rather ugly manner.</i>
+
+<h4>I want rounded corners too</h4>
+Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.
+To build picom from source, follow the instructions in the <a href="https://github.com/yshui/picom#build">README</a>
+
+If the version in your package repositories has the features you want, I'd suggest you use that instead.
+
+A few window managers can draw rounded corners out of the box so you might be able to utilize that.
+
+<h4>I want animations too</h4>
+Use one of the popular forks I guess :/, I dont how well picom animations work but I dont expect it to be spectacular
+The following are popular as of October 2021:
+<a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> decent animations, just different
+<a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has nice, configurable animations
+\_ <a href="https://github.com/pijulius/picom">pijulius/picom</a> -> best fork for animations right now
+
+Example configuration with all of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a>
+To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want
+Remember to use window classes whenever you can, window titles can be very finicky
+
+<a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a></details>
 
 <h1>🎨 Design Recommendations</h1>
 Stuff related to the general design of a rice
 
-<h2>Typography</h2>
-<q>The style and appearance of printed matter.</q>
+<details><summary><h3>Typography</h3></summary><q>The style and appearance of printed matter.</q>
 
 This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice as well as its usability.
 Generally you will need 3 font faces:
@@ -190,7 +240,7 @@ Generally you will need 3 font faces:
 Here are a fonts I personally like for each one,
 You can find most of them on <a href="https://fonts.google.com">Google Fonts</a>
 
-<ul><li>Monospace:
+<ul><li>Mono space:
 	IBM Plex Mono
 	Roboto Mono
 	JetBrains Mono
@@ -203,21 +253,81 @@ You can find most of them on <a href="https://fonts.google.com">Google Fonts</a>
 	Libre Baskerville
 </li><li>Sans Serif:
 	Roboto
+	Ubuntu Mono (the font used on this site)
 	IBM Plex Sans
 	Iosevka Sans
 	Lexend Deca
 	Poppins
-</li></ul><h2>General Information On Ricing</h2>
+</li></ul><a href="https://gitlab.com/exorcist365/fonts">SEE MORE</a> ~ Mostly mono space fonts but there are a few interesting one's here
+Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a>
 
-<h3>Most common parts of a rice</h3>
-<img class="pxl" alt="illustration" src="/assets/ricing-guide.png" />
+<h3>Nerd Fonts</h3>
+Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, 
+these are commonly used in apps that are unable to actually render icons.
 
-<h3>Workflow</h3>
-Finding a colorscheme -> Finding a wallpaper -> Themeing most commonly used apps -> Widgets / bar / etc -> ??? -> Profit
+Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)
+What icons are there: <a href="https://www.nerdfonts.com/cheat-sheet">https://www.nerdfonts.com/cheat-sheet</a>
+How to patch your own font:
+<pre class="code" data-language="sh"><code><span style="color:#7f9f7f; font-style:italic">#~ Download the nerd fonts patcher &amp; the glyphs it needs.</span>
+git clone <span style="color:#dfdfbf; font-weight:bold">--filter</span><span style="color:#dcdccc">=</span>blob<span style="color:#dcdccc">:</span>none <span style="color:#dfdfbf; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#dcdccc">:</span>ryanoasis<span style="color:#dcdccc">/</span>nerd-fonts
+<span style="color:#dfdfbf; font-weight:bold">cd</span> nerd-fonts
+git sparse-checkout add src<span style="color:#dcdccc">/</span>glyphs
 
+<span style="color:#7f9f7f; font-style:italic">#~ Using the patcher</span>
+<span style="color:#7f9f7f; font-style:italic">#~ You need fontforge &amp; Python3 for this to work:</span>
+.<span style="color:#dcdccc">/</span>font-patcher <span style="color:#dcdccc">&lt;</span>PATH TO FONT<span style="color:#dcdccc">&gt;</span>
+</code></pre></details>
 
-<h2>CSS Box Model</h2>
-<aside>
+<h2>General</h2>
+
+<details><summary><h3>How to RTFM & Get help</h3></summary>Read manuals whenever you can, Those can be easily accessed for any installed software
+by doing <code>man <NAME-OF-SOFTWARE></code>, or by searching through a online <a href="https://manpages.debian.org/">repository</a>.
+
+Applications will list all their options there along with addition options specific to the application.
+Many apps also have Github Wiki's or documentation in the README for their app, kindly refer to those too.
+
+And honestly, if you're decent at googling - you can find most things you need to relatively easily with maybe a little help.
+If your question is a something like <code>can X do Y</code>, that is a question that should be solved by google and the application's documentation.
+
+Dig deep into the dot files of other rices, if you have no idea how they did a thing,
+Most people are willing to explain how / why they did something in such a way, Which is a great way to learn / understand things.
+
+<h4>Do not expect a guide / tutorial</h4>
+I put this here because I see questions like "How do I rice" or "is there a tutorial for it" way more often than I'd like.
+
+Barely any linux software is documented in such a through manner to have documentation like that.
+Most of the software isn't trying to hold your hand, Most of it is to fill a need for the developer himself and which he has kindly shared with the community.
+Whether you like it or not to rice effectively, you will need to learn the ins and outs of any apps you use and generally you'll need some programming knowledge too,
+There is a good reason there are not that many good rices, Its a difficult thing to do.
+And just being good at programming isn't all you need, You need to have a good eye and have some knowledge of user interface design or just know <i>what looks good</i>.
+
+If you cant do that, maybe ricing isn't for you, No harm just using a Desktop Environment.
+
+<h4>Getting help</h4>
+Ask for help in a community related to that one piece of software you want help for,
+Usually there is at least Github Discussions, a IRC Chat room or a Matrix space / discord server for most things,
+Make good use of them, you'll meet developers of the software and actual users of the software there
+Instead of asking in something like the UP server which is only mildly related to that software.
+
+Be nice, and diplomatic,
+All of the people helping you are volunteering and spending their time and effort to help you solve your problem, be nice to them.
+Even if their solution isn't exactly what you wanted, it could still point out the right way to a solution.
+Explore properly and don't criticize anyone for giving a answer that did not solve your problem.
+
+See the following: <a href="https://dontasktoask.com/">Don't ask to ask.</a> & <a href="https://xyproblem.info/">The X / Y Problem</a>
+
+Stick to the correct channels and follow rules, If you spam your question in multiple channels, That simply draws ire from the members of the community
+and doesn't increase the chances of your question being solved.
+Do not think you are being ignored if your question isn't answered in a reasonable amount of time ( usually a day or 2, other people have lives too you know )
+Its either that no one knows the solution to your problem or no one cares enough to answer it (in which case, write your question out with more effort, and try to see if it has been solved in the documentation or elsewhere already)
+
+Write out your question in overwhelming detail, Mention everything you have already tried and what you have found related to your problem,
+Upload your configuration files somewhere (like 0x0.st or paste.rs) and link them in your question, Share screenshots of what your problem is,
+Try explaining it in simple language.</details>
+
+<details><summary><h3>Most common parts of a rice</h3></summary><img class="pxl" alt="illustration" src="/assets/ricing-guide.png" /></details>
+
+<details><summary><h3>CSS Box Model</h3></summary><aside>
 
 <p>This is important in many parts of ricing,
 and is the general method to define spacing in most applications.
@@ -232,11 +342,86 @@ Better explanation can be found at <a href="https://developer.mozilla.org/en-US/
 </p>
 
 <img class="pxl" alt="illustration" src="/assets/box-model.png" />
-</aside>
+</aside></details>
+
+<details><summary><h3>Animated Wallpapers</h3></summary>for those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files and gifview for gif files)
+
+<code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code>
+
+if the above doesnt work correctly use this one
+<code>xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings</code>
+
+Sources for pixelart animated wallpapers
+<a href="https://1041uuu.tumblr.com/">https://1041uuu.tumblr.com/</a>
+<a href="https://waneella.tumblr.com/">https://waneella.tumblr.com/</a>
+
+googling will also get you a bit of resources 
+
+<i>- Taken from Dazai-san#6969 on the unixporn discord server</i></details>
+
+<details><summary><h3>Window Manager Tier list</h3></summary>This is very biased, of course :)
+and based on my opinion.
+<b>I HIGHLY RECOMMEND YOU TRY EACH OF THEM AND DECIDE FOR YOURSELF</b>
+Generally, The higher it is up on the list,
+The more complicated it is and how powerful it is.
+
+<div class="tierlist">
+<div class="ovr-x"><table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best</td>
+<td>Awesome</td>
+</tr>
+<tr>
+<td>Better than most</td>
+<td>XMonad</td>
+<td>FVWM</td>
+<td>Qtile</td>
+</tr>
+<tr>
+<td>Good</td>
+<td>HLWM</td>
+<td>Kiwmi</td>
+<td>Wayfire</td>
+</tr>
+<tr>
+<td>Simple</td>
+<td>i3</td>
+<td>Openbox</td>
+<td>Bspwm</td>
+<td>River</td>
+</tr>
+<tr>
+<td>Unremarkable</td>
+<td>leftwm</td>
+<td>dwm</td>
+<td>2bwm</td>
+<td>berry</td>
+</tr>
+</tbody></table></div>
+</div>
+
+If you're new to ricing in general, I'd highly recommend i3 since its very commonly used,
+has good documentation, and is a relatively good example of a tiling window manager.
+* Use i3-gaps if you're planning to use i3, Sway is pretty much i3-gaps for wayland so you can try that too.
+
+If you dont wanna learn how tiling window managers work (I highly recommend you do),
+Openbox might be a good choice as its better than i3 for floating, You can try iceWM too, which is more fully featured out of the box.
+* Awesome might be the best window manager for floating too, overall
+
+If you are just looking for outright power at no expense spared, You're looking at either awesome / xmonad or qtile.
+XMonad is very good at moving windows around but its configured in haskell which can be relatively difficult to learn and it has no widget system.
+Awesome is good at that too but maybe not to the same extent, but it has an excellent widget system too, its configured in Lua which is relatively easy to learn.
+Qtile is similar to awesome but it uses python and I hear has some performance issues, But it has a wayland backend so that might be of note.</details>
 
 			</details><footer>
 <a href="/index.html">Return Home</a>
 			</footer>
 		</article>
 	</body>
+	<script src="/assets/fix.js" defer />
 </html>

@@ -27,9 +27,7 @@ Installation is a bit murky because the docs are spread out (I am just dumb.) bu
 After that you can install a distribution from the microsoft store which is simple enough, you can install any distro of your choosing but
 I think thats a fair bit more tricky.
 
-
-<details open>
-<summary><h2>Terminal</h2></summary><p>
+<h2>Terminal</h2>
 The choice should be obvious (I hope): The <a href="https://github.com/microsoft/terminal">windows terminal</a> works ootb with WSL and will even automatically add Distro profiles.
 From there its just a few clicks and you're up and running with a almost perfect command line linux experience!
 
@@ -52,15 +50,15 @@ one large screen if you want to work within a linux de / wm
 </li><li>Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> 
 </li><li>Run
 </li></ul>& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:
-<pre class="code"><code><span style="color:#9fafaf">    1 </span><span style="color:#e3ceab">case</span> <span style="color:#cc9393">&quot;$(uname -r)&quot;</span> <span style="color:#e3ceab">in</span>
-<span style="color:#9fafaf">    2 </span>	<span style="color:#dcdccc">*</span>microsoft-standard-WSL2<span style="color:#dcdccc">)</span>
-<span style="color:#9fafaf">    3 </span>		<span style="color:#7f9f7f; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
-<span style="color:#9fafaf">    4 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
-<span style="color:#9fafaf">    5 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;$(sed -n &apos;s/nameserver //p&apos; /etc/resolv.conf):0&quot;</span>
-<span style="color:#9fafaf">    6 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span>$<span style="color:#dcdccc">(</span>ip route|<span style="color:#aae3b2">awk</span> <span style="color:#cc9393">&apos;/^default/{print</span> <span style="color:#c07abe">$3</span><span style="color:#cc9393">}&apos;</span><span style="color:#dcdccc">):</span><span style="color:#dca3a3; font-weight:bold">0.0</span>
-<span style="color:#9fafaf">    7 </span>		<span style="color:#dfdfbf; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#dcdccc">=</span><span style="color:#dca3a3; font-weight:bold">1</span>
-<span style="color:#9fafaf">    8 </span>		<span style="color:#dcdccc">;;</span>
-<span style="color:#9fafaf">    9 </span><span style="color:#e3ceab">esac</span>
+<pre class="code" data-language="sh"><code><span style="color:#e3ceab">case</span> <span style="color:#cc9393">&quot;$(uname -r)&quot;</span> <span style="color:#e3ceab">in</span>
+	<span style="color:#dcdccc">*</span>microsoft-standard-WSL2<span style="color:#dcdccc">)</span>
+		<span style="color:#7f9f7f; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
+		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
+		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;$(sed -n &apos;s/nameserver //p&apos; /etc/resolv.conf):0&quot;</span>
+		<span style="color:#dfdfbf; font-weight:bold">export</span> DISPLAY<span style="color:#dcdccc">=</span>$<span style="color:#dcdccc">(</span>ip route|<span style="color:#aae3b2">awk</span> <span style="color:#cc9393">&apos;/^default/{print</span> <span style="color:#c07abe">$3</span><span style="color:#cc9393">}&apos;</span><span style="color:#dcdccc">):</span><span style="color:#dca3a3; font-weight:bold">0.0</span>
+		<span style="color:#dfdfbf; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#dcdccc">=</span><span style="color:#dca3a3; font-weight:bold">1</span>
+		<span style="color:#dcdccc">;;</span>
+<span style="color:#e3ceab">esac</span>
 </code></pre>
 
 Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,
@@ -82,9 +80,7 @@ Since I got confused a bit here, they work exactly how you would expect,
 You can access linux web servers from windows so
 <code>localhost:5000</code> can be accessed as <code>localhost:5000</code> on windows too
 
-</p></details>
-<details >
-<summary><h2>De bloating Windows</h2></summary><p>
+<h2>De bloating Windows</h2>
 This powershell script works rather well: <a href="https://github.com/Sycnex/Windows10Debloater">https://github.com/Sycnex/Windows10Debloater</a> for most of the obvious things anyway.
 
 			</details><footer>
@@ -92,4 +88,5 @@ This powershell script works rather well: <a href="https://github.com/Sycnex/Win
 			</footer>
 		</article>
 	</body>
+	<script src="/assets/fix.js" defer />
 </html>
