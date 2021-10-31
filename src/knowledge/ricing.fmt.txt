@@ -30,6 +30,39 @@ are easily modifiable (if you know CSS). Phocus is a nice one to start with. (ht
 
 GTK CSS Reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
+
+The following has been written by: Gingka#1796 
+#### Uniform Look for GTK & QT Apps
+
+Arch Wiki Link: https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines
+
+By default, you have to apply themes for QT and GTK separately, with most GTK themes not having a QT counterpart.
+
+To achieve a consistent look over both the styles, you can install **theme engines** like QGtkStyle (https://github.com/qt/qtstyleplugins) or QGnomePlatform (https://github.com/FedoraQt/QGnomePlatform).
+These theme engines can be used to translate themes between GTK and QT platforms.
+
+#### QGtkStyle
+After installing, you have to make changes the following changes
+
+**For QT4:** Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:
+
+    ~/.config/Trolltech.conf
+--- 
+    ...
+    [Qt]
+    style=GTK+
+    ...
+
+**For QT5:** set the environment variable `QT_QPA_PLATFORMTHEME=gtk2`
+
+*Note: This requires that the configured GTK theme supports both GTK 2 and GTK 3*
+
+#### QGnomePlatform
+This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
+To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
+
+    QT_QPA_PLATFORMTHEME=gnome
+
 #END f
 
 #f (Neo)Vim
