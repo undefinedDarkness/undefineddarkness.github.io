@@ -28,6 +28,12 @@ sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' src/index.html | tr -d '\0')
 
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
+# bash only and im lazy :(
+getModifiedTime () {
+	o=$(stat -c '%y' $1)
+	echo "${o%.*}"
+}
+
 # General multi purpose build process
 process () {
 	#out=${2/.${out#*.}/.html}
@@ -39,7 +45,7 @@ process () {
 
 	x=${out%%.html}
 	x=${x##out/}
-	fnr "$pre" "!TITLE!" "$x"
+	fnr "$pre" "!TITLE!" "$x" "!TIME!" "$(getModifiedTime "$1")"
 	header=$_fnr
 	printf '%s' "$header" > "$out"
 	$3 "$1" 1>> "$out" # Generate HTML -- CHANGE
@@ -73,6 +79,7 @@ gen_index () {
 		article { 
 			text-align: left;
 			white-space: pre-wrap;
+			font-family: var(--sans-font);
 			display: inline-block;
 		}
 		body {
@@ -86,7 +93,13 @@ gen_index () {
 
 post_build () {
 		mv ./out/index.html .
-		gen_index 
+		gen_index
+		sed -E 's/\t//g;
+				s/[[:space:]]{2,}//g; 
+				s!/\*.*\*/!!g; 
+				/^$/d;
+				s/\n//g' assets/styles.css | tr -d '\n' > assets/styles-min.css
+		printf '\nassets/styles.css -> assets/styles-min.css\n\n'
 }
 
 case $1 in
@@ -101,6 +114,7 @@ case $1 in
 		(
 		find src -name "*.fmt.txt" -or -name '*.html'
 		realpath ./template.html
+		realpath assets/styles.css
 		find tool -name "*.sh"
 		echo $0
 		) | entr ./make # build /_
@@ -133,7 +147,7 @@ case $1 in
 			build "$file"
 		done
 		kill -s USR1 "$(pgrep deno)" # In POSIX, There is no SIG... prefix 
-		gen_index &
+		post_build
 		;;
 
 	--help|help)

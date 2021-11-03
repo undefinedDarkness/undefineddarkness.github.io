@@ -1,10 +1,11 @@
-#CENTER
-![art by u/astrellon3](https://i.redd.it/iymvctstjoq31.png)
+<div class="txt-c hor-ord jus-c algn-c header">
+<img class="img-sml" alt="art by u/astrellon3" src="https://i.redd.it/iymvctstjoq31.png" />
 <!-- TODO: recreate myself -->
+<h1>Vi IMproved</h1>
+</div>
 <i>This is just a bunch of neat stuff I find related to Vim, maybe plugins, scripts or just neat settings.</i>
-#END CENTER
 
-# Plugins
+## Plugins
 - <a href="https://github.com/dense-analysis/ale">🍻 Asynchronous Linting Engine</a>
 A great plugin that takes care of Linting, Formatting & Autocompletion
 Quite customizable but some bits are a bit dated by default.
@@ -39,12 +40,12 @@ I wish I had learnt about this before, its a really nice plugin, it generates a 
 search through files, content of files, anything and it can be mightly handy instead of fiddling with the wildmenu all day.
 Vim users have [fzf.vim](junegunn/fzf.vim) which does some similar stuff.
 
-- <a href="https://folke/zen-mode.nvim">Zen Mode</a>
+- <a href="https://github.com/folke/zen-mode.nvim">Zen Mode</a>
 This is an interesting one, What it does is slim down vim's UI so it becomes very bare bones, this is really useful
 for when you are editing documents instead of code and need vim to done down the hacker man aesthetic.
 This plugin is [goyo](https://github.com/junegunn/goyo.vim) for vim users.
 
-# Configuration 
+## Configuration 
 Making the most out of vanilla vim features
 
 #f NetRW 

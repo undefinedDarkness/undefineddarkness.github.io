@@ -1,37 +1,36 @@
 <!-- vim: set nolist: -->
-# 🌾 How do I rice X?
+# 🍱 Ricing Guide
 My own take at a ricing guide.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 
-#f 🦊 Firefox
-You can customize the User Interface (Chrome) with Firefox CSS,
-See the following:
+## 🌾 How do I rice X?
+#f Firefox
+You can customize the User Interface (Chrome) with Firefox CSS, see the following:
 - [Getting started guide](https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials)
 - [How to create & live debug userChrome.css](https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/)
 
-You can use [Stylus](https://add0n.com/stylus.html) to modify the appearance of a certain sites.
+You can use [Stylus](https://add0n.com/stylus.html) to modify the appearance of certain websites.
+*NOTE: does not work on extension (except Stylus) and built-in browser webpages.*
 
 #### Start Page
-You will need basic knowledge of HTML, CSS & JS
-[MDN](https://developer.mozilla.org/en-US/) is a nice place to learn
+You will need basic knowledge of HTML, CSS & JS.
+[MDN](https://developer.mozilla.org/en-US/) is a nice place to learn.
 
-Firefox has quite a few limitations on setting local files as your start page
-( No external requests or imports of any kind ) so in my opinion, its easiest to simply host your start page on some static
-site hosting service (GitHub Pages, Netlify, Surge.sh)
+Firefox has quite a few limitations on setting local files as your start page (no external requests or imports of any kind), so it may be easier to host your start page on some static site hosting service (GitHub Pages, Netlify, Surge.sh).
 
-Then use [this](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) extension to set the URL.
-Chromium Users can use [this](https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia) instead (chrome places no limitations)
+Then use [this extension](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) to set the URL.
+Chromium users can use [this](https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia) instead (Chrome places no limitations).
 #END f
 
 #f GTK
-This is most easily accomplished by forking an existing theme and modifying them, Most themes are open source and
+This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
 are easily modifiable (if you know CSS). Phocus is a nice one to start with. (https://github.com/phocus/gtk)
+Note: Phocus is not a GTK3 theme so it will not show up in `lxappearance`, set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead.
 
-GTK CSS Reference: https://docs.gtk.org/gtk4/css-properties.html
+GTK CSS reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
 
-The following has been written by: Gingka#1796 
 #### Uniform Look for GTK & QT Apps
 
 Arch Wiki Link: https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines
@@ -54,7 +53,7 @@ After installing, you have to make changes the following changes
 
 **For QT5:** set the environment variable `QT_QPA_PLATFORMTHEME=gtk2`
 
-*Note: This requires that the configured GTK theme supports both GTK 2 and GTK 3*
+*NOTE: This requires that the configured GTK theme supports both GTK 2 and GTK 3*
 
 #### QGnomePlatform
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
@@ -66,24 +65,20 @@ To enable it on other systems, after installing the qgnomeplatform package, set 
 
 #END f
 
-#f (Neo)Vim
-This is an interesting one, If you use a pre - made colorscheme chances are a [base16](https://github.com/chriskempson/base16) or other vim theme
-already exists for it, Otherwise you can make a base16 theme or make one from a wide variety of templates,
-There even exist generators for it. ([Pinto](https://pintovim.dev/), [Vivify](https://bytefluent.com/vivify/))
-
-And of course if a colorscheme is similar to yours, you can easily fork it and modify.
+#f Neovim / Vim
+This is an interesting one. If you use a premade colorscheme, chances are, a [base16](https://github.com/chriskempson/base16) or other vim theme already exists for it. Otherwise, you can make a base16 theme or make one from a wide variety of templates. There even exist generators for it. ([Pinto](https://pintovim.dev/), [Vivify](https://bytefluent.com/vivify/))
+And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-See more on vim & neovim: [here](/out/knowledge/vim.html)
+See more on vim & neovim [here](/out/knowledge/vim.html).
 
 How to make a vim colorscheme: [Reddit](https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/)
-Colorscheme Template: [RNB](https://github.com/romainl/vim-rnb)
+Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
 
 #END f
 
 #f Terminal
-This is really simple too, Popular color schemes usually have port for common terminal programs, even if it doesn't, it should still be really simple
-to implement, its just 16 colors after all :P
+This is really simple too: popular color schemes usually have been ported for common terminal programs, even if it doesn't, it should still be really simple to implement, it's just 16 colors after all :P
 
 #### Comparison
 This is a general comparison of the most common terminal emulators as of October 2021.
@@ -102,93 +97,89 @@ OTF = Open Type Features such as stylistic sets and the like
 P = With a patch or a fork
 Alacritty is the most commonly used terminal, (in the UP discord)
 Foot is wayland only.
-If you are looking into using st, I highly suggest you use https://github.com/bakkeby/st-flexipatch instead as it is much easier to use and modify.
+If you are looking into using st, I highly suggest you use [st-flexipatch](https://github.com/bakkeby/st-flexipatch) instead as it is much easier to use and modify.
 <!-- TODO: Add links to the forks / patches here -->
 
 Fork for ligatures in alacritty (super out of date and the alacritty author recommends just using another terminal):
 https://github.com/zenixls2/alacritty
+st patches: https://st.suckless.org/patches/
 
-ST patches: https://st.suckless.org/patches/
+[SEE MORE](https://wiki.archlinux.org/title/List_of_applications#Terminal)
 
 #### Images in the Terminal
-This is a often sought after feature and often used with fetch scripts.
-Right now there is no standard and each terminal does their own thing, more and more are supporting [sixel](https://en.wikipedia.org/wiki/Sixel) tho so maybe that will end up being the standard.
-For terminals without image support entirely, there are hacks using `w3m-img` and `uberzerg` to get them...
-But they're finicky and don't just work ™, So I'd recommend against them.
+This is an often sought after feature and often used with fetch scripts.
+Right now there is no standard and each terminal does their own thing, more and more are supporting [sixel](https://en.wikipedia.org/wiki/Sixel), though, so maybe that will end up being the standard.
+For terminals without image support entirely, there are hacks using `w3m-img` and `uberzerg` to get them...but they're finicky and don't just work™, so I'd recommend against them.
 [Full article](https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal)
 
 But here's a overview:
-Alacritty doesn't support images and needs a hack,
-Wezterm natively supports iterms2's image format & sixel
-Kitty has its own format 
-St can support sixel via a [patch](https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch)
-and it needs a patch for the w3m hack to work too.
+Alacritty doesn't support images and needs a hack;
+Wezterm natively supports iterms2's image format & sixel;
+Kitty has its own format;
+St can support sixel via a [patch](https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch) and it needs a patch for the w3m hack to work too.
 
 #END f
 
-#f 🥴 Picom
+#f Picom
 *The definition of compositor changes from X11 to Wayland, I am talking about X11 only:*
-Picom is a composite (that is a thing that sits between your window manager and X11 and makes stuff like, transparency work.
-Recently however, compositors have been used to implement blur / rounded corners / animations for a window manager to behave more like a desktop enviroment.)
+Compositor is a thing that sits between your window manager and X11 and makes stuff like transparency work. Recently, however, compositors have been used to implement blur, rounded corners and animations for a window manager to behave more like a desktop enviroment.
+
+If the version in your package repositories has the features you want, I'd suggest you use that instead.
 
 #### I just want transparency and or transparency
-You're in luck, Lots of choice for you,
-You can use `picom` / `xcompmgr` / `compton` anything you want
-and generally it'll just work™™™
+You're in luck, lots of choice for you. You can use `picom` / `xcompmgr` / `compton`, anything you want and generally it'll just work™™™
 
 I still suggest using picom as it has the latest technology / optimizations, beside being the
 most commonly used & most supported one.
 ⛔: *Forcing application transparency without blur is also fairly shitty.*
 
 #### I want blur too
-Just build the latest [master](https://github.com/yshui/picom), Dual kawase blur has been implemented for the experimental backends.
+Just build the latest [master](https://github.com/yshui/picom) and use picom with the --experimental-backends option.
+To build picom from source, follow the instructions in the [README](https://github.com/yshui/picom#build)
 ⛔: *Using blur is cringe and in 99.99% of cases is unnecessary or used in a rather ugly manner.*
 
 #### I want rounded corners too
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.
-To build picom from source, follow the instructions in the [README](https://github.com/yshui/picom#build)
 
-If the version in your package repositories has the features you want, I'd suggest you use that instead.
-
-A few window managers can draw rounded corners out of the box so you might be able to utilize that.
+A few window managers can draw rounded corners out of the box, so you might be able to utilize that.
 
 #### I want animations too
-Use one of the popular forks I guess :/, I dont how well picom animations work but I dont expect it to be spectacular
+Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.
 The following are popular as of October 2021:
 [jonaburg/picom](https://github.com/jonaburg/picom)    -> decent animations, just different
 [dccsillag/picom](https://github.com/dccsillag/picom)  -> has nice, configurable animations
 \_ [pijulius/picom](https://github.com/pijulius/picom) -> best fork for animations right now
 
 Example configuration with all of the available options: https://github.com/yshui/picom/blob/next/picom.sample.conf
-To get a window class for a exclude / include, use `xwininfo` or `xprop` & click the window you want
-Remember to use window classes whenever you can, window titles can be very finicky
+To get a window class for a exclude / include, use `xwininfo` or `xprop` & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.
 
 [Arch wiki page](https://wiki.archlinux.org/title/Picom)
 
 #END f
 
-# 🎨 Design Recommendations
+## 🎨 Design
 Stuff related to the general design of a rice
 
 #f Typography
 > The style and appearance of printed matter.
 
-This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice as well as its usability.
+This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.
 Generally you will need 3 font faces:
 - A sans serif face for general user interface
-- A mono space font for code
+- A monospace font for code
 - A serif fonts for documents
 
 More on the differences between serif, sans-serif and mono space: https://www.canva.com/learn/serif-vs-sans-serif-fonts/
 
-Here are a fonts I personally like for each one,
 You can find most of them on [Google Fonts](https://fonts.google.com)
+Here are the fonts I personally like for each one:
 
 - Mono space:
 	IBM Plex Mono
 	Roboto Mono
 	JetBrains Mono
 	Iosevka Mono
+	[JuliaMono](https://juliamono.netlify.app/)
 	Recursive Mono
 - Serif:
 	[ET Bembo](https://edwardtufte.github.io/et-book/)
@@ -203,77 +194,89 @@ You can find most of them on [Google Fonts](https://fonts.google.com)
 	Lexend Deca
 	Poppins
 
-[SEE MORE](https://gitlab.com/exorcist365/fonts) ~ Mostly mono space fonts but there are a few interesting one's here
+[SEE MORE](https://gitlab.com/exorcist365/fonts) ~ Mostly monospace fonts, but there are a few interesting ones here
 Compare Different Fonts: [ThemeWiki](https://wooosh.github.io/themewiki/fontindex/)
 
-### Nerd Fonts
-Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, 
-these are commonly used in apps that are unable to actually render icons.
+#### Nerd Fonts
+Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.
 
 Where to get: https://www.nerdfonts.com/font-downloads (Get the one for the font you want)
 What icons are there: https://www.nerdfonts.com/cheat-sheet
 How to patch your own font:
 ```sh
-#~ Download the nerd fonts patcher & the glyphs it needs.
+#~ Download the nerd fonts patcher and the glyphs it needs.
 git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
 cd nerd-fonts
 git sparse-checkout add src/glyphs
 
 #~ Using the patcher
-#~ You need fontforge & Python3 for this to work:
+#~ You need fontforge & Python 3 for this to work:
 ./font-patcher <PATH TO FONT>
 ```
+
+#### Bitmap Fonts
+[What are they?](http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm)
+
+Effectively this means,
+Bitmaps will not scale outside their designed font size;
+They will generally look a lot sharper than vector fonts because they are generally rendered without [AA](https://www.youtube.com/watch?v=hqi0114mwtY);
+All of which leads to pretty unique pixilated look that a lot of people like.
+
+Commonly used bitmap fonts:
+- [Cozette](https://github.com/slavfox/Cozette)
+- [Gohu](https://font.gohu.org/)
+- [Terminus](http://terminus-font.sourceforge.net/)
+- [GNU Unifont](https://unifoundry.com/unifont/)
+- [Cherry](https://github.com/turquoise-hexagon/cherry)
+- [Scientifica](https://github.com/NerdyPepper/scientifica) / [Curie](https://github.com/nerdypepper/curie)
+
+[SEE MORE](https://github.com/Tecate/bitmap-fonts)
+[Upscaling Bitmap Fonts](https://github.com/Francesco149/bdf2x)
+<!-- TODO: Add a link on making a bitmap font to vector font
+		   Making use of bitmap fonts in pango etc apps -->
+
 #END f
 
 ## General
 
 #f How to RTFM & Get help
-Read manuals whenever you can, Those can be easily accessed for any installed software
-by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).
+Read manuals whenever you can, those can be easily accessed for any installed software by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).
 
-Applications will list all their options there along with addition options specific to the application.
-Many apps also have Github Wiki's or documentation in the README for their app, kindly refer to those too.
+Applications will list all their options there along with addition options specific to the application. Many apps also have GitHub wikis or documentation in the README for their app, kindly refer to those too.
 
-And honestly, if you're decent at googling - you can find most things you need to relatively easily with maybe a little help.
-If your question is a something like `can X do Y`, that is a question that should be solved by google and the application's documentation.
+If you're decent at googling - you can find most things you need to relatively easily with maybe a little help. If your question is a something like `can X do Y`, that is a question that should be solved by google and the application's documentation.
 
-Dig deep into the dot files of other rices, if you have no idea how they did a thing,
-Most people are willing to explain how / why they did something in such a way, Which is a great way to learn / understand things.
+Dig deep into the dotfiles of other rices, if you have no idea how they did a thing. Most people are willing to explain how / why they did something in such a way, Which is a great way to learn and understand things.
 
 #### Do not expect a guide / tutorial
-I put this here because I see questions like "How do I rice" or "is there a tutorial for it" way more often than I'd like.
+I put this here because I see questions like "How do I rice?" or "Is there a tutorial for it?" way more often than I'd like.
 
 Barely any linux software is documented in such a through manner to have documentation like that.
-Most of the software isn't trying to hold your hand, Most of it is to fill a need for the developer himself and which he has kindly shared with the community.
-Whether you like it or not to rice effectively, you will need to learn the ins and outs of any apps you use and generally you'll need some programming knowledge too,
-There is a good reason there are not that many good rices, Its a difficult thing to do.
-And just being good at programming isn't all you need, You need to have a good eye and have some knowledge of user interface design or just know *what looks good*.
+Most of the software isn't trying to hold your hand. Most of it is to fill a need for the developer himself and which he has kindly shared with the community.
+Whether you like it or not to rice effectively, you will need to learn the ins and outs of any apps you use and generally you'll need some programming knowledge too. Just being good at programming isn't all you need, You need to have a good eye and have some knowledge of user interface design or just know *what looks good*.
+There is a good reason there are not that many good rices, it's a difficult thing to do.
 
-If you cant do that, maybe ricing isn't for you, No harm just using a Desktop Environment.
+If you can't do that, maybe ricing isn't for you. No harm just using a desktop environment.
 
 #### Getting help
-Found a nice article on the topic, Read it: 
+Found a nice article on the topic, read it: 
 http://www.catb.org/esr/faqs/smart-questions.html
 
-Ask for help in a community related to that one piece of software you want help for,
-Usually there is at least Github Discussions, a IRC Chat room or a Matrix space / discord server for most things,
-Make good use of them, you'll meet developers of the software and actual users of the software there
-Instead of asking in something like the UP server which is only mildly related to that software.
+Ask for help in a community related to that one piece of software you want help for. Usually there is at least a GitHub discussion, an IRC chat room or a Matrix space / discord server for most things.
+Make good use of them, you'll meet developers of the software and actual users of the software there. Instead of asking in something like the UP server which is only mildly related to that software.
 
 Be nice, and diplomatic,
-All of the people helping you are volunteering and spending their time and effort to help you solve your problem, be nice to them.
-Even if their solution isn't exactly what you wanted, it could still point out the right way to a solution.
-Explore properly and don't criticize anyone for giving a answer that did not solve your problem.
+All of the people helping you are volunteering and spending their time and effort to help you solve your problem. Even if their solution isn't exactly what you wanted, it could still point out the right way to a solution.
+Explore properly and don't criticize anyone for giving an answer that did not solve your problem.
 
 See the following: [Don't ask to ask.](https://dontasktoask.com/) & [The X / Y Problem](https://xyproblem.info/)
 
-Stick to the correct channels and follow rules, If you spam your question in multiple channels, That simply draws ire from the members of the community
-and doesn't increase the chances of your question being solved.
-Do not think you are being ignored if your question isn't answered in a reasonable amount of time ( usually a day or 2, other people have lives too you know )
-Its either that no one knows the solution to your problem or no one cares enough to answer it (in which case, write your question out with more effort, and try to see if it has been solved in the documentation or elsewhere already)
-
-Write out your question in overwhelming detail, Mention everything you have already tried and what you have found related to your problem,
-Upload your configuration files somewhere (like 0x0.st or paste.rs) and link them in your question, Share screenshots of what your problem is,
+Stick to the correct channels and follow rules.
+If you spam your question in multiple channels, that simply draws ire from the members of the community and doesn't increase the chances of your question being solved.
+Do not think you are being ignored if your question isn't answered in a reasonable amount of time (usually a day or 2, other people have lives too, you know).
+It's either that no one knows the solution to your problem or no one cares enough to answer it (in which case, write your question out with more effort, and try to see if it has been solved in the documentation or elsewhere already).
+Write out your question in overwhelming detail - mention everything you have already tried and what you have found related to your problem.
+Upload your configuration files somewhere (like [0x0.st](https://0x0.st) or [paste.rs](https://paste.rs)) and link them in your question, share screenshots of what your problem is.
 Try explaining it in simple language.
 
 #END f
@@ -290,62 +293,66 @@ and is the general method to define spacing in most applications.
 
 Content is your text, image whatever
 Padding is spacing around the content but still within the box
-Border is a border around the box...
+Border is a border around the box
 Margin is spacing between the box and its siblings / parent box.
 
 Better explanation can be found at [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
 
 </p>
 
-<img class="pxl" alt="illustration" src="/assets/box-model.png" />
+![Box Model Illustration](/assets/box-model.png)
 </aside>
 #END f
 
+<!-- TODO: Add section on tiled wallpapers.  -->
 #f Animated Wallpapers
-for those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files and gifview for gif files)
+For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
 
 `xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4`
 
-if the above doesnt work correctly use this one
+If the above doesn't work correctly, use this one:
 `xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings`
 
 Sources for pixelart animated wallpapers
 https://1041uuu.tumblr.com/
 https://waneella.tumblr.com/
 
-googling will also get you a bit of resources 
-
-<i>- Taken from Dazai-san#6969 on the unixporn discord server</i>
+Googling will also get you a bit of resources .
 #END f
 
 #f Window Manager Tier list
 This is very biased, of course :)
 and based on my opinion.
 **I HIGHLY RECOMMEND YOU TRY EACH OF THEM AND DECIDE FOR YOURSELF**
-Generally, The higher it is up on the list,
-The more complicated it is and how powerful it is.
+Generally, the higher it is up on the list, the more complicated and powerful it is.
 
 <div class="tierlist">
 #TABLE 
 Best	Awesome	
-Better than most	XMonad	FVWM	Qtile
-Good	HLWM	Kiwmi	Wayfire
+Better	XMonad	FVWM	Qtile
+Cool	HLWM	Kiwmi	Wayfire
 Simple	i3	Openbox	Bspwm	River
 Unremarkable	leftwm	dwm	2bwm	berry
 #END TABLE
 </div>
 
-If you're new to ricing in general, I'd highly recommend i3 since its very commonly used,
-has good documentation, and is a relatively good example of a tiling window manager.
+If you're new to ricing in general, I'd highly recommend i3 since it's very commonly used, has good documentation, and is a relatively good example of a tiling window manager.
 * Use i3-gaps if you're planning to use i3, Sway is pretty much i3-gaps for wayland so you can try that too.
 
-If you dont wanna learn how tiling window managers work (I highly recommend you do),
-Openbox might be a good choice as its better than i3 for floating, You can try iceWM too, which is more fully featured out of the box.
+If you don't want to learn how tiling window managers work (I highly recommend you do), Openbox might be a good choice as it's better than i3 for floating.
+You can try iceWM too, which is more fully featured out of the box.
 * Awesome might be the best window manager for floating too, overall
 
-If you are just looking for outright power at no expense spared, You're looking at either awesome / xmonad or qtile.
-XMonad is very good at moving windows around but its configured in haskell which can be relatively difficult to learn and it has no widget system.
-Awesome is good at that too but maybe not to the same extent, but it has an excellent widget system too, its configured in Lua which is relatively easy to learn.
-Qtile is similar to awesome but it uses python and I hear has some performance issues, But it has a wayland backend so that might be of note.
+If you are just looking for outright power at no expense spared, .ou're looking at either awesome, xmonad or qtile.
+XMonad is very good at moving windows around but it's configured in Haskell, which can be relatively difficult to learn and it has no widget system.
+Awesome is good at that too but maybe not to the same extent, but it has an excellent widget system, it's configured in Lua which is relatively easy to learn.
+Qtile is similar to awesome, but it uses python and I hear has some serious performance issues, but it has a wayland backend so that might be of note.
+
+[SEE MORE](https://wiki.archlinux.org/title/Window_manager#List_of_window_managers)
 
 #END f
+
+### Credits
+Animated Wallpaper - Dazai-san#6969
+Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 
+Document has been edited by asdadsdafdfdssfd#7660

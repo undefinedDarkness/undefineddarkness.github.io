@@ -1,5 +1,5 @@
-<!-- NO FOLD HEADER -->
-#PRESERVE-CENTER
+<div>
+<pre>
                   ,____
                    |---.\
            ___     |    `
@@ -17,8 +17,7 @@
      /         \  |
     (_.-.__.__./  /
 
-<i>Got a display server to kill</i>
-#END PRESERVE-CENTER
+</pre><h1><i>Got a display server to kill</i></h1></div>
 This is intended to chronicle my adventures using Wayland
 The primary reason being terrible performance in X11 but that was later resolved. :)
 The journey continues tho 📔
