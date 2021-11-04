@@ -282,7 +282,7 @@ Try explaining it in simple language.
 #END f
 
 #f Most common parts of a rice
-<img class="pxl" alt="illustration" src="/assets/ricing-guide.png" />
+<img class="pxl" alt="illustration" src="/assets/images/ricing-guide.png" />
 #END f
 
 #f CSS Box Model
@@ -300,12 +300,11 @@ Better explanation can be found at [MDN](https://developer.mozilla.org/en-US/doc
 
 </p>
 
-![Box Model Illustration](/assets/box-model.png)
+![Box Model Illustration](/assets/images/box-model.png)
 </aside>
 #END f
-
-<!-- TODO: Add section on tiled wallpapers.  -->
 #f Animated Wallpapers
+<!-- TODO: Add section on tiled wallpapers.  -->
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
 
 `xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4`
@@ -349,7 +348,6 @@ Awesome is good at that too but maybe not to the same extent, but it has an exce
 Qtile is similar to awesome, but it uses python and I hear has some serious performance issues, but it has a wayland backend so that might be of note.
 
 [SEE MORE](https://wiki.archlinux.org/title/Window_manager#List_of_window_managers)
-
 #END f
 
 ### Credits

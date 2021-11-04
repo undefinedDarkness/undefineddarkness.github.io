@@ -24,7 +24,7 @@ pre=${template%%\!CONTENT\!*}
 post=${template##*\!CONTENT\!}
 
 # Extract sidebar from the index
-sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' src/index.html | tr -d '\0')
+# sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' ./index.html | tr -d '\0')
 
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
@@ -92,7 +92,7 @@ gen_index () {
 }
 
 post_build () {
-		mv ./out/index.html .
+		#mv ./out/index.html .
 		gen_index
 		sed -E 's/\t//g;
 				s/[[:space:]]{2,}//g; 
