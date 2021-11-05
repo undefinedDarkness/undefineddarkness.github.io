@@ -32,7 +32,7 @@ article {
 	padding: 0em 15vw;
 	flex: 1;
 	white-space: pre-line;
-	font-family:var(--serif-font);
+	/* font-family:var(--serif-font); */
 	counter-reset: heading subheading subsubheading;
 }
 
