@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-11-04 20:00:11'">
+		<article style="--date-modified: '2021-11-05 11:42:19'">
 			<!-- vim: set nolist: -->
 <h1>🍱 Ricing Guide</h1>
 My own take at a ricing guide.
@@ -19,9 +19,19 @@ List of ricing software you can use: <a href="https://github.com/fosslife/awesom
 <details><summary><h3>Firefox</h3></summary>You can customize the User Interface (Chrome) with Firefox CSS, see the following:
 <ul><li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a>
 </li><li><a href="https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/">How to create & live debug userChrome.css</a>
-</li></ul>You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of certain websites.
-<i>NOTE: does not work on extension (except Stylus) and built-in browser webpages.</i>
-<!-- userContent.css Guide -->
+</li></ul><a href="https://www.userchrome.org/">SEE MORE</a>
+
+You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of certain websites.
+<i>NOTE: Does not work on extension (except Stylus) and built-in browser webpages.</i>
+
+Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),
+The structure of the file is usually as follows:
+<pre class="code" data-language="css"><code><span style="color:#dfdfbf; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;discord.com&quot;</span><span style="color:#dcdccc">) {</span>
+	<span style="color:#7f9f7f; font-style:italic">/<i> Your styles go here. </i>/</span>
+<span style="color:#dcdccc">}</span>
+</code></pre>
+You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a>
+<i>NOTE: Stylus can also export to this format for easy usage</i>
 
 <h4>Start Page</h4>
 You will need basic knowledge of HTML, CSS & JS.
@@ -34,7 +44,7 @@ Chromium users can use <a href="https://chrome.google.com/webstore/detail/custom
 
 <details><summary><h3>GTK</h3></summary>This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
 are easily modifiable (if you know CSS). Phocus is a nice one to start with. (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)
-Note: Phocus is not a GTK3 theme so it will not show up in <code>lxappearance</code>, set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead.
+<i>NOTE: Phocus is not a GTK3 theme so it will not show up in <code>lxappearance</code>, set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead.</i>
 
 GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a>
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)
@@ -53,9 +63,9 @@ After installing, you have to make changes the following changes
 
 <b>For QT4:</b> Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:
 
-    ~/.config/Trolltech.conf
-<pre class="code" data-language=""><code>    [Qt]
-    style=GTK+
+~/.config/Trolltech.conf
+<pre class="code" data-language="ini"><code><span style="color:#e3ceab">[Qt]</span>
+<span style="color:#dfdfbf; font-weight:bold">style</span><span style="color:#dcdccc">=</span><span style="color:#aae3b2">GTK+</span>
 </code></pre>
 
 <b>For QT5:</b> set the environment variable <code>QT_QPA_PLATFORMTHEME=gtk2</code>
@@ -66,7 +76,7 @@ After installing, you have to make changes the following changes
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
 
-<pre class="code" data-language=""><code>    QT_QPA_PLATFORMTHEME=gnome
+<pre class="code" data-language="sh"><code>QT_QPA_PLATFORMTHEME<span style="color:#dcdccc">=</span>gnome
 </code></pre></details>
 
 <details><summary><h3>Neovim / Vim</h3></summary>This is an interesting one. If you use a premade colorscheme, chances are, a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme already exists for it. Otherwise, you can make a base16 theme or make one from a wide variety of templates. There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, <a href="https://bytefluent.com/vivify/">Vivify</a>)

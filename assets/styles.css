@@ -138,7 +138,6 @@ pre.code {
 	padding-right: 4em;
 	margin: 0.5em 0;
 	border-radius: 3px;
-	display: inline-block;
 }
 
 pre.code[data-language]::before {
@@ -150,11 +149,6 @@ pre.code[data-language]::before {
 }
 
 code * {font-style:inherit;} /* fix issues with the preprocessor by forcing everything to be normal. */
-
-/* Special styling for comments */
-pre.code code span[style="color:#7f9f7f; font-style:italic"] {
-	font-family: cursive, monospace;
-}
 
 code {
 	font-family: var(--monospace-font);

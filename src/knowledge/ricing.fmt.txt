@@ -10,9 +10,20 @@ You can customize the User Interface (Chrome) with Firefox CSS, see the followin
 - [Getting started guide](https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials)
 - [How to create & live debug userChrome.css](https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/)
 
+[SEE MORE](https://www.userchrome.org/)
+
 You can use [Stylus](https://add0n.com/stylus.html) to modify the appearance of certain websites.
-*NOTE: does not work on extension (except Stylus) and built-in browser webpages.*
-<!-- userContent.css Guide -->
+*NOTE: Does not work on extension (except Stylus) and built-in browser webpages.*
+
+Firefox also supports `userContent.css` for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),
+The structure of the file is usually as follows:
+```css
+@-moz-document domain("discord.com") {
+	/* Your styles go here. */
+}
+```
+You can use any of the selectors available for [@-moz-document](https://developer.mozilla.org/en-US/docs/Web/CSS/@document)
+*NOTE: Stylus can also export to this format for easy usage*
 
 #### Start Page
 You will need basic knowledge of HTML, CSS & JS.
@@ -27,7 +38,7 @@ Chromium users can use [this](https://chrome.google.com/webstore/detail/custom-n
 #f GTK
 This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
 are easily modifiable (if you know CSS). Phocus is a nice one to start with. (https://github.com/phocus/gtk)
-Note: Phocus is not a GTK3 theme so it will not show up in `lxappearance`, set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead.
+*NOTE: Phocus is not a GTK3 theme so it will not show up in `lxappearance`, set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead.*
 
 GTK CSS reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
@@ -46,10 +57,10 @@ After installing, you have to make changes the following changes
 
 **For QT4:** Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:
 
-    ~/.config/Trolltech.conf
-```
-    [Qt]
-    style=GTK+
+~/.config/Trolltech.conf
+```ini
+[Qt]
+style=GTK+
 ```
 
 **For QT5:** set the environment variable `QT_QPA_PLATFORMTHEME=gtk2`
@@ -60,8 +71,8 @@ After installing, you have to make changes the following changes
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
 
-```
-    QT_QPA_PLATFORMTHEME=gnome
+```sh
+QT_QPA_PLATFORMTHEME=gnome
 ```
 
 #END f
