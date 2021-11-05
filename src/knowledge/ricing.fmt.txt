@@ -12,6 +12,7 @@ You can customize the User Interface (Chrome) with Firefox CSS, see the followin
 
 You can use [Stylus](https://add0n.com/stylus.html) to modify the appearance of certain websites.
 *NOTE: does not work on extension (except Stylus) and built-in browser webpages.*
+<!-- userContent.css Guide -->
 
 #### Start Page
 You will need basic knowledge of HTML, CSS & JS.

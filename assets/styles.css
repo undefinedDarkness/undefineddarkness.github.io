@@ -168,11 +168,10 @@ line-height:normal;
 h1,h2,h3,h4,h5,h6 { 
 	margin-bottom: 0;
 }
+h1 { 
+	margin-top:0;
+}
 
-/* Style first element as the title / header 
- * ive forgotten what these styles even do anymore... */
-
-h1 { margin-top:0; }
 article > h1:first-child, .header { 
 	margin-top: 0;
 	text-align: left;
@@ -191,6 +190,7 @@ article > h1:first-child::after, .header h1::after {
 	display: block;
 	white-space: nowrap;
 	font-size: 0.5em;
+	width: 100%;
 	color: var(--dark-subtle);
 	content: "Last modified: " var(--date-modified)
 }
@@ -199,6 +199,8 @@ h2 {
 	font-size: 1.6em;
 }
 
+
+/* Add coutners for every heading */
 h2::before {
 	counter-increment: subheading;
 	counter-set: subsubheading;
@@ -223,6 +225,7 @@ section {
 .ovr-x  { overflow-x:auto;  }
 .no-ovr { overflow: hidden; }
 .no-wrp { white-space: normal !important; }
+.flx-wrp { flex-wrap: wrap; }
 
 /* Text color */
 .c-red { color: firebrick; }
@@ -281,17 +284,25 @@ section {
 		background: var(--dark-bg);
 		color: var(--dark-fg);
 	}
-	pre.code { border: 1px solid var(--dark-border); }
-	a { color: lightblue; }
+	pre.code { 
+		border: 1px solid var(--dark-border);
+	}
+	a { 
+		color: lightblue;
+	}
 }
 
 /* Responsive */
 @media only screen and (max-device-width: 480px) {
-	body,aside {
+	body, aside {
 		flex-direction: column;
 	}
-	aside * { margin-left: 0 !important; }
-	article { padding: 1em 2em; }
+	aside * { 
+		margin-left: 0 !important;
+	}
+	article { 
+		padding: 1em 2em;
+	}
 	img { 
 		max-width: 50vw;
 	}
@@ -309,7 +320,14 @@ section {
 	.grd-2 {
 		grid-template-columns: 1fr;
 	}
-	.hide-m { display: none; }
+	.hide-m { 
+		display: none;
+	}
+	article > h1:first-child::after, .header h1::after {
+		content: var(--date-modified);
+		text-align: center;
+	}
+	pre, pre.code { padding-right: 1em; }
 }
 
 @media print {
