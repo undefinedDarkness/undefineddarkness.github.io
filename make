@@ -93,7 +93,7 @@ gen_index () {
 
 post_build () {
 		#mv ./out/index.html .
-		gen_index
+		gen_index &
 		sed -E 's/\t//g;
 				s/[[:space:]]{2,}//g; 
 				s!/\*.*\*/!!g; 
@@ -135,7 +135,7 @@ case $1 in
 
 	# Clean output directory and index.
 	clean)
-		rm -rv out index.html
+		#rm -rv out index.html
 		;;
 
 
@@ -144,10 +144,10 @@ case $1 in
 	build)
 		shift
 		for file in "$@"; do
-			build "$file"
+			build "$file" &
 		done
-		kill -s USR1 "$(pgrep deno)" # In POSIX, There is no SIG... prefix 
-		post_build
+		pkill --signal USR1 deno # In POSIX, There is no SIG... prefix 
+		post_build 
 		;;
 
 	--help|help)
@@ -170,7 +170,6 @@ live    - Live server with hot reloading
 		;;
 
 	*)
-		#rm -r out
 		mkdir -p src out
 		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt src/*.html src/**/*.html}; do
 			case "$file" in
@@ -187,15 +186,13 @@ live    - Live server with hot reloading
 					continue
 					;;
 				*)
-					build "$file"
+					build "$file" &
 			esac
 		done
 
 		post_build
 
-		p=$(pgrep deno)
-		[ -n "$p" ] && kill -s USR1 "$p" 
-
+		pkill --signal USR1 deno
 		printf "Finished!\n"
 	;;
 esac

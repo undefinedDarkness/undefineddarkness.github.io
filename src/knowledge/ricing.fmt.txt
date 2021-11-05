@@ -200,7 +200,7 @@ Here are the fonts I personally like for each one:
 	Libre Baskerville
 - Sans Serif:
 	Roboto
-	Ubuntu Mono (the font used on this site)
+	Ubuntu Sans 
 	IBM Plex Sans
 	Iosevka Sans
 	Lexend Deca
