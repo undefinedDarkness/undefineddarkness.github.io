@@ -9,7 +9,6 @@
 	/* Fonts */
 	--sans-font:     -apple-system, BlinkMacSystemFont, "Segoe UI",Helvetica, Arial, sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 	--monospace-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-	--serif-font: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;;
 }
 
 *, *::before, *::after {
@@ -156,11 +155,12 @@ code {
 
 pre, figure {
 	margin: 0;
-line-height:normal;
+	line-height:normal;
 }
 
 h1,h2,h3,h4,h5,h6 { 
 	margin-bottom: 0;
+	cursor: default;
 }
 h1 { 
 	margin-top:0;
@@ -192,7 +192,6 @@ article > h1:first-child::after, .header h1::after {
 h2 {
 	font-size: 1.6em;
 }
-
 
 /* Add coutners for every heading */
 h2::before {
@@ -236,12 +235,39 @@ section {
 
 /* Other */
 .pxl { image-rendering: pixelated;max-width: 100vw; width: auto !important;}
-.img-sml { width: 4em; }
+.img-sml { width: 4em; } 
 .pntr { cursor: pointer; }
 .sans { font-family: var(--sans-font); }
 
+.tbl-showcase img { 
+	max-width: 12vw;
+}
+
+.tbl-showcase td { 
+	text-align: center;
+	padding: 0;
+	margin-left: 1em;
+}
+
+.tbl-showcase tr:first-child td {
+	border-left: 1px solid var(--dark-border);
+	border-top: 1px solid var(--dark-border);
+}
+
+.tbl-showcase tr:not(:first-child) td {
+	padding: 16px;
+	border-left: 1px solid var(--dark-border);
+	border-bottom: 1px solid var(--dark-border);
+}
+
+.tbl-showcase {
+	border-spacing: 1.1em 0em;
+	border-collapse: separate;
+	border: 0;
+}
+
 /* Tierlist */
-.tierlist table, .tierlist td {
+.tierlist , .tierlist td {
 	border: none;
 	background: var(--dark-bg);
 	color: var(--dark-fg);
@@ -300,6 +326,7 @@ section {
 	img { 
 		max-width: 50vw;
 	}
+	.tbl-showcase img {max-width:50vw;}
 	li {
 		display: inline-block;
 	}
@@ -317,20 +344,12 @@ section {
 	.hide-m { 
 		display: none;
 	}
+	.pxl {
+		max-width: none;
+	}
 	article > h1:first-child::after, .header h1::after {
 		content: var(--date-modified);
 		text-align: center;
 	}
 	pre, pre.code { padding-right: 1em; }
-}
-
-@media print {
-	pre.code[data-language]::before { width:100%;writing-mode: initial;position: absolute;top:0;padding:5px; }
-	pre.code { display:inline-block; }
-	pre.code code {display:block; margin-top:1em;}
-	article { padding: 0; }
-	summary { list-style-type:none; }
-	body {background:none;color:#000; }
-	img {border:1px solid var(--dark-border)}
-	a { color: darkblue; }
 }

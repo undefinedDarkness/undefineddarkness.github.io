@@ -139,7 +139,7 @@ center () {
 table () {
 	content="$1"
 	shift
-	printf "<div class=\"ovr-x\"><table>\n"
+	printf "<div class=\"ovr-x\">"
 	print_row () {
 		columns=${1#\#TABLE}
 		IFS=$TAB
@@ -151,15 +151,34 @@ table () {
 		done
 		echo "</tr>"
 	}
-	
-	echo "<thead>"
-	print_row "$1" "th"
-	printf "</thead>\n<tbody>\n"
 
+	headings=""
+	classes=""
+	IFS=$TAB
+	for heading in $1; do
+		case "$heading" in
+			'#TABLE')
+				;;
+			.*)
+				classes="$classes ${heading#.}"
+				continue
+				;;
+			*)
+				headings="$headings	$heading"
+				;;
+		esac
+	done
+	echo "<table class=\"$classes\">"
+	if [ -n "${headings/ /}" ]; then
+		printf "<thead>"
+		print_row "$headings" "th"
+		printf "</thead>"
+	fi
+
+	printf "<tbody>"
 	while read -r row; do
 		print_row "$row"
 	done <<< "$content"
-
 	echo "</tbody></table></div>"
 }
 

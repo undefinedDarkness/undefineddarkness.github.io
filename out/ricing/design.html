@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<title>ricing/design</title>
+		<link rel="stylesheet" href="/assets/styles-min.css" />
+	</head>
+	<body>
+		<article style="--date-modified: '2021-11-06 20:57:55'">
+			<h1>🎨 Design</h1>
+Stuff related to the general design of a rice
+
+<details><summary><h3>Typography</h3></summary><q>The style and appearance of printed matter.</q>
+
+This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.
+Generally you will need 3 font faces:
+<ul><li>A sans serif face for general user interface
+</li><li>A monospace font for code
+</li><li>A serif fonts for documents
+</li></ul>More on the differences between serif, sans-serif and mono space: <a href="https://www.canva.com/learn/serif-vs-sans-serif-fonts/">https://www.canva.com/learn/serif-vs-sans-serif-fonts/</a>
+
+You can find most of them on <a href="https://fonts.google.com">Google Fonts</a>
+Here are the fonts I personally like for each one:
+
+<h4>Mono space:</h4>
+<div class="ovr-x"><table class=" tbl-showcase">
+<tbody><tr>
+<td><img src="/assets/images/font-previews/Roboto-Mono-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/IBM-Plex-Mono-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/JetBrains-Mono-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Sarasa-Term-K.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/JuliaMono-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+</tr>
+<tr>
+<td>Roboto Mono</td>
+<td>IBM Plex Mono</td>
+<td>JetBrains Mono</td>
+<td>Iosevka Mono</td>
+<td><a href="https://juliamono.netlify.app/">JuliaMono</a></td>
+</tr>
+</tbody></table></div>
+
+<h4>Serif:</h4>
+<div class="ovr-x"><table class=" tbl-showcase">
+<tbody><tr>
+<td><img src="/assets/images/font-previews/ETBembo-RomanLF.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Merriweather-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Piazzolla-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Libre-Baskerville.png" alt="preview" title="preview" loading="lazy"></img></td>
+</tr>
+<tr>
+<td><a href="https://edwardtufte.github.io/et-book/">ET Bembo</a></td>
+<td>Merriweather</td>
+<td><a href="https://piazzolla.huertatipografica.com/">Piazzolla</a></td>
+<td>Libre Baskerville</td>
+</tr>
+</tbody></table></div>
+
+<h4>Sans Serif:</h4>
+<div class="ovr-x"><table class=" tbl-showcase">
+<tbody><tr>
+<td><img src="/assets/images/font-previews/Roboto.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Ubuntu-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/IBM-Plex-Sans-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Lexend-Deca-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td><img src="/assets/images/font-previews/Poppins-Regular.png" alt="preview" title="preview" loading="lazy"></img></td>
+</tr>
+<tr>
+<td>Roboto</td>
+<td>Ubuntu Sans</td>
+<td>IBM Plex Sans</td>
+<td>Lexend Deca</td>
+<td>Poppins</td>
+</tr>
+</tbody></table></div>
+
+<a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a>
+Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a>
+
+<h4>Nerd Fonts</h4>
+Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.
+
+Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)
+What icons are there: <a href="https://www.nerdfonts.com/cheat-sheet">https://www.nerdfonts.com/cheat-sheet</a>
+How to patch your own font:
+<pre class="code" data-language="sh"><code><span style="color:#7f9f7f; font-style:italic">#~ Download the nerd fonts patcher and the glyphs it needs.</span>
+git clone <span style="color:#dfdfbf; font-weight:bold">--filter</span><span style="color:#dcdccc">=</span>blob<span style="color:#dcdccc">:</span>none <span style="color:#dfdfbf; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#dcdccc">:</span>ryanoasis<span style="color:#dcdccc">/</span>nerd-fonts
+<span style="color:#dfdfbf; font-weight:bold">cd</span> nerd-fonts
+git sparse-checkout add src<span style="color:#dcdccc">/</span>glyphs
+
+<span style="color:#7f9f7f; font-style:italic">#~ Using the patcher</span>
+<span style="color:#7f9f7f; font-style:italic">#~ You need fontforge &amp; Python 3 for this to work:</span>
+.<span style="color:#dcdccc">/</span>font-patcher <span style="color:#dcdccc">&lt;</span>PATH TO FONT<span style="color:#dcdccc">&gt;</span>
+</code></pre>
+
+<h4>Bitmap Fonts</h4>
+<a href="http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm">What are they?</a>
+
+Effectively this means,
+Bitmaps will not scale outside their designed font size;
+They will generally look a lot sharper than vector fonts because they are generally rendered without <a href="https://www.youtube.com/watch?v=hqi0114mwtY">AA</a>;
+All of which leads to pretty unique pixilated look that a lot of people like.
+
+<h5>Commonly used bitmap fonts:</h5>
+<div class="ovr-x"><table class=" tbl-showcase">
+<tbody><tr>
+<td><img src="/assets/images/font-previews/CozetteVector.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td>~</td>
+<td>~</td>
+<td><img src="/assets/images/font-previews/Unifont-Nerd-Font-Complete.png" alt="preview" title="preview" loading="lazy"></img></td>
+<td>~</td>
+<td>~</td>
+</tr>
+<tr>
+<td><a href="https://github.com/slavfox/Cozette">Cozette</a></td>
+<td><a href="https://font.gohu.org/">Gohu</a></td>
+<td><a href="http://terminus-font.sourceforge.net/">Terminus</a></td>
+<td><a href="https://unifoundry.com/unifont/">GNU Unifont</a></td>
+<td><a href="https://github.com/turquoise-hexagon/cherry">Cherry</a></td>
+<td><a href="https://github.com/NerdyPepper/scientifica">Scientifica</a> / <a href="https://github.com/nerdypepper/curie">Curie</a></td>
+</tr>
+</tbody></table></div>
+
+<a href="https://github.com/Tecate/bitmap-fonts">Repository Of Bitmap Fonts</a>
+<a href="https://github.com/Francesco149/bdf2x">Upscaling Bitmap Fonts</a>
+<!-- TODO: Add a link on making a bitmap font to vector font
+		   Making use of bitmap fonts in pango etc apps --></details>
+
+<details><summary><h3>CSS Box Model</h3></summary><aside>
+
+<p>This is important in many parts of ricing,
+and is the general method to define spacing in most applications.
+
+Content is your text, image whatever
+Padding is spacing around the content but still within the box
+Border is a border around the box
+Margin is spacing between the box and its siblings / parent box.
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">Better explanation</a>
+
+</p>
+
+<img src="/assets/images/box-model.png" alt="Box Model Illustration" title="Box Model Illustration" loading="lazy"></img>
+</aside></details>
+
+<details><summary><h3>Animated Wallpapers</h3></summary>For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
+
+<code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code>
+
+If the above doesn't work correctly, use this one:
+<code>xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings</code>
+
+Sources for pixelart animated wallpapers
+<a href="https://1041uuu.tumblr.com/">https://1041uuu.tumblr.com/</a>
+<a href="https://waneella.tumblr.com/">https://waneella.tumblr.com/</a>
+
+Googling will also get you a bit of resources .</details>
+
+			</details><footer>
+<a href="/index.html">Return Home</a>
+			</footer>
+		</article>
+	</body>
+</html>
