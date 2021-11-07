@@ -132,17 +132,21 @@ aside *:nth-child(2) {
 pre.code { 
 	background: var(--dark-bg); 
 	color: var(--dark-fg);
+	overflow: auto;
 	position: relative;
 	padding: 1em;
 	padding-right: 4em;
 	margin: 0.5em 0;
 	border-radius: 3px;
+	width: min-content;
 }
 
 pre.code[data-language]::before {
 	position: absolute;
+	text-transform: capitalize;
 	right: 1em;
 	color: var(--dark-subtle);
+	font-weight: bold;
 	top: 1em;
 	content: attr(data-language);
 }
@@ -326,7 +330,9 @@ section {
 	img { 
 		max-width: 50vw;
 	}
-	.tbl-showcase img {max-width:50vw;}
+	.tbl-showcase img {
+		max-width:50vw;
+	}
 	li {
 		display: inline-block;
 	}
@@ -335,8 +341,13 @@ section {
 		border-bottom: 1px solid var(--dark-border);
 		min-height: auto;
 	}
-	pre {
-		overflow-x: auto;
+	pre, pre.code {
+		width: auto;
+	}
+	pre.code[data-language]::before {
+    position: unset;
+    display: block;
+    margin-bottom: 0.5em;	
 	}
 	.grd-2 {
 		grid-template-columns: 1fr;

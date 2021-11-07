@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-11-06 16:47:46'">
+		<article style="--date-modified: '2021-11-07 22:28:34'">
 			<!-- vim: set nolist: -->
 <h1>🍱 Ricing Guide</h1>
 
@@ -19,13 +19,13 @@ List of ricing software you can use: <a href="https://github.com/fosslife/awesom
 <b>See the other modules:</b>
 <a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a>
 
-<h2>🌾 How do I rice X?</h2>
+<h2>🌾 How do I use X?</h2>
+
 <details><summary><h3>Firefox</h3></summary>You can customize the User Interface (Chrome) with Firefox CSS, see the following:
 <ul><li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a>
 </li><li><a href="https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/">How to create & live debug userChrome.css</a>
-</li></ul><a href="https://www.userchrome.org/">SEE MORE</a>
-
-You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of certain websites.
+</li><li><a href="https://www.userchrome.org/">Collection of resources related to userChrome</a>
+</li></ul>You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of certain websites.
 <i>NOTE: Does not work on extension (except Stylus) and built-in browser webpages.</i>
 
 Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),
@@ -87,7 +87,7 @@ To enable it on other systems, after installing the qgnomeplatform package, set 
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-See more on vim & neovim <a href="/out/knowledge/vim.html">here</a>.
+See more on <a href="/out/knowledge/vim.html">vim & neovim</a>.
 
 How to make a vim colorscheme: <a href="https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/">Reddit</a>
 Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a></details>
@@ -210,7 +210,7 @@ Fork for ligatures in alacritty (super out of date and the alacritty author reco
 <a href="https://github.com/zenixls2/alacritty">https://github.com/zenixls2/alacritty</a>
 st patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/patches/</a>
 
-<a href="https://wiki.archlinux.org/title/List_of_applications#Terminal">SEE MORE</a>
+<a href="https://wiki.archlinux.org/title/List_of_applications#Terminal">Arch wiki page</a>
 
 <h4>Images in the Terminal</h4>
 This is an often sought after feature and often used with fetch scripts.
@@ -249,17 +249,51 @@ A few window managers can draw rounded corners out of the box, so you might be a
 <h4>I want animations too</h4>
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.
 The following are popular as of October 2021:
-<a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> decent animations, just different
-<a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has nice, configurable animations
-\_ <a href="https://github.com/pijulius/picom">pijulius/picom</a> -> best fork for animations right now
+<a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> slightly buggy sliding animations
+<a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has cool, configurable animations
+<a href="https://github.com/pijulius/picom">pijulius/picom</a> -> fork of dccsillag, added animations and optimisations
 
-Example configuration with all of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a>
+snippet to configure animations on dccsillag or pijulius
+
+<h1>Animations</h1>
+<h1>(requires pijulius)</h1>
+<pre class="code" data-language="conf"><code><span style="color:#7f9f7f; font-style:italic"># Animations</span>
+<span style="color:#e3ceab">animations</span> = true<span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-stiffness = <span style="color:#dfdfbf; font-weight:bold">300.0</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-dampening = <span style="color:#dfdfbf; font-weight:bold">22.0</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-clamping = true<span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-mass = <span style="color:#dfdfbf; font-weight:bold">1</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-for-open-window = <span style="color:#cc9393">&quot;zoom&quot;</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-for-menu-window = <span style="color:#cc9393">&quot;slide-down&quot;</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-for-transient-window = <span style="color:#cc9393">&quot;slide-down&quot;</span><span style="color:#dcdccc">;</span>
+<span style="color:#7f9f7f; font-style:italic"># (requires pijulius)</span>
+<span style="color:#e3ceab">animation</span>-for-workspace-switch-in = <span style="color:#cc9393">&quot;zoom&quot;</span><span style="color:#dcdccc">;</span>
+<span style="color:#e3ceab">animation</span>-for-workspace-switch-out = <span style="color:#cc9393">&quot;zoom&quot;</span><span style="color:#dcdccc">;</span>
+</code></pre>
+
+Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a>
 To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.
 
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a></details>
 
+<details><summary><h3>Animated Wallpapers</h3></summary>For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
+
+<code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code>
+
+If the above doesn't work correctly, use this one:
+<code>xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings</code>
+
+Sources for pixelart animated wallpapers
+<a href="https://1041uuu.tumblr.com/">https://1041uuu.tumblr.com/</a>
+<a href="https://waneella.tumblr.com/">https://waneella.tumblr.com/</a>
+
+Googling will also get you a bit of resources .</details>
+
 <h3>Credits</h3>
+Most of the following are members of the r/unixporn discord server.
+
 Animated Wallpaper - Dazai-san#6969
+Picom Animations - nuxsh#9338
 Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 
 Document has been edited by asdadsdafdfdssfd#7660
 

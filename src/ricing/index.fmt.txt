@@ -8,13 +8,13 @@ List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 **See the other modules:**
 [Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html)
 
-## 🌾 How do I rice X?
+## 🌾 How do I use X?
+
 #f Firefox
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:
 - [Getting started guide](https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials)
 - [How to create & live debug userChrome.css](https://www.reddit.com/r/FirefoxCSS/comments/73dvty/tutorial_how_to_create_and_livedebug_userchromecss/)
-
-[SEE MORE](https://www.userchrome.org/)
+- [Collection of resources related to userChrome](https://www.userchrome.org/)
 
 You can use [Stylus](https://add0n.com/stylus.html) to modify the appearance of certain websites.
 *NOTE: Does not work on extension (except Stylus) and built-in browser webpages.*
@@ -85,7 +85,7 @@ This is an interesting one. If you use a premade colorscheme, chances are, a [ba
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-See more on vim & neovim [here](/out/knowledge/vim.html).
+See more on [vim & neovim](/out/knowledge/vim.html).
 
 How to make a vim colorscheme: [Reddit](https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/)
 Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
@@ -118,7 +118,7 @@ Fork for ligatures in alacritty (super out of date and the alacritty author reco
 https://github.com/zenixls2/alacritty
 st patches: https://st.suckless.org/patches/
 
-[SEE MORE](https://wiki.archlinux.org/title/List_of_applications#Terminal)
+[Arch wiki page](https://wiki.archlinux.org/title/List_of_applications#Terminal)
 
 #### Images in the Terminal
 This is an often sought after feature and often used with fetch scripts.
@@ -159,17 +159,52 @@ A few window managers can draw rounded corners out of the box, so you might be a
 #### I want animations too
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.
 The following are popular as of October 2021:
-[jonaburg/picom](https://github.com/jonaburg/picom)    -> decent animations, just different
-[dccsillag/picom](https://github.com/dccsillag/picom)  -> has nice, configurable animations
-\_ [pijulius/picom](https://github.com/pijulius/picom) -> best fork for animations right now
+[jonaburg/picom](https://github.com/jonaburg/picom)    -> slightly buggy sliding animations
+[dccsillag/picom](https://github.com/dccsillag/picom)  -> has cool, configurable animations
+[pijulius/picom](https://github.com/pijulius/picom) -> fork of dccsillag, added animations and optimisations
 
-Example configuration with all of the available options: https://github.com/yshui/picom/blob/next/picom.sample.conf
+snippet to configure animations on dccsillag or pijulius
+
+```conf
+# Animations
+animations = true;
+animation-stiffness = 300.0;
+animation-dampening = 22.0;
+animation-clamping = true;
+animation-mass = 1;
+animation-for-open-window = "zoom";
+animation-for-menu-window = "slide-down";
+animation-for-transient-window = "slide-down";
+# (requires pijulius)
+animation-for-workspace-switch-in = "zoom";
+animation-for-workspace-switch-out = "zoom";
+```
+
+Example configuration with most of the available options: https://github.com/yshui/picom/blob/next/picom.sample.conf
 To get a window class for a exclude / include, use `xwininfo` or `xprop` & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.
 
 [Arch wiki page](https://wiki.archlinux.org/title/Picom)
 #END f
 
+#f Animated Wallpapers
+For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
+
+`xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4`
+
+If the above doesn't work correctly, use this one:
+`xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings`
+
+Sources for pixelart animated wallpapers
+https://1041uuu.tumblr.com/
+https://waneella.tumblr.com/
+
+Googling will also get you a bit of resources .
+#END f
+
 ### Credits
+Most of the following are members of the r/unixporn discord server.
+
 Animated Wallpaper - Dazai-san#6969
+Picom Animations - nuxsh#9338
 Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 
 Document has been edited by asdadsdafdfdssfd#7660

@@ -1,6 +1,19 @@
 # 🎨 Design
 Stuff related to the general design of a rice
 
+#f Colorscheme
+Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:
+
+![structure](/assets/images/colorscheme-structure.png)
+
+This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.
+If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),
+Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black
+*Using different shades of one color for each of those is a very bad idea*
+While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.
+
+#END f
+
 #f Typography
 > The style and appearance of printed matter.
 
@@ -18,13 +31,13 @@ Here are the fonts I personally like for each one:
 #### Mono space:
 #TABLE	.tbl-showcase
 ![preview](/assets/images/font-previews/Roboto-Mono-Regular.png)	![preview](/assets/images/font-previews/IBM-Plex-Mono-Regular.png)	![preview](/assets/images/font-previews/JetBrains-Mono-Regular.png)	![preview](/assets/images/font-previews/Sarasa-Term-K.png)	![preview](/assets/images/font-previews/JuliaMono-Regular.png)
-Roboto Mono	IBM Plex Mono	JetBrains Mono	Iosevka Mono	[JuliaMono](https://juliamono.netlify.app/)
+Roboto Mono															IBM Plex Mono														JetBrains Mono														Iosevka														[JuliaMono](https://juliamono.netlify.app/)
 #END TABLE
 
 #### Serif:
 #TABLE	.tbl-showcase
 ![preview](/assets/images/font-previews/ETBembo-RomanLF.png)	![preview](/assets/images/font-previews/Merriweather-Regular.png)	![preview](/assets/images/font-previews/Piazzolla-Regular.png)	![preview](/assets/images/font-previews/Libre-Baskerville.png)
-[ET Bembo](https://edwardtufte.github.io/et-book/)	Merriweather	[Piazzolla](https://piazzolla.huertatipografica.com/)	Libre Baskerville
+[ET Bembo](https://edwardtufte.github.io/et-book/)				Merriweather														[Piazzolla](https://piazzolla.huertatipografica.com/)			Libre Baskerville
 #END TABLE
 
 #### Sans Serif:
@@ -93,17 +106,4 @@ Margin is spacing between the box and its siblings / parent box.
 </aside>
 #END f
 
-#f Animated Wallpapers
-For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
 
-`xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4`
-
-If the above doesn't work correctly, use this one:
-`xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings`
-
-Sources for pixelart animated wallpapers
-https://1041uuu.tumblr.com/
-https://waneella.tumblr.com/
-
-Googling will also get you a bit of resources .
-#END f
