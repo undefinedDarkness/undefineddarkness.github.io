@@ -345,9 +345,9 @@ section {
 		width: auto;
 	}
 	pre.code[data-language]::before {
-    position: unset;
-    display: block;
-    margin-bottom: 0.5em;	
+		position: unset;
+		display: block;
+		margin-bottom: 0.5em;	
 	}
 	.grd-2 {
 		grid-template-columns: 1fr;
@@ -360,6 +360,8 @@ section {
 	}
 	article > h1:first-child::after, .header h1::after {
 		content: var(--date-modified);
+	}
+	article > h1:first-child::after, .header h1::after, article > h1:first-child, .header h1 {
 		text-align: center;
 	}
 	pre, pre.code { padding-right: 1em; }

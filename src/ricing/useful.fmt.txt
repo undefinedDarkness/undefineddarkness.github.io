@@ -52,7 +52,7 @@ and based on my opinion.
 **I HIGHLY RECOMMEND YOU TRY EACH OF THEM AND DECIDE FOR YOURSELF**
 Generally, the higher it is up on the list, the more complicated and powerful it is.
 
-#TABLE .tierlist 
+#TABLE	.tierlist 
 Best	Awesome	
 Better	XMonad	FVWM	Qtile
 Cool	HLWM	Kiwmi	Wayfire
@@ -68,7 +68,7 @@ If you don't want to learn how tiling window managers work (I highly recommend y
 You can try iceWM too, which is more fully featured out of the box.
 * Awesome might be the best window manager for floating too, overall
 
-If you are just looking for outright power at no expense spared, .ou're looking at either awesome, xmonad or qtile.
+If you are just looking for outright power at no expense spared, you're looking at either awesome, xmonad or qtile.
 XMonad is very good at moving windows around but it's configured in Haskell, which can be relatively difficult to learn and it has no widget system.
 Awesome is good at that too but maybe not to the same extent, but it has an excellent widget system, it's configured in Lua which is relatively easy to learn.
 Qtile is similar to awesome, but it uses python and I hear has some serious performance issues, but it has a wayland backend so that might be of note.

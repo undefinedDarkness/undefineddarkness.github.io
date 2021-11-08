@@ -8,7 +8,7 @@ List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 **See the other modules:**
 [Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html)
 
-## 🌾 How do I use X?
+## How do I use X?
 
 #f Firefox
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:
