@@ -166,7 +166,7 @@ The following are popular as of October 2021:
 snippet to configure animations on dccsillag or pijulius
 
 ```conf
-# Animations
+#~ Animations
 animations = true;
 animation-stiffness = 300.0;
 animation-dampening = 22.0;
@@ -175,7 +175,7 @@ animation-mass = 1;
 animation-for-open-window = "zoom";
 animation-for-menu-window = "slide-down";
 animation-for-transient-window = "slide-down";
-# (requires pijulius)
+#~ (requires pijulius)
 animation-for-workspace-switch-in = "zoom";
 animation-for-workspace-switch-out = "zoom";
 ```

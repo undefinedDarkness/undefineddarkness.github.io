@@ -14,7 +14,7 @@ build () {
 		"$example" -flatten "$font".png 
 }
 
-rm -v ./*.png
+# rm -v ./*.png
 fonts='Sarasa-Term-K Poppins-Regular ETBembo-RomanLF Lexend-Deca-Regular Piazzolla-Regular Merriweather-Regular IBM-Plex-Sans-Regular JuliaMono-Regular JetBrains-Mono-Regular IBM-Plex-Mono-Regular Libre-Baskerville Merriweather-Regular Roboto Roboto-Mono-Regular Recursive-Sans-Linear-Light Ubuntu-Regular'
 for font in $fonts; do
 	build "$font" &
