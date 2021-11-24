@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #shellcheck disable=2059
 
 # Toad:
@@ -72,23 +72,35 @@ build () {
 
 }
 
+get-title () {
+	case "${1#*.}" in
+		# HTML
+		"html")
+			grep -Po -m1 '<h1>\K.*(?=<\/h1>)' $1
+			;;
+		# Pond's Format
+		# + Markdown
+		"fmt.txt"|"md")
+			grep -Po -m1 '# \K.*' $1 
+			;;
+	esac
+}
+
 gen_index () {
-		fnr "$pre" "!TITLE!" "Full Index"
-		echo "$_fnr" > out/index.html
-		echo "<style>
-		article { 
-			text-align: left;
-			white-space: pre-wrap;
-			font-family: var(--sans-font);
-			display: inline-block;
-		}
-		body {
-		text-align: center;
-		}
-	</style>" >> out/index.html
-		tool/tree src 1>> out/index.html
-		echo "$post" >> out/index.html
-		printf "Generated Article Index\n"
+	cp ./src/index.html ./out/index.html # override with format
+	for folder in $(ls src/ -p | grep '/'); do
+		# echo $folder
+		posts=
+		for file in $(find src/$folder -name '*.fmt.txt'); do
+			title=$(get-title $file)
+			[ -z "$title" ] && title=$file
+			file=${file/src\//\/out\/}
+			file=${file/.fmt.txt/.html}
+			posts="$posts\n<li><a href=\"${file}\">${title}</a></li>"
+		done
+		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder/\/}")!@${posts}@g" ./out/index.html #> ./out/index.html
+	done
+	printf "Generated Article Index\n"
 }
 
 post_build () {
@@ -112,7 +124,7 @@ case $1 in
 
 		# Paths to watch
 		(
-		find src -name "*.fmt.txt" -or -name '*.html'
+		find src -name "*.fmt.txt" -or -name '*.html'#  -not -name 'index.html'
 		realpath ./template.html
 		realpath assets/styles.css
 		find tool -name "*.sh"
@@ -171,7 +183,12 @@ live    - Live server with hot reloading
 
 	*)
 		mkdir -p src out
-		for file in ${2:-src/**/*.fmt.txt src/*.fmt.txt src/*.html src/**/*.html}; do
+		# shopt -s globstar
+		look=$2
+		if [ -z "$look" ]; then
+			look=$(find src -name "*.fmt.txt" -or -name "*.html")
+		fi
+		for file in ${look}; do
 			case "$file" in
 				'src/*.fmt.txt')
 					continue

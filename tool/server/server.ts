@@ -3,8 +3,8 @@ import {
   basename,
   globToRegExp,
   join,
-} from "https://deno.land/std@0.107.0/path/mod.ts";
-import { parse } from "https://deno.land/std@0.107.0/flags/mod.ts";
+} from "https://deno.land/std/path/mod.ts";
+import { parse } from "https://deno.land/std/flags/mod.ts";
 
 // Helpers
 // TODO: Implement Some Class
@@ -149,10 +149,10 @@ async function fileWatcher() {
 }
 
 const listenToSignals = async () => {
-  for await (const _ of Deno.signal("SIGUSR1")) {
+ Deno.addSignalListener("SIGUSR1", () => {
     console.log("\u001b[34mSIG\u001b[0m Update Signal Recieved");
     sockets.forEach((sock) => sock.send("UPDATE"));
-  }
+  })
 };
 
 Deno.chdir(String(args["_"][0] ?? "."));

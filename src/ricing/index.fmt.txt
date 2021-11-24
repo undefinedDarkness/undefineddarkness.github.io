@@ -186,7 +186,9 @@ To get a window class for a exclude / include, use `xwininfo` or `xprop` & click
 [Arch wiki page](https://wiki.archlinux.org/title/Picom)
 #END f
 
-#f Animated Wallpapers
+#f Wallpapers
+
+#### Animated Wallpapers
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
 
 `xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4`
@@ -199,6 +201,13 @@ https://1041uuu.tumblr.com/
 https://waneella.tumblr.com/
 
 Googling will also get you a bit of resources .
+
+#### Tiled Wallpapers
+These are wallpapers that tiled like tiles in a pattern, [example](https://cdn.discordapp.com/attachments/635625973764849684/898589548999745626/unknown.png) repeated over your entire screen.
+Their usage is fairly simple:
+`feh --bg-tile |path-to-wallpaper|` or if you have a bitmap you can use `xsetroot -bitmap |path-to-bitmap-wallpaper|`, or manually tile it in your image editor of choice.
+
+You can find a bunch of sources here: https://notes.neeasade.net/tiled-wallpaper-sources.html, Their site has a bunch of cool ricing related stuff too.
 #END f
 
 ### Credits

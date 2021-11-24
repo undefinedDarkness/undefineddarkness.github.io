@@ -1,7 +1,7 @@
 import {
   extname,
   join,
-} from "https://deno.land/std@0.107.0/path/mod.ts";
+} from "https://deno.land/std/path/mod.ts";
 
 function existsSync(filePath: string): boolean {
   try {

@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-11-09 19:20:30'">
+		<article style="--date-modified: '2021-11-24 20:00:49'">
 			<!-- vim: set nolist: -->
 <h1>🍱 Ricing Guide</h1>
 
@@ -274,7 +274,9 @@ To get a window class for a exclude / include, use <code>xwininfo</code> or <cod
 
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a></details>
 
-<details><summary><h3>Animated Wallpapers</h3></summary>For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
+<details><summary><h3>Wallpapers</h3></summary>
+<h4>Animated Wallpapers</h4>
+For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):
 
 <code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code>
 
@@ -285,7 +287,14 @@ Sources for pixelart animated wallpapers
 <a href="https://1041uuu.tumblr.com/">https://1041uuu.tumblr.com/</a>
 <a href="https://waneella.tumblr.com/">https://waneella.tumblr.com/</a>
 
-Googling will also get you a bit of resources .</details>
+Googling will also get you a bit of resources .
+
+<h4>Tiled Wallpapers</h4>
+These are wallpapers that tiled like tiles in a pattern, <a href="https://cdn.discordapp.com/attachments/635625973764849684/898589548999745626/unknown.png">example</a> repeated over your entire screen.
+Their usage is fairly simple:
+<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code>, or manually tile it in your image editor of choice.
+
+You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html,">https://notes.neeasade.net/tiled-wallpaper-sources.html,</a> Their site has a bunch of cool ricing related stuff too.</details>
 
 <h3>Credits</h3>
 Most of the following are members of the r/unixporn discord server.

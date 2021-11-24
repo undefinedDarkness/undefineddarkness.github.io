@@ -23,7 +23,7 @@ It might be better than I've heard, no idea.
 
 Clojure is just a rather good lisp :)
 Most lisp's are rather good tho
-Racket is lower because it isnt like clojure where it can leverage the JVM and its a bit umm slow.
+Racket is lower because it isnt like clojure where it can leverage the JVM and its a bit umm slow, not to say clojure isnt slow, it is as well but 🤷‍♂️
 
 C is okay for small projects and toys but just dont use it for a big project ;-;
 So many things better than it exist.
