@@ -42,7 +42,8 @@ Chromium users can use [this](https://chrome.google.com/webstore/detail/custom-n
 #f GTK
 This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
 are easily modifiable (if you know CSS). Phocus is a nice one to start with. (https://github.com/phocus/gtk)
-*NOTE: Phocus is not a GTK3 theme so it will not show up in `lxappearance`, set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead.*
+*NOTE: Phocus is not a GTK2 theme so it will not show up in `lxappearance`, Set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead,
+this is because lxappearance *
 
 GTK CSS reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
