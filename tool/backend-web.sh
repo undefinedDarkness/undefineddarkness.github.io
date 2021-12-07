@@ -277,8 +277,8 @@ initial_transformer () {
 		s!\*(.+?)\*!<i>\1</i>!g;
 		s!(?<\!")(https?://[^<\s\)]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
-		s!^> (.+)!<q>\1</q>!g
-	' # Markdown has returned to its roots :euphoria:
+		s!{(.+?)}!<span class="reset">\1</span>!;
+		s!^> (.+)!<q>\1</q>!g;' # Markdown has returned to its roots :euphoria:
 
 
 }

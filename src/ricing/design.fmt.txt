@@ -1,4 +1,4 @@
-# 🎨 Design
+# {🎨} Design
 Stuff related to the general design of a rice
 
 #f Colorscheme

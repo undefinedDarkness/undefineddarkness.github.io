@@ -1,4 +1,4 @@
-# 📚 Useful Ricing Knowledge (FYI)
+# {📚} Useful Ricing Knowledge (FYI)
 
 #f How to RTFM & Get help
 Read manuals whenever you can, those can be easily accessed for any installed software by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).

@@ -81,7 +81,7 @@ get-title () {
 		# Pond's Format
 		# + Markdown
 		"fmt.txt"|"md")
-			grep -Po -m1 '# \K.*' $1 
+			grep -Po -m1 '<h1>\K.*(?=<\/h1>)|# \K.*' $1 
 			;;
 	esac
 }

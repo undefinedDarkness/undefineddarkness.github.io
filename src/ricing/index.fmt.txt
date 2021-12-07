@@ -1,12 +1,12 @@
 <!-- vim: set nolist: -->
-# 🍱 Ricing Guide
+# {🍱} Reference
 
 My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 
 **See the other modules:**
-[Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html)
+[Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html) - [Terminology](/out/ricing/terminology.html)
 
 ## How do I use X?
 

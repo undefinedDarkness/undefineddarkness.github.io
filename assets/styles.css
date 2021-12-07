@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 :root {
 	/* Colors */
 	--dark-bg: #111;
@@ -7,7 +9,8 @@
 	--light-bg: ghostwhite;
 
 	/* Fonts */
-	--sans-font:     -apple-system, BlinkMacSystemFont, "Segoe UI",Helvetica, Arial, sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	--system-sans-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	--sans-font: "Inter", var(--system-sans-font);
 	--monospace-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
@@ -25,6 +28,10 @@ body {
 	tab-size: 4;
 	font-size: 1.1em;
 	line-height: 1.4;
+}
+
+.reset {
+	font-weight: normal;
 }
 
 article {
@@ -179,7 +186,8 @@ article > h1:first-child, .header {
 	align-self: center;
 }
 article > h1:first-child, .header h1 {
-	border-bottom: 1px solid var(--dark-border);
+	--border-size: 12px;
+	border-bottom: var(--border-size) solid #ea6962;
 	position: relative;
 }
 article > h1:first-child::after, .header h1::after {
@@ -189,6 +197,7 @@ article > h1:first-child::after, .header h1::after {
 	white-space: nowrap;
 	font-size: 0.5em;
 	width: 100%;
+	top: calc(100% + var(--border-size) + 8px);
 	color: var(--dark-subtle);
 	content: "Last modified: " var(--date-modified)
 }
