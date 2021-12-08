@@ -76,7 +76,7 @@ All of which leads to pretty unique pixilated look that a lot of people like.
 
 ##### Commonly used bitmap fonts:
 #TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/CozetteVector.png)	~	~	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
+![preview](/assets/images/font-previews/CozetteVector.png)	![preview](/assets/images/font-previews/Gohu-GohuFont.png)	![preview](/assets/images/font-previews/Terminus.png)	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
 [Cozette](https://github.com/slavfox/Cozette)	[Gohu](https://font.gohu.org/)	[Terminus](http://terminus-font.sourceforge.net/)	[GNU Unifont](https://unifoundry.com/unifont/)	[Cherry](https://github.com/turquoise-hexagon/cherry)	[Scientifica](https://github.com/NerdyPepper/scientifica) / [Curie](https://github.com/nerdypepper/curie)
 #END TABLE
 

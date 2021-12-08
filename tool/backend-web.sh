@@ -275,7 +275,7 @@ initial_transformer () {
 		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-		s!(?<\!")(https?://[^<\s\)]+)!<a href="\1">\1</a>!g;
+		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;
 		s!^> (.+)!<q>\1</q>!g;' # Markdown has returned to its roots :euphoria:
