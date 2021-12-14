@@ -41,10 +41,11 @@ Chromium users can use [this](https://chrome.google.com/webstore/detail/custom-n
 
 #f GTK
 This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
-are easily modifiable (if you know CSS). Phocus is a nice one to start with. (https://github.com/phocus/gtk)
+are easily modifiable (if you know CSS). Phocus is a nice one to start with since its code is clean scss and well structured, (https://github.com/phocus/gtk)
 *NOTE: Phocus is not a GTK2 theme so it will not show up in `lxappearance`, Set your gtk theme using [settings.ini](https://wiki.archlinux.org/title/GTK#Basic_theme_configuration) instead,
-this is because lxappearance *
+this is because lxappearance expects a legacy gtk2 theme along with a gtk3, which modern themes do not have.*
 
+You can use `gtk-widget-factory` to test your theme, it comes packaged with `gtk-demos` on arch & debian.
 GTK CSS reference: https://docs.gtk.org/gtk4/css-properties.html
 Using the GTK Debugger: https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger (This should work anywhere)
 
@@ -90,6 +91,20 @@ See more on [vim & neovim](/out/knowledge/vim.html).
 
 How to make a vim colorscheme: [Reddit](https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/)
 Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
+
+#### Get highlight group under cursor
+Since i've been writing a port for [chocolate](https://gitlab.com/snakedye/chocolate), this is a problem i've encountered, the real basic solution is to do:
+```lua
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+```
+but this doesnt work that well for treesitter, in which case using [this code from treesitter-playground](https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua) works a fair bit better,
+to use them more easily, create a keybinding for `SynStack()` or `require('hl-info').show_hl_captures()` respectivley
+
 #END f
 
 #f Terminal

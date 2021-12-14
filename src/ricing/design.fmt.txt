@@ -74,6 +74,11 @@ Bitmaps will not scale outside their designed font size;
 They will generally look a lot sharper than vector fonts because they are generally rendered without [AA](https://www.youtube.com/watch?v=hqi0114mwtY);
 All of which leads to pretty unique pixilated look that a lot of people like.
 
+##### Using in GUI Applications
+Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,
+Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or [fonttosfnt](https://gitlab.freedesktop.org/xorg/app/fonttosfnt),
+See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
+
 ##### Commonly used bitmap fonts:
 #TABLE	.tbl-showcase
 ![preview](/assets/images/font-previews/CozetteVector.png)	![preview](/assets/images/font-previews/Gohu-GohuFont.png)	![preview](/assets/images/font-previews/Terminus.png)	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
