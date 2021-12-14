@@ -94,7 +94,7 @@ Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
 
 #### Get highlight group under cursor
 Since i've been writing a port for [chocolate](https://gitlab.com/snakedye/chocolate), this is a problem i've encountered, the real basic solution is to do:
-```lua
+```vim
 function! SynStack()
   if !exists("*synstack")
     return
@@ -102,6 +102,7 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 ```
+
 but this doesnt work that well for treesitter, in which case using [this code from treesitter-playground](https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua) works a fair bit better,
 to use them more easily, create a keybinding for `SynStack()` or `require('hl-info').show_hl_captures()` respectivley
 
