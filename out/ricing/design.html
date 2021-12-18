@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-12-08 12:37:17'">
+		<article style="--date-modified: '2021-12-18 19:03:11'">
 			<h1><span class="reset">🎨</span> Design</h1>
 Stuff related to the general design of a rice
 
@@ -21,7 +21,6 @@ If you are going to make a colorscheme, You should also follow this structure, a
 Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black
 <i>Using different shades of one color for each of those is a very bad idea</i>
 While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.</details>
-
 <details><summary><h3>Typography</h3></summary><q>The style and appearance of printed matter.</q>
 
 This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.
@@ -86,7 +85,7 @@ Here are the fonts I personally like for each one:
 </tr>
 </tbody></table></div>
 
-<a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a>
+🏴‍☠️ <a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a>
 Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a>
 
 <h4>Nerd Fonts</h4>
@@ -113,6 +112,11 @@ Bitmaps will not scale outside their designed font size;
 They will generally look a lot sharper than vector fonts because they are generally rendered without <a href="https://www.youtube.com/watch?v=hqi0114mwtY">AA</a>;
 All of which leads to pretty unique pixilated look that a lot of people like.
 
+<h5>Using in GUI Applications</h5>
+Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,
+Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,
+See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango">https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango</a>
+
 <h5>Commonly used bitmap fonts:</h5>
 <div class="ovr-x"><table class=" tbl-showcase">
 <tbody><tr>
@@ -138,6 +142,7 @@ All of which leads to pretty unique pixilated look that a lot of people like.
 <!-- TODO: Add a link on making a bitmap font to vector font
 		   Making use of bitmap fonts in pango etc apps --></details>
 
+<h2>Conventions</h2>
 <details><summary><h3>CSS Box Model</h3></summary><aside>
 
 <p>This is important in many parts of ricing,

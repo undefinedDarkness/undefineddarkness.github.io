@@ -125,7 +125,7 @@ right_align () {
 
 # Center align text while preserving indentation: useful for ascii art
 preserve_center () {
-	printf "<div class='txt-c'><pre>\n%s\n</pre></div>" "$1"
+	printf "<div class='txt-c'>%s</div>" "$1"
 }
 
 # Center align without preserving.

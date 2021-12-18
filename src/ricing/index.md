@@ -1,12 +1,12 @@
 <!-- vim: set nolist: -->
 # {🍱} Reference
-
+#PRESERVE-CENTER
+**See the other modules:**
+[Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html) - [Terminology](/out/ricing/terminology.html)
+#END PRESERVE-CENTER
 My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 List of ricing software you can use: https://github.com/fosslife/awesome-ricing
-
-**See the other modules:**
-[Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html) - [Terminology](/out/ricing/terminology.html)
 
 ## How do I use X?
 
@@ -178,7 +178,8 @@ Use one of the popular forks I guess :/, I don't know how well picom animations 
 The following are popular as of October 2021:
 [jonaburg/picom](https://github.com/jonaburg/picom)    -> slightly buggy sliding animations
 [dccsillag/picom](https://github.com/dccsillag/picom)  -> has cool, configurable animations
-[pijulius/picom](https://github.com/pijulius/picom) -> fork of dccsillag, added animations and optimisations
+[pijulius/picom](https://github.com/pijulius/picom)    -> fork of dccsillag, added animations and optimisations
+[Tanish2002/picom](https://github.com/Tanish2002/picom)-> also has animations, try if the others do not work
 
 snippet to configure animations on dccsillag or pijulius
 

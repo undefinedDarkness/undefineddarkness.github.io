@@ -30,8 +30,8 @@ body {
 	line-height: 1.4;
 }
 
-.reset {
-	font-weight: normal;
+.reset, a {
+	font-weight: normal !important;
 }
 
 article {
@@ -126,6 +126,8 @@ summary * {
 img {
 	max-width: 30vw;
 	height: auto;
+	object-fit: contain;
+	object-position: top;
 }
 
 aside {
@@ -259,7 +261,7 @@ section {
 }
 
 .tbl-showcase tr:not(:first-child) td {
-	padding: 16px;
+	padding: 0.5vw;
 	border-left: 1px solid var(--dark-border);
 	border-bottom: 1px solid var(--dark-border);
 }

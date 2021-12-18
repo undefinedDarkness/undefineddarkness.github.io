@@ -8,16 +8,14 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-12-07 21:19:43'">
+		<article style="--date-modified: '2021-12-18 19:02:11'">
 			<!-- vim: set nolist: -->
 <h1><span class="reset">🍱</span> Reference</h1>
-
+<div class='txt-c'><b>See the other modules:</b>
+<a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a></div>
 My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.
 List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a>
-
-<b>See the other modules:</b>
-<a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a>
 
 <h2>How do I use X?</h2>
 
@@ -47,10 +45,11 @@ Then use <a href="https://addons.mozilla.org/en-US/firefox/addon/new-tab-overrid
 Chromium users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (Chrome places no limitations).</details>
 
 <details><summary><h3>GTK</h3></summary>This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and
-are easily modifiable (if you know CSS). Phocus is a nice one to start with. (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)
+are easily modifiable (if you know CSS). Phocus is a nice one to start with since its code is clean scss and well structured, (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)
 *NOTE: Phocus is not a GTK2 theme so it will not show up in <code>lxappearance</code>, Set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead,
-this is because lxappearance *
+this is because lxappearance expects a legacy gtk2 theme along with a gtk3, which modern themes do not have.*
 
+You can use <code>gtk-widget-factory</code> to test your theme, it comes packaged with <code>gtk-demos</code> on arch & debian.
 GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a>
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)
 
@@ -91,7 +90,20 @@ Besides colors, in terms of functionality you are free to find / forge whatever 
 See more on <a href="/out/knowledge/vim.html">vim & neovim</a>.
 
 How to make a vim colorscheme: <a href="https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/">Reddit</a>
-Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a></details>
+Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a>
+
+<h4>Get highlight group under cursor</h4>
+Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:
+<pre class="code" data-language="vim"><code>function<span style="color:#dcdccc">!</span> SynStack<span style="color:#dcdccc">()</span>
+  <span style="color:#e3ceab">if</span> <span style="color:#dcdccc">!</span>exists<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&quot;*synstack&quot;)</span>
+    return
+  <span style="color:#e3ceab">endif</span>
+  echo map<span style="color:#dcdccc">(</span><span style="color:#aabfe3">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
+endfunc
+</code></pre>
+
+but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,
+to use them more easily, create a keybinding for <code>SynStack()</code> or <code>require('hl-info').show_hl_captures()</code> respectivley</details>
 
 <details><summary><h3>Terminal</h3></summary>This is really simple too: popular color schemes usually have been ported for common terminal programs, even if it doesn't, it should still be really simple to implement, it's just 16 colors after all :P
 
@@ -252,7 +264,8 @@ Use one of the popular forks I guess :/, I don't know how well picom animations 
 The following are popular as of October 2021:
 <a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> slightly buggy sliding animations
 <a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has cool, configurable animations
-<a href="https://github.com/pijulius/picom">pijulius/picom</a> -> fork of dccsillag, added animations and optimisations
+<a href="https://github.com/pijulius/picom">pijulius/picom</a>    -> fork of dccsillag, added animations and optimisations
+<a href="https://github.com/Tanish2002/picom">Tanish2002/picom</a>-> also has animations, try if the others do not work
 
 snippet to configure animations on dccsillag or pijulius
 

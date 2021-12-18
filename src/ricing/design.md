@@ -11,9 +11,7 @@ If you are going to make a colorscheme, You should also follow this structure, a
 Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black
 *Using different shades of one color for each of those is a very bad idea*
 While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.
-
 #END f
-
 #f Typography
 > The style and appearance of printed matter.
 
@@ -46,7 +44,7 @@ Roboto Mono															IBM Plex Mono														JetBrains Mono													
 Roboto	Ubuntu Sans	IBM Plex Sans	Lexend Deca	Poppins
 #END TABLE
 
-[Repository of mostly monospace fonts](https://gitlab.com/exorcist365/fonts)
+🏴‍☠️ [Repository of mostly monospace fonts](https://gitlab.com/exorcist365/fonts)
 Compare Different Fonts: [ThemeWiki](https://wooosh.github.io/themewiki/fontindex/)
 
 #### Nerd Fonts
@@ -92,6 +90,7 @@ See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 
 #END f
 
+## Conventions
 #f CSS Box Model
 <aside>
 

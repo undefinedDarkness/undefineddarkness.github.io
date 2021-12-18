@@ -91,11 +91,11 @@ gen_index () {
 	for folder in $(ls src/ -p | grep '/'); do
 		# echo $folder
 		posts=
-		for file in $(find src/$folder -name '*.fmt.txt'); do
+		for file in $(find src/$folder -name '*.md'); do
 			title=$(get-title $file)
 			[ -z "$title" ] && title=$file
 			file=${file/src\//\/out\/}
-			file=${file/.fmt.txt/.html}
+			file=${file/.md/.html}
 			posts="$posts\n<li><a href=\"${file}\">${title}</a></li>"
 		done
 		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder/\/}")!@${posts}@g" ./out/index.html #> ./out/index.html
@@ -124,7 +124,7 @@ case $1 in
 
 		# Paths to watch
 		(
-		find src -name "*.fmt.txt" -or -name '*.html'#  -not -name 'index.html'
+		find src -name "*.md" -or -name '*.html'#  -not -name 'index.html'
 		realpath ./template.html
 		realpath assets/styles.css
 		find tool -name "*.sh"
@@ -186,11 +186,11 @@ live    - Live server with hot reloading
 		# shopt -s globstar
 		look=$2
 		if [ -z "$look" ]; then
-			look=$(find src -name "*.fmt.txt" -or -name "*.html")
+			look=$(find src -name "*.md" -or -name "*.html")
 		fi
 		for file in ${look}; do
 			case "$file" in
-				'src/*.fmt.txt')
+				'src/*.md')
 					continue
 					;;
 				'src/*.html')
@@ -199,7 +199,7 @@ live    - Live server with hot reloading
 				'src/**/*.html')
 					continue
 					;;
-				'src/**/*.fmt.txt')
+				'src/**/*.md')
 					continue
 					;;
 				*)
