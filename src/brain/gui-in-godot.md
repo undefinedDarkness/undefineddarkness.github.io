@@ -32,6 +32,11 @@ My experience thus far with UI design has been with GTK & CSS,
 GTK works in a pretty similar way to CSS so they're both pretty familiar to me,
 Most of these are things that would make me more comfortable using it but all of them are livable with in their current state
 
+- When using the file selection dialogs, I noticed a few things I was used to from the native file dialog were missing,
+It would be slightly more consistent if godot used the native file dialogs, It does a very good job of wrapping you in a 
+cross platform bubble but a way to use native components would be nice too,
+to go with this, a way to smartly position windows and have one project spawn multiple windows would be pretty interesting to see,
+since then Godot could be adapted to a kind of widget system.
 - The container / size flags system feels to me a bit more complicated
 than it has to be, but its not too bad once you get used to it
 - No way to easily use percentage sizes for UI elements

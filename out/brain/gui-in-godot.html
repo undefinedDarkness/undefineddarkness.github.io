@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles-min.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-12-25 12:52:29'">
+		<article style="--date-modified: '2021-12-25 16:44:31'">
 			<h1>Using Godot For GUI Development</h1>
 These are the results of my experiment with using the <a href="https://godotengine.org/">Godot game engine</a> for designing 
 <a href="https://github.com/undefinedDarkness/cello">a toy music player</a>,
@@ -42,7 +42,12 @@ My experience thus far with UI design has been with GTK & CSS,
 GTK works in a pretty similar way to CSS so they're both pretty familiar to me,
 Most of these are things that would make me more comfortable using it but all of them are livable with in their current state
 
-<ul><li>The container / size flags system feels to me a bit more complicated
+<ul><li>When using the file selection dialogs, I noticed a few things I was used to from the native file dialog were missing,
+It would be slightly more consistent if godot used the native file dialogs, It does a very good job of wrapping you in a 
+cross platform bubble but a way to use native components would be nice too,
+to go with this, a way to smartly position windows and have one project spawn multiple windows would be pretty interesting to see,
+since then Godot could be adapted to a kind of widget system.
+</li><li>The container / size flags system feels to me a bit more complicated
 than it has to be, but its not too bad once you get used to it
 </li><li>No way to easily use percentage sizes for UI elements
 Related to the above issue, you can calculate them yourself in GDScript but that is rather tedious
