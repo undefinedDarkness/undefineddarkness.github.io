@@ -91,7 +91,7 @@ get-date () {
 	month=$4
 	day=$5
 	time=$6
-	printf "$year-$month-$day"
+	printf "$day-$month-$year"
 }
 
 gen_index () {
@@ -106,7 +106,7 @@ gen_index () {
 			title=$(get-title $folder/$file)
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
-		done <<< "$(ls --sort=time --time=birth -1 -o -g $folder)"
+		done <<< "$(ls --sort=time --time=creation -1 -o -g $folder)"
 		# echo "$posts"
 		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
@@ -117,12 +117,12 @@ gen_index () {
 post_build () {
 		#mv ./out/index.html .
 		gen_index &
-		sed -E 's/\t//g;
-				s/[[:space:]]{2,}//g; 
-				s!/\*.*\*/!!g; 
-				/^$/d;
-				s/\n//g' assets/styles.css | tr -d '\n' > assets/styles-min.css
-		printf '\nassets/styles.css -> assets/styles-min.css\n\n'
+		#sed -E 's/\t//g;
+		#		s/[[:space:]]{2,}//g; 
+		#		s!/\*.*\*/!!g; 
+		#		/^$/d;
+		#		s/\n//g' assets/styles.css | tr -d '\n' > assets/styles-min.css
+		#printf '\nassets/styles.css -> assets/styles-min.css\n\n'
 }
 
 case $1 in

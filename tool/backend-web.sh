@@ -1,27 +1,5 @@
 #!/usr/bin/env bash
 
-# This is a example implementation of a backend 
-# for the pond formatting system.
-# This one for generating HTML from a markdown like 
-# format.
-
-# Transformers must be defined as regular functions
-# and must be available when the backend file is sourced 
-# by an external script.
-# By default, the script tries to guess any available transformers
-# and if you wish to overrite this you can do:
-# export transformers="transformerA transformerB transformerC"
-
-# The following is utter hyprocisy but:
-# It is generally recommended that transformers try to conform 
-# to the POSIX standard when it is not an extra bother.
-
-# !!: Indicates a transformer that should be available everywhere
-
-# This is mostly for shellcheck, helpers are already imported when this is run
-# shellcheck source=helpers.sh
-# . "$( dirname "$0" )"/helpers.sh
-
 # UTILITIES:
 
 # Generate syntax highlighted html code
@@ -199,6 +177,8 @@ initial_transformer () {
 
 	in_list=
 	
+	header_no=0
+
 	IFS=''
 	while read -r line; do
 		line_no=$(( line_no + 1 ))
@@ -225,8 +205,9 @@ initial_transformer () {
 			# Headings
 			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
 				dbg ">> Found a heading"
+				header_no=$((header_no + 1))
 				heading=${line%% *}
-				echo "<h${#heading}>${line#${heading}* }</h${#heading}>"
+				echo "<h${#heading} id='heading-${header_no}'>${line#${heading}* }</h${#heading}>"
 				;;
 			
 			# Block of code

@@ -1,4 +1,7 @@
-# Using Godot For GUI Development
+<div class="txt-c hor-ord jus-c algn-e header flx-wrp">
+<img src="https://i.imgur.com/LF465lb.png" alt="icon" />
+<h1>Using Godot for GUI Development</h1>
+</div>
 These are the results of my experiment with using the [Godot game engine](https://godotengine.org/) for designing 
 [a toy music player](https://github.com/undefinedDarkness/cello),
 I have divided them into things I like and things I'd like to see improved, 
@@ -131,3 +134,10 @@ as a side effect in its current state, it scales really badly to smaller window 
 I would like to be able to open my scene tree and preview (in top bottom layout) vertically split next to my code editor but currently I see no way to go about this.
 [this is how I want it](https://i.imgur.com/2iJPw8F.png) 🍀
 - Currently no support for reading and writing to zip files, there exists [a module / custom build](https://github.com/flyingpimonster/godot/tree/zip-module-3.4) that I ended up using but I think this functionality is basic enough to be included in the editor itself 
+
+
+## Conclusion
+Godot's UI system is very well rounded and capable of solving most issues you might encounter, The way its editor system integrates with it is excellent
+and the overall experiance for the developer is very good, If there is something it can't solve out of the box plugins exist for most things,
+
+I will definatley keep it in mind if I ever want a app focused on GUI, and I hope to get the chance to use it again
