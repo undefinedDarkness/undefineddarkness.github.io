@@ -86,21 +86,32 @@ get-title () {
 	esac
 }
 
+year=2021
+get-date () {
+	month=$4
+	day=$5
+	time=$6
+	printf "$year-$month-$day"
+}
+
 gen_index () {
 	cp ./src/index.html ./out/index.html # override with format
-	for folder in $(ls src/ -p | grep '/'); do
+	find src/ -type d -not -path 'src/' | while read -r folder; do
 		# echo $folder
-		posts=
-		for file in $(find src/$folder -name '*.md'); do
-			title=$(get-title $file)
-			[ -z "$title" ] && title=$file
-			file=${file/src\//\/out\/}
-			file=${file/.md/.html}
-			posts="$posts\n<li><a href=\"${file}\">${title}</a></li>"
-		done
-		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder/\/}")!@${posts}@g" ./out/index.html #> ./out/index.html
+		
+		posts=''
+		while read -r file_l; do
+			[[ $file_l == total* ]] && continue
+			file=${file_l##* }
+			title=$(get-title $folder/$file)
+			f_date=$(get-date $file_l)
+			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
+		done <<< "$(ls --sort=time --time=birth -1 -o -g $folder)"
+		# echo "$posts"
+		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
+	exit 0
 }
 
 post_build () {
