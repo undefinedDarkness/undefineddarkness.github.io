@@ -106,11 +106,17 @@ gen-index () {
 		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
-	exit 0
 }
 
 post-build () {
-		gen-index 
+		gen-index
+		mkdir -p assets/images/dump
+		while read -r line; do
+			optimize-image "$line" 
+			# echo $line
+			#break
+		done < <(grep -Por '(\(|")\K\S+\.png' src | grep -v '/favicon.png')
+		minify -b assets/*.css -o assets/styles.css
 }
 
 optimize-image () {
@@ -168,15 +174,6 @@ case $1 in
 	# Serve without hot realoading
 	serve)
 		$server
-		;;
-
-	optimize-images)
-		mkdir -p assets/images/dump
-		while read -r line; do
-			optimize-image "$line" 
-			# echo $line
-			#break
-		done < <(grep -Por '(\(|")\K\S+\.png' src | grep -v '/favicon.png')
 		;;
 
 	*)
