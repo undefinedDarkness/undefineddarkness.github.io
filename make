@@ -7,21 +7,21 @@
 # Configuration
 port=5000
 
-fnr() {
-    _fnr=$1
-    shift 1
-
-    while :; do case $_fnr-$# in
-        *"$1"*) _fnr=${_fnr%"$1"*}${2}${_fnr##*"$1"} ;;
-           *-2) break ;;
-             *) shift 2
-    esac done
-}
-
 # Extract relevant parts of the template
-template=$(cat template.html)
-pre=${template%%\!CONTENT\!*}
-post=${template##*\!CONTENT\!}
+buffer=
+pre=
+post=
+while read -r line; do
+	case "$line" in
+		"!CONTENT!")
+			pre=$buffer
+			buffer=
+			continue
+			;;
+	esac
+	buffer+="$line"$'\n'
+done < ./template.html
+post=$buffer
 
 # Extract sidebar from the index
 # sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' ./index.html | tr -d '\0')
@@ -29,24 +29,23 @@ post=${template##*\!CONTENT\!}
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
 # bash only and im lazy :(
-getModifiedTime () {
+get-modified-time () {
 	o=$(stat -c '%y' $1)
 	echo "${o%.*}"
 }
 
 # General multi purpose build process
 process () {
-	#out=${2/.${out#*.}/.html}
-	fnr "$2" ".${2#*.}" ".html"
-	out=$_fnr
+	out=${2/.${out#*.}/.html}
 
 	mkdir -p "$(dirname "$out")"
-	printf "Building \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n\n" "$1" "$out"
+	printf "Building \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n" "$1" "$out"
 
 	x=${out%%.html}
 	x=${x##out/}
-	fnr "$pre" "!TITLE!" "$x" "!TIME!" "$(getModifiedTime "$1")"
-	header=$_fnr
+	header=${pre/\!TITLE\!/$x}
+	t=$(get-modified-time $1)
+	header=${header/\!TIME\!/$t}
 	printf '%s' "$header" > "$out"
 	$3 "$1" 1>> "$out" # Generate HTML -- CHANGE
 	printf '%s' "$post" >> "$out" # Output To File
@@ -54,8 +53,7 @@ process () {
 
 # Primary Build Function - handles every file
 build () {
-	fnr "$1" "src" "out"
-	out=$_fnr
+	out=${1/src/out}
 
 	case "${out#*.}" in
 		# HTML
@@ -94,11 +92,9 @@ get-date () {
 	printf "$day-$month-$year"
 }
 
-gen_index () {
+gen-index () {
 	cp ./src/index.html ./out/index.html # override with format
 	find src/ -type d -not -path 'src/' | while read -r folder; do
-		# echo $folder
-		
 		posts=''
 		while read -r file_l; do
 			[[ $file_l == total* ]] && continue
@@ -106,23 +102,49 @@ gen_index () {
 			title=$(get-title $folder/$file)
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
-		done <<< "$(ls --sort=time --time=creation -1 -o -g $folder)"
-		# echo "$posts"
+		done < <(ls --sort=time --time=creation -1 -o -g $folder)
 		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
 	exit 0
 }
 
-post_build () {
-		#mv ./out/index.html .
-		gen_index &
-		#sed -E 's/\t//g;
-		#		s/[[:space:]]{2,}//g; 
-		#		s!/\*.*\*/!!g; 
-		#		/^$/d;
-		#		s/\n//g' assets/styles.css | tr -d '\n' > assets/styles-min.css
-		#printf '\nassets/styles.css -> assets/styles-min.css\n\n'
+post-build () {
+		gen-index 
+}
+
+optimize-image () {
+	file=${1%%:*}
+	image=${1#*:}
+	image_path=$image
+	[[ $image == *.webp ]] && return
+	echo "Converting $image to WEBP"
+	if [[ $image == https://* ]]; then
+		echo "Downloading"
+		image_path=/assets/images/dump/$(cat /proc/sys/kernel/random/uuid).webp
+		curl -L -o .$image_path --progress-bar $image
+	fi
+	echo "Saved output to $image_path"
+	# if ! [ -f $image_path ]; then
+	# 	return
+	# fi
+	out_image_path=${image_path/.png/.webp}
+	out_image_path=${out_image_path/.jpg/.webp}
+	cwebp .$image_path -o .$out_image_path -q 90
+	initial_size=$(du .$image_path)
+	final_size=$(du .$out_image_path)
+	if (( ${final_size%%	*} > ${initial_size%%	*} )); then
+		echo 'WEBP Conversion war larger than original image!!!'
+		rm .$out_image_path
+		out_image_path=$image_path
+		return
+	fi
+	echo ">>>> s!$image_path!$out_image_path!g $file"
+	sed -i "s!$image!$out_image_path!g" $file
+	#if [[ $image_path != $out_image_path ]]; then
+	#	rm .$image_path
+	#fi
+	printf '\n\n'
 }
 
 case $1 in
@@ -143,63 +165,23 @@ case $1 in
 		) | entr ./make # build /_
 		;;
 
-	# Generates a super simple index of all the articles found
-	index)
-		find out/ -type f -not -name "index.html" | while read -r file; do
-			filename=${file%%.html}
-			printf "<a href=\"$file\">${filename##out/}</a>\n"
-		done
-		;;
-
 	# Serve without hot realoading
 	serve)
 		$server
 		;;
 
-	# Clean output directory and index.
-	clean)
-		#rm -rv out index.html
-		;;
-
-
-	# Build Files
-	
-	build)
-		shift
-		for file in "$@"; do
-			build "$file" &
-		done
-		pkill --signal USR1 deno # In POSIX, There is no SIG... prefix 
-		post_build 
-		;;
-
-	--help|help)
-		printf "
-\033[1m🐸 Toad: A simple diet ssg\033[0m
---------------------
-
-\033[4mUsage:\033[0m
-> ./make [subcommand] [subcommand-args]
-
-\033[4mSubcommands:\033[0m
-build   - Builds a single file & updates the index
-clean   - Remove old build output
-serve   - Simply serve the site ( = python3 -m http.server)
-index   - Print every recognized article
-live    - Live server with hot reloading
-*       - Build everything
-
-"
+	optimize-images)
+		mkdir -p assets/images/dump
+		while read -r line; do
+			optimize-image "$line" 
+			# echo $line
+			#break
+		done < <(grep -Por '(\(|")\K\S+\.png' src | grep -v '/favicon.png')
 		;;
 
 	*)
 		mkdir -p src out
-		# shopt -s globstar
-		look=$2
-		if [ -z "$look" ]; then
-			look=$(find src -name "*.md" -or -name "*.html")
-		fi
-		for file in ${look}; do
+		while read -r file; do
 			case "$file" in
 				'src/*.md')
 					continue
@@ -216,9 +198,9 @@ live    - Live server with hot reloading
 				*)
 					build "$file" &
 			esac
-		done
+		done < <(find src -name "*.md" -or -name "*.html")
 
-		post_build
+		post-build
 
 		pkill --signal USR1 deno
 		printf "Finished!\n"

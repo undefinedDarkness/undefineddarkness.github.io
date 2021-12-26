@@ -4,7 +4,7 @@ Stuff related to the general design of a rice
 #f Colorscheme
 Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:
 
-![structure](/assets/images/colorscheme-structure.png)
+![structure](/assets/images/colorscheme-structure.webp)
 
 This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.
 If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),
@@ -28,19 +28,19 @@ Here are the fonts I personally like for each one:
 
 #### Mono space:
 #TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/Roboto-Mono-Regular.png)	![preview](/assets/images/font-previews/IBM-Plex-Mono-Regular.png)	![preview](/assets/images/font-previews/JetBrains-Mono-Regular.png)	![preview](/assets/images/font-previews/Sarasa-Term-K.png)	![preview](/assets/images/font-previews/JuliaMono-Regular.png)
+![preview](/assets/images/font-previews/Roboto-Mono-Regular.webp)	![preview](/assets/images/font-previews/IBM-Plex-Mono-Regular.webp)	![preview](/assets/images/font-previews/JetBrains-Mono-Regular.webp)	![preview](/assets/images/font-previews/Sarasa-Term-K.webp)	![preview](/assets/images/font-previews/JuliaMono-Regular.webp)
 Roboto Mono															IBM Plex Mono														JetBrains Mono														Iosevka														[JuliaMono](https://juliamono.netlify.app/)
 #END TABLE
 
 #### Serif:
 #TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/ETBembo-RomanLF.png)	![preview](/assets/images/font-previews/Merriweather-Regular.png)	![preview](/assets/images/font-previews/Piazzolla-Regular.png)	![preview](/assets/images/font-previews/Libre-Baskerville.png)
+![preview](/assets/images/font-previews/ETBembo-RomanLF.webp)	![preview](/assets/images/font-previews/Merriweather-Regular.webp)	![preview](/assets/images/font-previews/Piazzolla-Regular.webp)	![preview](/assets/images/font-previews/Libre-Baskerville.webp)
 [ET Bembo](https://edwardtufte.github.io/et-book/)				Merriweather														[Piazzolla](https://piazzolla.huertatipografica.com/)			Libre Baskerville
 #END TABLE
 
 #### Sans Serif:
 #TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/Roboto.png)	![preview](/assets/images/font-previews/Ubuntu-Regular.png)	![preview](/assets/images/font-previews/IBM-Plex-Sans-Regular.png)	![preview](/assets/images/font-previews/Lexend-Deca-Regular.png)	![preview](/assets/images/font-previews/Poppins-Regular.png)
+![preview](/assets/images/font-previews/Roboto.webp)	![preview](/assets/images/font-previews/Ubuntu-Regular.webp)	![preview](/assets/images/font-previews/IBM-Plex-Sans-Regular.webp)	![preview](/assets/images/font-previews/Lexend-Deca-Regular.webp)	![preview](/assets/images/font-previews/Poppins-Regular.webp)
 Roboto	Ubuntu Sans	IBM Plex Sans	Lexend Deca	Poppins
 #END TABLE
 
@@ -79,7 +79,7 @@ See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 
 ##### Commonly used bitmap fonts:
 #TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/CozetteVector.png)	![preview](/assets/images/font-previews/Gohu-GohuFont.png)	![preview](/assets/images/font-previews/Terminus.png)	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
+![preview](/assets/images/font-previews/CozetteVector.png)	![preview](/assets/images/font-previews/Gohu-GohuFont.webp)	![preview](/assets/images/font-previews/Terminus.png)	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
 [Cozette](https://github.com/slavfox/Cozette)	[Gohu](https://font.gohu.org/)	[Terminus](http://terminus-font.sourceforge.net/)	[GNU Unifont](https://unifoundry.com/unifont/)	[Cherry](https://github.com/turquoise-hexagon/cherry)	[Scientifica](https://github.com/NerdyPepper/scientifica) / [Curie](https://github.com/nerdypepper/curie)
 #END TABLE
 
@@ -106,7 +106,7 @@ Margin is spacing between the box and its siblings / parent box.
 
 </p>
 
-![Box Model Illustration](/assets/images/box-model.png)
+![Box Model Illustration](/assets/images/box-model.webp)
 </aside>
 #END f
 

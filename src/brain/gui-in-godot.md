@@ -1,5 +1,5 @@
 <div class="txt-c hor-ord jus-c algn-e header flx-wrp">
-<img src="https://i.imgur.com/LF465lb.png" alt="icon" />
+<img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" />
 <h1>Using Godot for GUI Development</h1>
 </div>
 These are the results of my experiment with using the [Godot game engine](https://godotengine.org/) for designing 
@@ -13,7 +13,7 @@ Or that there are GitHub issues open for some of the problems I found, I have no
 ## Things I loved
 - The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;
 It helps so much with prototyping, You can even preview your entire app from the editor, like so:
-![editor preview](https://i.ibb.co/r0gzVHX/image.png)
+![editor preview](/assets/images/dump/8f34d78e-c50b-4bd4-9ef3-df80666209a2.webp)
 - The seamlessness between the editor and the scripting was also really nice to see, It made thinking about how things would work rather simple
 and features easy to implement
 - Godot's well developed & refined node system works amazingly well for designing a user interface, everything can be split up into scenes that can find one another with node paths
@@ -54,11 +54,11 @@ I had often had to resort to setting a node's `rect_min_size` to fix it, related
 I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) 🍀
 - Very very small nitpick, the editor does not seem to support ligatures which is a bit of a shame but again really minor thing
 - The default bar at the top for the project / editor settings menu should be search instead of adding a new item
-![this bar](https://i.ibb.co/hd7HmYW/Screenshot-2021-12-25-103204.png)
+![this bar](/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp)
 - The UI system could use a debug option like the collision system to show parent / children borders in the user interface
 - The Theme editor was rather unintuitive to me, I expected to be able to click any of the widgets in the preview and modify their properties
 but it does appear to be rather powerful so that's fine by me
-![the editor ui](https://i.ibb.co/zX1CPWY/image.png)
+![the editor ui](/assets/images/dump/499f8044-e65d-4ccc-b059-d6837bf758ce.webp)
 - When running any Godot project, Godot opens with a loading screen, while this is fine for most games, it is quite detrimental to a UI application,
 I am not exactly sure what Godot is doing in this loading screen but if it is loading resources or anything not directly related to the drawing of the app UI, 
 IMO there should be an option where Godot whatever it needs **and then** spawn and draw the window, so the user will notice a delay in app startup time but won't need to wait looking at a loading screen.
@@ -72,10 +72,10 @@ Some of these are also complaints of the editor which is a quite integral part t
 - GDScript does not make it obvious when something is being copied by value or passed by reference
 - The editor which is perfectly capable of editing arbitrary text files requires you to jump through hoops to open one, When using the **Open menu** you need to tell it to
 show all file types, only then can you open your markdown file or whatever
-![the menu](https://i.ibb.co/x6Pz1S7/image.png)
+![the menu](/assets/images/dump/b3eae2f4-a5aa-4e2a-bd8e-252782b15471.webp)
 - The type system is extraordinarily fragile and becomes useless really easily 🍀
 - The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both
-![example of what I mean](https://i.imgur.com/bqVr24c.png)
+![example of what I mean](/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp)
 - No one liner / lambda functions 🍀
 The way you pass functions is also really dumb, eg:
 
@@ -125,7 +125,7 @@ It was because I hadn't created a optimized build
 & The icon should be by default generated from your project icon (Usually stored at `icon.png`)
 - This isn't really an issue just a way where Godot could be smarter by default:
 When importing images or sprites, Godot by default filters / anti aliases the image, this as you can imagine destroys any quality in pixel art till you find the 2 buttons you need to press in the import menu to get it to work.
-![button in question](https://i.ibb.co/rbf3fPs/image.png)
+![button in question](/assets/images/dump/806b5ab4-bf5b-47e2-9d86-a9bdc088e5f0.webp)
 but if you are importing a image of a size less than say 128x128 pixels, The chances that it is *not* pixel art become really low, so defaulting to pixel art settings in that case make a lot of sense to me
 but I can see why they did not want to program a special case for pixel art
 *I just noticed you can make this setting the default which alleviates the issue a lot*
@@ -133,7 +133,7 @@ but I can see why they did not want to program a special case for pixel art
 Would be nice to freely move things from place to place & hide panels as I wish but I can see how that would be rather clunky to implement,
 as a side effect in its current state, it scales really badly to smaller window sizes,
 I would like to be able to open my scene tree and preview (in top bottom layout) vertically split next to my code editor but currently I see no way to go about this.
-[this is how I want it](https://i.imgur.com/2iJPw8F.png) 🍀
+[this is how I want it](/assets/images/dump/9521b08c-8d28-4a1a-a4fe-1def7c8c0d94.webp) 🍀
 - Currently no support for reading and writing to zip files, there exists [a module / custom build](https://github.com/flyingpimonster/godot/tree/zip-module-3.4) that I ended up using but I think this functionality is basic enough to be included in the editor itself 
 
 

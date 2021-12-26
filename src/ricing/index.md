@@ -221,7 +221,7 @@ https://waneella.tumblr.com/
 Googling will also get you a bit of resources .
 
 #### Tiled Wallpapers
-These are wallpapers that tiled like tiles in a pattern, [example](https://cdn.discordapp.com/attachments/635625973764849684/898589548999745626/unknown.png) repeated over your entire screen.
+These are wallpapers that tiled like tiles in a pattern, [example](/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp) repeated over your entire screen.
 Their usage is fairly simple:
 `feh --bg-tile |path-to-wallpaper|` or if you have a bitmap you can use `xsetroot -bitmap |path-to-bitmap-wallpaper|`, or manually tile it in your image editor of choice.
 

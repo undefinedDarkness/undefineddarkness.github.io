@@ -1,5 +1,5 @@
 <div class="txt-c hor-ord jus-c algn-c header flx-wrp">
-<img class="img-sml" alt="art by u/astrellon3" src="https://i.redd.it/iymvctstjoq31.png" />
+<img class="img-sml" alt="art by u/astrellon3" src="/assets/images/dump/fd1bdbbb-2de7-4d24-ab5a-e883d5f2f103.webp" />
 <!-- TODO: recreate myself -->
 <h1>Vi IMproved</h1>
 </div>
