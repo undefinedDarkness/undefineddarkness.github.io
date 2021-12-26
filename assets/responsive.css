@@ -30,9 +30,15 @@
 	.tbl-showcase img {
 		max-width:50vw;
 	}
-	li {
-		display: inline-block;
+	h1 {
+		font-size: 9vw;
 	}
+	article > h1:first-child img, .header img  {
+		max-width: 45vw;
+	}
+	/* li { */
+	/* 	display: inline-block; */
+	/* } */
 	nav {
 		border-right: none;
 		border-bottom: 1px solid var(--dark-border);

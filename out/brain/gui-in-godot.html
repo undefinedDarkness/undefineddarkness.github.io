@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
-		<article style="--date-modified: '2021-12-25 18:19:26'">
+		<article style="--date-modified: '2021-12-25 22:37:01'">
 			<div class="txt-c hor-ord jus-c algn-e header flx-wrp">
 <img src="https://i.imgur.com/LF465lb.png" alt="icon" />
 <h1>Using Godot for GUI Development</h1>
@@ -86,14 +86,14 @@ show all file types, only then can you open your markdown file or whatever
 </li><li>The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both
 <img src="https://i.imgur.com/bqVr24c.png" alt="example of what I mean" title="example of what I mean" loading="lazy"></img>
 </li><li>No one liner / lambda functions 🍀
-The way you pass functions is also really dumb, eg: 
-<pre class="code" data-language="gdscript"><code>node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">self</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;signal-name-callback&quot;</span><span style="color:#dcdccc">, [</span> <span style="color:#cc9393">&apos;apple&apos;</span> <span style="color:#dcdccc">])</span>
+The way you pass functions is also really dumb, eg:
+</li></ul><pre class="code" data-language="gdscript"><code>node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">self</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;signal-name-callback&quot;</span><span style="color:#dcdccc">, [</span> <span style="color:#cc9393">&apos;apple&apos;</span> <span style="color:#dcdccc">])</span>
 <span style="color:#7f9f7f; font-style:italic">#~ could be with lambdas</span>
 node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">, () =&gt; {</span>
 	<span style="color:#7f9f7f; font-style:italic">#~ do thing</span>
 <span style="color:#dcdccc">})</span>
 </code></pre>
-</li><li>The over reliance of classes,
+<ul><li>The over reliance of classes,
 This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classes
 when all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should have
 and a lot of code become ugly :/

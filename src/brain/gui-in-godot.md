@@ -77,7 +77,8 @@ show all file types, only then can you open your markdown file or whatever
 - The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both
 ![example of what I mean](https://i.imgur.com/bqVr24c.png)
 - No one liner / lambda functions 🍀
-The way you pass functions is also really dumb, eg: 
+The way you pass functions is also really dumb, eg:
+
 ```gdscript
 node.connect("signal-name", self, "signal-name-callback", [ 'apple' ])
 #~ could be with lambdas

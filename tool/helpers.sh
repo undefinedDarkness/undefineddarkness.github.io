@@ -12,7 +12,7 @@ err () {
 dbg () {
 	if [ -n "${pond_debug:-}" ]; then
 		# shellcheck disable=2059
-		printf "$*\n" #"$*"
+		printf "\033[35m$*\033[0m\n" #"$*"
 	fi
 }
 

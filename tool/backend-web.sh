@@ -185,6 +185,7 @@ initial_transformer () {
 		
 		# Empty line & is in list
 		if [ -z "$line" ] && [ -n "$in_list" ]; then
+			dbg '<<< Ending list'
 			printf '</li></ul>' # close the last item and the list itself
 			in_list=
 			continue

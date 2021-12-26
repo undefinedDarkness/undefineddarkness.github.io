@@ -29,6 +29,8 @@ body {
 	line-height: 1.4;
 }
 
+ul { overflow-x: auto; }
+
 .reset, a {
 	font-weight: normal !important;
 }
@@ -145,10 +147,8 @@ pre.code {
 	background: var(--dark-bg); 
 	color: var(--dark-fg);
 	overflow: auto;
-	position: relative;
 	padding: 1.5em 4em 1.5em 0;
 	border-radius: 3px;
-	width: min-content;
 }
 
 code * {font-style:inherit;} /* fix issues with the preprocessor by forcing everything to be normal. */
