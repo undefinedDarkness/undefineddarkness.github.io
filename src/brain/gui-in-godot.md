@@ -28,6 +28,9 @@ And the tight integration it has with the larger engine is really nice to see as
 50mb of ram usage and 11mb of video memory usage quite serviceable (while playing a .flac read from a .zip file); It is possible a pure UI implementation in GTK would have consumed less but this is already pretty low
 - Godot encases you in a bubble of cross platform support which is also really nice so I can expect my app which works entirely in Godot to just work ™ on Linux & MacOS maybe even ARM stuff
 - The documentation is amazingly well written (in comparison to the GTK docs, which for the most part teach you how to do the basics then throw the API reference at you) and through, and almost all the parts of the engine are covered to some degree at least.
+- The tree node which is exceedingly complicated in GTK, is very very simple in Godot and super usable, It has everything you need in a structure that makes a lot of sense
+- The theme system although I have yet to make full use of it, is very powerful and I imagine it is super useful to design a global look to your program
+- Godot's Drag & Drop support is half decent too within its own window at least
 
 ## Issues I had
 ### UI System
@@ -90,11 +93,16 @@ node.connect("signal-name", () => {
 This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classes
 when all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should have
 and a lot of code become ugly :/
-- When you are prototyping quickly and modify the node structure even a little bit, almost every `get_node()` call in your script will break which becomes really annoying to fix,
+- ~~When you are prototyping quickly and modify the node structure even a little bit, almost every `get_node()` call in your script will break which becomes really annoying to fix,
 especially if you need that script to demonstrate / test the behaviour of the ui. This is because all the node paths get modified which makes sense, to alleviate the issue a bit
 a nice thing to see would be a way to link a get_node() call to a certain fixed node, much like how connecting callbacks works (excepts when you move the script and it doesn't but that's more of a minor issue),
 This method could be linked to the editor
-This is the thing I found most frustrating and would most like to see get fixed or alleviated
+This is the thing I found most frustrating and would most like to see get fixed or alleviated~~
+Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:
+```
+export var sidebar_path: NodePath
+onready var sidebar = get_node(sidebar_path) # or as a clever one liner that isnt good code, export(NodePath) onready var sidebar = get_node(sidebar)
+```
 - No way to type signal arguments like the C++ source can 🍀
 
 #### Editor / Tool Scripts 
@@ -103,8 +111,7 @@ This makes your *entire script* run in the editor, and [the documentation](https
 All this made me not really want to risk using them unless all the script did was affect the appearance of itself, which wasn't the case in my code for most cases,
 What I would like to see, is a way to run / expose only specific functions in the editor, for example:
 ```gdscript
-#[editor-main]
-func editor_ready:
+editor func _ready:
 	add_dummy_items()
 	self.modulate = Color(0, 0, 0)
 ```
