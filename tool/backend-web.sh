@@ -17,7 +17,7 @@ __syntax_hl () {
 		--pretty-symbols \
 		--config-file=assets/zenburn.theme \
 		--no-version-info <<< "$1"
-	printf "</code></pre>\n"
+	printf "</code></pre>"
 }
 
 # Replaced. {{{

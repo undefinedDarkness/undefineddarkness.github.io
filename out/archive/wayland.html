@@ -68,12 +68,10 @@ Although most of them required tweaking in some form or another
 meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
 ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
 ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
-</code></pre>
-<p></p>
+</code></pre><p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 <pre class="code" data-language=""><code>MOZ_ENABLE_WAYLAND=1 firefox
-</code></pre>
-** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
+</code></pre>** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
 ** Firefox crashed more often for me in wayland but that may or may not happen to you
 
 <h3 id='heading-4'>Bars</h3>

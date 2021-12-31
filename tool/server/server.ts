@@ -18,7 +18,7 @@ const args = parse(Deno.args, {
     port: 5000,
     live: true,
     help: false,
-	log: true
+	log: false
   },
   boolean: ["superhuman", "live", "help", "log"],
   string: ["ignorePatterns"],

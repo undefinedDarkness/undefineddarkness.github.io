@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>My bunch of cheatsheets</title>
+		<link rel='stylesheet' href='/assets/styles.css' />
+		<style>.special-m td:last-child { font-family: var(--monospace-font) }</style>
+	</head>
+	<body class='hor-ord'>
+		<nav class='sidebar'>
+			<ul>
+				<li data-tab='css-layout'>CSS Layout</li>
+				<li data-tab='terminal'>Terminal Formatting</li>
+			</ul>
+		</nav>
+		<section id='css-layout' hidden></section>
+		<section id='terminal'>
+			<div class='hor-ord hor-ord-space'>
+				<table>
+					<thead>
+						<tr>
+							<th>Color</th>
+							<th>Escape Code</th>
+						</tr>
+					</thead>
+					<tbody id='color-rows' class='special-m'>
+						<tr>
+							<td>Red</td>
+							<td>\033[31m</td>
+						</tr>
+						<tr>
+							<td>Blue</td>
+							<td>\033[30m</td>
+						</tr>
+						<tr>
+							<td>Green</td>
+							<td>\033[32m</td>
+						</tr>
+						<tr>
+							<td>Magenta</td>
+							<td>\033[35m</td>
+						</tr>
+						<tr>
+							<td>Cyan</td>
+							<td>\033[36m</td>
+						</tr>
+						<tr>
+							<td>Yellow</td>
+							<td>\033[33m</td>
+						</tr>
+						<tr>
+							<td>Black</td>
+							<td>\033[30m</td>
+						</tr>
+						<tr>
+							<td>White</td>
+							<td>\033[37m</td>
+						</tr>
+					</tbody>
+				</table>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Escape Code</th>
+						</tr>
+					</thead>
+					<tbody class='special-m'>
+						<tr>
+							<td><strong>Bold</strong></td>
+							<td>\033[1m</td>
+						</tr>
+						<tr>
+							<td><u>Underline</u></td>
+							<td>\033[4m</td>
+						</tr>
+						<tr>
+							<td><i>Italic</i></td>
+							<td>\033[3m</td>
+						</tr>
+						<tr>
+							<td>Dim</td>
+							<td>\033[2m</td>
+						</tr>
+						<tr>
+							<td><strike>Strikethrough</strike></td>
+							<td>\033[9m</td>
+						</tr>
+						<tr>
+							<td>Reset</td>
+							<td>\033[0m</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			Format: <select id='color-rows-fmt'>
+				<option>Lua</option>
+				<option>Most</option>
+				<option selected>Posix</option>
+			</select>
+
+			Bright? <input type='checkbox' id='color-toggle-bright' />
+			Color (in HEX or rgb() form): <input type='text' placeholder='#rrggbb' value='#111111' id='color-in' />
+			FG: <code id='color-out-bg'>\033[38;2;17;17;17m</code> - To change from fg to bg, make 38 into 48
+
+			Printing centered text:
+			<pre><code>
+cols=$(stty size | cut -d'' -f1)
+center-print () {
+	prinif '%*s\n' $(( (cols + ${#1}) / 2 )) "$1"
+}
+			</code></pre>
+		</section>
+		<script src='/assets/cheatsheets.js'></script>
+	</body>
+</html>

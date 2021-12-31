@@ -31,8 +31,7 @@ The structure of the file is usually as follows:
 <pre class="code" data-language="css"><code><span style="color:#dfdfbf; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;discord.com&quot;</span><span style="color:#dcdccc">) {</span>
 	<span style="color:#7f9f7f; font-style:italic">/<i> Your styles go here. </i>/</span>
 <span style="color:#dcdccc">}</span>
-</code></pre>
-You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a>
+</code></pre>You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a>
 <i>NOTE: Stylus can also export to this format for easy usage</i>
 
 <h4 id='heading-3'>Start Page</h4>
@@ -71,7 +70,6 @@ After installing, you have to make changes the following changes
 <pre class="code" data-language="ini"><code><span style="color:#e3ceab">[Qt]</span>
 <span style="color:#dfdfbf; font-weight:bold">style</span><span style="color:#dcdccc">=</span><span style="color:#aae3b2">GTK+</span>
 </code></pre>
-
 <b>For QT5:</b> set the environment variable <code>QT_QPA_PLATFORMTHEME=gtk2</code>
 
 <i>NOTE: This requires that the configured GTK theme supports both GTK 2 and GTK 3</i>
@@ -80,8 +78,7 @@ After installing, you have to make changes the following changes
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:
 
-<pre class="code" data-language="sh"><code>QT_QPA_PLATFORMTHEME<span style="color:#dcdccc">=</span>gnome
-</code></pre></details>
+<pre class="code" data-language="sh"><code>QT_QPA_PLATFORMTHEME<span style="color:#dcdccc">=</span>gnome</details>
 
 <details><summary><h3>Neovim / Vim</h3></summary>This is an interesting one. If you use a premade colorscheme, chances are, a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme already exists for it. Otherwise, you can make a base16 theme or make one from a wide variety of templates. There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, <a href="https://bytefluent.com/vivify/">Vivify</a>)
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.
@@ -101,7 +98,6 @@ Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolat
   echo map<span style="color:#dcdccc">(</span><span style="color:#aabfe3">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
 endfunc
 </code></pre>
-
 but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,
 to use them more easily, create a keybinding for <code>SynStack()</code> or <code>require('hl-info').show_hl_captures()</code> respectivley</details>
 
@@ -282,7 +278,6 @@ snippet to configure animations on dccsillag or pijulius
 <span style="color:#e3ceab">animation</span>-for-workspace-switch-in = <span style="color:#cc9393">&quot;zoom&quot;</span><span style="color:#dcdccc">;</span>
 <span style="color:#e3ceab">animation</span>-for-workspace-switch-out = <span style="color:#cc9393">&quot;zoom&quot;</span><span style="color:#dcdccc">;</span>
 </code></pre>
-
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a>
 To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.
 

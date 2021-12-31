@@ -12,9 +12,14 @@
 
 /* Text color */
 .c-red { color: firebrick; }
+.glow { text-shadow: 0px 0px 6px,
+	0px 0px 6px,
+	0px 0px 6px,
+	0px 0px 6px }
 
 /* Layout */
 .hor-ord { display: flex; }
+.hor-ord-space { justify-content: space-between; }
 .jus-c   { justify-content: center; }
 .algn-c  { align-items:center; }
 .algn-e { align-items: flex-end; }
@@ -29,7 +34,7 @@
 .img-sml { width: 4em; } 
 .pntr { cursor: pointer; }
 .page { padding: 0 4em; }
-
+.sidebar { background-color: var(--light-surface) }
 .tbl-showcase img { 
 	max-width: 12vw;
 }

@@ -1,12 +1,10 @@
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
+	.sidebar { background-color: var(--dark-surface) !important }
 	body {
 		background: var(--dark-bg);
 		color: var(--dark-fg);
-	}
-	pre.code { 
-		/* border: 1px solid var(--dark-border); */
 	}
 	a { 
 		color: lightblue;

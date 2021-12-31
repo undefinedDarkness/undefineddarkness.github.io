@@ -2,10 +2,12 @@
 :root {
 	/* Colors */
 	--dark-bg: #111;
+	--dark-surface: #222;
 	--dark-border: #444;
 	--dark-subtle: #666;
 	--dark-fg: #fafafa;
 	--light-bg: ghostwhite;
+	--light-surface: #f0f0f0;
 
 	/* Fonts */
 	--system-sans-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -31,16 +33,14 @@ body {
 
 ul { overflow-x: auto; }
 
-.reset, a {
+.reset, a, code {
 	font-weight: normal !important;
 }
 
-article {
+article, body > section  {
 	padding: 0em 15vw;
 	flex: 1;
 	white-space: pre-line;
-	/* font-family:var(--serif-font); */
-	counter-reset: heading subheading subsubheading;
 }
 
 /* Sidebar */
@@ -61,7 +61,6 @@ nav ul li {
 }
 
 /* Tables */
-
 table { 
 	border-collapse: collapse;
 	table-layout:fixed;
@@ -113,7 +112,7 @@ footer {
 	margin-top: 4em;
 }
 
-/* Details / Summary container */
+/* Details / Summary Container */
 summary { 
 	cursor: pointer;
 	position: relative;
@@ -151,8 +150,6 @@ pre.code {
 	border-radius: 3px;
 }
 
-code * {font-style:inherit;} /* fix issues with the preprocessor by forcing everything to be normal. */
-
 code {
 	font-family: var(--monospace-font);
 }
@@ -165,6 +162,8 @@ pre, figure {
 	margin: 0;
 	line-height:normal;
 }
+
+/* Headings & General Page Styles */
 
 h1,h2,h3,h4,h5,h6 { 
 	margin-bottom: 0;
@@ -207,20 +206,24 @@ article > h1:first-child::before, .header h1::before {
 	color: var(--dark-subtle);
 	content: "Last edited: " var(- no-dot-date-modified, "1-1-1970 00:00:00")
 }
-/* Add coutners for every heading */
-/* h2:not(.page h2):not(.no-dot *)::before { */
-/* 	counter-increment: subheading; */
-/* 	counter-set: subsubheading; */
-/* 	content: counter(subheading) ". "; */
-/* } */
-/*  */
-/* h3:not(.page h3):not(.no-dot *)::before { */
-/* 	counter-increment: subsubheading; */
-/* 	content: counter(subheading) "." counter(subsubheading) " "; */
-/* } */
 
-section { 
+article section { 
 	margin-top: 3em;
 }
 
 
+/* Form Inputs */
+
+input[type="text"] {
+    background: none;
+    border: none;
+    border-bottom: 3px solid var(--dark-border);
+	margin-bottom: 3px;
+	padding: 0;
+	font-size: inherit;
+    color: inherit;
+}
+
+input[type="text"]:focus {
+	outline: 0;
+}

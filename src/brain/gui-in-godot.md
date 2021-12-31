@@ -81,7 +81,6 @@ show all file types, only then can you open your markdown file or whatever
 ![example of what I mean](/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp)
 - No one liner / lambda functions 🍀
 The way you pass functions is also really dumb, eg:
-
 ```gdscript
 node.connect("signal-name", self, "signal-name-callback", [ 'apple' ])
 #~ could be with lambdas
@@ -93,15 +92,17 @@ node.connect("signal-name", () => {
 This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classes
 when all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should have
 and a lot of code become ugly :/
-- ~~When you are prototyping quickly and modify the node structure even a little bit, almost every `get_node()` call in your script will break which becomes really annoying to fix,
+- <strike>When you are prototyping quickly and modify the node structure even a little bit, almost every `get_node()` call in your script will break which becomes really annoying to fix,
 especially if you need that script to demonstrate / test the behaviour of the ui. This is because all the node paths get modified which makes sense, to alleviate the issue a bit
 a nice thing to see would be a way to link a get_node() call to a certain fixed node, much like how connecting callbacks works (excepts when you move the script and it doesn't but that's more of a minor issue),
 This method could be linked to the editor
-This is the thing I found most frustrating and would most like to see get fixed or alleviated~~
+This is the thing I found most frustrating and would most like to see get fixed or alleviated</strike>
 Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:
-```
+```gdscript
 export var sidebar_path: NodePath
-onready var sidebar = get_node(sidebar_path) # or as a clever one liner that isnt good code, export(NodePath) onready var sidebar = get_node(sidebar)
+onready var sidebar = get_node(sidebar_path)
+#~ or as a clever one liner that isnt good code.
+export(NodePath) onready var sidebar = get_node(sidebar)
 ```
 - No way to type signal arguments like the C++ source can 🍀
 

@@ -23,9 +23,6 @@ while read -r line; do
 done < ./template.html
 post=$buffer
 
-# Extract sidebar from the index
-# sidebar=$(grep -Ezo -m1 '<nav>.*</nav>' ./index.html | tr -d '\0')
-
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
 # bash only and im lazy :(
@@ -34,37 +31,28 @@ get-modified-time () {
 	echo "${o%.*}"
 }
 
-# General multi purpose build process
-process () {
-	out=${2/.${out#*.}/.html}
-
-	mkdir -p "$(dirname "$out")"
-	printf "Building \033[34m%s\033[0m \033[32m->\033[0m \033[34m%s\033[0m\n" "$1" "$out"
-
-	x=${out%%.html}
-	x=${x##out/}
-	header=${pre/\!TITLE\!/$x}
-	t=$(get-modified-time $1)
-	header=${header/\!TIME\!/$t}
-	printf '%s' "$header" > "$out"
-	$3 "$1" 1>> "$out" # Generate HTML -- CHANGE
-	printf '%s' "$post" >> "$out" # Output To File
-}
-
-# Primary Build Function - handles every file
-build () {
+build-file () {
 	out=${1/src/out}
 
 	case "${out#*.}" in
-		# HTML
 		"html")
-			cp -fv "$1" "$out"
-			printf '\n'
+			cp -f "$1" "$out"
+			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
 			;;
-		# Pond's Format
-		# + Markdown
-		"fmt.txt"|"md")
-			process "$1" "$out" 'bash tool/pond.sh'
+		"md")
+			out=${out/.${out#*.}/.html}
+
+			mkdir -p "${out%%.*}"
+			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
+
+			x=${out%%.html}
+			x=${x##out/}
+			header=${pre/\!TITLE\!/$x}
+			t=$(get-modified-time $1)
+			header=${header/\!TIME\!/$t}
+			printf '%s' "$header" > "$out"
+			bash tool/pond.sh "$1" 1>> "$out" 
+			printf '%s' "$post" >> "$out"
 			;;
 	esac
 
@@ -72,13 +60,10 @@ build () {
 
 get-title () {
 	case "${1#*.}" in
-		# HTML
 		"html")
-			grep -Po -m1 '<h1>\K.*(?=<\/h1>)' $1
+			grep -Po -m1 '<(h1|title)>\K.*(?=<\/(\1)>)' $1
 			;;
-		# Pond's Format
-		# + Markdown
-		"fmt.txt"|"md")
+		"md")
 			grep -Po -m1 '<h1>\K.*(?=<\/h1>)|# \K.*' $1 
 			;;
 	esac
@@ -92,14 +77,16 @@ get-date () {
 	printf "$day-$month-$year"
 }
 
+# Generate Article Index: {{{
 gen-index () {
-	cp ./src/index.html ./out/index.html # override with format
+	cp ./src/index.html ./out/index.html
 	find src/ -type d -not -path 'src/' | while read -r folder; do
 		posts=''
 		while read -r file_l; do
 			[[ $file_l == total* ]] && continue
 			file=${file_l##* }
 			title=$(get-title $folder/$file)
+			[ -z "$title" ] && continue
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
 		done < <(ls --sort=time --time=creation -1 -o -g $folder)
@@ -107,18 +94,14 @@ gen-index () {
 	done
 	printf "Generated Article Index\n"
 }
+# }}}
 
 post-build () {
 		gen-index
-		mkdir -p assets/images/dump
-		while read -r line; do
-			optimize-image "$line" 
-			# echo $line
-			#break
-		done < <(grep -Por '(\(|")\K\S+\.png' src | grep -v '/favicon.png')
-		minify -b assets/*.css -o assets/styles.css
+		# minify -b assets/*.css -o assets/styles.css
 }
 
+# Optimize Images: {{{
 optimize-image () {
 	file=${1%%:*}
 	image=${1#*:}
@@ -131,9 +114,7 @@ optimize-image () {
 		curl -L -o .$image_path --progress-bar $image
 	fi
 	echo "Saved output to $image_path"
-	# if ! [ -f $image_path ]; then
-	# 	return
-	# fi
+
 	out_image_path=${image_path/.png/.webp}
 	out_image_path=${out_image_path/.jpg/.webp}
 	cwebp .$image_path -o .$out_image_path -q 90
@@ -147,28 +128,30 @@ optimize-image () {
 	fi
 	echo ">>>> s!$image_path!$out_image_path!g $file"
 	sed -i "s!$image!$out_image_path!g" $file
-	#if [[ $image_path != $out_image_path ]]; then
-	#	rm .$image_path
-	#fi
+
 	printf '\n\n'
 }
+# }}}
 
 case $1 in
 
 	# Serve files with hot reloading
 	live)
-		pkill "${server% *}"
+		printf -- "--- 🧯 \e[1mLIVE BUILD\e[0m ---\n"
+		pkill "${server%% *}"
 		$server &  
 		
-
 		# Paths to watch
 		(
-		find src -name "*.md" -or -name '*.html'#  -not -name 'index.html'
+		find src -name "*.md" -or -name '*.html'
 		realpath ./template.html
 		realpath assets/styles.css
 		find tool -name "*.sh"
 		echo $0
-		) | entr ./make # build /_
+		) | entr ./generate
+		
+		# Kill server
+		pkill "${server% *}"
 		;;
 
 	# Serve without hot realoading
@@ -177,29 +160,18 @@ case $1 in
 		;;
 
 	*)
+		start_t=$(date +%s.%N)
 		mkdir -p src out
 		while read -r file; do
-			case "$file" in
-				'src/*.md')
-					continue
-					;;
-				'src/*.html')
-					continue
-					;;
-				'src/**/*.html')
-					continue
-					;;
-				'src/**/*.md')
-					continue
-					;;
-				*)
-					build "$file" &
-			esac
+			build-file "$file" &
 		done < <(find src -name "*.md" -or -name "*.html")
 
 		post-build
 
-		pkill --signal USR1 deno
-		printf "Finished!\n"
+		pkill --signal USR1 ${server%% *}
+		end_t=$(date +%s.%N)
+		printf -- "--- Finished in \e[31m"
+		awk "BEGIN{ printf $end_t - $start_t }"
+		printf -- "s\e[0m ---\n"
 	;;
 esac

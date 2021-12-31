@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2021-12-29 00:50:51'">
+<article style="--date-modified: '2021-12-30 17:51:33'">
 <div class="txt-c hor-ord jus-c algn-e header flx-wrp">
 <img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" />
 <h1>Using Godot for GUI Development</h1>
@@ -90,26 +90,26 @@ show all file types, only then can you open your markdown file or whatever
 <img src="/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp" alt="example of what I mean" title="example of what I mean" loading="lazy"></img>
 </li><li>No one liner / lambda functions 🍀
 The way you pass functions is also really dumb, eg:
-</li></ul><pre class="code" data-language="gdscript"><code>node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">self</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;signal-name-callback&quot;</span><span style="color:#dcdccc">, [</span> <span style="color:#cc9393">&apos;apple&apos;</span> <span style="color:#dcdccc">])</span>
+<pre class="code" data-language="gdscript"><code>node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">self</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;signal-name-callback&quot;</span><span style="color:#dcdccc">, [</span> <span style="color:#cc9393">&apos;apple&apos;</span> <span style="color:#dcdccc">])</span>
 <span style="color:#7f9f7f; font-style:italic">#~ could be with lambdas</span>
 node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">, () =&gt; {</span>
 	<span style="color:#7f9f7f; font-style:italic">#~ do thing</span>
 <span style="color:#dcdccc">})</span>
-</code></pre>
-<ul><li>The over reliance of classes,
+</code></pre></li><li>The over reliance of classes,
 This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classes
 when all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should have
 and a lot of code become ugly :/
-</li><li>~~When you are prototyping quickly and modify the node structure even a little bit, almost every <code>get_node()</code> call in your script will break which becomes really annoying to fix,
+</li><li><strike>When you are prototyping quickly and modify the node structure even a little bit, almost every <code>get_node()</code> call in your script will break which becomes really annoying to fix,
 especially if you need that script to demonstrate / test the behaviour of the ui. This is because all the node paths get modified which makes sense, to alleviate the issue a bit
 a nice thing to see would be a way to link a get_node() call to a certain fixed node, much like how connecting callbacks works (excepts when you move the script and it doesn't but that's more of a minor issue),
 This method could be linked to the editor
-This is the thing I found most frustrating and would most like to see get fixed or alleviated~~
+This is the thing I found most frustrating and would most like to see get fixed or alleviated</strike>
 Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:
-<pre class="code" data-language=""><code>export var sidebar_path: NodePath
-onready var sidebar = get_node(sidebar_path) # or as a clever one liner that isnt good code, export(NodePath) onready var sidebar = get_node(sidebar)
-</code></pre>
-</li><li>No way to type signal arguments like the C++ source can 🍀
+<pre class="code" data-language="gdscript"><code><span style="color:#e3ceab">export var</span> sidebar_path<span style="color:#dcdccc">:</span> <span style="color:#dfdfbf; font-weight:bold">NodePath</span>
+<span style="color:#e3ceab">onready var</span> sidebar <span style="color:#dcdccc">=</span> <span style="color:#aae3b2">get_node</span><span style="color:#dcdccc">(</span>sidebar_path<span style="color:#dcdccc">)</span>
+<span style="color:#7f9f7f; font-style:italic">#~ or as a clever one liner that isnt good code.</span>
+<span style="color:#e3ceab">export</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">NodePath</span><span style="color:#dcdccc">)</span> <span style="color:#e3ceab">onready var</span> sidebar <span style="color:#dcdccc">=</span> <span style="color:#aae3b2">get_node</span><span style="color:#dcdccc">(</span>sidebar<span style="color:#dcdccc">)</span>
+</code></pre></li><li>No way to type signal arguments like the C++ source can 🍀
 </li></ul><h4 id='heading-5'>Editor / Tool Scripts </h4>
 So if you want to run something in the editor (while editing) to show up in the preview of your game you use a tool script by appending <code>tool</code> at the top of your script file,
 This makes your <i>entire script</i> run in the editor, and <a href="https://docs.godotengine.org/en/stable/tutorials/misc/running_code_in_the_editor.html">the documentation</a> lists how your code can cause errors quite a few times,
@@ -118,8 +118,7 @@ What I would like to see, is a way to run / expose only specific functions in th
 <pre class="code" data-language="gdscript"><code>editor <span style="color:#e3ceab">func</span> _ready<span style="color:#dcdccc">:</span>
 	<span style="color:#aae3b2">add_dummy_items</span><span style="color:#dcdccc">()</span>
 	<span style="color:#e3ceab">self</span><span style="color:#dcdccc">.</span><span style="color:#aabfe3">modulate</span> <span style="color:#dcdccc">=</span> <span style="color:#dfdfbf; font-weight:bold">Color</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">)</span>
-</code></pre>
-Which imo would yield a neater solution than game code checking to see if its running in the editor
+</code></pre>Which imo would yield a neater solution than game code checking to see if its running in the editor
 Another thing I encountered was needing to restart the editor every time I wanted to register a new tool script, which can be quite annoying 
 
 Writing small snippets that run directly in the node editor would be nice to see as well

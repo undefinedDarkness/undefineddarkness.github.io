@@ -57,8 +57,7 @@ tldr:
 <span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_browse_split <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Open in new tab</span>
 <span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_winsize <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">25</span> <span style="color:#7f9f7f; font-style:italic">&quot; Size</span>
 <span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_liststyle <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Show files in tree form</span>
-</code></pre>
-See what each option does with <code>:help netrw-browser-settings</code></details>
+</code></pre>See what each option does with <code>:help netrw-browser-settings</code></details>
 
 <details><summary><h3>:Grep</h3></summary>Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything
@@ -72,8 +71,7 @@ command<span style="color:#dcdccc">! -</span>nargs<span style="color:#dcdccc">=+
     <span style="color:#e3ceab">autocmd</span><span style="color:#dcdccc">!</span>
     <span style="color:#e3ceab">autocmd</span> QuickFixCmdPost cgetexpr cwindow
     <span style="color:#e3ceab">autocmd</span> QuickFixCmdPost lgetexpr lwindow
-<span style="color:#e3ceab">augroup END</span>
-</code></pre></details>
+<span style="color:#e3ceab">augroup END</span></details>
 
 <details><summary><h3>Tab Indicator</h3></summary>If and only if you indent with tabs, vim can bestow upon you a slick tab line:
 <code>set list lcs=tab:\│\ " There is a space here :)</code></details>
@@ -92,8 +90,7 @@ f<span style="color:#dcdccc">=</span>$<span style="color:#dcdccc">(</span>mktemp
 	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;runtime! syntax/2html.vim&quot;</span>\
 	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;wq!</span> <span style="color:#c07abe">$f</span><span style="color:#cc9393">&quot;</span>\
 	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;q!&quot;</span> <span style="color:#dcdccc">-</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">&gt; /</span>dev<span style="color:#dcdccc">/</span>null
-</code></pre>
-You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
+</code></pre>You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
 <a href="/assets/make.html">Here</a> is a example file from the make script of this website.
 * ✏ <strike>This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow</details>
 
@@ -109,8 +106,7 @@ the simplest way I found is to simple alias <code>man</code>, like so in your sh
 <pre class="code" data-language="sh"><code>man <span style="color:#dcdccc">() {</span>
 	nvim <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;Man</span> <span style="color:#c07abe">$2</span> <span style="color:#cc9393"></span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span> <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;only&quot;</span>
 <span style="color:#dcdccc">}</span>
-</code></pre>
-If you use vim, remember to add this to your vimrc:
+</code></pre>If you use vim, remember to add this to your vimrc:
 <code>runtime ftplugin/man.vim</code>
 as <code>:help ft-man-plugin</code> instructs you to.
 
@@ -157,8 +153,7 @@ You might need to rewrite it in vim script for vim...
 vim<span style="color:#dcdccc">.</span>cmd <span style="color:#cc9393">[[ au FileType markdown,html lua require(&apos;auto&apos;).setup_spell() ]]</span>
 
 <span style="color:#e3ceab">return</span> M 
-</code></pre>
-It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...</details>
+</code></pre>It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...</details>
 
 <p style="text-align:center">
 <i>~ More to come.. Maybe 🚧 ~</i>
