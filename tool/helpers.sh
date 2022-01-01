@@ -2,25 +2,20 @@
 
 # Warning / Error / Debug
 warn () {
-	printf "\033[33m[WARN]\033[0m %s\n" "$@" 1>&2
+	printf "\033[33mWWW\033[0m %s\n" "$@" >&2
 }
 
 err () {
-	printf "\033[31m[ERR]\033[0m %s\n" "$@" 1>&2
+	printf "\033[31m[ERR]\033[0m %s\n" "$@" >&2
 }
 
 dbg () {
 	if [ -n "${pond_debug:-}" ]; then
-		# shellcheck disable=2059
-		printf "\033[35m$*\033[0m\n" #"$*"
+		format=$1
+		shift
+		printf "\033[32mDBG\033[0m $format \n" "$@" >&2
 	fi
 }
-
-# Normalize to lowercase & replace - with _
-_normalize () {
-	echo "${1//-/_}" | tr '[:upper:]' '[:lower:]' # | tr '-' '_'
-}
-
 
 # Check if a "string list" contains a word.
 contains() {
@@ -28,7 +23,7 @@ contains() {
 }
 
 # Contains but for an array
-containsArray () {
+contains-in-array () {
   local e match="$1"
   shift
   for e; do [[ "$e" == "$match" ]] && return 0; done
@@ -36,20 +31,28 @@ containsArray () {
 }
 
 # Start grepping from line
-grep_from () {
-	# 1 = File 2 = Line Number, 3 = Grep Options 4 = Regex
-	# shellcheck disable=2086
-	echo "$1" | tail +"$2"  | grep $3 -- "$4"
+get-line-number-of () {
+	# 1 = File 2 = Line to start from 3 = Check 4 = Return Value
+	local -n ptr=${4}
+	local lineno=0
+	while read -r __line; do
+		# printf "??? $__line = $3\n"
+		if [[ "$__line" == *"$3" ]]; then
+			ptr=$(( lineno + 1 ))
+			return
+		fi
+		lineno=$(( lineno + 1 ))
+	done < <(tail +"$2" <<< "$1")
 }
 
 # Get everything between 2 line numbers
-get_between () {
-	echo "$1" | sed -n "${2},${3}p"
+get-between () {
+	sed -n "${2},${3}p" <<< "$1"
 }
 
 # Remove first and last line
 snip () {
-	echo "$1" | sed '1d;$d'
+	sed '1d;$d' <<< "$1"
 }
 
 trim() {
@@ -61,20 +64,14 @@ trim() {
     printf '%s' "$var"
 }
 
-# POSIX Find And Replace - Taken from https://github.com/kisslinux/kiss/blob/master/kiss#L106-L118 
-fnr() {
-    _fnr=$1
-    shift 1
-
-    while :; do case $_fnr-$# in
-        *"$1"*) _fnr=${_fnr%"$1"*}${2}${_fnr##*"$1"} ;;
-           *-2) break ;;
-             *) shift 2
-    esac done
+get-functions() {
+	local -n ptr=${1}
+	IFS=$'\n' read -d "" -ra functions < <(declare -F)
+	ptr=${functions[*]//declare -f }
 }
 
 # Calculations
-calc() { awk "BEGIN{print $*}"; }
+calc() { awk "BEGIN{printf $*}"; }
 
 # Time in Milliseconds
 ms () {
@@ -91,7 +88,9 @@ timer () {
 			_start=$(ms)
 			;;
 		end)
-			printf "Finished in \033[31m%d\033[0m ms\n\n" "$( calc "$(ms)-$_start" )"
+			printf "\e[32mDBG\e[0m Finished in \033[34m" >&2
+			calc "$(ms) - ${2:-$_start}"  >&2
+			printf '\033[0mms\n' >&2
 			;;
 	esac
 }

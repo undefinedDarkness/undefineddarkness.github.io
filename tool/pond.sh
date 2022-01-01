@@ -2,6 +2,7 @@
 
 _script_dir=$(dirname "$0")
 
+# shellcheck source=./tool/helpers.sh
 . "$_script_dir/helpers.sh"
 
 # Pond Simple Formatting System - Meant to be used with the toad ssg
@@ -9,7 +10,6 @@ _script_dir=$(dirname "$0")
 
 # Load backend
 backend=$_script_dir/backend-${pond_backend:-web}.sh
-dbg "Pond v${pond_version:-0}"
 
 # Check that files exists
 if ! [ -f "$1" ]; then
@@ -23,27 +23,34 @@ if ! [ -f "$backend" ]; then
 fi
 
 # Load backend
-dbg "Using backend: \e[33m$backend\e[0m"
+dbg "Using backend: \e[34m$backend\e[0m"
+# shellcheck source=./tool/backend-web.sh
 . "$backend"
-transformers="${transfomers:-$(grep -Eo '^\w+ ' "$backend" )}" 
-transformers=${transformers//$NEWL/ }
-dbg "Available Transformers: $transformers"
+#transformers=${transformers//$NEWL/ }
+transformers=""
+get-functions transformers
+if [ -n "${pond_debug:-}" ]; then
+	dbg 'Available Transformers: \e[0m%s' "$transformers" >&2
+fi
 
 # $1 = IN FILE
 __start=$(ms)
-file=$(cat "$1")
+file=""
+while read -r line; do
+	file+="$line$NEWL"
+done < "${1}"
 
 # Comes from backend
 if contains "$transformers" "initial_transformer"; then
 	dbg "Running initial transformer."
 	timer start
-	#initial_transformer "$file"
-	#file=$transfomer_out
-	file=$(initial_transformer "$file" 2> /dev/stdout)
+	file=$(initial_transformer "$file" 2> /dev/stderr)
 	timer end
 fi
 
-fn () {
+# dbg "$file"
+
+main () {
 
 _line_number=0
  while read -r line; do
@@ -58,7 +65,8 @@ _line_number=0
 				#transformer=$( echo "$transformer" | tr $'\t' ' ' ) # Take care of tabs
 				transformer=${transformer//$TAB/ }
 				transformer=${transformer%% *}
-				ntransformer=$(_normalize "$transformer")
+				ntransformer=${transformer//-/_}
+				ntransformer=${ntransformer,,}
 
 				# Check that transformer exists
 				if ! contains "$transformers" "$ntransformer"; then
@@ -67,22 +75,29 @@ _line_number=0
 				fi
 
 				# TODO: Replace this with something better!
-				ending=$(grep_from "$file" "$_line_number" '-s -n -m1' "\#END $transformer")
+				ending=""
+				# dbg "<<< before ending $line"
+				#dbg "Found transformer call: %s @ %d" "$line" "$_line_number"
+				#dbg "Current state of FILE: %s" "$file"
+				get-line-number-of "$file" "$_line_number" "#END $transformer" ending
+				# dbg "<<< after ending $line"
 
 				if [ -z "$ending" ]; then
-					warn "Tranformer $transformer does not have an ending. (@ $1:$_line_number)"
+					warn "Transformer not found in $1 for: $line"
 					continue
 				fi
 
 				ending=${ending%%:*}
 				ending=$(( _line_number + ending - 1 ))
 				timer start
-				dbg "Found ending for: $_line_number:#$transformer at $ending"
+				dbg "Found ending for \e[34m#$transformer\e[0m (@\e[34m$_line_number\e[0m) at \e[34m$ending\e[0m"
 				
 				# Original Contents
-				original_contents="$(get_between "$file" $((_line_number)) $((ending)) )"
+				original_contents="$(get-between "$file" ${_line_number} ${ending} )"
 
 				# Modified Contents
+				# dbg ">>> Passing this as main content: " "$(snip "$original_contents")"
+				# dbg ">>> Passing this as arguments" "${line###BEGIN $tranformer}"
 				new_contents="$($ntransformer  "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
 				
 				# Entire Modified File Contents
@@ -95,15 +110,14 @@ _line_number=0
 					file="$new_file_contents"
 				fi
 
-				timer end
-				fn "$1" 
+				main "$1" 
 				break
 			;;
 	esac
 done <<< "$file"
 }
 
-fn "$1"
+main "$1"
 
 # Comes from backend
 if contains "$transformers" "final_transformer"; then
@@ -114,4 +128,4 @@ if contains "$transformers" "final_transformer"; then
 fi
 
 echo "$file"
-dbg "Finished in \033[34m$(calc "$(ms)-$__start")\033[0mms"
+timer end $__start

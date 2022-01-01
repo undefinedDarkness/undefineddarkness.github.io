@@ -25,10 +25,8 @@ post=$buffer
 
 server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
 
-# bash only and im lazy :(
 get-modified-time () {
-	o=$(stat -c '%y' $1)
-	echo "${o%.*}"
+	stat -c '%y' $1 | cut -d' ' -f1
 }
 
 build-file () {
@@ -51,7 +49,7 @@ build-file () {
 			t=$(get-modified-time $1)
 			header=${header/\!TIME\!/$t}
 			printf '%s' "$header" > "$out"
-			bash tool/pond.sh "$1" 1>> "$out" 
+			bash tool/pond.sh "$1" 1>>$out #2>/dev/null # Debug fixes it somehow.. ;-;
 			printf '%s' "$post" >> "$out"
 			;;
 	esac
@@ -69,12 +67,8 @@ get-title () {
 	esac
 }
 
-year=2021
 get-date () {
-	month=$4
-	day=$5
-	time=$6
-	printf "$day-$month-$year"
+	printf '%s' "$4"
 }
 
 # Generate Article Index: {{{
@@ -89,7 +83,7 @@ gen-index () {
 			[ -z "$title" ] && continue
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
-		done < <(ls --sort=time --time=creation -1 -o -g $folder)
+		done < <(ls --sort=time --time=creation --time-style='+%d-%b-%y' -1 -o -g $folder)
 		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
@@ -98,7 +92,6 @@ gen-index () {
 
 post-build () {
 		gen-index
-		# minify -b assets/*.css -o assets/styles.css
 }
 
 # Optimize Images: {{{
@@ -157,6 +150,11 @@ case $1 in
 	# Serve without hot realoading
 	serve)
 		$server
+		;;
+
+
+	debug)
+		pond_debug=1 bash tool/pond.sh $2
 		;;
 
 	*)

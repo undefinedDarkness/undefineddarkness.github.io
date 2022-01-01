@@ -185,7 +185,6 @@ initial_transformer () {
 		
 		# Empty line & is in list
 		if [ -z "$line" ] && [ -n "$in_list" ]; then
-			dbg '<<< Ending list'
 			printf '</li></ul>' # close the last item and the list itself
 			in_list=
 			continue
@@ -205,7 +204,7 @@ initial_transformer () {
 			;;
 			# Headings
 			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
-				dbg ">> Found a heading"
+				dbg "Found a heading: $line @ ${line_no}"
 				header_no=$((header_no + 1))
 				heading=${line%% *}
 				echo "<h${#heading} id='heading-${header_no}'>${line#${heading}* }</h${#heading}>"
@@ -213,13 +212,13 @@ initial_transformer () {
 			
 			# Block of code
 			'```'*)
-				dbg ">> Found a code block"
+				dbg "Found a code block @ ${line_no}"
 				# Not currently in code block
 				if [ -z "$code_block" ]; then
 					code_lang=${line#'```'}
 					code_block=1
 				else
-					__syntax_hl "${code_content#-$NEWL}" "$code_lang"
+					__syntax_hl "${code_content#"-$NEWL"}" "$code_lang"
 					# Reset state
 					code_content=
 					code_block= 
@@ -228,7 +227,7 @@ initial_transformer () {
 				;;
 			# Block quote
 			'>>>'*)
-				dbg '>> Found a quote block'
+				dbg "Found a quote block @ ${line_no}"
 				if [ -z "$quote_block" ]; then # is not in quote block
 					quote_block=1
 					printf "<blockquote>"

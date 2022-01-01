@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2021-12-26 12:55:26'">
+<article style="--date-modified: '2021-12-26'">
 <!-- vim: set nolist: -->
 <h1 id='heading-1'><span class="reset">🍱</span> Reference</h1>
 <div class='txt-c'><b>See the other modules:</b>
@@ -29,7 +29,7 @@ List of ricing software you can use: <a href="https://github.com/fosslife/awesom
 Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),
 The structure of the file is usually as follows:
 <pre class="code" data-language="css"><code><span style="color:#dfdfbf; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;discord.com&quot;</span><span style="color:#dcdccc">) {</span>
-	<span style="color:#7f9f7f; font-style:italic">/<i> Your styles go here. </i>/</span>
+<span style="color:#7f9f7f; font-style:italic">/<i> Your styles go here. </i>/</span>
 <span style="color:#dcdccc">}</span>
 </code></pre>You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a>
 <i>NOTE: Stylus can also export to this format for easy usage</i>
@@ -92,10 +92,10 @@ Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a>
 <h4 id='heading-7'>Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:
 <pre class="code" data-language="vim"><code>function<span style="color:#dcdccc">!</span> SynStack<span style="color:#dcdccc">()</span>
-  <span style="color:#e3ceab">if</span> <span style="color:#dcdccc">!</span>exists<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&quot;*synstack&quot;)</span>
-    return
-  <span style="color:#e3ceab">endif</span>
-  echo map<span style="color:#dcdccc">(</span><span style="color:#aabfe3">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
+<span style="color:#e3ceab">if</span> <span style="color:#dcdccc">!</span>exists<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&quot;*synstack&quot;)</span>
+return
+<span style="color:#e3ceab">endif</span>
+echo map<span style="color:#dcdccc">(</span><span style="color:#aabfe3">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
 endfunc
 </code></pre>
 but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,
@@ -310,7 +310,7 @@ Most of the following are members of the r/unixporn discord server.
 
 Animated Wallpaper - Dazai-san#6969
 Picom Animations - nuxsh#9338
-Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 
+Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796
 Document has been edited by asdadsdafdfdssfd#7660
 </details></ul><footer>
 <a href="/out/index.html">Return To Index</a>
