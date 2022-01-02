@@ -84,7 +84,9 @@ gen-index () {
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
 		done < <(ls --sort=time --time=creation --time-style='+%d-%b-%y' -1 -o -g $folder)
-		sed -i "s@!POSTS-$(tr '[:lower:]' '[:upper:]' <<< "${folder##*/}")!@${posts}@g" ./out/index.html #> ./out/index.html
+		folder=${folder##*/}
+		folder=${folder^^}
+		sed -i "s@!POSTS-${folder}!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
 }

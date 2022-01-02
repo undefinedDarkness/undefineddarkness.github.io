@@ -225,6 +225,9 @@ initial_transformer () {
 					code_lang=
 				fi
 				;;
+			'---' | '***' | '___')
+				printf '<hr />'
+				;;
 			# Block quote
 			'>>>'*)
 				dbg "Found a quote block @ ${line_no}"

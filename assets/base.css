@@ -207,6 +207,11 @@ article > h1:first-child::before, .header h1::before {
 	content: "Last edited: " var(- no-dot-date-modified, "1-1-1970 00:00:00")
 }
 
+hr {
+	border-color: var(--dark-subtle);
+	margin: 2em 0;
+}
+
 article section { 
 	margin-top: 3em;
 }

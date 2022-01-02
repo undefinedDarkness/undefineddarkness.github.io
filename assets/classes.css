@@ -19,6 +19,7 @@
 
 /* Layout */
 .hor-ord { display: flex; }
+.hor-ord-gap { column-gap: 1.5em }
 .hor-ord-space { justify-content: space-between; }
 .jus-c   { justify-content: center; }
 .algn-c  { align-items:center; }
@@ -32,6 +33,9 @@
 /* Other */
 .pxl { image-rendering: pixelated;max-width: 100vw; width: auto !important;}
 .img-sml { width: 4em; } 
+.rounded {
+	border-radius: 5px;
+}
 .pntr { cursor: pointer; }
 .page { padding: 0 4em; }
 .sidebar { background-color: var(--light-surface) }
