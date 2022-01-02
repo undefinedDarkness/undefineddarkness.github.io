@@ -14,6 +14,7 @@ Or that there are GitHub issues open for some of the problems I found, I have no
 - The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;
 It helps so much with prototyping, You can even preview your entire app from the editor, like so:
 ![editor preview](/assets/images/dump/8f34d78e-c50b-4bd4-9ef3-df80666209a2.webp)
+(Yes, I know glade is a thing but using it to design the UI still feels a bit more clunky than what I have here)
 - The seamlessness between the editor and the scripting was also really nice to see, It made thinking about how things would work rather simple
 and features easy to implement
 - Godot's well developed & refined node system works amazingly well for designing a user interface, everything can be split up into scenes that can find one another with node paths
@@ -27,10 +28,10 @@ And the tight integration it has with the larger engine is really nice to see as
 - Once I had fixed all the memory leaks :p, The performance in my purely UI application was very good, Granted my app isnt the most complicated UI in the world but I found it sticking to 
 50mb of ram usage and 11mb of video memory usage quite serviceable (while playing a .flac read from a .zip file); It is possible a pure UI implementation in GTK would have consumed less but this is already pretty low
 - Godot encases you in a bubble of cross platform support which is also really nice so I can expect my app which works entirely in Godot to just work ™ on Linux & MacOS maybe even ARM stuff
-- The documentation is amazingly well written (in comparison to the GTK docs, which for the most part teach you how to do the basics then throw the API reference at you) and through, and almost all the parts of the engine are covered to some degree at least.
+- The documentation is amazingly through (in comparison to the GTK docs, which for the most part teach you how to do the basics then throw the API reference at you) and through, and almost all the parts of the engine are covered to some degree at least.
 - The tree node which is exceedingly complicated in GTK, is very very simple in Godot and super usable, It has everything you need in a structure that makes a lot of sense
 - The theme system although I have yet to make full use of it, is very powerful and I imagine it is super useful to design a global look to your program
-- Godot's Drag & Drop support is half decent too within its own window at least
+- Godot's Drag & Drop support is very good within the application window itself, but you can get it to work with foreign apps as well.
 
 ## Issues I had
 ### UI System
@@ -41,7 +42,7 @@ Most of these are things that would make me more comfortable using it but all of
 - When using the file selection dialogs, I noticed a few things I was used to from the native file dialog were missing,
 It would be slightly more consistent if godot used the native file dialogs, It does a very good job of wrapping you in a 
 cross platform bubble but a way to use native components would be nice too,
-to go with this, a way to smartly position windows and have one project spawn multiple windows would be pretty interesting to see,
+to go with this, a way to smartly position windows in the desktop and have one project spawn multiple windows would be pretty interesting to see,
 since then Godot could be adapted to a kind of widget system.
 - The container / size flags system feels to me a bit more complicated
 than it has to be, but its not too bad once you get used to it
@@ -51,16 +52,16 @@ Related to the above issue, you can calculate them yourself in GDScript but that
 - No overflow wrapping support in the default containers, 
 More of a nitpick since solutions like [this one from AnidemDex](https://gist.github.com/AnidemDex/1ab41a1203206ce30063fe72b274eb38) exist to fill the gap
 - Tricky to get things like TextureRect's to scale well or even show up to all,
-I had often had to resort to setting a node's `rect_min_size` to fix it, related to 1 & 2
+I had often had to resort to setting a node's `rect_min_size` to fix it, related to 2 & 3
 - Included (default) font for UI does not support some parts of Unicode which is something I sort of expected as its the only fallback font Godot will use, some behaviour to pick up the system default fonts would go down well too
 - Clipping issues with a PanelContainer and TextureRect, The texture rect would not conform to the corner radius I had set on the parent container,
 I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) 🍀
-- Very very small nitpick, the editor does not seem to support ligatures which is a bit of a shame but again really minor thing
 - The default bar at the top for the project / editor settings menu should be search instead of adding a new item
-![this bar](/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp)
+![this bar](/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp) 🍀
 - The UI system could use a debug option like the collision system to show parent / children borders in the user interface
 - The Theme editor was rather unintuitive to me, I expected to be able to click any of the widgets in the preview and modify their properties
 but it does appear to be rather powerful so that's fine by me
+- Being able to pick up system fonts would be pretty neat as well 
 ![the editor ui](/assets/images/dump/499f8044-e65d-4ccc-b059-d6837bf758ce.webp)
 - When running any Godot project, Godot opens with a loading screen, while this is fine for most games, it is quite detrimental to a UI application,
 I am not exactly sure what Godot is doing in this loading screen but if it is loading resources or anything not directly related to the drawing of the app UI, 
@@ -72,7 +73,8 @@ so most of this is from someone who isnt the most familiar with classes or what 
 GDScript does hold your hand in many ways which makes it pretty simple to use as well
 
 Some of these are also complaints of the editor which is a quite integral part to editing GDScript
-- GDScript does not make it obvious when something is being copied by value or passed by reference
+- GDScript does not make it obvious when something is being copied by value or passed by reference, This isnt something you normally see in interpreted languages tbh
+but since making games is partly about performance too, would be nice to see, but maybe I worry too much; There is always using Godot through Rust or C++
 - The editor which is perfectly capable of editing arbitrary text files requires you to jump through hoops to open one, When using the **Open menu** you need to tell it to
 show all file types, only then can you open your markdown file or whatever
 ![the menu](/assets/images/dump/b3eae2f4-a5aa-4e2a-bd8e-252782b15471.webp)
@@ -101,7 +103,7 @@ Turns out I was pretty dumb, Godot has a system for this, its called node paths 
 ```gdscript
 export var sidebar_path: NodePath
 onready var sidebar = get_node(sidebar_path)
-#~ or as a clever one liner that isnt good code.
+#~ or as a clever one liner
 export(NodePath) onready var sidebar = get_node(sidebar)
 ```
 - No way to type signal arguments like the C++ source can 🍀
@@ -128,9 +130,7 @@ Labels / Sections that properly show you what you are compiling instead of readi
 and it should have a warning if you don't run it with `-j$(nproc)`, since I did that once and the build took ages longer than it needed to
 - ~~Maybe this is because I haven't created ultra optimized export templates yet but I found the resulting executable to be fairly chunky at around 100mb which is around the same for a electron app~~
 It was because I hadn't created a optimized build
-- IMO In the export template options:
-`Embed Pck` should be turned on by default 
-& The icon should be by default generated from your project icon (Usually stored at `icon.png`)
+- IMO The export icon should be by default generated from your project icon (Usually stored at `icon.png`) - Also a nitpick
 - This isn't really an issue just a way where Godot could be smarter by default:
 When importing images or sprites, Godot by default filters / anti aliases the image, this as you can imagine destroys any quality in pixel art till you find the 2 buttons you need to press in the import menu to get it to work.
 ![button in question](/assets/images/dump/806b5ab4-bf5b-47e2-9d86-a9bdc088e5f0.webp)
