@@ -35,16 +35,16 @@ fi
 
 # $1 = IN FILE
 __start=$(ms)
-file=""
-while read -r line; do
-	file+="$line$NEWL"
-done < "${1}"
+# file=""
+# while read -r line; do
+# 	file+="$line$NEWL"
+# done < "${1}"
 
 # Comes from backend
 if contains "$transformers" "initial_transformer"; then
 	dbg "Running initial transformer."
 	timer start
-	file=$(initial_transformer "$file" 2> /dev/stderr)
+	file=$(initial_transformer < ${1} 2> /dev/stderr)
 	timer end
 fi
 
@@ -123,9 +123,9 @@ main "$1"
 if contains "$transformers" "final_transformer"; then
 	dbg "Final Transformer"
 	timer start
-	file=$(final_transformer "$file")
+	final_transformer <<< "$file"
 	timer end
 fi
 
-echo "$file"
+# echo "$file"
 timer end $__start

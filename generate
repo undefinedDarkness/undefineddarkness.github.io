@@ -23,7 +23,7 @@ while read -r line; do
 done < ./template.html
 post=$buffer
 
-server="deno run --unstable -A ./tool/server/server.ts --port=$port --log=false --live=false "
+server="deno run --unstable -A ./tool/server/server.ts --port=$port --live=false "
 
 get-modified-time () {
 	stat -c '%y' $1 | cut -d' ' -f1
@@ -89,6 +89,7 @@ gen-index () {
 		sed -i "s@!POSTS-${folder}!@${posts}@g" ./out/index.html #> ./out/index.html
 	done
 	printf "Generated Article Index\n"
+	pkill --signal USR1 ${server%% *}
 }
 # }}}
 
@@ -132,31 +133,13 @@ case $1 in
 
 	# Serve files with hot reloading
 	live)
-		printf -- "--- 🧯 \e[1mLIVE BUILD\e[0m ---\n"
-		pkill "${server%% *}"
-		$server &  
-		
-		# Paths to watch
-		(
-		find src -name "*.md" -or -name '*.html'
-		realpath ./template.html
-		realpath assets/styles.css
-		find tool -name "*.sh"
-		echo $0
-		) | entr ./generate
-		
-		# Kill server
-		pkill "${server% *}"
-		;;
-
-	# Serve without hot realoading
-	serve)
-		$server
-		;;
-
-
-	debug)
-		pond_debug=1 bash tool/pond.sh $2
+		paths=$( find './src/' -name '*.md' )
+		paths+='\n'
+		paths+=$( find './tool' -name '*.sh' )
+		paths+='\n./generate'
+		paths+='\n./index.html'
+		paths+='\n./template.html'
+		echo -e "$paths" | entr "$0 in-sync"
 		;;
 
 	*)
@@ -168,7 +151,6 @@ case $1 in
 
 		post-build
 
-		pkill --signal USR1 ${server%% *}
 		end_t=$(date +%s.%N)
 		printf -- "--- Finished in \e[31m"
 		awk "BEGIN{ printf $end_t - $start_t }"

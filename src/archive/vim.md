@@ -1,8 +1,8 @@
-<div class="txt-c hor-ord jus-c algn-c header flx-wrp">
+<header>
 <img class="img-sml" alt="art by u/astrellon3" src="/assets/images/dump/fd1bdbbb-2de7-4d24-ab5a-e883d5f2f103.webp" />
 <!-- TODO: recreate myself -->
 <h1>Vi IMproved</h1>
-</div>
+</header>
 <i>This is just a bunch of neat stuff I find related to Vim, maybe plugins, scripts or just neat settings.</i>
 
 ## Plugins
@@ -67,16 +67,17 @@ See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab
 final snippet:
 ```vim
 function! Grep(...)
-    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
 command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
 command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
 augroup quickfix
-    autocmd!
-    autocmd QuickFixCmdPost cgetexpr cwindow
-    autocmd QuickFixCmdPost lgetexpr lwindow
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+	autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 ```
+
 #END f
 
 #f Tab Indicator 
@@ -179,6 +180,7 @@ return M
 It works, fairly ~~well.~~ badly, it has lots of issues when you have multiple buffers open...
 #END f
 
-#CENTER
-<i>~ More to come.. Maybe 🚧 ~</i>
-#END CENTER
+---
+
+<center><i>~ More to come.. Maybe 🚧 ~</i></center>
+

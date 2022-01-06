@@ -8,151 +8,107 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2022-01-02'">
-<div class="txt-c hor-ord jus-c algn-e header flx-wrp">
-<img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" />
-<h1>Using Godot for GUI Development</h1>
-</div>
-These are the results of my experiment with using the <a href="https://godotengine.org/">Godot game engine</a> for designing
-<a href="https://github.com/undefinedDarkness/cello">a toy music player</a>,
-I have divided them into things I like and things I'd like to see improved,
-I have marked things that would be either entirely or partially fixed by Godot 4 with 🍀,
-Many of the proposed solutions to the problems I have mentioned are more than likely really naive as I have not fully thought them through yet
-It is also likely that Godot has good reasons for doing things in a particular way that I have not yet noticed  (I am certain they are much smarter people than me)
-Or that there are GitHub issues open for some of the problems I found, I have not checked thoroughly
+<article style="--date-modified: '2022-01-06'">
+<header><img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" /><h1> Using Godot for GUI Development</h1>
+</header>These are the results of my experiment with using the <a href="https://godotengine.org/">Godot game engine</a> for designing <br/>
+<a href="https://github.com/undefinedDarkness/cello">a toy music player</a>,<br/>
+I have divided them into things I like and things I'd like to see improved, <br/>
+I have marked things that would be either entirely or partially fixed by Godot 4 with IV,<br/>
+Many of the proposed solutions to the problems I have mentioned are more than likely really naive as I have not fully thought them through yet<br/>
+It is also likely that Godot has good reasons for doing things in a particular way that I have not yet noticed  (I am certain they are much smarter people than me)<br/>
+Or that there are GitHub issues open for some of the problems I found, I have not checked thoroughly<br/>
+<br/>
+<h2> Things I loved</h2>
+<ul>
+<li>The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;</li>
+It helps so much with prototyping, You can even preview your entire app from the editor, like so:<img src="/assets/images/dump/8f34d78e-c50b-4bd4-9ef3-df80666209a2.webp" alt="editor preview" title="editor preview" loading="lazy"></img>(Yes, I know glade is a thing but using it to design the UI still feels a bit more clunky than what I have here)<li>The seamlessness between the editor and the scripting was also really nice to see, It made thinking about how things would work rather simple</li>
+and features easy to implement<li>Godot's well developed & refined node system works amazingly well for designing a user interface, everything can be split up into scenes that can find one another with node paths</li>
+and others, its all really comfortable and nice to use<li>Continuing from the first 2 points, being able to do everything from one window, (preview, design, scripting) is really amazing</li>
+<li>Being able to mix and match parts from the 2D game system with the UI system (this is what it was made for) makes a few use cases much easier too</li>
+<li>I haven't done this yet but you should be able to in theory use Godot's amazing animation system (with animation player and tweens) to interactively animate parts of your UI in a much simpler way</li>
+and since you can preview the animation in the editor, its even better.<li>The script editor was much better than I expected, for an editor included in a larger application (instead of being a focused editor), it is very usable! </li>
+And the tight integration it has with the larger engine is really nice to see as well, Would like to see some vim bindings tho :p<li>Once I had fixed all the memory leaks :p, The performance in my purely UI application was very good, Granted my app isnt the most complicated UI in the world but I found it sticking to </li>
+50mb of ram usage and 11mb of video memory usage quite serviceable (while playing a .flac read from a .zip file); It is possible a pure UI implementation in GTK would have consumed less but this is already pretty low<li>Godot encases you in a bubble of cross platform support which is also really nice so I can expect my app which works entirely in Godot to just work ™ on Linux & MacOS maybe even ARM stuff</li>
+<li>The documentation is amazingly through (in comparison to the GTK docs, which for the most part teach you how to do the basics then throw the API reference at you) and through, and almost all the parts of the engine are covered to some degree at least.</li>
+<li>The tree node which is exceedingly complicated in GTK, is very very simple in Godot and super usable, It has everything you need in a structure that makes a lot of sense</li>
+<li>The theme system although I have yet to make full use of it, is very powerful and I imagine it is super useful to design a global look to your program</li>
+<li>Godot's Drag & Drop support is very good within the application window itself, but you can get it to work with foreign apps as well.</li>
+</ul><br/><h2> Issues I had</h2>
+<h3> UI System</h3>
+My experience thus far with UI design has been with GTK & CSS,<br/>
+GTK works in a pretty similar way to CSS so they're both pretty familiar to me,<br/>
+Most of these are things that would make me more comfortable using it but all of them are livable with in their current state<br/>
+<br/>
+<ul>
+<li>When using the file selection dialogs, I noticed a few things I was used to from the native file dialog were missing,</li>
+It would be slightly more consistent if godot used the native file dialogs, It does a very good job of wrapping you in a cross platform bubble but a way to use native components would be nice too,to go with this, a way to smartly position windows in the desktop and have one project spawn multiple windows would be pretty interesting to see,since then Godot could be adapted to a kind of widget system.<li>The container / size flags system feels to me a bit more complicated</li>
+than it has to be, but its not too bad once you get used to it<li>No way to easily use percentage sizes for UI elements</li>
+Related to the above issue, you can calculate them yourself in GDScript but that is rather tedious(By percentage sizes I mean relative to the node's parent or if one chooses, relative to the viewport)<li>No overflow wrapping support in the default containers, </li>
+More of a nitpick since solutions like <a href="https://gist.github.com/AnidemDex/1ab41a1203206ce30063fe72b274eb38">this one from AnidemDex</a> exist to fill the gap<li>Tricky to get things like TextureRect's to scale well or even show up to all,</li>
+I had often had to resort to setting a node's <code>rect_min_size</code> to fix it, related to 2 & 3<li>Included (default) font for UI does not support some parts of Unicode which is something I sort of expected as its the only fallback font Godot will use, some behaviour to pick up the system default fonts would go down well too</li>
+<li>Clipping issues with a PanelContainer and TextureRect, The texture rect would not conform to the corner radius I had set on the parent container,</li>
+I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) IM:IV<li>The default bar at the top for the project / editor settings menu should be search instead of adding a new item</li>
+<img src="/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp" alt="this bar" title="this bar" loading="lazy"></img> IM:IV<li>The UI system could use a debug option like the collision system to show parent / children borders in the user interface</li>
+<li>The Theme editor was rather unintuitive to me, I expected to be able to click any of the widgets in the preview and modify their properties</li>
+but it does appear to be rather powerful so that's fine by me<li>Being able to pick up system fonts would be pretty neat as well </li>
+<img src="/assets/images/dump/499f8044-e65d-4ccc-b059-d6837bf758ce.webp" alt="the editor ui" title="the editor ui" loading="lazy"></img><li>When running any Godot project, Godot opens with a loading screen, while this is fine for most games, it is quite detrimental to a UI application,</li>
+I am not exactly sure what Godot is doing in this loading screen but if it is loading resources or anything not directly related to the drawing of the app UI, IMO there should be an option where Godot whatever it needs <b>and then</b> spawn and draw the window, so the user will notice a delay in app startup time but won't need to wait looking at a loading screen.</ul><br/><h3> GDScript</h3>
+I am fairly well versed with Javascript/Typescript, Lua and have experience in C / Python / Rust,<br/>
+so most of this is from someone who isnt the most familiar with classes or what they are capable / useful for<br/>
+GDScript does hold your hand in many ways which makes it pretty simple to use as well<br/>
+<br/>
+Some of these are also complaints of the editor which is a quite integral part to editing GDScript<br/>
+<ul>
+<li>GDScript does not make it obvious when something is being copied by value or passed by reference, This isnt something you normally see in interpreted languages tbh</li>
+but since making games is partly about performance too, would be nice to see, but maybe I worry too much; There is always using Godot through Rust or C++<li>The editor which is perfectly capable of editing arbitrary text files requires you to jump through hoops to open one, When using the <b>Open menu</b> you need to tell it to</li>
+show all file types, only then can you open your markdown file or whatever<img src="/assets/images/dump/b3eae2f4-a5aa-4e2a-bd8e-252782b15471.webp" alt="the menu" title="the menu" loading="lazy"></img><li>The type system is extraordinarily fragile and becomes useless really easily IM:IV</li>
+<li>The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both</li>
+<img src="/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp" alt="example of what I mean" title="example of what I mean" loading="lazy"></img><li>No one liner / lambda functions IM:IV</li>
+The way you pass functions is also really dumb, eg:<pre><code>node<span style="color:#181818">.</span><span style="color:#9c5a02; font-weight:bold">connect</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;signal-name&quot;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">self</span><span style="color:#181818">,</span> <span style="color:#38781c">&quot;signal-name-callback&quot;</span><span style="color:#181818">, [</span> <span style="color:#38781c">&apos;apple&apos;</span> <span style="color:#181818">])</span>
 
-<h2 id='heading-1'>Things I loved</h2>
-<ul><li>The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;
-It helps so much with prototyping, You can even preview your entire app from the editor, like so:
-<img src="/assets/images/dump/8f34d78e-c50b-4bd4-9ef3-df80666209a2.webp" alt="editor preview" title="editor preview" loading="lazy"></img>
-(Yes, I know glade is a thing but using it to design the UI still feels a bit more clunky than what I have here)
-</li><li>The seamlessness between the editor and the scripting was also really nice to see, It made thinking about how things would work rather simple
-and features easy to implement
-</li><li>Godot's well developed & refined node system works amazingly well for designing a user interface, everything can be split up into scenes that can find one another with node paths
-and others, its all really comfortable and nice to use
-</li><li>Continuing from the first 2 points, being able to do everything from one window, (preview, design, scripting) is really amazing
-</li><li>Being able to mix and match parts from the 2D game system with the UI system (this is what it was made for) makes a few use cases much easier too
-</li><li>I haven't done this yet but you should be able to in theory use Godot's amazing animation system (with animation player and tweens) to interactively animate parts of your UI in a much simpler way
-and since you can preview the animation in the editor, its even better.
-</li><li>The script editor was much better than I expected, for an editor included in a larger application (instead of being a focused editor), it is very usable!
-And the tight integration it has with the larger engine is really nice to see as well, Would like to see some vim bindings tho :p
-</li><li>Once I had fixed all the memory leaks :p, The performance in my purely UI application was very good, Granted my app isnt the most complicated UI in the world but I found it sticking to
-50mb of ram usage and 11mb of video memory usage quite serviceable (while playing a .flac read from a .zip file); It is possible a pure UI implementation in GTK would have consumed less but this is already pretty low
-</li><li>Godot encases you in a bubble of cross platform support which is also really nice so I can expect my app which works entirely in Godot to just work ™ on Linux & MacOS maybe even ARM stuff
-</li><li>The documentation is amazingly through (in comparison to the GTK docs, which for the most part teach you how to do the basics then throw the API reference at you) and through, and almost all the parts of the engine are covered to some degree at least.
-</li><li>The tree node which is exceedingly complicated in GTK, is very very simple in Godot and super usable, It has everything you need in a structure that makes a lot of sense
-</li><li>The theme system although I have yet to make full use of it, is very powerful and I imagine it is super useful to design a global look to your program
-</li><li>Godot's Drag & Drop support is very good within the application window itself, but you can get it to work with foreign apps as well.
-</li></ul><h2 id='heading-2'>Issues I had</h2>
-<h3 id='heading-3'>UI System</h3>
-My experience thus far with UI design has been with GTK & CSS,
-GTK works in a pretty similar way to CSS so they're both pretty familiar to me,
-Most of these are things that would make me more comfortable using it but all of them are livable with in their current state
-
-<ul><li>When using the file selection dialogs, I noticed a few things I was used to from the native file dialog were missing,
-It would be slightly more consistent if godot used the native file dialogs, It does a very good job of wrapping you in a
-cross platform bubble but a way to use native components would be nice too,
-to go with this, a way to smartly position windows in the desktop and have one project spawn multiple windows would be pretty interesting to see,
-since then Godot could be adapted to a kind of widget system.
-</li><li>The container / size flags system feels to me a bit more complicated
-than it has to be, but its not too bad once you get used to it
-</li><li>No way to easily use percentage sizes for UI elements
-Related to the above issue, you can calculate them yourself in GDScript but that is rather tedious
-(By percentage sizes I mean relative to the node's parent or if one chooses, relative to the viewport)
-</li><li>No overflow wrapping support in the default containers,
-More of a nitpick since solutions like <a href="https://gist.github.com/AnidemDex/1ab41a1203206ce30063fe72b274eb38">this one from AnidemDex</a> exist to fill the gap
-</li><li>Tricky to get things like TextureRect's to scale well or even show up to all,
-I had often had to resort to setting a node's <code>rect_min_size</code> to fix it, related to 2 & 3
-</li><li>Included (default) font for UI does not support some parts of Unicode which is something I sort of expected as its the only fallback font Godot will use, some behaviour to pick up the system default fonts would go down well too
-</li><li>Clipping issues with a PanelContainer and TextureRect, The texture rect would not conform to the corner radius I had set on the parent container,
-I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) 🍀
-</li><li>The default bar at the top for the project / editor settings menu should be search instead of adding a new item
-<img src="/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp" alt="this bar" title="this bar" loading="lazy"></img> 🍀
-</li><li>The UI system could use a debug option like the collision system to show parent / children borders in the user interface
-</li><li>The Theme editor was rather unintuitive to me, I expected to be able to click any of the widgets in the preview and modify their properties
-but it does appear to be rather powerful so that's fine by me
-</li><li>Being able to pick up system fonts would be pretty neat as well
-<img src="/assets/images/dump/499f8044-e65d-4ccc-b059-d6837bf758ce.webp" alt="the editor ui" title="the editor ui" loading="lazy"></img>
-</li><li>When running any Godot project, Godot opens with a loading screen, while this is fine for most games, it is quite detrimental to a UI application,
-I am not exactly sure what Godot is doing in this loading screen but if it is loading resources or anything not directly related to the drawing of the app UI,
-IMO there should be an option where Godot whatever it needs <b>and then</b> spawn and draw the window, so the user will notice a delay in app startup time but won't need to wait looking at a loading screen.
-</li></ul><h3 id='heading-4'>GDScript</h3>
-I am fairly well versed with Javascript/Typescript, Lua and have experience in C / Python / Rust,
-so most of this is from someone who isnt the most familiar with classes or what they are capable / useful for
-GDScript does hold your hand in many ways which makes it pretty simple to use as well
-
-Some of these are also complaints of the editor which is a quite integral part to editing GDScript
-<ul><li>GDScript does not make it obvious when something is being copied by value or passed by reference, This isnt something you normally see in interpreted languages tbh
-but since making games is partly about performance too, would be nice to see, but maybe I worry too much; There is always using Godot through Rust or C++
-</li><li>The editor which is perfectly capable of editing arbitrary text files requires you to jump through hoops to open one, When using the <b>Open menu</b> you need to tell it to
-show all file types, only then can you open your markdown file or whatever
-<img src="/assets/images/dump/b3eae2f4-a5aa-4e2a-bd8e-252782b15471.webp" alt="the menu" title="the menu" loading="lazy"></img>
-</li><li>The type system is extraordinarily fragile and becomes useless really easily 🍀
-</li><li>The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both
-<img src="/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp" alt="example of what I mean" title="example of what I mean" loading="lazy"></img>
-</li><li>No one liner / lambda functions 🍀
-The way you pass functions is also really dumb, eg:
-<pre class="code" data-language="gdscript"><code>node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">self</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;signal-name-callback&quot;</span><span style="color:#dcdccc">, [</span> <span style="color:#cc9393">&apos;apple&apos;</span> <span style="color:#dcdccc">])</span>
-<span style="color:#7f9f7f; font-style:italic">#~ could be with lambdas</span>
-node<span style="color:#dcdccc">.</span><span style="color:#aae3b2">connect</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;signal-name&quot;</span><span style="color:#dcdccc">, () =&gt; {</span>
-<span style="color:#7f9f7f; font-style:italic">#~ do thing</span>
-<span style="color:#dcdccc">})</span>
-</code></pre></li><li>The over reliance of classes,
-This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classes
-when all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should have
-and a lot of code become ugly :/
-</li><li><strike>When you are prototyping quickly and modify the node structure even a little bit, almost every <code>get_node()</code> call in your script will break which becomes really annoying to fix,
-especially if you need that script to demonstrate / test the behaviour of the ui. This is because all the node paths get modified which makes sense, to alleviate the issue a bit
-a nice thing to see would be a way to link a get_node() call to a certain fixed node, much like how connecting callbacks works (excepts when you move the script and it doesn't but that's more of a minor issue),
-This method could be linked to the editor
-This is the thing I found most frustrating and would most like to see get fixed or alleviated</strike>
-Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:
-<pre class="code" data-language="gdscript"><code><span style="color:#e3ceab">export var</span> sidebar_path<span style="color:#dcdccc">:</span> <span style="color:#dfdfbf; font-weight:bold">NodePath</span>
-<span style="color:#e3ceab">onready var</span> sidebar <span style="color:#dcdccc">=</span> <span style="color:#aae3b2">get_node</span><span style="color:#dcdccc">(</span>sidebar_path<span style="color:#dcdccc">)</span>
-<span style="color:#7f9f7f; font-style:italic">#~ or as a clever one liner</span>
-<span style="color:#e3ceab">export</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">NodePath</span><span style="color:#dcdccc">)</span> <span style="color:#e3ceab">onready var</span> sidebar <span style="color:#dcdccc">=</span> <span style="color:#aae3b2">get_node</span><span style="color:#dcdccc">(</span>sidebar<span style="color:#dcdccc">)</span>
-</code></pre></li><li>No way to type signal arguments like the C++ source can 🍀
-</li></ul><h4 id='heading-5'>Editor / Tool Scripts</h4>
-So if you want to run something in the editor (while editing) to show up in the preview of your game you use a tool script by appending <code>tool</code> at the top of your script file,
-This makes your <i>entire script</i> run in the editor, and <a href="https://docs.godotengine.org/en/stable/tutorials/misc/running_code_in_the_editor.html">the documentation</a> lists how your code can cause errors quite a few times,
-All this made me not really want to risk using them unless all the script did was affect the appearance of itself, which wasn't the case in my code for most cases,
-What I would like to see, is a way to run / expose only specific functions in the editor, for example:
-<pre class="code" data-language="gdscript"><code>editor <span style="color:#e3ceab">func</span> _ready<span style="color:#dcdccc">:</span>
-<span style="color:#aae3b2">add_dummy_items</span><span style="color:#dcdccc">()</span>
-<span style="color:#e3ceab">self</span><span style="color:#dcdccc">.</span><span style="color:#aabfe3">modulate</span> <span style="color:#dcdccc">=</span> <span style="color:#dfdfbf; font-weight:bold">Color</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">)</span>
-</code></pre>Which imo would yield a neater solution than game code checking to see if its running in the editor
-Another thing I encountered was needing to restart the editor every time I wanted to register a new tool script, which can be quite annoying
-
-Writing small snippets that run directly in the node editor would be nice to see as well
-
-<h3 id='heading-6'>Other</h3>
-<ul><li>I found SCons (Godot's build tool) to be a bit fragile when compiling, It did work but it would break entirely if there was even a single error and it would lose all the compilation it had done so far,
-Which simply makes the next build even longer,
-Labels / Sections that properly show you what you are compiling instead of reading from cryptic file names would be nice to see <i>- Most things don't do that so a really minor nitpick</i>
-and it should have a warning if you don't run it with <code>-j$(nproc)</code>, since I did that once and the build took ages longer than it needed to
-</li><li><strike>Maybe this is because I haven't created ultra optimized export templates yet but I found the resulting executable to be fairly chunky at around 100mb which is around the same for a electron app</strike>
-It was because I hadn't created a optimized build
-</li><li>IMO The export icon should be by default generated from your project icon (Usually stored at <code>icon.png</code>) - Also a nitpick
-</li><li>This isn't really an issue just a way where Godot could be smarter by default:
-When importing images or sprites, Godot by default filters / anti aliases the image, this as you can imagine destroys any quality in pixel art till you find the 2 buttons you need to press in the import menu to get it to work.
-<img src="/assets/images/dump/806b5ab4-bf5b-47e2-9d86-a9bdc088e5f0.webp" alt="button in question" title="button in question" loading="lazy"></img>
-but if you are importing a image of a size less than say 128x128 pixels, The chances that it is <i>not</i> pixel art become really low, so defaulting to pixel art settings in that case make a lot of sense to me
-but I can see why they did not want to program a special case for pixel art
-<i>I just noticed you can make this setting the default which alleviates the issue a lot</i>
-</li><li>In general the default editor UI to be rather enforced, as in there isn't much you can do to change it other than moving nodes from the left & right panels,
-Would be nice to freely move things from place to place & hide panels as I wish but I can see how that would be rather clunky to implement,
-as a side effect in its current state, it scales really badly to smaller window sizes,
-I would like to be able to open my scene tree and preview (in top bottom layout) vertically split next to my code editor but currently I see no way to go about this.
-<a href="/assets/images/dump/9521b08c-8d28-4a1a-a4fe-1def7c8c0d94.webp">this is how I want it</a> 🍀
-</li><li>Currently no support for reading and writing to zip files, there exists <a href="https://github.com/flyingpimonster/godot/tree/zip-module-3.4">a module / custom build</a> that I ended up using but I think this functionality is basic enough to be included in the editor itself
-</li></ul>
-<h2 id='heading-7'>Conclusion</h2>
-Godot's UI system is very well rounded and capable of solving most issues you might encounter, The way its editor system integrates with it is excellent
-and the overall experiance for the developer is very good, If there is something it can't solve out of the box plugins exist for most things,
-
-I will definatley keep it in mind if I ever want a app focused on GUI, and I hope to get the chance to use it again
+<span style="color:#898989; font-style:italic"># could be with lambdas</span>
+node<span style="color:#181818">.</span><span style="color:#9c5a02; font-weight:bold">connect</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;signal-name&quot;</span><span style="color:#181818">, () =&gt; {</span>
+	<span style="color:#898989; font-style:italic"># do thing</span>
+<span style="color:#181818">})</span>
+</code></pre>
+<li>The over reliance of classes,</li>
+This is definitely me complaining because I am not very used to classes but I still found it pretty clunky to use classeswhen all I wanted to do was have a separate script to store a few functions for a main node script, so I avoided splitting code up as much as I should haveand a lot of code become ugly :/<li><strike>When you are prototyping quickly and modify the node structure even a little bit, almost every <code>get_node()</code> call in your script will break which becomes really annoying to fix,</li>
+especially if you need that script to demonstrate / test the behaviour of the ui. This is because all the node paths get modified which makes sense, to alleviate the issue a bita nice thing to see would be a way to link a get_node() call to a certain fixed node, much like how connecting callbacks works (excepts when you move the script and it doesn't but that's more of a minor issue),This method could be linked to the editorThis is the thing I found most frustrating and would most like to see get fixed or alleviated</strike>Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:<pre><code><span style="color:#a94598; font-weight:bold">export var</span> sidebar_path<span style="color:#181818">:</span> <span style="color:#48bac2; font-weight:bold">NodePath</span>
+<span style="color:#a94598; font-weight:bold">onready var</span> sidebar <span style="color:#181818">=</span> <span style="color:#9c5a02; font-weight:bold">get_node</span><span style="color:#181818">(</span>sidebar_path<span style="color:#181818">)</span>
+<span style="color:#898989; font-style:italic"># or as a clever one liner</span>
+<span style="color:#a94598; font-weight:bold">export</span><span style="color:#181818">(</span><span style="color:#48bac2; font-weight:bold">NodePath</span><span style="color:#181818">)</span> <span style="color:#a94598; font-weight:bold">onready var</span> sidebar <span style="color:#181818">=</span> <span style="color:#9c5a02; font-weight:bold">get_node</span><span style="color:#181818">(</span>sidebar<span style="color:#181818">)</span>
+</code></pre>
+<li>No way to type signal arguments like the C++ source can IM:IV</li>
+</ul><br/><h4> Editor / Tool Scripts </h4>
+So if you want to run something in the editor (while editing) to show up in the preview of your game you use a tool script by appending <code>tool</code> at the top of your script file,<br/>
+This makes your <i>entire script</i> run in the editor, and <a href="https://docs.godotengine.org/en/stable/tutorials/misc/running_code_in_the_editor.html">the documentation</a> lists how your code can cause errors quite a few times,<br/>
+All this made me not really want to risk using them unless all the script did was affect the appearance of itself, which wasn't the case in my code for most cases,<br/>
+What I would like to see, is a way to run / expose only specific functions in the editor, for example:<br/>
+<pre><code>editor <span style="color:#a94598; font-weight:bold">func</span> _ready<span style="color:#181818">:</span>
+	<span style="color:#9c5a02; font-weight:bold">add_dummy_items</span><span style="color:#181818">()</span>
+	<span style="color:#a94598; font-weight:bold">self</span><span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">modulate</span> <span style="color:#181818">=</span> <span style="color:#48bac2; font-weight:bold">Color</span><span style="color:#181818">(</span><span style="color:#c43e18">0</span><span style="color:#181818">,</span> <span style="color:#c43e18">0</span><span style="color:#181818">,</span> <span style="color:#c43e18">0</span><span style="color:#181818">)</span>
+</code></pre>
+Which imo would yield a neater solution than game code checking to see if its running in the editor<br/>
+Another thing I encountered was needing to restart the editor every time I wanted to register a new tool script, which can be quite annoying <br/>
+<br/>
+Writing small snippets that run directly in the node editor would be nice to see as well<br/>
+<br/>
+<h3> Other</h3>
+<ul>
+<li>I found SCons (Godot's build tool) to be a bit fragile when compiling, It did work but it would break entirely if there was even a single error and it would lose all the compilation it had done so far,</li>
+Which simply makes the next build even longer, Labels / Sections that properly show you what you are compiling instead of reading from cryptic file names would be nice to see <i>- Most things don't do that so a really minor nitpick</i>and it should have a warning if you don't run it with <code>-j$(nproc)</code>, since I did that once and the build took ages longer than it needed to<li><strike>Maybe this is because I haven't created ultra optimized export templates yet but I found the resulting executable to be fairly chunky at around 100mb which is around the same for a electron app</strike></li>
+It was because I hadn't created a optimized build<li>IMO The export icon should be by default generated from your project icon (Usually stored at <code>icon.png</code>) - Also a nitpick</li>
+<li>This isn't really an issue just a way where Godot could be smarter by default:</li>
+When importing images or sprites, Godot by default filters / anti aliases the image, this as you can imagine destroys any quality in pixel art till you find the 2 buttons you need to press in the import menu to get it to work.<img src="/assets/images/dump/806b5ab4-bf5b-47e2-9d86-a9bdc088e5f0.webp" alt="button in question" title="button in question" loading="lazy"></img>but if you are importing a image of a size less than say 128x128 pixels, The chances that it is <i>not</i> pixel art become really low, so defaulting to pixel art settings in that case make a lot of sense to mebut I can see why they did not want to program a special case for pixel art<i>I just noticed you can make this setting the default which alleviates the issue a lot</i><li>In general the default editor UI to be rather enforced, as in there isn't much you can do to change it other than moving nodes from the left & right panels,</li>
+Would be nice to freely move things from place to place & hide panels as I wish but I can see how that would be rather clunky to implement,as a side effect in its current state, it scales really badly to smaller window sizes,I would like to be able to open my scene tree and preview (in top bottom layout) vertically split next to my code editor but currently I see no way to go about this.<a href="/assets/images/dump/9521b08c-8d28-4a1a-a4fe-1def7c8c0d94.webp">this is how I want it</a> IM:IV<li>Currently no support for reading and writing to zip files, there exists <a href="https://github.com/flyingpimonster/godot/tree/zip-module-3.4">a module / custom build</a> that I ended up using but I think this functionality is basic enough to be included in the editor itself </li>
+</ul><br/><br/>
+<h2> Conclusion</h2>
+Godot's UI system is very well rounded and capable of solving most issues you might encounter, The way its editor system integrates with it is excellent<br/>
+and the overall experiance for the developer is very good, If there is something it can't solve out of the box plugins exist for most things,<br/>
+<br/>
+I will definatley keep it in mind if I ever want a app focused on GUI, and I hope to get the chance to use it again<br/>
 </details></ul><footer>
-<a href="/out/index.html">Return To Index</a>
+<a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>
 </body>

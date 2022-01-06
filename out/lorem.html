@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<title>lorem</title>
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+<article style="--date-modified: '2022-01-06'">
+<h1> Lorem Ipsum: Test Page</h1>
+<br/>
+Testing Inlines:<br/>
+Normal text - <i>italic text</i> - <b>bold text</b><br/>
+I am a <a href="https://example.com">link</a><br/>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Automatically generated<br/>
+<br/>
+Testing list<br/>
+<ul>
+<li>Pumpkin</li>
+<li>Milk</li>
+<li>Eggs</li>
+<li>Flowers</li>
+<li>Carrots</li>
+</ul><br/>Checking for Syntax Highlighting:<br/>
+<pre><code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
+
+<span style="color:#48bac2; font-weight:bold">float</span> <span style="color:#c48218; font-weight:bold">Q_rsqrt</span><span style="color:#181818">(</span> <span style="color:#48bac2; font-weight:bold">float</span> number <span style="color:#181818">)</span>
+<span style="color:#181818">{</span>
+    <span style="color:#48bac2; font-weight:bold">long</span> i<span style="color:#181818">;</span>
+    <span style="color:#48bac2; font-weight:bold">float</span> x2<span style="color:#181818">,</span> y<span style="color:#181818">;</span>
+    <span style="color:#48bac2; font-weight:bold">const float</span> threehalfs <span style="color:#181818">=</span> <span style="color:#c43e18">1.5</span>F<span style="color:#181818">;</span>
+
+    x2 <span style="color:#181818">=</span> number <span style="color:#181818">&ast;</span> <span style="color:#c43e18">0.5</span>F<span style="color:#181818">;</span>
+    y  <span style="color:#181818">=</span> number<span style="color:#181818">;</span>
+    i  <span style="color:#181818">= &ast; (</span> <span style="color:#48bac2; font-weight:bold">long</span> <span style="color:#181818">&ast; ) &amp;</span>y<span style="color:#181818">;</span>                       <span style="color:#898989; font-style:italic">// evil floating point bit level hacking</span>
+    i  <span style="color:#181818">=</span> <span style="color:#c43e18">0x5f3759df</span> <span style="color:#181818">- (</span> i <span style="color:#181818">&gt;&gt;</span> <span style="color:#c43e18">1</span> <span style="color:#181818">);</span>               <span style="color:#898989; font-style:italic">// what the fuck? </span>
+    y  <span style="color:#181818">= &ast; (</span> <span style="color:#48bac2; font-weight:bold">float</span> <span style="color:#181818">&ast; ) &amp;</span>i<span style="color:#181818">;</span>
+    y  <span style="color:#181818">=</span> y <span style="color:#181818">&ast; (</span> threehalfs <span style="color:#181818">- (</span> x2 <span style="color:#181818">&ast;</span> y <span style="color:#181818">&ast;</span> y <span style="color:#181818">) );</span>   <span style="color:#898989; font-style:italic">// 1st iteration</span>
+<span style="color:#898989; font-style:italic">//    y  = y &ast; ( threehalfs - ( x2 &ast; y &ast; y ) );   // 2nd iteration, this can be removed</span>
+
+    <span style="color:#a94598; font-weight:bold">return</span> y<span style="color:#181818">;</span>
+<span style="color:#181818">}</span>
+
+<span style="color:#48bac2; font-weight:bold">int</span> <span style="color:#c48218; font-weight:bold">main</span> <span style="color:#181818">() {</span>
+    <span style="color:#c48218; font-weight:bold">printf</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;Hello world</span><span style="color:#2d6bb1">\n</span><span style="color:#38781c">&quot;</span><span style="color:#181818">);</span>
+<span style="color:#181818">}</span>
+</code></pre>
+<br/>
+<details><summary><h3>Do folds work?</h3></summary>
+I guess they do :)<br/></details>
+</details></ul><footer>
+<a href="/out/index.html">✈	Return To Index</a>
+</footer>
+</article>
+</body>
+</html>

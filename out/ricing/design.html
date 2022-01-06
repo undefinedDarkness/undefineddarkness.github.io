@@ -8,158 +8,109 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2022-01-01'">
-<h1 id='heading-1'><span class="reset">🎨</span> Design</h1>
-Stuff related to the general design of a rice
+<article style="--date-modified: '2022-01-07'">
+<h1> <span class="reset">🎨</span> Design</h1>
+Stuff related to the general design of a rice<br/>
+<br/>
+<details><summary><h3>Colorscheme</h3></summary>
+Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:<br/>
+<br/>
+<img src="/assets/images/colorscheme-structure.webp" alt="structure" title="structure" loading="lazy"></img><br/>
+<br/>
+This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.<br/>
+If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),<br/>
+Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black<br/>
+<i>Using different shades of one color for each of those is a very bad idea</i><br/>
+While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.<br/></details>
+<details><summary><h3>Typography</h3></summary>
+<q>The style and appearance of printed matter.</q><br/>
+<br/>
+This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.<br/>
+Generally you will need 3 font faces:<br/>
+<ul>
+<li>A sans serif face for general user interface</li>
+<li>A monospace font for code</li>
+<li>A serif fonts for documents</li>
+</ul><br/>More on the differences between serif, sans-serif and mono space: <a href="https://www.canva.com/learn/serif-vs-sans-serif-fonts/">https://www.canva.com/learn/serif-vs-sans-serif-fonts/</a><br/>
+<br/>
+You can find most of them on <a href="https://fonts.google.com">Google Fonts</a><br/>
+Here are the fonts I personally like for each one:<br/>
+<br/>
+<h4> Mono space:</h4>
+<div class="horizontal ovr-x"><img src="/assets/images/font-previews/Roboto-Mono-Regular.webp" alt="Roboto Mono" title="Roboto Mono" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/IBM-Plex-Mono-Regular.webp" alt="IBM Plex Mono" title="IBM Plex Mono" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/JetBrains-Mono-Regular.webp" alt="JetBrains Mono" title="JetBrains Mono" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/Sarasa-Term-K.webp" alt="Sarasa Term K" title="Sarasa Term K" loading="lazy"></img><br/>
+<a href="https://juliamono.netlify.app/"><img src="/assets/images/font-previews/JuliaMono-Regular.webp" alt="Julia Mono" title="Julia Mono" loading="lazy"></img></a><br/>
+</div><br/>
+<h4> Serif:</h4>
+<div class="horizontal ovr-x"><img src="/assets/images/font-previews/Redaction.webp" alt="Redaction" title="Redaction" loading="lazy"></img><br/>
+<a href="https://edwardtufte.github.io/et-book/"><img src="/assets/images/font-previews/ETBembo-RomanLF.webp" alt="ET Bembo" title="ET Bembo" loading="lazy"></img></a><br/>
+<img src="/assets/images/font-previews/Piazzolla-Regular.webp" alt="Piazzolla" title="Piazzolla" loading="lazy"></img><br/>
+</div><br/>
+<h4> Sans Serif:</h4>
+<div class="horizontal ovr-x"><img src="/assets/images/font-previews/Roboto.webp" alt="Roboto" title="Roboto" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/Ubuntu-Regular.webp" alt="Ubuntu Sans" title="Ubuntu Sans" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/IBM-Plex-Sans-Regular.webp" alt="IBM Plex Sans" title="IBM Plex Sans" loading="lazy"></img><br/>
+<img src="/assets/images/font-previews/Poppins-Regular.webp" alt="Poppins" title="Poppins" loading="lazy"></img><br/>
+</div><br/>
+🏴‍☠️ <a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a><br/>
+Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a><br/>
+<br/>
+<h4> Nerd Fonts</h4>
+Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.<br/>
+<br/>
+Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)<br/>
+What icons are there: <a href="https://www.nerdfonts.com/cheat-sheet">https://www.nerdfonts.com/cheat-sheet</a><br/>
+How to patch your own font:<br/>
+<pre><code>&num; Download the nerd fonts patcher and the glyphs it needs.
+&num; Using the patcher
+&num; You need fontforge & Python 3 for this to work:
+git clone <span style="color:#48bac2; font-weight:bold">--filter</span><span style="color:#181818">=</span>blob<span style="color:#181818">:</span>none <span style="color:#48bac2; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#181818">:</span>ryanoasis<span style="color:#181818">/</span>nerd-fonts
+<span style="color:#48bac2; font-weight:bold">cd</span> nerd-fonts
+git sparse-checkout add src<span style="color:#181818">/</span>glyphs
 
-<details><summary><h3>Colorscheme</h3></summary>Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:
-
-<img src="/assets/images/colorscheme-structure.webp" alt="structure" title="structure" loading="lazy"></img>
-
-This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.
-If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),
-Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black
-<i>Using different shades of one color for each of those is a very bad idea</i>
-While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.</details>
-<details><summary><h3>Typography</h3></summary><q>The style and appearance of printed matter.</q>
-
-This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.
-Generally you will need 3 font faces:
-<ul><li>A sans serif face for general user interface
-</li><li>A monospace font for code
-</li><li>A serif fonts for documents
-</li></ul>More on the differences between serif, sans-serif and mono space: <a href="https://www.canva.com/learn/serif-vs-sans-serif-fonts/">https://www.canva.com/learn/serif-vs-sans-serif-fonts/</a>
-
-You can find most of them on <a href="https://fonts.google.com">Google Fonts</a>
-Here are the fonts I personally like for each one:
-
-<h4 id='heading-2'>Mono space:</h4>
-<div class="ovr-x"><table class=" tbl-showcase">
-<tbody><tr>
-<td><img src="/assets/images/font-previews/Roboto-Mono-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/IBM-Plex-Mono-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/JetBrains-Mono-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Sarasa-Term-K.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/JuliaMono-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-</tr>
-<tr>
-<td>Roboto Mono</td>
-<td>IBM Plex Mono</td>
-<td>JetBrains Mono</td>
-<td>Iosevka</td>
-<td><a href="https://juliamono.netlify.app/">JuliaMono</a></td>
-</tr>
-</tbody></table></div>
-
-<h4 id='heading-3'>Serif:</h4>
-<div class="ovr-x"><table class=" tbl-showcase">
-<tbody><tr>
-<td><img src="/assets/images/font-previews/ETBembo-RomanLF.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Merriweather-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Piazzolla-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Libre-Baskerville.webp" alt="preview" title="preview" loading="lazy"></img></td>
-</tr>
-<tr>
-<td><a href="https://edwardtufte.github.io/et-book/">ET Bembo</a></td>
-<td>Merriweather</td>
-<td><a href="https://piazzolla.huertatipografica.com/">Piazzolla</a></td>
-<td>Libre Baskerville</td>
-</tr>
-</tbody></table></div>
-
-<h4 id='heading-4'>Sans Serif:</h4>
-<div class="ovr-x"><table class=" tbl-showcase">
-<tbody><tr>
-<td><img src="/assets/images/font-previews/Roboto.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Ubuntu-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/IBM-Plex-Sans-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Lexend-Deca-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Poppins-Regular.webp" alt="preview" title="preview" loading="lazy"></img></td>
-</tr>
-<tr>
-<td>Roboto</td>
-<td>Ubuntu Sans</td>
-<td>IBM Plex Sans</td>
-<td>Lexend Deca</td>
-<td>Poppins</td>
-</tr>
-</tbody></table></div>
-
-🏴‍☠️ <a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a>
-Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a>
-
-<h4 id='heading-5'>Nerd Fonts</h4>
-Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.
-
-Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)
-What icons are there: <a href="https://www.nerdfonts.com/cheat-sheet">https://www.nerdfonts.com/cheat-sheet</a>
-How to patch your own font:
-<pre class="code" data-language="sh"><code><span style="color:#7f9f7f; font-style:italic">#~ Download the nerd fonts patcher and the glyphs it needs.</span>
-git clone <span style="color:#dfdfbf; font-weight:bold">--filter</span><span style="color:#dcdccc">=</span>blob<span style="color:#dcdccc">:</span>none <span style="color:#dfdfbf; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#dcdccc">:</span>ryanoasis<span style="color:#dcdccc">/</span>nerd-fonts
-<span style="color:#dfdfbf; font-weight:bold">cd</span> nerd-fonts
-git sparse-checkout add src<span style="color:#dcdccc">/</span>glyphs
-
-<span style="color:#7f9f7f; font-style:italic">#~ Using the patcher</span>
-<span style="color:#7f9f7f; font-style:italic">#~ You need fontforge &amp; Python 3 for this to work:</span>
-.<span style="color:#dcdccc">/</span>font-patcher <span style="color:#dcdccc">&lt;</span>PATH TO FONT<span style="color:#dcdccc">&gt;</span>
+.<span style="color:#181818">/</span>font-patcher <span style="color:#181818">&lt;</span>PATH TO FONT<span style="color:#181818">&gt;</span>
 </code></pre>
-<h4 id='heading-6'>Bitmap Fonts</h4>
-<a href="http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm">What are they?</a>
-
-Effectively this means,
-Bitmaps will not scale outside their designed font size;
-They will generally look a lot sharper than vector fonts because they are generally rendered without <a href="https://www.youtube.com/watch?v=hqi0114mwtY">AA</a>;
-All of which leads to pretty unique pixilated look that a lot of people like.
-
-<h5 id='heading-7'>Using in GUI Applications</h5>
-Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,
-Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,
-See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango">https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango</a>
-
-<h5 id='heading-8'>Commonly used bitmap fonts:</h5>
-<div class="ovr-x"><table class=" tbl-showcase">
-<tbody><tr>
-<td><img src="/assets/images/font-previews/CozetteVector.png" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Gohu-GohuFont.webp" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Terminus.png" alt="preview" title="preview" loading="lazy"></img></td>
-<td><img src="/assets/images/font-previews/Unifont-Nerd-Font-Complete.png" alt="preview" title="preview" loading="lazy"></img></td>
-<td>~</td>
-<td>~</td>
-</tr>
-<tr>
-<td><a href="https://github.com/slavfox/Cozette">Cozette</a></td>
-<td><a href="https://font.gohu.org/">Gohu</a></td>
-<td><a href="http://terminus-font.sourceforge.net/">Terminus</a></td>
-<td><a href="https://unifoundry.com/unifont/">GNU Unifont</a></td>
-<td><a href="https://github.com/turquoise-hexagon/cherry">Cherry</a></td>
-<td><a href="https://github.com/NerdyPepper/scientifica">Scientifica</a> / <a href="https://github.com/nerdypepper/curie">Curie</a></td>
-</tr>
-</tbody></table></div>
-
-<a href="https://github.com/Tecate/bitmap-fonts">Repository Of Bitmap Fonts</a>
-<a href="https://github.com/Francesco149/bdf2x">Upscaling Bitmap Fonts</a>
-<!-- TODO: Add a link on making a bitmap font to vector font
-Making use of bitmap fonts in pango etc apps --></details>
-
-<h2 id='heading-9'>Conventions</h2>
-<details><summary><h3>CSS Box Model</h3></summary><aside>
-
-<p>This is important in many parts of ricing,
-and is the general method to define spacing in most applications.
-
-Content is your text, image whatever
-Padding is spacing around the content but still within the box
-Border is a border around the box
-Margin is spacing between the box and its siblings / parent box.
-
-<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">Better explanation</a>
-
-</p>
-
-<img src="/assets/images/box-model.webp" alt="Box Model Illustration" title="Box Model Illustration" loading="lazy"></img>
-</aside></details>
+<br/>
+<h4> Bitmap Fonts</h4>
+<a href="http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm">What are they?</a><br/>
+<br/>
+Effectively this means,<br/>
+Bitmaps will not scale outside their designed font size;<br/>
+They will generally look a lot sharper than vector fonts because they are generally rendered without <a href="https://www.youtube.com/watch?v=hqi0114mwtY">AA</a>;<br/>
+All of which leads to pretty unique pixilated look that a lot of people like.<br/>
+<br/>
+<h5> Using in GUI Applications</h5>
+Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,<br/>
+Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,<br/>
+See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango">https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango</a><br/>
+<br/>
+<h5> Commonly used bitmap fonts:</h5>
+<div class='ovr-x horizontal'><a href="https://github.com/slavfox/Cozette"><img src="/assets/images/font-previews/CozetteVector.png" alt="Cozette" title="Cozette" loading="lazy"></img></a><br/>
+<a href="https://font.gohu.org"><img src="/assets/images/font-previews/Gohu-GohuFont.webp" alt="GohuFont" title="GohuFont" loading="lazy"></img></a><br/>
+<a href="https://terminus-font.sourceforge.net"><img src="/assets/images/font-previews/Terminus.png" alt="Terminus" title="Terminus" loading="lazy"></img></a>	<br/>
+<a href="https://unifoundry.com/unifont/"><img src="/assets/images/font-previews/Unifont-Nerd-Font-Complete.png" alt="Unifont" title="Unifont" loading="lazy"></img></a>	Cherry	Scientifica<br/>
+</div><br/>
+<a href="https://github.com/Tecate/bitmap-fonts">Repository Of Bitmap Fonts</a><br/>
+<a href="https://github.com/Francesco149/bdf2x">Upscaling Bitmap Fonts</a><br/>
+<!-- TODO: Add a link on making a bitmap font to vector font		   Making use of bitmap fonts in pango etc apps --><br/>
+<br/></details>
+<br/>
+<h2> Conventions</h2>
+<details><summary><h3>CSS Box Model</h3></summary>
+<aside><p>This is important in many parts of ricing,and is the general method to define spacing in most applications.<br/>
+<br/>
+Content is your text, image whatever<br/>
+Padding is spacing around the content but still within the box<br/>
+Border is a border around the box<br/>
+Margin is spacing between the box and its siblings / parent box.<br/>
+<br/>
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">Better explanation</a><br/>
+</p><br/>
+<img src="/assets/images/box-model.webp" alt="Box Model Illustration" title="Box Model Illustration" loading="lazy"></img><br/></details>
 </details></ul><footer>
-<a href="/out/index.html">Return To Index</a>
+<a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>
 </body>

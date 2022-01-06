@@ -80,6 +80,7 @@ To enable it on other systems, after installing the qgnomeplatform package, set 
 ```sh
 QT_QPA_PLATFORMTHEME=gnome
 ```
+
 #END f
 
 #f Neovim / Vim

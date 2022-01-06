@@ -27,22 +27,28 @@ You can find most of them on [Google Fonts](https://fonts.google.com)
 Here are the fonts I personally like for each one:
 
 #### Mono space:
-#TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/Roboto-Mono-Regular.webp)	![preview](/assets/images/font-previews/IBM-Plex-Mono-Regular.webp)	![preview](/assets/images/font-previews/JetBrains-Mono-Regular.webp)	![preview](/assets/images/font-previews/Sarasa-Term-K.webp)	![preview](/assets/images/font-previews/JuliaMono-Regular.webp)
-Roboto Mono															IBM Plex Mono														JetBrains Mono														Iosevka														[JuliaMono](https://juliamono.netlify.app/)
-#END TABLE
+<div class="horizontal ovr-x">
+![Roboto Mono](/assets/images/font-previews/Roboto-Mono-Regular.webp)
+![IBM Plex Mono](/assets/images/font-previews/IBM-Plex-Mono-Regular.webp)
+![JetBrains Mono](/assets/images/font-previews/JetBrains-Mono-Regular.webp)
+![Sarasa Term K](/assets/images/font-previews/Sarasa-Term-K.webp)
+[![Julia Mono](/assets/images/font-previews/JuliaMono-Regular.webp)](https://juliamono.netlify.app/)
+</div>
 
 #### Serif:
-#TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/ETBembo-RomanLF.webp)	![preview](/assets/images/font-previews/Merriweather-Regular.webp)	![preview](/assets/images/font-previews/Piazzolla-Regular.webp)	![preview](/assets/images/font-previews/Libre-Baskerville.webp)
-[ET Bembo](https://edwardtufte.github.io/et-book/)				Merriweather														[Piazzolla](https://piazzolla.huertatipografica.com/)			Libre Baskerville
-#END TABLE
+<div class="horizontal ovr-x">
+![Redaction](/assets/images/font-previews/Redaction.webp)
+[![ET Bembo](/assets/images/font-previews/ETBembo-RomanLF.webp)](https://edwardtufte.github.io/et-book/)
+![Piazzolla](/assets/images/font-previews/Piazzolla-Regular.webp)
+</div>
 
 #### Sans Serif:
-#TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/Roboto.webp)	![preview](/assets/images/font-previews/Ubuntu-Regular.webp)	![preview](/assets/images/font-previews/IBM-Plex-Sans-Regular.webp)	![preview](/assets/images/font-previews/Lexend-Deca-Regular.webp)	![preview](/assets/images/font-previews/Poppins-Regular.webp)
-Roboto	Ubuntu Sans	IBM Plex Sans	Lexend Deca	Poppins
-#END TABLE
+<div class="horizontal ovr-x">
+![Roboto](/assets/images/font-previews/Roboto.webp)
+![Ubuntu Sans](/assets/images/font-previews/Ubuntu-Regular.webp)
+![IBM Plex Sans](/assets/images/font-previews/IBM-Plex-Sans-Regular.webp)
+![Poppins](/assets/images/font-previews/Poppins-Regular.webp)
+</div>
 
 🏴‍☠️ [Repository of mostly monospace fonts](https://gitlab.com/exorcist365/fonts)
 Compare Different Fonts: [ThemeWiki](https://wooosh.github.io/themewiki/fontindex/)
@@ -78,10 +84,12 @@ Bitmap fonts can be converted to a truetype (supported by pango) trojan horse wh
 See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 
 ##### Commonly used bitmap fonts:
-#TABLE	.tbl-showcase
-![preview](/assets/images/font-previews/CozetteVector.png)	![preview](/assets/images/font-previews/Gohu-GohuFont.webp)	![preview](/assets/images/font-previews/Terminus.png)	![preview](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)	~	~
-[Cozette](https://github.com/slavfox/Cozette)	[Gohu](https://font.gohu.org/)	[Terminus](http://terminus-font.sourceforge.net/)	[GNU Unifont](https://unifoundry.com/unifont/)	[Cherry](https://github.com/turquoise-hexagon/cherry)	[Scientifica](https://github.com/NerdyPepper/scientifica) / [Curie](https://github.com/nerdypepper/curie)
-#END TABLE
+<div class='ovr-x horizontal'>
+[![Cozette](/assets/images/font-previews/CozetteVector.png)](https://github.com/slavfox/Cozette)
+[![GohuFont](/assets/images/font-previews/Gohu-GohuFont.webp)](https://font.gohu.org)
+[![Terminus](/assets/images/font-previews/Terminus.png)](https://terminus-font.sourceforge.net)	
+[![Unifont](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)](https://unifoundry.com/unifont/)	Cherry	Scientifica
+</div>
 
 [Repository Of Bitmap Fonts](https://github.com/Tecate/bitmap-fonts)
 [Upscaling Bitmap Fonts](https://github.com/Francesco149/bdf2x)
@@ -93,7 +101,6 @@ See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 ## Conventions
 #f CSS Box Model
 <aside>
-
 <p>This is important in many parts of ricing,
 and is the general method to define spacing in most applications.
 
@@ -103,11 +110,8 @@ Border is a border around the box
 Margin is spacing between the box and its siblings / parent box.
 
 [Better explanation](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)
-
 </p>
 
 ![Box Model Illustration](/assets/images/box-model.webp)
 </aside>
 #END f
-
-

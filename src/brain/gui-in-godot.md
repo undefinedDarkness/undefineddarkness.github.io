@@ -1,11 +1,11 @@
-<div class="txt-c hor-ord jus-c algn-e header flx-wrp">
+<header>
 <img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" />
-<h1>Using Godot for GUI Development</h1>
-</div>
+# Using Godot for GUI Development
+</header>
 These are the results of my experiment with using the [Godot game engine](https://godotengine.org/) for designing 
 [a toy music player](https://github.com/undefinedDarkness/cello),
 I have divided them into things I like and things I'd like to see improved, 
-I have marked things that would be either entirely or partially fixed by Godot 4 with 🍀,
+I have marked things that would be either entirely or partially fixed by Godot 4 with IV,
 Many of the proposed solutions to the problems I have mentioned are more than likely really naive as I have not fully thought them through yet
 It is also likely that Godot has good reasons for doing things in a particular way that I have not yet noticed  (I am certain they are much smarter people than me)
 Or that there are GitHub issues open for some of the problems I found, I have not checked thoroughly
@@ -55,9 +55,9 @@ More of a nitpick since solutions like [this one from AnidemDex](https://gist.gi
 I had often had to resort to setting a node's `rect_min_size` to fix it, related to 2 & 3
 - Included (default) font for UI does not support some parts of Unicode which is something I sort of expected as its the only fallback font Godot will use, some behaviour to pick up the system default fonts would go down well too
 - Clipping issues with a PanelContainer and TextureRect, The texture rect would not conform to the corner radius I had set on the parent container,
-I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) 🍀
+I ended up needing to use a shader to achieve the effect I wanted (rounded corners on an image) IM:IV
 - The default bar at the top for the project / editor settings menu should be search instead of adding a new item
-![this bar](/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp) 🍀
+![this bar](/assets/images/dump/3d9d0240-f18e-4f0d-aa81-45f42d1a0f96.webp) IM:IV
 - The UI system could use a debug option like the collision system to show parent / children borders in the user interface
 - The Theme editor was rather unintuitive to me, I expected to be able to click any of the widgets in the preview and modify their properties
 but it does appear to be rather powerful so that's fine by me
@@ -78,16 +78,17 @@ but since making games is partly about performance too, would be nice to see, bu
 - The editor which is perfectly capable of editing arbitrary text files requires you to jump through hoops to open one, When using the **Open menu** you need to tell it to
 show all file types, only then can you open your markdown file or whatever
 ![the menu](/assets/images/dump/b3eae2f4-a5aa-4e2a-bd8e-252782b15471.webp)
-- The type system is extraordinarily fragile and becomes useless really easily 🍀
+- The type system is extraordinarily fragile and becomes useless really easily IM:IV
 - The editor sorts completion items really weirdly, Imo it should be a bit smarter and sort Node specific properties first then parent properties then methods of both
 ![example of what I mean](/assets/images/dump/ff095997-df97-4935-97c1-1f731a0e5897.webp)
-- No one liner / lambda functions 🍀
+- No one liner / lambda functions IM:IV
 The way you pass functions is also really dumb, eg:
 ```gdscript
 node.connect("signal-name", self, "signal-name-callback", [ 'apple' ])
-#~ could be with lambdas
+
+# could be with lambdas
 node.connect("signal-name", () => {
-	#~ do thing
+	# do thing
 })
 ```
 - The over reliance of classes,
@@ -103,10 +104,10 @@ Turns out I was pretty dumb, Godot has a system for this, its called node paths 
 ```gdscript
 export var sidebar_path: NodePath
 onready var sidebar = get_node(sidebar_path)
-#~ or as a clever one liner
+# or as a clever one liner
 export(NodePath) onready var sidebar = get_node(sidebar)
 ```
-- No way to type signal arguments like the C++ source can 🍀
+- No way to type signal arguments like the C++ source can IM:IV
 
 #### Editor / Tool Scripts 
 So if you want to run something in the editor (while editing) to show up in the preview of your game you use a tool script by appending `tool` at the top of your script file,
@@ -141,7 +142,7 @@ but I can see why they did not want to program a special case for pixel art
 Would be nice to freely move things from place to place & hide panels as I wish but I can see how that would be rather clunky to implement,
 as a side effect in its current state, it scales really badly to smaller window sizes,
 I would like to be able to open my scene tree and preview (in top bottom layout) vertically split next to my code editor but currently I see no way to go about this.
-[this is how I want it](/assets/images/dump/9521b08c-8d28-4a1a-a4fe-1def7c8c0d94.webp) 🍀
+[this is how I want it](/assets/images/dump/9521b08c-8d28-4a1a-a4fe-1def7c8c0d94.webp) IM:IV
 - Currently no support for reading and writing to zip files, there exists [a module / custom build](https://github.com/flyingpimonster/godot/tree/zip-module-3.4) that I ended up using but I think this functionality is basic enough to be included in the editor itself 
 
 

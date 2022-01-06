@@ -6,18 +6,17 @@
 # using Vim's :TOHtml command
 
 __syntax_hl () {
-	printf "<pre class=\"code\" data-language=\"%s\"><code>" "$2"
 	highlight\
-		--syntax "$2"\
+		--syntax "$1"\
 		-q\
 		--force \
 		--stdout \
 		-f \
 		--inline-css \
+		--no-trailing-nl \
 		--pretty-symbols \
-		--config-file=assets/zenburn.theme \
-		--no-version-info <<< "$1"
-	printf "</code></pre>"
+		--config-file=assets/syntax.theme \
+		--no-version-info | sed 's/*/\&ast;/g;'
 }
 
 # Replaced. {{{
@@ -93,7 +92,7 @@ sh_script () {
 f () {
 	content=$1
 	shift
-	printf "<details><summary><h3>%s</h3></summary>%s</details>" "${*#'#f '}" "$content"
+	printf "<details><summary><h3>%s</h3></summary>\n%s</details>" "${*#'#f '}" "$content"
 }
 
 # Right align text
@@ -167,93 +166,89 @@ table () {
 # following the markdown syntax.
 # Its counterpart: final_transformer is also available.
 initial_transformer () {
-	line_no=0
-
-	code_lang=
-	code_block=
-	code_content=
-
-	quote_block=
-
-	in_list=
-	
-	header_no=0
-
-	IFS=''
+	local inside=""
+	IFS=$NEWL
 	while read -r line; do
-		line_no=$(( line_no + 1 ))
-		
-		# Empty line & is in list
-		if [ -z "$line" ] && [ -n "$in_list" ]; then
-			printf '</li></ul>' # close the last item and the list itself
-			in_list=
-			continue
+
+		if [ -z "${line/ /}" ] && [[ $inside == *' list '* ]] && ! [[ $inside == *' code-block '* ]]; then
+				inside=${inside/' list '/}
+				printf '</ul><br/>'
+				continue
 		fi
-
+		
 		case "$line" in
-			# Lists
-			'- '*)
-				line=${line#- }
-				if [ -z "$in_list" ]; then
-					# Open a new list and start a new item in that list.
-					printf "<ul><li>%s\n"  "$line"
-					in_list=1
-				else
-					printf "</li><li>%s\n" "$line"
+			'# '* | '## '* | '### '* | '#### '* | '##### '* | '###### '*)
+				if ! [[ "$inside" == *' code-block '* ]]; then
+					local level=${line%% *}
+					printf '<h%d>%s</h%d>\n' "${#level}" "${line#"$level"}" "${#level}"
+					continue
 				fi
-			;;
-			# Headings
-			'#-'*|"# "*|"## "*|"### "*|"#### "*|"##### "*|"###### "*)
-				dbg "Found a heading: $line @ ${line_no}"
-				header_no=$((header_no + 1))
-				heading=${line%% *}
-				echo "<h${#heading} id='heading-${header_no}'>${line#${heading}* }</h${#heading}>"
 				;;
-			
-			# Block of code
+			'#-'*)
+				printf '<h3>%s</h3>\n' "${line#'#-'}"
+				continue
+				;;
+			'#~'*)
+				printf '&num;%s\n' "${line#'#~'}"
+				continue
+				;;
+			'> '*)
+				printf '<q>%s</q><br/>\n' "${line#'> '}"
+				continue
+				;;
 			'```'*)
-				dbg "Found a code block @ ${line_no}"
-				# Not currently in code block
-				if [ -z "$code_block" ]; then
-					code_lang=${line#'```'}
-					code_block=1
-				else
-					__syntax_hl "${code_content#"-$NEWL"}" "$code_lang"
-					# Reset state
-					code_content=
-					code_block= 
-					code_lang=
-				fi
-				;;
-			'---' | '***' | '___')
-				printf '<hr />'
-				;;
-			# Block quote
-			'>>>'*)
-				dbg "Found a quote block @ ${line_no}"
-				if [ -z "$quote_block" ]; then # is not in quote block
-					quote_block=1
-					printf "<blockquote>"
-				else # is in quote block
-					quote_block=0
-					printf "</blockquote>"
-				fi
-				;;
 
-			# Nothing, just reprint
+				if [[ "$inside" == *' code-block '* ]]; then
+					dbg 'Passing to syntax-hl: %s' "$buffer"
+					__syntax_hl "$language" <<< "$buffer"
+					unset buffer
+					unset language
+					inside=${inside/' code-block '/}
+					printf '</code></pre>\n'
+					continue
+				else
+					local buffer=''
+					local language=${line#'```'}
+					inside+=" code-block "
+					printf '<pre><code>'
+					continue
+				fi
+				;;
+			'- '*)
+				if ! [[ "$inside" == *' list '* ]]; then
+					inside+=" list "
+					printf '<ul>\n'
+				fi
+				printf '<li>%s</li>\n' "${line#'- '}"
+				;;
 			*)
-				[ -z "$code_block" ] && echo "$line"
+				if ! [[ "$inside" == *' code-block '*  ]]; then
+					printf '%s' "$line"
+				fi
+				;;
 		esac
 		
-			
-		if [ -n "$code_block" ] && [ -n "$code_content" ]; then
-			#shellcheck disable=2027
-			code_content="$code_content"$NEWL"$line"
-		elif [ -n "$code_block" ]; then
-			code_content="-"
+		if [[ "$inside" == *' code-block '*  ]]; then
+			buffer+=$line$NEWL
 		fi
-	done <<< "$1" | perl -p \
-	-e '
+
+		
+		if [ -z "${inside/ /}" ]; then
+			if [[ "$line" == '#'* ]]; then
+				dbg "$line starts with #"
+				printf '\n'; 
+				continue
+			fi
+
+			if ! [[ "$line" == '<'* ]]; then
+				printf '<br/>\n'
+			fi
+		fi
+	done 
+}
+
+final_transformer() {
+	perl -pe '
 		s!`(.+?)`!<code>\1</code>!g;
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
 		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
@@ -262,9 +257,5 @@ initial_transformer () {
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;
-		s!^> (.+)!<q>\1</q>!g;' # Markdown has returned to its roots :euphoria:
-
-
+	'
 }
-
-
