@@ -92,7 +92,7 @@ sh_script () {
 f () {
 	content=$1
 	shift
-	printf "<details><summary><h3>%s</h3></summary>\n%s</details>" "${*#'#f '}" "$content"
+	printf "<details>\n<summary>%s</summary>\n%s\n</details>" "${*#'#f '}" "$content"
 }
 
 # Right align text
@@ -166,19 +166,21 @@ table () {
 # following the markdown syntax.
 # Its counterpart: final_transformer is also available.
 initial_transformer () {
-	local inside=""
 	IFS=$NEWL
+	local inside_list=0
+	local inside_code_block=0
+	local inside_quote_block=0
 	while read -r line; do
 
-		if [ -z "${line/ /}" ] && [[ $inside == *' list '* ]] && ! [[ $inside == *' code-block '* ]]; then
-				inside=${inside/' list '/}
-				printf '</ul><br/>'
+		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )); then
+			inside_list=0	
+			printf '</li>\n</ul><br/>'
 				continue
 		fi
 		
 		case "$line" in
 			'# '* | '## '* | '### '* | '#### '* | '##### '* | '###### '*)
-				if ! [[ "$inside" == *' code-block '* ]]; then
+				if ! (( inside_code_block )); then
 					local level=${line%% *}
 					printf '<h%d>%s</h%d>\n' "${#level}" "${line#"$level"}" "${#level}"
 					continue
@@ -186,6 +188,10 @@ initial_transformer () {
 				;;
 			'#-'*)
 				printf '<h3>%s</h3>\n' "${line#'#-'}"
+				continue
+				;;
+			'---' | '___' | '***' )
+				printf '<hr />\n'
 				continue
 				;;
 			'#~'*)
@@ -198,44 +204,59 @@ initial_transformer () {
 				;;
 			'```'*)
 
-				if [[ "$inside" == *' code-block '* ]]; then
+				if (( inside_code_block )); then
 					dbg 'Passing to syntax-hl: %s' "$buffer"
 					__syntax_hl "$language" <<< "$buffer"
 					unset buffer
 					unset language
-					inside=${inside/' code-block '/}
-					printf '</code></pre>\n'
+					inside_code_block=0
+					printf '</code>\n</pre>\n'
 					continue
 				else
 					local buffer=''
 					local language=${line#'```'}
-					inside+=" code-block "
-					printf '<pre><code>'
+					inside_code_block=1
+					printf '<pre>\n<code>'
 					continue
 				fi
 				;;
-			'- '*)
-				if ! [[ "$inside" == *' list '* ]]; then
-					inside+=" list "
-					printf '<ul>\n'
+			'>>>'*)
+				if ! (( inside_quote_block )); then
+					inside_quote_block=1
+					printf '<blockquote>\n'
+					continue
+				else
+					inside_quote_block=0
+					local caption=${line#'>>>'}
+					caption=${caption# }
+					[ -n "$caption" ] && printf '<figcaption>%s</figcaption>\n' "$caption"
+					printf '</blockquote>\n'
 				fi
-				printf '<li>%s</li>\n' "${line#'- '}"
+				;;
+			'- '*)
+				if ! (( inside_list )); then
+					inside_list=1
+					printf '<ul>\n'
+					printf '<li>%s' "${line#'- '}"
+				else
+					printf '</li>\n<li>%s' "${line#'- '}"
+				fi
 				;;
 			*)
-				if ! [[ "$inside" == *' code-block '*  ]]; then
+				if (( inside_code_block == 0 )); then
 					printf '%s' "$line"
 				fi
 				;;
 		esac
 		
-		if [[ "$inside" == *' code-block '*  ]]; then
+		if (( inside_code_block )); then
 			buffer+=$line$NEWL
 		fi
 
 		
-		if [ -z "${inside/ /}" ]; then
-			if [[ "$line" == '#'* ]]; then
-				dbg "$line starts with #"
+		if (( inside_code_block == 0 )) && (( inside_list == 0 )); then
+			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]]; then
+				# dbg "$line starts with #"
 				printf '\n'; 
 				continue
 			fi
@@ -248,14 +269,23 @@ initial_transformer () {
 }
 
 final_transformer() {
+	local content=$1
+
+	while read -r match; do
+		re=${match//'*'/'&ast';}
+		re=${re/'`'/'<code>'}
+		re=${re/'`'/'</code>'}
+		content=${content/"$match"/"$re"}
+	done < <(grep -o '`.*`' <<< "$content")
+
 	perl -pe '
-		s!`(.+?)`!<code>\1</code>!g;
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
-		s@!\[(.+?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
+		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
+		s!IM:(.*)!<span class="in-margin">\1</span>!g;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;
-	'
+	' <<< "$content"
 }

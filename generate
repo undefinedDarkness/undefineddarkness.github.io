@@ -80,6 +80,8 @@ gen-index () {
 			[[ $file_l == total* ]] && continue
 			file=${file_l##* }
 			title=$(get-title $folder/$file)
+			title=${title/'{'/}
+			title=${title/'}'/}
 			[ -z "$title" ] && continue
 			f_date=$(get-date $file_l)
 			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
@@ -139,7 +141,11 @@ case $1 in
 		paths+='\n./generate'
 		paths+='\n./index.html'
 		paths+='\n./template.html'
-		echo -e "$paths" | entr "$0 in-sync"
+		echo -e "$paths" | entr "./generate"
+		;;
+	
+	serve)
+		$server
 		;;
 
 	*)

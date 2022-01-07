@@ -9,7 +9,8 @@
 </head>
 <body>
 <article style="--date-modified: '2022-01-06'">
-<!-- vim: set nolist: --><h1> <span class="reset">🍱</span> Reference</h1>
+<!-- vim: set nolist: -->
+<h1> <span class="reset">🍱</span> Reference</h1>
 <div class='txt-c'><b>See the other modules:</b><br/>
 <a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a><br/></div>
 My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.<br/>
@@ -18,7 +19,8 @@ List of ricing software you can use: <a href="https://github.com/fosslife/awesom
 <br/>
 <h2> How do I use X?</h2>
 <br/>
-<details><summary><h3>Firefox</h3></summary>
+<details>
+<summary>Firefox</summary>
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:<br/>
 <ul>
 <li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a></li>
@@ -29,10 +31,12 @@ You can customize the User Interface (Chrome) with Firefox CSS, see the followin
 <br/>
 Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),<br/>
 The structure of the file is usually as follows:<br/>
-<pre><code><span style="color:#48bac2; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#181818">(</span><span style="color:#38781c">&quot;discord.com&quot;</span><span style="color:#181818">) {</span>
+<pre>
+<code><span style="color:#48bac2; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#181818">(</span><span style="color:#38781c">&quot;discord.com&quot;</span><span style="color:#181818">) {</span>
 	<span style="color:#898989; font-style:italic">/&ast; Your styles go here. &ast;/</span>
 <span style="color:#181818">}</span>
-</code></pre>
+</code>
+</pre>
 You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a><br/>
 <i>NOTE: Stylus can also export to this format for easy usage</i><br/>
 <br/>
@@ -43,15 +47,17 @@ You will need basic knowledge of HTML, CSS & JS.<br/>
 Firefox has quite a few limitations on setting local files as your start page (no external requests or imports of any kind), so it may be easier to host your start page on some static site hosting service (GitHub Pages, Netlify, Surge.sh).<br/>
 <br/>
 Then use <a href="https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/">this extension</a> to set the URL.<br/>
-Chromium users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (Chrome places no limitations).<br/></details>
+Chromium users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (Chrome places no limitations).<br/>
+</details>
 <br/>
-<details><summary><h3>GTK</h3></summary>
+<details>
+<summary>GTK</summary>
 This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and<br/>
 are easily modifiable (if you know CSS). Phocus is a nice one to start with since its code is clean scss and well structured, (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)<br/>
 *NOTE: Phocus is not a GTK2 theme so it will not show up in <code>lxappearance</code>, Set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead,<br/>
 this is because lxappearance expects a legacy gtk2 theme along with a gtk3, which modern themes do not have.*<br/>
 <br/>
-You can use <code>gtk-widget-factory</code> to test your theme, it comes packaged with <code>gtk-demos</code> on arch & debian.<br/>
+You can use <code>gtk-widget-factory</code> to test your theme, it comes packaged with `gtk-demos` on arch & debian.<br/>
 GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a><br/>
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)<br/>
 <br/>
@@ -70,9 +76,11 @@ After installing, you have to make changes the following changes<br/>
 <b>For QT4:</b> Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:<br/>
 <br/>
 ~/.config/Trolltech.conf<br/>
-<pre><code><span style="color:#a94598; font-weight:bold">[Qt]</span>
+<pre>
+<code><span style="color:#a94598; font-weight:bold">[Qt]</span>
 <span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span><span style="color:#9c5a02; font-weight:bold">GTK+</span>
-</code></pre>
+</code>
+</pre>
 <br/>
 <b>For QT5:</b> set the environment variable <code>QT_QPA_PLATFORMTHEME=gtk2</code><br/>
 <br/>
@@ -82,11 +90,15 @@ After installing, you have to make changes the following changes<br/>
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.<br/>
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:<br/>
 <br/>
-<pre><code>QT_QPA_PLATFORMTHEME<span style="color:#181818">=</span>gnome
-</code></pre>
-<br/></details>
+<pre>
+<code>QT_QPA_PLATFORMTHEME<span style="color:#181818">=</span>gnome
+</code>
+</pre>
 <br/>
-<details><summary><h3>Neovim / Vim</h3></summary>
+</details>
+<br/>
+<details>
+<summary>Neovim / Vim</summary>
 This is an interesting one. If you use a premade colorscheme, chances are, a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme already exists for it. Otherwise, you can make a base16 theme or make one from a wide variety of templates. There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, <a href="https://bytefluent.com/vivify/">Vivify</a>)<br/>
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.<br/>
 <br/>
@@ -98,19 +110,23 @@ Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a><br/>
 <br/>
 <h4> Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
-<pre><code>function<span style="color:#181818">!</span> SynStack<span style="color:#181818">()</span>
+<pre>
+<code>function<span style="color:#181818">!</span> SynStack<span style="color:#181818">()</span>
   <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span>exists<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&quot;&ast;synstack&quot;)</span>
     return
   <span style="color:#a94598; font-weight:bold">endif</span>
   echo map<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
 endfunc
-</code></pre>
+</code>
+</pre>
 <br/>
 but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,<br/>
-to use them more easily, create a keybinding for <code>SynStack()</code> or <code>require('hl-info').show_hl_captures()</code> respectivley<br/>
-<br/></details>
+to use them more easily, create a keybinding for <code>SynStack()</code> or `require('hl-info').show_hl_captures()` respectivley<br/>
 <br/>
-<details><summary><h3>Terminal</h3></summary>
+</details>
+<br/>
+<details>
+<summary>Terminal</summary>
 This is really simple too: popular color schemes usually have been ported for common terminal programs, even if it doesn't, it should still be really simple to implement, it's just 16 colors after all :P<br/>
 <br/>
 <h4> Comparison</h4>
@@ -223,7 +239,8 @@ P = With a patch or a fork<br/>
 Alacritty is the most commonly used terminal, (in the UP discord)<br/>
 Foot is wayland only.<br/>
 If you are looking into using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">st-flexipatch</a> instead as it is much easier to use and modify.<br/>
-<!-- TODO: Add links to the forks / patches here --><br/>
+<!-- TODO: Add links to the forks / patches here -->
+<br/>
 Fork for ligatures in alacritty (super out of date and the alacritty author recommends just using another terminal):<br/>
 <a href="https://github.com/zenixls2/alacritty">https://github.com/zenixls2/alacritty</a><br/>
 st patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/patches/</a><br/>
@@ -233,23 +250,25 @@ st patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/p
 <h4> Images in the Terminal</h4>
 This is an often sought after feature and often used with fetch scripts.<br/>
 Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">sixel</a>, though, so maybe that will end up being the standard.<br/>
-For terminals without image support entirely, there are hacks using <code>w3m-img</code> and <code>uberzerg</code> to get them...but they're finicky and don't just work™, so I'd recommend against them.<br/>
+For terminals without image support entirely, there are hacks using <code>w3m-img</code> and `uberzerg` to get them...but they're finicky and don't just work™, so I'd recommend against them.<br/>
 <a href="https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal">Full article</a><br/>
 <br/>
 But here's a overview:<br/>
 Alacritty doesn't support images and needs a hack;<br/>
 Wezterm natively supports iterms2's image format & sixel;<br/>
 Kitty has its own format;<br/>
-St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch">patch</a> and it needs a patch for the w3m hack to work too.<br/></details>
+St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch">patch</a> and it needs a patch for the w3m hack to work too.<br/>
+</details>
 <br/>
-<details><summary><h3>Picom</h3></summary>
+<details>
+<summary>Picom</summary>
 <i>The definition of compositor changes from X11 to Wayland, I am talking about X11 only:</i><br/>
 Compositor is a thing that sits between your window manager and X11 and makes stuff like transparency work. Recently, however, compositors have been used to implement blur, rounded corners and animations for a window manager to behave more like a desktop enviroment.<br/>
 <br/>
 If the version in your package repositories has the features you want, I'd suggest you use that instead.<br/>
 <br/>
 <h4> I just want transparency and or shadow</h4>
-You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™™™<br/>
+You're in luck, lots of choice for you. You can use <code>picom</code> / `xcompmgr` / `compton`, anything you want and generally it'll just work™™™<br/>
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
@@ -275,7 +294,8 @@ The following are popular as of October 2021:<br/>
 <br/>
 snippet to configure animations on dccsillag or pijulius<br/>
 <br/>
-<pre><code>&num; Animations
+<pre>
+<code>&num; Animations
 &num; (requires pijulius)
 <span style="color:#a94598; font-weight:bold">animations</span> = true<span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-stiffness = <span style="color:#48bac2; font-weight:bold">300.0</span><span style="color:#181818">;</span>
@@ -287,14 +307,17 @@ snippet to configure animations on dccsillag or pijulius<br/>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-transient-window = <span style="color:#38781c">&quot;slide-down&quot;</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-workspace-switch-in = <span style="color:#38781c">&quot;zoom&quot;</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-workspace-switch-out = <span style="color:#38781c">&quot;zoom&quot;</span><span style="color:#181818">;</span>
-</code></pre>
+</code>
+</pre>
 <br/>
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a><br/>
-To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.<br/>
+To get a window class for a exclude / include, use <code>xwininfo</code> or `xprop` & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.<br/>
 <br/>
-<a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/></details>
+<a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
+</details>
 <br/>
-<details><summary><h3>Wallpapers</h3></summary>
+<details>
+<summary>Wallpapers</summary>
 <br/>
 <h4> Animated Wallpapers</h4>
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):<br/>
@@ -313,9 +336,10 @@ Googling will also get you a bit of resources .<br/>
 <h4> Tiled Wallpapers</h4>
 These are wallpapers that tiled like tiles in a pattern, <a href="/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp">example</a> repeated over your entire screen.<br/>
 Their usage is fairly simple:<br/>
-<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code>, or manually tile it in your image editor of choice.<br/>
+<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use `xsetroot -bitmap |path-to-bitmap-wallpaper|`, or manually tile it in your image editor of choice.<br/>
 <br/>
-You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a>, Their site has a bunch of cool ricing related stuff too.<br/></details>
+You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a>, Their site has a bunch of cool ricing related stuff too.<br/>
+</details>
 <br/>
 <h3> Credits</h3>
 Most of the following are members of the r/unixporn discord server.<br/>
@@ -324,7 +348,7 @@ Animated Wallpaper - Dazai-san#6969<br/>
 Picom Animations - nuxsh#9338<br/>
 Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 <br/>
 Document has been edited by asdadsdafdfdssfd#7660<br/>
-</details></ul><footer>
+<footer>
 <a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>

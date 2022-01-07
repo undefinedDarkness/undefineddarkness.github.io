@@ -8,13 +8,40 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2022-01-06'">
+<article style="--date-modified: '2022-01-07'">
+<header><img src="/assets/images/nes-export.webp" alt="" title="" loading="lazy"></img><br/>
 <h1> Lorem Ipsum: Test Page</h1>
+</header><!-- This page documents my own additions to GFM Markdown<br/>
+Centered around being really easy to remember<br/>
+and simple to use while writing.<br/>
+New syntax is mainly added where writing it out in HTML would be either tedious or break the flow of the document;<br/>
+Sometimes a new transformer is added, they work like this:<br/>
+'''<br/>
+#transformer
+Content to be passed to transformer<br/>
+#END transformer
+'''<br/>
+Transformer content is then substitiuted into the document,<br/>
+Current transformers are: TABLE, f<br/>
 <br/>
+I call it nesdown<br/>
+<br/>
+Nesdown due to implementation limitations won't handle any very complex structure, eg: nested lists<br/>
+This is where you use HTML if markdown fails you<br/>
+<br/>
+TODO: Nested markdown inlines<br/>
+--><br/>
+<!-- You can use markdown in HTML blocks, no problem  -->
+<div class='txt-c'><a href="/src/lorem.md">View Page Source</a></div><br/>
+<!-- These are as you'd expect -->
 Testing Inlines:<br/>
 Normal text - <i>italic text</i> - <b>bold text</b><br/>
 I am a <a href="https://example.com">link</a><br/>
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Automatically generated<br/>
+<code>1 &ast; 2 &ast; 3 = 3!</code><br/>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated<br/>
+<q>A quote</q><br/>
+<br/>
+<hr />
 <br/>
 Testing list<br/>
 <ul>
@@ -24,7 +51,8 @@ Testing list<br/>
 <li>Flowers</li>
 <li>Carrots</li>
 </ul><br/>Checking for Syntax Highlighting:<br/>
-<pre><code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
+<pre>
+<code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
 
 <span style="color:#48bac2; font-weight:bold">float</span> <span style="color:#c48218; font-weight:bold">Q_rsqrt</span><span style="color:#181818">(</span> <span style="color:#48bac2; font-weight:bold">float</span> number <span style="color:#181818">)</span>
 <span style="color:#181818">{</span>
@@ -46,11 +74,62 @@ Testing list<br/>
 <span style="color:#48bac2; font-weight:bold">int</span> <span style="color:#c48218; font-weight:bold">main</span> <span style="color:#181818">() {</span>
     <span style="color:#c48218; font-weight:bold">printf</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;Hello world</span><span style="color:#2d6bb1">\n</span><span style="color:#38781c">&quot;</span><span style="color:#181818">);</span>
 <span style="color:#181818">}</span>
-</code></pre>
+</code>
+</pre>
+<!-- Folds can be created with the 'f'old transformer -->
+<details>
+<summary>Do folds work?</summary>
+I guess they do :)<br/>
+</details>
 <br/>
-<details><summary><h3>Do folds work?</h3></summary>
-I guess they do :)<br/></details>
-</details></ul><footer>
+<!-- <span class="in-margin">... will add <code>...</code> to the article margin --></span>
+I should be next to a percent sign <span class="in-margin">%<br/></span>
+<br/>
+What about tables?<br/>
+<!-- My own table syntax:<br/>
+Rows are separated by lines<br/>
+Columns are seperated by any amount of spaces and at least 1 tab.<br/>
+--><br/>
+<div class="ovr-x"><table class="">
+<thead><tr>
+<th>Fruits</th>
+<th>Vegetables</th>
+</tr>
+</thead><tbody><tr>
+<td>Apple</td>
+<td>Carrot<br/></td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>Tomato<br/></td>
+</tr>
+<tr>
+<td>Banana</td>
+<td>Eggplant<br/></td>
+</tr>
+</tbody></table></div>
+<br/>
+Block Quotes & Captions:<br/>
+<!-- Pretty simple here too, the last line automatically becomes the caption -->
+<blockquote>
+John wore clothing made of camel’s hair, with a leather belt around his waist,<br/>
+and he ate locusts and wild honey. <br/>
+And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”<br/>
+<figcaption>Mark 1:6-8</figcaption>
+</blockquote>
+<br/>
+<br/>
+<h2> Edge Cases</h2>
+Inline in code sections:<br/>
+<pre>
+<code><span style="color:#48bac2; font-weight:bold">export</span> __OPENGL__<span style="color:#181818">=</span><span style="color:#c43e18">1</span>
+<span style="color:#48bac2; font-weight:bold">printf</span> <span style="color:#38781c">&apos;%d&apos;</span> $<span style="color:#181818">((</span> <span style="color:#c43e18">2</span> <span style="color:#181818">&ast;</span> <span style="color:#c43e18">3</span> <span style="color:#181818">&ast;</span> <span style="color:#c43e18">5</span> <span style="color:#181818">))</span>
+</code>
+</pre>
+<br/>
+Inline in code inline:<br/>
+<code>Hello &ast;&ast;world&ast;&ast; - I hope I dont trigger any edge &ast;cases&ast;</code><br/>
+<footer>
 <a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>

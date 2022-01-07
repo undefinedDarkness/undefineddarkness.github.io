@@ -27,7 +27,7 @@ You can find most of them on [Google Fonts](https://fonts.google.com)
 Here are the fonts I personally like for each one:
 
 #### Mono space:
-<div class="horizontal ovr-x">
+<div class="horizontal showcase">
 ![Roboto Mono](/assets/images/font-previews/Roboto-Mono-Regular.webp)
 ![IBM Plex Mono](/assets/images/font-previews/IBM-Plex-Mono-Regular.webp)
 ![JetBrains Mono](/assets/images/font-previews/JetBrains-Mono-Regular.webp)
@@ -36,14 +36,14 @@ Here are the fonts I personally like for each one:
 </div>
 
 #### Serif:
-<div class="horizontal ovr-x">
-![Redaction](/assets/images/font-previews/Redaction.webp)
+<div class="horizontal showcase">
+[![Redaction](/assets/images/font-previews/Redaction.webp)](https://www.redaction.us/)
 [![ET Bembo](/assets/images/font-previews/ETBembo-RomanLF.webp)](https://edwardtufte.github.io/et-book/)
-![Piazzolla](/assets/images/font-previews/Piazzolla-Regular.webp)
+[![Piazzolla](/assets/images/font-previews/Piazzolla-Regular.webp)](https://fonts.google.com/specimen/Piazzolla)
 </div>
 
 #### Sans Serif:
-<div class="horizontal ovr-x">
+<div class="horizontal showcase">
 ![Roboto](/assets/images/font-previews/Roboto.webp)
 ![Ubuntu Sans](/assets/images/font-previews/Ubuntu-Regular.webp)
 ![IBM Plex Sans](/assets/images/font-previews/IBM-Plex-Sans-Regular.webp)
@@ -60,13 +60,13 @@ Where to get: https://www.nerdfonts.com/font-downloads (Get the one for the font
 What icons are there: https://www.nerdfonts.com/cheat-sheet
 How to patch your own font:
 ```sh
-#~ Download the nerd fonts patcher and the glyphs it needs.
+# Download the nerd fonts patcher and the glyphs it needs.
 git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts
 cd nerd-fonts
 git sparse-checkout add src/glyphs
 
-#~ Using the patcher
-#~ You need fontforge & Python 3 for this to work:
+# Using the patcher
+# You need fontforge & Python 3 for this to work:
 ./font-patcher <PATH TO FONT>
 ```
 
@@ -84,11 +84,13 @@ Bitmap fonts can be converted to a truetype (supported by pango) trojan horse wh
 See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 
 ##### Commonly used bitmap fonts:
-<div class='ovr-x horizontal'>
+<div class='showcase horizontal'>
 [![Cozette](/assets/images/font-previews/CozetteVector.png)](https://github.com/slavfox/Cozette)
 [![GohuFont](/assets/images/font-previews/Gohu-GohuFont.webp)](https://font.gohu.org)
 [![Terminus](/assets/images/font-previews/Terminus.png)](https://terminus-font.sourceforge.net)	
-[![Unifont](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)](https://unifoundry.com/unifont/)	Cherry	Scientifica
+[![Unifont](/assets/images/font-previews/Unifont-Nerd-Font-Complete.png)](https://unifoundry.com/unifont/)
+<span>Cherry</span>
+<span>Scientifica</span>
 </div>
 
 [Repository Of Bitmap Fonts](https://github.com/Tecate/bitmap-fonts)

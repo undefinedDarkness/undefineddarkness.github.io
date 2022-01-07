@@ -58,14 +58,18 @@ natively (without Xwayland) on wayland<br/>
 <br/>
 Although most of them required tweaking in some form or another<br/>
 <br/>
-<b>ROFI:</b> This does use a fork<pre><code>git clone <span style="color:#48bac2; font-weight:bold">--recurse-submodules</span> https<span style="color:#181818">://</span>github.com<span style="color:#181818">/</span>lbonn<span style="color:#181818">/</span>rofi
+<b>ROFI:</b> This does use a fork<pre>
+<code>git clone <span style="color:#48bac2; font-weight:bold">--recurse-submodules</span> https<span style="color:#181818">://</span>github.com<span style="color:#181818">/</span>lbonn<span style="color:#181818">/</span>rofi
 <span style="color:#48bac2; font-weight:bold">cd</span> rofi
 meson setup build <span style="color:#48bac2; font-weight:bold">-Dwayland</span><span style="color:#181818">=</span>enabled <span style="color:#48bac2; font-weight:bold">--prefix</span><span style="color:#181818">=/</span>usr<span style="color:#181818">/</span><span style="color:#48bac2; font-weight:bold">local</span>
 ninja <span style="color:#48bac2; font-weight:bold">-C</span> build
 ninja <span style="color:#48bac2; font-weight:bold">-C</span> build <span style="color:#9c5a02; font-weight:bold">install</span>
-</code></pre>
-<p></p><b>FIREFOX:</b> Might need to modify some desktop files to get it to work right<pre><code>MOZ_ENABLE_WAYLAND=1 firefox
-</code></pre>
+</code>
+</pre>
+<p></p><b>FIREFOX:</b> Might need to modify some desktop files to get it to work right<pre>
+<code>MOZ_ENABLE_WAYLAND=1 firefox
+</code>
+</pre>
 ** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea<br/>
 ** Firefox crashed more often for me in wayland but that may or may not happen to you<br/>
 <br/>
@@ -74,18 +78,18 @@ Compared to the choice on X11, bars in wayland are a bit ehhhh ig<br/>
 There are only 2 that I found:<br/>
 <br/>
 <ul>
-<li>Yambar:</li>
-	<a href="https://codeberg.org/dnkl/yambar">https://codeberg.org/dnkl/yambar</a><li>Waybar:</li>
-	<a href="https://github.com/Alexays/Waybar">https://github.com/Alexays/Waybar</a></ul><br/>Since I couldn't compile yambar even tho it seems pretty nice :/ I was forced to use waybar<br/>
+<li>Yambar:	<a href="https://codeberg.org/dnkl/yambar">https://codeberg.org/dnkl/yambar</a></li>
+<li>Waybar:	<a href="https://github.com/Alexays/Waybar">https://github.com/Alexays/Waybar</a></li>
+</ul><br/>Since I couldn't compile yambar even tho it seems pretty nice :/ I was forced to use waybar<br/>
 Both of them take after polybar very much which I personally am not much a fan off<br/>
 but ig it makes sense, If I were to revisit the topic of bars I will definitely look into using<br/>
 The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.<br/>
 <br/>
----<br/>
+<hr />
 🚧 This has been archived since I have not had the time to give a proper look at wayland, I do plan on looking at it again at some point,<br/>
 since whether I like it or not, it seems to be the future of Linux Desktop<br/>
----<br/>
-</details></ul><footer>
+<hr />
+<footer>
 <a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>

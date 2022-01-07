@@ -44,7 +44,7 @@ __start=$(ms)
 if contains "$transformers" "initial_transformer"; then
 	dbg "Running initial transformer."
 	timer start
-	file=$(initial_transformer < ${1} 2> /dev/stderr)
+	file=$(initial_transformer < "${1}" 2> /dev/stderr)
 	timer end
 fi
 
@@ -98,7 +98,7 @@ _line_number=0
 				# Modified Contents
 				# dbg ">>> Passing this as main content: " "$(snip "$original_contents")"
 				# dbg ">>> Passing this as arguments" "${line###BEGIN $tranformer}"
-				new_contents="$($ntransformer  "$(snip "$original_contents")" "${line###BEGIN $tranformer}" )"
+				new_contents="$($ntransformer  "$(snip "$original_contents")" "${line##"#BEGIN $tranformer"}" )"
 				
 				# Entire Modified File Contents
 				new_file_contents=${file/"$original_contents"/"$new_contents"}
@@ -123,9 +123,9 @@ main "$1"
 if contains "$transformers" "final_transformer"; then
 	dbg "Final Transformer"
 	timer start
-	final_transformer <<< "$file"
+	final_transformer "$file"
 	timer end
 fi
 
 # echo "$file"
-timer end $__start
+timer end "$__start"

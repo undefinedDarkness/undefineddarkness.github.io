@@ -46,13 +46,14 @@ You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?
 <ul>
 <li>Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a></li>
 <li>Run <code>XLaunch</code></li>
-<li>Select 'Multiple Windows' if you want applications to behave like regular applications in windows or</li>
-one large screen if you want to work within a linux de / wm<li>Start with no client</li>
+<li>Select 'Multiple Windows' if you want applications to behave like regular applications in windows orone large screen if you want to work within a linux de / wm</li>
+<li>Start with no client</li>
 <li>Tick disable access control !IMPORTANT!</li>
 <li>Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> </li>
 <li>Run</li>
 </ul><br/>& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:<br/>
-<pre><code><span style="color:#a94598; font-weight:bold">case</span> <span style="color:#38781c">&quot;$(uname -r)&quot;</span> <span style="color:#a94598; font-weight:bold">in</span>
+<pre>
+<code><span style="color:#a94598; font-weight:bold">case</span> <span style="color:#38781c">&quot;$(uname -r)&quot;</span> <span style="color:#a94598; font-weight:bold">in</span>
 	<span style="color:#181818">&ast;</span>microsoft-standard-WSL2<span style="color:#181818">)</span>
 		<span style="color:#898989; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
 		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
@@ -61,7 +62,8 @@ one large screen if you want to work within a linux de / wm<li>Start with no cli
 		<span style="color:#48bac2; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#181818">=</span><span style="color:#c43e18">1</span>
 		<span style="color:#181818">;;</span>
 <span style="color:#a94598; font-weight:bold">esac</span>
-</code></pre>
+</code>
+</pre>
 <br/>
 Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,<br/>
 long as VcXsrv is running.<br/>
@@ -80,11 +82,11 @@ with each distribution's <code>/</code> directory.<br/>
 <h4> Web Servers </h4>
 Since I got confused a bit here, they work exactly how you would expect,<br/>
 You can access linux web servers from windows so<br/>
-<code>localhost:5000</code> can be accessed as <code>localhost:5000</code> on windows too<br/>
+<code>localhost:5000</code> can be accessed as `localhost:5000` on windows too<br/>
 <br/>
 <h3> De bloating Windows</h3>
 This powershell script works rather well: <a href="https://github.com/Sycnex/Windows10Debloater">https://github.com/Sycnex/Windows10Debloater</a> for most of the obvious things anyway.<br/>
-</details></ul><footer>
+<footer>
 <a href="/out/index.html">✈	Return To Index</a>
 </footer>
 </article>
