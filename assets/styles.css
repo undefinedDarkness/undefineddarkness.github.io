@@ -59,7 +59,12 @@ article {
 	position: relative;
 }
 
-a {color: inherit;}
+a {
+	color: inherit;
+	word-wrap: break-word;
+	word-break: break-word;
+	hyphens: auto;
+}
 
 h1{font-size: 2.5em;}
 h2{font-size: 2em;}

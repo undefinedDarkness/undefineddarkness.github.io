@@ -47,7 +47,7 @@ build-file () {
 			x=${x##out/}
 			header=${pre/\!TITLE\!/$x}
 			t=$(get-modified-time $1)
-			header=${header/\!TIME\!/$t}
+			# header=${header/\!TIME\!/$t}
 			printf '%s' "$header" > "$out"
 			bash tool/pond.sh "$1" 1>>$out #2>/dev/null # Debug fixes it somehow.. ;-;
 			printf '%s' "$post" >> "$out"
