@@ -21,6 +21,8 @@ I call it nesdown
 Nesdown due to implementation limitations won't handle any very complex structure, eg: nested lists
 This is where you use HTML if markdown fails you
 
+Nesdown tries its best to output valid HTML whenever possible
+
 TODO: Nested markdown inlines
 -->
 <!-- You can use markdown in HTML blocks, no problem  -->

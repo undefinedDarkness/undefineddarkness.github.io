@@ -84,7 +84,7 @@ gen-index () {
 			title=${title/'}'/}
 			[ -z "$title" ] && continue
 			f_date=$(get-date $file_l)
-			posts="$posts<li>${f_date}	<a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
+			posts="$posts<li><a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
 		done < <(ls --sort=time --time=creation --time-style='+%d-%b-%y' -1 -o -g $folder)
 		folder=${folder##*/}
 		folder=${folder^^}

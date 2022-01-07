@@ -223,14 +223,15 @@ initial_transformer () {
 			'>>>'*)
 				if ! (( inside_quote_block )); then
 					inside_quote_block=1
-					printf '<blockquote>\n'
+					printf '<figure>\n<blockquote>\n'
 					continue
 				else
 					inside_quote_block=0
 					local caption=${line#'>>>'}
 					caption=${caption# }
-					[ -n "$caption" ] && printf '<figcaption>%s</figcaption>\n' "$caption"
 					printf '</blockquote>\n'
+					[ -n "$caption" ] && printf '<figcaption>%s</figcaption>\n' "$caption"
+					printf '</figure>\n' 
 				fi
 				;;
 			'- '*)
@@ -276,14 +277,14 @@ final_transformer() {
 		re=${re/'`'/'<code>'}
 		re=${re/'`'/'</code>'}
 		content=${content/"$match"/"$re"}
-	done < <(grep -o '`.*`' <<< "$content")
+	done < <(grep -Po '`.*?`' <<< "$content")
 
 	perl -pe '
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
-		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy"></img>@g;
+		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy" />@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-		s!IM:(.*)!<span class="in-margin">\1</span>!g;
+		s!IM:([^<]*)!<span class="in-margin">\1</span>!g;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;

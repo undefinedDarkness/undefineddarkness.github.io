@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '2022-01-06'">
+<article style="--date-modified: '2022-01-07'">
 <!-- vim: set nolist: -->
 <h1> <span class="reset">🍱</span> Reference</h1>
 <div class='txt-c'><b>See the other modules:</b><br/>
@@ -57,7 +57,7 @@ are easily modifiable (if you know CSS). Phocus is a nice one to start with sinc
 *NOTE: Phocus is not a GTK2 theme so it will not show up in <code>lxappearance</code>, Set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead,<br/>
 this is because lxappearance expects a legacy gtk2 theme along with a gtk3, which modern themes do not have.*<br/>
 <br/>
-You can use <code>gtk-widget-factory</code> to test your theme, it comes packaged with `gtk-demos` on arch & debian.<br/>
+You can use <code>gtk-widget-factory</code> to test your theme, it comes packaged with <code>gtk-demos</code> on arch & debian.<br/>
 GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a><br/>
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)<br/>
 <br/>
@@ -121,7 +121,7 @@ endfunc
 </pre>
 <br/>
 but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,<br/>
-to use them more easily, create a keybinding for <code>SynStack()</code> or `require('hl-info').show_hl_captures()` respectivley<br/>
+to use them more easily, create a keybinding for <code>SynStack()</code> or <code>require('hl-info').show_hl_captures()</code> respectivley<br/>
 <br/>
 </details>
 <br/>
@@ -250,7 +250,7 @@ st patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/p
 <h4> Images in the Terminal</h4>
 This is an often sought after feature and often used with fetch scripts.<br/>
 Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">sixel</a>, though, so maybe that will end up being the standard.<br/>
-For terminals without image support entirely, there are hacks using <code>w3m-img</code> and `uberzerg` to get them...but they're finicky and don't just work™, so I'd recommend against them.<br/>
+For terminals without image support entirely, there are hacks using <code>w3m-img</code> and <code>uberzerg</code> to get them...but they're finicky and don't just work™, so I'd recommend against them.<br/>
 <a href="https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal">Full article</a><br/>
 <br/>
 But here's a overview:<br/>
@@ -268,7 +268,7 @@ Compositor is a thing that sits between your window manager and X11 and makes st
 If the version in your package repositories has the features you want, I'd suggest you use that instead.<br/>
 <br/>
 <h4> I just want transparency and or shadow</h4>
-You're in luck, lots of choice for you. You can use <code>picom</code> / `xcompmgr` / `compton`, anything you want and generally it'll just work™™™<br/>
+You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™™™<br/>
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
@@ -311,7 +311,7 @@ snippet to configure animations on dccsillag or pijulius<br/>
 </pre>
 <br/>
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a><br/>
-To get a window class for a exclude / include, use <code>xwininfo</code> or `xprop` & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.<br/>
+To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.<br/>
 <br/>
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
 </details>
@@ -336,7 +336,7 @@ Googling will also get you a bit of resources .<br/>
 <h4> Tiled Wallpapers</h4>
 These are wallpapers that tiled like tiles in a pattern, <a href="/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp">example</a> repeated over your entire screen.<br/>
 Their usage is fairly simple:<br/>
-<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use `xsetroot -bitmap |path-to-bitmap-wallpaper|`, or manually tile it in your image editor of choice.<br/>
+<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code>, or manually tile it in your image editor of choice.<br/>
 <br/>
 You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a>, Their site has a bunch of cool ricing related stuff too.<br/>
 </details>

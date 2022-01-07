@@ -9,7 +9,7 @@
 </head>
 <body>
 <article style="--date-modified: '2022-01-07'">
-<header><img src="/assets/images/nes-export.webp" alt="" title="" loading="lazy"></img><br/>
+<header><img src="/assets/images/nes-export.webp" alt="" title="" loading="lazy" /><br/>
 <h1> Lorem Ipsum: Test Page</h1>
 </header><!-- This page documents my own additions to GFM Markdown<br/>
 Centered around being really easy to remember<br/>
@@ -28,6 +28,8 @@ I call it nesdown<br/>
 <br/>
 Nesdown due to implementation limitations won't handle any very complex structure, eg: nested lists<br/>
 This is where you use HTML if markdown fails you<br/>
+<br/>
+Nesdown tries its best to output valid HTML whenever possible<br/>
 <br/>
 TODO: Nested markdown inlines<br/>
 --><br/>
@@ -82,8 +84,8 @@ Testing list<br/>
 I guess they do :)<br/>
 </details>
 <br/>
-<!-- <span class="in-margin">... will add <code>...</code> to the article margin --></span>
-I should be next to a percent sign <span class="in-margin">%<br/></span>
+<!-- <span class="in-margin">... will add </span><code>...</code> to the article margin -->
+I should be next to a percent sign <span class="in-margin">%</span><br/>
 <br/>
 What about tables?<br/>
 <!-- My own table syntax:<br/>
@@ -111,12 +113,14 @@ Columns are seperated by any amount of spaces and at least 1 tab.<br/>
 <br/>
 Block Quotes & Captions:<br/>
 <!-- Pretty simple here too, the last line automatically becomes the caption -->
+<figure>
 <blockquote>
 John wore clothing made of camel’s hair, with a leather belt around his waist,<br/>
 and he ate locusts and wild honey. <br/>
 And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”<br/>
-<figcaption>Mark 1:6-8</figcaption>
 </blockquote>
+<figcaption>Mark 1:6-8</figcaption>
+</figure>
 <br/>
 <br/>
 <h2> Edge Cases</h2>
