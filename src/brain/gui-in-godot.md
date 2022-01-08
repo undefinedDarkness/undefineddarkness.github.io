@@ -1,6 +1,6 @@
 <header>
 <img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" />
-# Using Godot for GUI Development
+# My experiance using Godot
 </header>
 These are the results of my experiment with using the [Godot game engine](https://godotengine.org/) for designing 
 [a toy music player](https://github.com/undefinedDarkness/cello),
@@ -9,6 +9,8 @@ I have marked things that would be either entirely or partially fixed by Godot 4
 Many of the proposed solutions to the problems I have mentioned are more than likely really naive as I have not fully thought them through yet
 It is also likely that Godot has good reasons for doing things in a particular way that I have not yet noticed  (I am certain they are much smarter people than me)
 Or that there are GitHub issues open for some of the problems I found, I have not checked thoroughly
+
+* NOTE: A lot of this is just me nitpicking...
 
 ## Things I loved
 - The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;

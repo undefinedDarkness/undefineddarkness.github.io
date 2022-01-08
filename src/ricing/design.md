@@ -1,17 +1,6 @@
 # {🎨} Design
 Stuff related to the general design of a rice
 
-#f Colorscheme
-Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:
-
-![structure](/assets/images/colorscheme-structure.webp)
-
-This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.
-If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),
-Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black
-*Using different shades of one color for each of those is a very bad idea*
-While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.
-#END f
 #f Typography
 > The style and appearance of printed matter.
 
@@ -58,6 +47,7 @@ Nerd fonts are patched versions of common fonts you know and love to include a l
 
 Where to get: https://www.nerdfonts.com/font-downloads (Get the one for the font you want)
 What icons are there: https://www.nerdfonts.com/cheat-sheet
+You then copy the icons from the site (^^) and use them in whatever text application you so choose.
 How to patch your own font:
 ```sh
 # Download the nerd fonts patcher and the glyphs it needs.
@@ -71,6 +61,12 @@ git sparse-checkout add src/glyphs
 ```
 
 #### Bitmap Fonts
+
+<div class="split">
+<img height="400" class='pxl' src="/assets/images/bitmap-eg.webp" title="Without AA" alt="Without AA" />
+<img height="400" class='pxl' src="/assets/images/aa-eg.webp" title="With AA" alt="With AA" />
+</div>
+
 [What are they?](http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm)
 
 Effectively this means,
@@ -82,6 +78,8 @@ All of which leads to pretty unique pixilated look that a lot of people like.
 Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,
 Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or [fonttosfnt](https://gitlab.freedesktop.org/xorg/app/fonttosfnt),
 See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
+
+You can also get GTK applications (this includes most browsers) to not antialias by using: `Xft.antialias: 0` in xresources.
 
 ##### Commonly used bitmap fonts:
 <div class='showcase horizontal'>

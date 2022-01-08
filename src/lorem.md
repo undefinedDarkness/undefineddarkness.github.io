@@ -102,6 +102,9 @@ and he ate locusts and wild honey.
 And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”
 >>> Mark 1:6-8
 
+The design of the site was havily inspired by: https://www.kunisch.info/
+and some of the fonts were chosen with the help of cae
+
 ## Edge Cases
 Inline in code sections:
 ```sh

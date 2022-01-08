@@ -20,6 +20,15 @@ List of ricing software you can use: <a href="https://github.com/fosslife/awesom
 <h2> How do I use X?</h2>
 <br/>
 <details>
+<summary>Emacs</summary>
+The youtube channel <a href="https://www.youtube.com/c/systemcrafters">System Crafters</a> has already created a significant amount of resources regarding getting starting with emacs, <br/>
+You can find them <a href="https://wiki.systemcrafters.cc/emacs/">here</a> - See the Emacs From Scratch series of an indepth series of writinig your own configuraton,<br/>
+But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D<br/>
+<br/>
+Customizing emacs is 90% about your own passion, There is a lot you can do<br/>
+</details>
+<br/>
+<details>
 <summary>Firefox</summary>
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:<br/>
 <ul>
@@ -106,10 +115,10 @@ This is an interesting one. If you use a premade colorscheme, chances are, a <a 
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.<br/>
 <br/>
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.<br/>
-See more on <a href="/out/knowledge/vim.html">vim & neovim</a>.<br/>
 <br/>
 How to make a vim colorscheme: <a href="https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/">Reddit</a><br/>
 Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a><br/>
+See more on <a href="/out/knowledge/vim.html">Vim & Neovim</a>.<br/>
 <br/>
 <h4> Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
@@ -275,12 +284,12 @@ You're in luck, lots of choice for you. You can use <code>picom</code> / <code>x
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
-⛔: <i>Forcing application transparency without blur is also fairly shitty.</i><br/>
+<i>Forcing application transparency has very little purpose</i> <span class="in-margin">⛔<br/></span>
 <br/>
 <h4> I want blur too</h4>
 Just build the latest <a href="https://github.com/yshui/picom">master</a> and use picom with the --experimental-backends option.<br/>
 To build picom from source, follow the instructions in the <a href="https://github.com/yshui/picom#build">README</a><br/>
-⛔: <i>Using blur is cringe and in 99.99% of cases is unnecessary or used in a rather ugly manner.</i><br/>
+<i>Be very caution when using blur, excessive blur can make a rice look bad very easily.</i> <span class="in-margin">⛔<br/></span>
 <br/>
 <h4> I want rounded corners too</h4>
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.<br/>
@@ -321,6 +330,48 @@ To get a window class for a exclude / include, use <code>xwininfo</code> or <cod
 <br/>
 <details>
 <summary>Wallpapers</summary>
+Good places to look for wallpapers are:<br/>
+<ul>
+<li><a href="https://images.google.com/">https://images.google.com/</a><br/>
+Includes a search by colour and resolution, so you can find a wallpaper matching your screen size.<br/>
+</li>
+<li><a href="https://subtlepatterns.com/">https://subtlepatterns.com/</a><br/>
+Tiling wallpapers that are provided as backgrounds for websites.<br/>
+</li>
+<li><a href="https://unsplash.com/">https://unsplash.com/</a><br/>
+A source of free quality high res photos, all released under creative commons licensing so are free to use.<br/>
+</li>
+<li><a href="https://wallhaven.cc/">https://wallhaven.cc/</a><br/>
+A clone of wallbase after that was shut down, has searches by colour, resolution.<br/>
+</li>
+<li><a href="https://web.archive.org/web/20130708152642/http://squidfingers.com/patterns">https://web.archive.org/web/20130708152642/http://squidfingers.com/patterns</a><br/>
+158 tiling wallpapers. [archive link because normal page is dead]<br/>
+</li>
+<li><a href="http://simpledesktops.com/">http://simpledesktops.com/</a><br/>
+Wonderful sets of minimal wallpapers.<br/>
+</li>
+</ul><br/>Source: <a href="https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers">https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers</a><br/>
+<br/>
+A few personal repositories of wallpapers (usually high quality and categorized):<br/>
+<ul>
+<li>Oblivousofcrap's: <a href="https://app.box.com/s/tsq119oyh0o0wagqx4a4nx74hyggvvxc">https://app.box.com/s/tsq119oyh0o0wagqx4a4nx74hyggvvxc</a> <br/>
+</li>
+<li>BlueJive's: <a href="https://github.com/Blu3Jive001/Wallpapers">https://github.com/Blu3Jive001/Wallpapers</a><br/>
+</li>
+<li>Exo's: <a href="https://gitlab.com/exorcist365/wallpapers">https://gitlab.com/exorcist365/wallpapers</a> (This one is good if you use gruvbox)<br/>
+</li>
+<li>Kraken's: <a href="https://mega.nz/folder/PpohCIpT#tII4Q60AFpgfnEYFywwlow">https://mega.nz/folder/PpohCIpT#tII4Q60AFpgfnEYFywwlow</a> (the biggest by far)<br/>
+</li>
+<li>Frenzy's: <a href="https://github.com/FrenzyExists/wallpapers">https://github.com/FrenzyExists/wallpapers</a><br/>
+</li>
+</ul><br/>You could try the distro wallpaper competitions / repositories too, for example:<br/>
+here's Ubuntu's competition for 21.10: <a href="https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8">https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8</a><br/>
+Xubuntu's competition for 16.04: <a href="https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/">https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/</a><br/>
+PopOS's repository: <a href="https://github.com/pop-os/wallpapers/tree/master/original">https://github.com/pop-os/wallpapers/tree/master/original</a><br/>
+<br/>
+I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that one is definatley very NSFW<br/>
+<br/>
+Really depends on what you're doing and looking for tho..<br/>
 <br/>
 <h4> Animated Wallpapers</h4>
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):<br/>
@@ -352,7 +403,8 @@ Picom Animations - nuxsh#9338<br/>
 Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 <br/>
 Document has been edited by asdadsdafdfdssfd#7660<br/>
 <footer>
-<a href="/out/index.html">✈	Return To Index</a>
+<span class='in-margin'>✈</span>
+<a href="/out/index.html">Return To Index</a>
 </footer>
 </article>
 </body>

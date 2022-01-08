@@ -10,6 +10,14 @@ List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 
 ## How do I use X?
 
+#f Emacs
+The youtube channel [System Crafters](https://www.youtube.com/c/systemcrafters) has already created a significant amount of resources regarding getting starting with emacs, 
+You can find them [here](https://wiki.systemcrafters.cc/emacs/) - See the Emacs From Scratch series of an indepth series of writinig your own configuraton,
+But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D
+
+Customizing emacs is 90% about your own passion, There is a lot you can do
+#END f
+
 #f Firefox
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:
 - [Getting started guide](https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials)
@@ -88,10 +96,10 @@ This is an interesting one. If you use a premade colorscheme, chances are, a [ba
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.
 
 Besides colors, in terms of functionality you are free to find / forge whatever to fit your needs.
-See more on [vim & neovim](/out/knowledge/vim.html).
 
 How to make a vim colorscheme: [Reddit](https://www.reddit.com/r/vim/comments/8mvc6s/how_to_make_a_color_scheme_for_vim/)
 Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
+See more on [Vim & Neovim](/out/knowledge/vim.html).
 
 #### Get highlight group under cursor
 Since i've been writing a port for [chocolate](https://gitlab.com/snakedye/chocolate), this is a problem i've encountered, the real basic solution is to do:
@@ -162,12 +170,12 @@ You're in luck, lots of choice for you. You can use `picom` / `xcompmgr` / `comp
 
 I still suggest using picom as it has the latest technology / optimizations, beside being the
 most commonly used & most supported one.
-⛔: *Forcing application transparency without blur is also fairly shitty.*
+*Forcing application transparency has very little purpose* IM:⛔
 
 #### I want blur too
 Just build the latest [master](https://github.com/yshui/picom) and use picom with the --experimental-backends option.
 To build picom from source, follow the instructions in the [README](https://github.com/yshui/picom#build)
-⛔: *Using blur is cringe and in 99.99% of cases is unnecessary or used in a rather ugly manner.*
+*Be very caution when using blur, excessive blur can make a rice look bad very easily.* IM:⛔
 
 #### I want rounded corners too
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.
@@ -206,6 +214,37 @@ To get a window class for a exclude / include, use `xwininfo` or `xprop` & click
 #END f
 
 #f Wallpapers
+Good places to look for wallpapers are:
+- https://images.google.com/
+Includes a search by colour and resolution, so you can find a wallpaper matching your screen size.
+- https://subtlepatterns.com/
+Tiling wallpapers that are provided as backgrounds for websites.
+- https://unsplash.com/
+A source of free quality high res photos, all released under creative commons licensing so are free to use.
+- https://wallhaven.cc/
+A clone of wallbase after that was shut down, has searches by colour, resolution.
+- https://web.archive.org/web/20130708152642/http://squidfingers.com/patterns
+158 tiling wallpapers. [archive link because normal page is dead]
+- http://simpledesktops.com/
+Wonderful sets of minimal wallpapers.
+
+Source: https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers
+
+A few personal repositories of wallpapers (usually high quality and categorized):
+- Oblivousofcrap's: https://app.box.com/s/tsq119oyh0o0wagqx4a4nx74hyggvvxc 
+- BlueJive's: https://github.com/Blu3Jive001/Wallpapers
+- Exo's: https://gitlab.com/exorcist365/wallpapers (This one is good if you use gruvbox)
+- Kraken's: https://mega.nz/folder/PpohCIpT#tII4Q60AFpgfnEYFywwlow (the biggest by far)
+- Frenzy's: https://github.com/FrenzyExists/wallpapers
+
+You could try the distro wallpaper competitions / repositories too, for example:
+here's Ubuntu's competition for 21.10: https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8
+Xubuntu's competition for 16.04: https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/
+PopOS's repository: https://github.com/pop-os/wallpapers/tree/master/original
+
+I like [the /wg/ board too](https://boards.4chan.org/wg/) but that one is definatley very NSFW
+
+Really depends on what you're doing and looking for tho..
 
 #### Animated Wallpapers
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):

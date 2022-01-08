@@ -13,18 +13,6 @@
 Stuff related to the general design of a rice<br/>
 <br/>
 <details>
-<summary>Colorscheme</summary>
-Quite possibly the most important part of a rice is the colorscheme you use, for most ricing purposes, they are structured like this:<br/>
-<br/>
-<img src="/assets/images/colorscheme-structure.webp" alt="structure" title="structure" loading="lazy" /><br/>
-<br/>
-This is what most colorschemes will have for a terminal. Of course when making a colorscheme for an editor (vim, emacs etc) a lot more colors are used.<br/>
-If you are going to make a colorscheme, You should also follow this structure, as in have 8 dim colors and 8 bright colors. (It is quite common to have the dim colors be the same as the bright colors which is fine),<br/>
-Those 8 should be Red, Green, Blue, Yellow, Cyan, Magenta, White, Black<br/>
-<i>Using different shades of one color for each of those is a very bad idea</i><br/>
-While this is enough for most terminals, Adapting this limited amount of colors to other GUI apps is difficult, in which case, having multiple shades of the background color and of other common colors would be useful.<br/>
-</details>
-<details>
 <summary>Typography</summary>
 <q>The style and appearance of printed matter.</q><br/>
 <br/>
@@ -68,6 +56,7 @@ Nerd fonts are patched versions of common fonts you know and love to include a l
 <br/>
 Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)<br/>
 What icons are there: <a href="https://www.nerdfonts.com/cheat-sheet">https://www.nerdfonts.com/cheat-sheet</a><br/>
+You then copy the icons from the site (^^) and use them in whatever text application you so choose.<br/>
 How to patch your own font:<br/>
 <pre>
 <code><span style="color:#898989; font-style:italic"># Download the nerd fonts patcher and the glyphs it needs.</span>
@@ -82,6 +71,8 @@ git sparse-checkout add src<span style="color:#181818">/</span>glyphs
 </pre>
 <br/>
 <h4> Bitmap Fonts</h4>
+<br/>
+<div class="split"><img height="400" class='pxl' src="/assets/images/bitmap-eg.webp" title="Without AA" alt="Without AA" /><img height="400" class='pxl' src="/assets/images/aa-eg.webp" title="With AA" alt="With AA" /></div><br/>
 <a href="http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm">What are they?</a><br/>
 <br/>
 Effectively this means,<br/>
@@ -93,6 +84,8 @@ All of which leads to pretty unique pixilated look that a lot of people like.<br
 Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,<br/>
 Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,<br/>
 See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango">https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango</a><br/>
+<br/>
+You can also get GTK applications (this includes most browsers) to not antialias by using: <code>Xft.antialias: 0</code> in xresources.<br/>
 <br/>
 <h5> Commonly used bitmap fonts:</h5>
 <div class='showcase horizontal'><a href="https://github.com/slavfox/Cozette"><img src="/assets/images/font-previews/CozetteVector.png" alt="Cozette" title="Cozette" loading="lazy" /></a><br/>
@@ -121,7 +114,8 @@ Margin is spacing between the box and its siblings / parent box.<br/>
 <img src="/assets/images/box-model.webp" alt="Box Model Illustration" title="Box Model Illustration" loading="lazy" /><br/>
 </details>
 <footer>
-<a href="/out/index.html">✈	Return To Index</a>
+<span class='in-margin'>✈</span>
+<a href="/out/index.html">Return To Index</a>
 </footer>
 </article>
 </body>

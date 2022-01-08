@@ -5,11 +5,11 @@ with any of them, These are just my opinons on them from what ive heard and what
 So please take this with a grain of salt, 🧂  
 
 #TABLE	.tierlist
-I want to use this	Rust	Clojure	Kotlin	Typescript
-Interesting		 	Haskell	Erlang	OCaml
-Decent			 	Javascript	Lua	Dart	Swift	Scala	Racket	Vala
-Just die already 	Python	C	C++	C#	Java	PHP
-WHYYYYY			 	Perl	Go	Ruby
+Happy	    Rust		Kotlin	C#		Typescript
+Interested	Haskell		Erlang	Clojure
+Boring		Javascript	Lua		Dart	Python
+Stinky		C			Java	PHP
+Not Good	Go			Perl	ELisp
 #END TABLE
 
 The languages in "Interesting" are ones I dont know particularly well...
