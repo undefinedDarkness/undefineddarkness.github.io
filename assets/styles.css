@@ -136,16 +136,14 @@ table {
 	border: 1px solid;
 }
 
-.tbl-showcase { border: none; border-collapse: separate; border-spacing: 1em 0; }
-
 table * {
 	text-align: center;
 	margin: 0;
 }
 
-table:not(.tbl-showcase) td:first-child {text-align: left;}
+table td:first-child {text-align: left;}
 th,td {padding: 8px;} 
-table:not(.tbl-showcase) td,table:not(.tbl-showcase) th {border-right: 1px solid;}
+table td,table th {border-right: 1px solid;}
 th {white-space: nowrap;}
 thead tr, .tbl-showcase tr:first-child td {border-bottom: 1px solid;}
 

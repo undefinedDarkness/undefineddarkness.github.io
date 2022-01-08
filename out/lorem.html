@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '!TIME!'">
+<article>
 <header><img src="/assets/images/nes-export.webp" alt="" title="" loading="lazy" /><br/>
 <h1> Lorem Ipsum: Test Page</h1>
 </header><!-- This page documents my own additions to GFM Markdown<br/>
@@ -42,16 +42,26 @@ I am a <a href="https://example.com">link</a><br/>
 <code>1 &ast; 2 &ast; 3 = 3!</code><br/>
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated<br/>
 <q>A quote</q><br/>
+Newlines should intuitively<br/>
+be preserved...<br/>
 <br/>
 <hr />
 <br/>
 Testing list<br/>
 <ul>
-<li>Pumpkin</li>
-<li>Milk</li>
-<li>Eggs</li>
-<li>Flowers</li>
-<li>Carrots</li>
+<li>Pumpkin<br/>
+</li>
+<li>Milk<br/>
+</li>
+<li>Eggs<br/>
+</li>
+<li>Flowers<br/>
+</li>
+<li>Carrots<br/>
+</li>
+<li><a href="https://en.wikipedia.org/wiki/Coriander">Coriander</a><br/>
+is a spice.<br/>
+</li>
 </ul><br/>Checking for Syntax Highlighting:<br/>
 <pre>
 <code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
@@ -84,8 +94,8 @@ Testing list<br/>
 I guess they do :)<br/>
 </details>
 <br/>
-<!-- <span class="in-margin">... will add </span><code>...</code> to the article margin -->
-I should be next to a percent sign <span class="in-margin">%</span><br/>
+<!-- <span class="in-margin">... will add <code>...</code> to the article margin --></span>
+I should be next to a percent sign <span class="in-margin">%<br/></span>
 <br/>
 What about tables?<br/>
 <!-- My own table syntax:<br/>

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-<article style="--date-modified: '!TIME!'">
+<article>
 <h1> Using Windows</h1>
 <br/>
 This is gonna document my time, using the one and only Windows 10 :/<br/>
@@ -44,13 +44,21 @@ WSL-G is a work in progress and right now only available for windows insiders so
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)<br/>
 <br/>
 <ul>
-<li>Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a></li>
-<li>Run <code>XLaunch</code></li>
-<li>Select 'Multiple Windows' if you want applications to behave like regular applications in windows orone large screen if you want to work within a linux de / wm</li>
-<li>Start with no client</li>
-<li>Tick disable access control !IMPORTANT!</li>
-<li>Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> </li>
-<li>Run</li>
+<li>Install <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a><br/>
+</li>
+<li>Run <code>XLaunch</code><br/>
+</li>
+<li>Select 'Multiple Windows' if you want applications to behave like regular applications in windows or<br/>
+one large screen if you want to work within a linux de / wm<br/>
+</li>
+<li>Start with no client<br/>
+</li>
+<li>Tick disable access control !IMPORTANT!<br/>
+</li>
+<li>Add any additional arguments you may want from <a href="https://0x0.st/N0sO">https://0x0.st/N0sO</a> <br/>
+</li>
+<li>Run<br/>
+</li>
 </ul><br/>& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:<br/>
 <pre>
 <code><span style="color:#a94598; font-weight:bold">case</span> <span style="color:#38781c">&quot;$(uname -r)&quot;</span> <span style="color:#a94598; font-weight:bold">in</span>

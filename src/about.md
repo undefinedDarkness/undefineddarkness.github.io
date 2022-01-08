@@ -21,7 +21,6 @@ Anime/Manga Recommendations:
 - Tokyo Goul
 - Demon Slayer 
 </div>
-
 <div>
 You can find me on
 

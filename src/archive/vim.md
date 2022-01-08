@@ -33,7 +33,7 @@ If you're using neovim, [nvim-tree](kyazdani42/nvim-tree.lua) will work much bet
 
 <!-- Replace with something better -->
 - <a href="https://github.com/itchyny/lightline.vim">Lightline</a>
-I don't use a status line but if I did I would use lightline, it works really well and is easy to customize ([MEME](https://i.imgflip.com/5pb8qw.jpg))
+I don't use a status line but if I did I would use lightline, it works really well and is easy to customize IM:[M](https://i.imgflip.com/5pb8qw.jpg)
 
 - <a href="https://github.com/nvim-telescope/telescope.nvim">🔭 Telescope</a>
 I wish I had learnt about this before, its a really nice plugin, it generates a menu for you that allows to
@@ -145,7 +145,7 @@ simpler to just use ALE for those, fine for stuff like GCC or Shell check tho
 #END f
 
 #f Spell Checking & Dictionary Completion
-As much as I hate to link a luke smith video, this one actually explains stuff so here ya go: https://www.youtube.com/watch?v=ez1XBUqbS68
+As much as I hate to link a luke smith video, this one actually explains stuff so here you go: https://www.youtube.com/watch?v=ez1XBUqbS68
 But basically:
 - Enable spell checking with `:set spell`
 - Add words to the white list with `zg`

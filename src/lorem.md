@@ -35,6 +35,8 @@ I am a [link](https://example.com)
 `1 * 2 * 3 = 3!`
 https://www.youtube.com/watch?v=dQw4w9WgXcQ - Link is automatically generated
 > A quote
+Newlines should intuitively
+be preserved...
 
 ---
 
@@ -44,6 +46,8 @@ Testing list
 - Eggs
 - Flowers
 - Carrots
+- [Coriander](https://en.wikipedia.org/wiki/Coriander)
+is a spice.
 
 Checking for Syntax Highlighting:
 ```c

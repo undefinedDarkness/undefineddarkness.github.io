@@ -19,58 +19,6 @@ __syntax_hl () {
 		--no-version-info | sed 's/*/\&ast;/g;'
 }
 
-# Replaced. {{{
-__SLOW_syntax_hl () {
-	lang="$2"
-	f=$(mktemp)
-	echo "$1" | head -n -1 | nvim -n --headless \
-		+"let g:html_no_progress = 1"\
-		+"let g:html_ignore_folding = 1"\
-		+'let g:html_prevent_copy = "fn"'\
-		+"set ft=$2"\
-		+"runtime! syntax/2html.vim"\
-		+"wq! $f"\
-		+"q!" - 2> /dev/null 
-	l=$(cat "$f")
-	
-	# This is soo dumb ;-;
-	(
-	style=${l#</style>*}
-	style=${style%*<style>}
-	style=${style#*<!--}
-	style=${style%%-->*}
-	style=${style/pre \{/pre.vim-highlight \{}
-	style=${style//input/.vim-highlight input}
-	IFS=$'\n' 
-	read -d '' -r -a existing_styles < ./assets/styles.css
-
-	while read -r line; do
-		case "$line" in
-			"*"*|"body"*)
-				continue
-				;;
-		esac
-		if containsArray "$line" "${existing_styles[@]}"; then
-				continue
-			else
-			# assume style is not found.
-			existing_styles+=("$line")
-		fi
-	done <<< "$style"
-	printf '%s' "${existing_styles[*]}" > ./assets/styles.css
-	) &
-
-	code=${l%</pre>*}
-	code=${code#*<pre id=\'vimCodeElement\'>$'\n'}
-
-	echo "<pre class=\"vim-highlight\">
-	<code class=\"language-$lang\">$code</code>
-	</pre>"
-
-	rm "$f"
-}
-# }}}
-
 # TRANSFORMERS:
 
 # Put the content in a box. Simple enough
@@ -255,7 +203,7 @@ initial_transformer () {
 		fi
 
 		
-		if (( inside_code_block == 0 )) && (( inside_list == 0 )); then
+		if (( inside_code_block == 0 )) ; then
 			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]]; then
 				# dbg "$line starts with #"
 				printf '\n'; 
@@ -277,14 +225,14 @@ final_transformer() {
 		re=${re/'`'/'<code>'}
 		re=${re/'`'/'</code>'}
 		content=${content/"$match"/"$re"}
-	done < <(grep -Po '`.*?`' <<< "$content")
+	done < <(grep -Po "\`.*?\`" <<< "$content")
 
 	perl -pe '
 		s!\*\*(.+?)\*\*!<b>\1</b>!g;
 		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy" />@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-		s!IM:([^<]*)!<span class="in-margin">\1</span>!g;
+		s!IM:(.*)$!<span class="in-margin">\1</span>!gm;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;

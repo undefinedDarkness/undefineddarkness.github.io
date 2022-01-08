@@ -43,7 +43,9 @@ Try explaining it in simple language.
 #END f
 
 #f Most common parts of a rice
+
 <img class="pxl" alt="illustration" src="/assets/images/ricing-guide.webp" />
+
 #END f
 
 #f Window Manager Tier list
