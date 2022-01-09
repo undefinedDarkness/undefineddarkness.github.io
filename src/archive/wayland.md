@@ -1,5 +1,5 @@
-<div>
-<pre>
+<header>
+```
                   ,____
                    |---.\
            ___     |    `
@@ -17,7 +17,9 @@
      /         \  |
     (_.-.__.__./  /
 
-</pre><h1><i>Got a display server to kill</i></h1></div>
+```
+<h1><i>Got a display server to kill</i></h1>
+</header>
 This is intended to chronicle my adventures using Wayland
 The primary reason being terrible performance in X11 but that was later resolved. :)
 The journey continues tho 📔
@@ -84,4 +86,3 @@ The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purp
 ---
 🚧 This has been archived since I have not had the time to give a proper look at wayland, I do plan on looking at it again at some point,
 since whether I like it or not, it seems to be the future of Linux Desktop
----

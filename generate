@@ -31,7 +31,8 @@ get-modified-time () {
 
 build-file () {
 	out=${1/src/out}
-
+	mkdir -p "$(dirname $out)"
+	
 	case "${out#*.}" in
 		"html")
 			cp -f "$1" "$out"
@@ -40,7 +41,6 @@ build-file () {
 		"md")
 			out=${out/.${out#*.}/.html}
 
-			mkdir -p "${out%%.*}"
 			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
 
 			x=${out%%.html}
@@ -56,39 +56,20 @@ build-file () {
 
 }
 
-get-title () {
-	case "${1#*.}" in
-		"html")
-			grep -Po -m1 '<(h1|title)>\K.*(?=<\/(\1)>)' $1
-			;;
-		"md")
-			grep -Po -m1 '<h1>\K.*(?=<\/h1>)|# \K.*' $1 
-			;;
-	esac
-}
-
-get-date () {
-	printf '%s' "$4"
-}
-
 # Generate Article Index: {{{
 gen-index () {
 	cp ./src/index.html ./out/index.html
-	find src/ -type d -not -path 'src/' | while read -r folder; do
-		posts=''
-		while read -r file_l; do
-			[[ $file_l == total* ]] && continue
-			file=${file_l##* }
-			title=$(get-title $folder/$file)
-			title=${title/'{'/}
-			title=${title/'}'/}
-			[ -z "$title" ] && continue
-			f_date=$(get-date $file_l)
-			posts="$posts<li><a href=\"${folder##*/}/${file/.md/.html}\">${title}</a></li>"
-		done < <(ls --sort=time --time=creation --time-style='+%d-%b-%y' -1 -o -g $folder)
-		folder=${folder##*/}
-		folder=${folder^^}
-		sed -i "s@!POSTS-${folder}!@${posts}@g" ./out/index.html #> ./out/index.html
+	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
+		local posts=""
+		while read -r match; do
+			file=${match%:*}
+			title=${match#*:}
+			title=${title#*'<h1>'}
+			title=${title%'</h1>'*}
+			posts+="<li><a href='/$file'>$title</a></li>\n"
+		done < <(grep -roH '<h1>.*</h1>' ${folder} )
+		folder=${folder#*/}
+		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
 	done
 	printf "Generated Article Index\n"
 	pkill --signal USR1 ${server%% *}
@@ -96,7 +77,7 @@ gen-index () {
 # }}}
 
 post-build () {
-		gen-index
+	gen-index
 }
 
 # Optimize Images: {{{
@@ -135,6 +116,8 @@ case $1 in
 
 	# Serve files with hot reloading
 	live)
+		$server &
+
 		paths=$( find './src/' -name '*.md' )
 		paths+='\n'
 		paths+=$( find './tool' -name '*.sh' )
@@ -154,6 +137,10 @@ case $1 in
 		while read -r file; do
 			build-file "$file" &
 		done < <(find src -name "*.md" -or -name "*.html")
+
+		for job in $(jobs -p); do
+			wait "$job"
+		done
 
 		post-build
 

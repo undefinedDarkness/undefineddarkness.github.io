@@ -12,7 +12,8 @@ Generally you will need 3 font faces:
 
 More on the differences between serif, sans-serif and mono space: https://www.canva.com/learn/serif-vs-sans-serif-fonts/
 
-You can find most of them on [Google Fonts](https://fonts.google.com)
+You can find most of them on [Google Fonts](https://fonts.google.com);
+More on fonts: https://github.com/wooosh/themewiki/blob/master/guide/fonts.md
 Here are the fonts I personally like for each one:
 
 #### Mono space:

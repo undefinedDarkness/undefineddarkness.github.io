@@ -1,24 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap');
-
-body, html, article {
-	width: 100%;
-	height: 100%;
+/* Global */
+* {
+	box-sizing: border-box; 
+	position: relative;
 }
 
 :root {
 	--margin: -0.8em;
 	--fancy: 'Fraunces', cursive;
+	--normal: 'Commissioner', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	--black: #181818;
 	--white: #fff;
 }
 
 /* General Document */
+body, html, article {
+	width: 100%;
+	height: 100%;
+}
+
 body {
 	tab-size: 4;
 	font-size: 1.4em;
 	overflow-x: hidden;
 	margin: 0;
-	font-family: "Commissioner", sans-serif;
+	font-family: var(--normal);
 	background-color: var(--white);
 	color: var(--black);
 }
@@ -27,37 +32,28 @@ h1,h2,h3 {
 	font-family: var(--fancy);
 	font-weight: 900;
 }
+h1{font-size: 2.5em;}
+h2{font-size: 2em;}
+h3{font-size:1.5em;}
 
 pre,code {
 	font-family: "Roboto Mono", monospace;
 	font-weight: 300;
 }
+pre {
+	text-align: left;
+	display: block;
+}
 
 article { padding: 5vh 3vw 0 15vw; }
-header img, .txt-c, hr, .split { margin-right: 12vw; } /* Right margins */
+header img, .txt-c, hr, .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
 
 a {
 	color: inherit;
 	word-wrap: break-word;
 	word-break: break-word;
 	hyphens: auto;
-}
-
-h1{font-size: 2.5em;}
-h2{font-size: 2em;}
-h3{font-size:1.5em;}
-
-pre {
-	text-align: left;
-	display: block;
-}
-
-.in-margin {
-	position: absolute;
-	left: -2.5em;	
-	user-select: none;
-	display: inline-block;
-	font-family: var(--fancy);
+	font-family: var(--normal);
 }
 
 figcaption { font-style: italic; }
@@ -67,11 +63,7 @@ li .in-margin {
 	left: -3em;
 }
 
-u {
-	text-decoration-color:var(--highlight);
-	text-decoration-thickness: 2px;
-}
-
+/* Animate <summary> icon */
 summary { font-size:larger; } 
 summary::marker { content:"" }
 summary::before {
@@ -121,17 +113,19 @@ table * {
 
 table td:first-child {text-align: left;}
 th,td {padding: 8px;} 
-table td,table th {border-right: 1px solid;}
+table td {border-right: 1px solid;}
 th {white-space: nowrap;}
 thead tr, .tbl-showcase tr:first-child td {border-bottom: 1px solid;}
 
-/* Global */
-* {
-	box-sizing: border-box; 
-	position: relative;
+thead th {
+	background: var(--black);
+	color: var(--white);
+	border-right: 1px solid var(--black);
 }
 
-/* Misc */
+
+
+/* Style heading image to the right */
 header img {
 	float: right;
 	border-radius: 5px;
@@ -139,20 +133,44 @@ header img {
 	max-height: 200px;
 }
 
+/* Small helper classes */
 .txt-c {text-align: center }
-.reset {font-weight: normal;}
-.pxl { image-rendering: pixelated; }
+.reset {font-weight: normal}
+.pxl-art {image-rendering: pixelated}
 
+/* Position something in the margin of content */
+.in-margin {
+	position: absolute;
+	left: -2.5em;	
+	user-select: none;
+	display: inline-block;
+	font-family: var(--fancy);
+}
+
+/* Split section vertically */
 .split {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
 
-.horizontal > p, .horizontal {
+/* Fit as many items as possible */
+.quad {
+	grid-template-columns: repeat(auto-fit, 19em);
+	grid-template-rows: 1fr 1fr;
+	display: grid;
+	grid-row-gap: 1em;
+}
+
+/* Arrange children horizontally */
+.horizontal:not(p) > p, .horizontal {
 	display: flex;
 	column-gap: 1em;
 }
-/*-- Showcase --*/
+
+/* Show scrollbars as required */
+.ovr-x { overflow-x: auto; }
+
+/*-- Showcase Row Module --*/
 .showcase { overflow-x: hidden;  }
 .showcase:hover { overflow-x: auto; }
 .showcase::-webkit-scrollbar { width: 0.8em }
@@ -160,10 +178,7 @@ header img {
 .showcase::-webkit-scrollbar-thumb { background: var(--black); }
 .showcase img { border: 1px solid; }
 
-.ovr-x { overflow-x: auto; }
-
-
-/* Tierlist */
+/* Tierlist Table Module */
 .tierlist tr:not(:last-child) {border-bottom: 1px solid var(--black);}
 .tierlist td:first-child {border-right: 1px solid var(--black);}
 .tierlist *, .tierlist { border: none; }

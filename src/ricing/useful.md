@@ -1,4 +1,4 @@
-# {📚} Useful Ricing Knowledge (FYI)
+# {📚} Useful Ricing Knowledge
 
 #f How to RTFM & Get help
 Read manuals whenever you can, those can be easily accessed for any installed software by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).
@@ -44,7 +44,7 @@ Try explaining it in simple language.
 
 #f Most common parts of a rice
 
-<img class="pxl" alt="illustration" src="/assets/images/ricing-guide.webp" />
+<img class="pxl-art" alt="illustration" src="/assets/images/ricing-guide.webp" />
 
 #END f
 

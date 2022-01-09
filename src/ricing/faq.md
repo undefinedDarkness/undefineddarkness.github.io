@@ -1,4 +1,12 @@
-# Common Jargon
+# Frequently Asked Questions
+
+- What distribution do I use?
+It really does not matter for the purpose of Ricing, If you are new to Linux,
+Ill recommend Ubuntu, Debian or Fedora to start with.
+- What do people use?
+See these [graphs](/out/ricing/graphs/index.html) using data from the UP discord server that I created
+
+## Common Jargon
 Covers many of the uncommon words used in relation to ricing or linux desktop usage in general,
 I have tried to make it in as simple english as possible but there will still be a few words that slip in.
 
