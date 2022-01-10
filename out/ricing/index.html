@@ -44,7 +44,7 @@ You can customize the User Interface (Chrome) with Firefox CSS, see the followin
 <br/>
 Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),<br/>
 The structure of the file is usually as follows:<br/>
-<pre>
+<pre class="showcase">
 <code><span style="color:#48bac2; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#181818">(</span><span style="color:#38781c">&quot;discord.com&quot;</span><span style="color:#181818">) {</span>
 	<span style="color:#898989; font-style:italic">/&ast; Your styles go here. &ast;/</span>
 <span style="color:#181818">}</span>
@@ -89,7 +89,7 @@ After installing, you have to make changes the following changes<br/>
 <b>For QT4:</b> Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:<br/>
 <br/>
 ~/.config/Trolltech.conf<br/>
-<pre>
+<pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">[Qt]</span>
 <span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span><span style="color:#9c5a02; font-weight:bold">GTK+</span>
 </code>
@@ -103,7 +103,7 @@ After installing, you have to make changes the following changes<br/>
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.<br/>
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:<br/>
 <br/>
-<pre>
+<pre class="showcase">
 <code>QT_QPA_PLATFORMTHEME<span style="color:#181818">=</span>gnome
 </code>
 </pre>
@@ -123,7 +123,7 @@ See more on <a href="/out/knowledge/vim.html">Vim & Neovim</a>.<br/>
 <br/>
 <h4> Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
-<pre>
+<pre class="showcase">
 <code>function<span style="color:#181818">!</span> SynStack<span style="color:#181818">()</span>
   <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span>exists<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&quot;&ast;synstack&quot;)</span>
     return
@@ -307,7 +307,7 @@ The following are popular as of October 2021:<br/>
 <br/>
 snippet to configure animations on dccsillag or pijulius<br/>
 <br/>
-<pre>
+<pre class="showcase">
 <code>&num; Animations
 &num; (requires pijulius)
 <span style="color:#a94598; font-weight:bold">animations</span> = true<span style="color:#181818">;</span>

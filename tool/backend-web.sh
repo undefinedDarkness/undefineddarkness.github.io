@@ -164,7 +164,7 @@ initial_transformer () {
 					local buffer=''
 					local language=${line#'```'}
 					inside_code_block=1
-					printf '<pre>\n<code>'
+					printf '<pre class="showcase">\n<code>'
 					continue
 				fi
 				;;

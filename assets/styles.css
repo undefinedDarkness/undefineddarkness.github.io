@@ -63,6 +63,10 @@ li .in-margin {
 	left: -3em;
 }
 
+blockquote { margin: 1em 0 1em 1em; }
+figcaption { margin-left: 1em; }
+figure { margin: 0; }
+
 /* Animate <summary> icon */
 summary { font-size:larger; } 
 summary::marker { content:"" }
@@ -171,7 +175,7 @@ header img {
 .ovr-x { overflow-x: auto; }
 
 /*-- Showcase Row Module --*/
-.showcase { overflow-x: hidden;  }
+.showcase  { overflow-x: hidden;  }
 .showcase:hover { overflow-x: auto; }
 .showcase::-webkit-scrollbar { width: 0.8em }
 .showcase::-webkit-scrollbar-track { border: 1px solid; }

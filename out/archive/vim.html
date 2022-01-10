@@ -69,7 +69,7 @@ Making the most out of vanilla vim features<br/>
 Using NetRW as a file tree.<br/>
 From <a href="https://shapeshed.com/vim-netrw/">this post</a><br/>
 tldr:<br/>
-<pre>
+<pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_banner <span style="color:#181818">=</span> <span style="color:#c43e18">0</span> <span style="color:#898989; font-style:italic">&quot; Hide the banner</span>
 <span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_browse_split <span style="color:#181818">=</span> <span style="color:#c43e18">3</span> <span style="color:#898989; font-style:italic">&quot; Open in new tab</span>
 <span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_winsize <span style="color:#181818">=</span> <span style="color:#c43e18">25</span> <span style="color:#898989; font-style:italic">&quot; Size</span>
@@ -84,7 +84,7 @@ See what each option does with <code>:help netrw-browser-settings</code><br/>
 Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works<br/>
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything<br/>
 final snippet:<br/>
-<pre>
+<pre class="showcase">
 <code>function<span style="color:#181818">!</span> Grep<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">...)</span>
 	return system<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">join([&amp;grepprg] + [expandcmd(join(a:000, &apos; &apos;))], &apos; &apos;))</span>
 endfunction
@@ -112,7 +112,7 @@ This is a pretty neat capability I did not know vim had,<br/>
 By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML with all of vim's<br/>
 syntax highlighted goodness,<br/>
 And you can script it! Like so:<br/>
-<pre>
+<pre class="showcase">
 <code>lang<span style="color:#181818">=</span><span style="color:#38781c">&quot;</span><span style="color:#c43e18">$2</span><span style="color:#38781c">&quot;</span>
 f<span style="color:#181818">=</span>$<span style="color:#181818">(</span>mktemp<span style="color:#181818">)</span>
 <span style="color:#48bac2; font-weight:bold">echo</span> <span style="color:#38781c">&quot;</span><span style="color:#c43e18">$0</span><span style="color:#38781c">&quot;</span> | <span style="color:#9c5a02; font-weight:bold">head</span> <span style="color:#48bac2; font-weight:bold">-n -1</span> | nvim <span style="color:#48bac2; font-weight:bold">-n --headless</span> \
@@ -141,7 +141,7 @@ Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to
 <h4> Using vim as a man pager </h4>
 There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but <br/>
 the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:<br/>
-<pre>
+<pre class="showcase">
 <code>man <span style="color:#181818">() {</span>
 	nvim <span style="color:#181818">+</span><span style="color:#38781c">&quot;Man</span> <span style="color:#c43e18">$2</span> <span style="color:#38781c"></span><span style="color:#c43e18">$1</span><span style="color:#38781c">&quot;</span> <span style="color:#181818">+</span><span style="color:#38781c">&quot;only&quot;</span>
 <span style="color:#181818">}</span>
@@ -189,7 +189,7 @@ But basically:<br/>
 </li>
 </ul><br/>For dictionary completion, you can use the following snippet:<br/>
 You might need to rewrite it in vim script for vim...<br/>
-<pre>
+<pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">local</span> spell_complete <span style="color:#181818">=</span> vim<span style="color:#181818">.</span>api<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">nvim_replace_termcodes</span><span style="color:#181818">(</span><span style="color:#38781c">&apos;&lt;C-x&gt;&lt;C-k&gt;&apos;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">)</span> 
 <span style="color:#a94598; font-weight:bold">local</span> M <span style="color:#181818">= {}</span>
 <span style="color:#a94598; font-weight:bold">function</span> M<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">spell</span><span style="color:#181818">()</span>
