@@ -1,18 +1,17 @@
-<!-- vim: set nolist: -->
 # {🍱} Reference
-#PRESERVE-CENTER
+<div class="txt-c" style="padding-bottom: 1.5em">
 **See the other modules:**
 [Design](/out/ricing/design.html) - [Useful Information](/out/ricing/useful.html) - [Terminology](/out/ricing/terminology.html)
-#END PRESERVE-CENTER
+</div>
 My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.
 Most of it is useless if you already know, and it only covers the **very** very basics.
 List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 
-## How do I use X?
+## How do I rice X?
 
 #f Emacs
 The youtube channel [System Crafters](https://www.youtube.com/c/systemcrafters) has already created a significant amount of resources regarding getting starting with emacs, 
-You can find them [here](https://wiki.systemcrafters.cc/emacs/) - See the Emacs From Scratch series of an indepth series of writinig your own configuraton,
+You can find them [here](https://wiki.systemcrafters.cc/emacs/) - See the Emacs From Scratch series for an indepth series of writinig your own configuraton,
 But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D
 
 Customizing emacs is 90% about your own passion, There is a lot you can do
@@ -101,6 +100,8 @@ How to make a vim colorscheme: [Reddit](https://www.reddit.com/r/vim/comments/8m
 Colorscheme template: [RNB](https://github.com/romainl/vim-rnb)
 See more on [Vim & Neovim](/out/knowledge/vim.html).
 
+Vim has good documentation on what most of the highlight groups are for, avail yourself of it.
+
 #### Get highlight group under cursor
 Since i've been writing a port for [chocolate](https://gitlab.com/snakedye/chocolate), this is a problem i've encountered, the real basic solution is to do:
 ```vim
@@ -123,13 +124,13 @@ This is really simple too: popular color schemes usually have been ported for co
 #### Comparison
 This is a general comparison of the most common terminal emulators as of October 2021.
 
-#TABLE	NAME	Ligatures	True Color	Fallback Fonts	OTF	Bitmaps	Wayland	Tabs / Splits	Images	Config			GPU		✨
-Wezterm			Y			Y			Y				Y		Y		Y		Y			  Y		Lua				Y		10/10
-Alacritty		P			Y			N				N		Y		Y		N			  N		Yaml			Y		5/10
-Kitty			Y			Y			N				Y		N		Y		Y			  Y		Custom			Y		8/10
-Xterm			N			N			N				N		Y		N		N			  N		Xres			N		5/10
-St				P			Y			P				N		Y		N		N			  P		C Header		N		8/10
-Foot			N			Y			Y				N		Y		Y		N			  Y		INI				N		~
+#TABLE	NAME	Ligatures	True Color	Fallback Fonts	OTF	Bitmaps	Wayland	Tabs / Splits	Images	Config
+Wezterm			Y			Y			Y				Y		Y		Y		Y			  Y		Lua
+Alacritty		P			Y			N				N		Y		Y		N			  N		Yaml
+Kitty			Y			Y			N				Y		N		Y		Y			  Y		Custom
+Xterm			N			N			N				N		Y		N		N			  N		Xres
+St				P			Y			P				N		Y		N		N			  P		C Header
+Foot			N			Y			Y				N		Y		Y		N			  Y		INI
 #END TABLE
 
 **Notes:**
@@ -166,7 +167,7 @@ Compositor is a thing that sits between your window manager and X11 and makes st
 If the version in your package repositories has the features you want, I'd suggest you use that instead.
 
 #### I just want transparency and or shadow
-You're in luck, lots of choice for you. You can use `picom` / `xcompmgr` / `compton`, anything you want and generally it'll just work™™™
+You're in luck, lots of choice for you. You can use `picom` / `xcompmgr` / `compton`, anything you want and generally it'll just work™
 
 I still suggest using picom as it has the latest technology / optimizations, beside being the
 most commonly used & most supported one.
@@ -193,7 +194,7 @@ The following are popular as of October 2021:
 snippet to configure animations on dccsillag or pijulius
 
 ```conf
-#~ Animations
+# Animations
 animations = true;
 animation-stiffness = 300.0;
 animation-dampening = 22.0;
@@ -202,15 +203,21 @@ animation-mass = 1;
 animation-for-open-window = "zoom";
 animation-for-menu-window = "slide-down";
 animation-for-transient-window = "slide-down";
-#~ (requires pijulius)
+# (requires pijulius)
 animation-for-workspace-switch-in = "zoom";
 animation-for-workspace-switch-out = "zoom";
 ```
 
 Example configuration with most of the available options: https://github.com/yshui/picom/blob/next/picom.sample.conf
-To get a window class for a exclude / include, use `xwininfo` or `xprop` & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.
+To get a window class for a exclude / include, use `xwininfo` or `xprop` & click the window you want.
+Remember to use window classes whenever you can, window titles can be very finicky.
+The 2nd part of the window class is the relevant bit, for example: 
+For `Application.Navigator`, You would put `class_g = 'Navigator'` in your picom config
 
 [Arch wiki page](https://wiki.archlinux.org/title/Picom)
+
+
+
 #END f
 
 #f Wallpapers

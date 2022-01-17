@@ -198,7 +198,7 @@ initial_transformer () {
 				;;
 		esac
 		
-		if (( inside_code_block )); then
+		if (( inside_code_block == 1 )); then
 			buffer+=$line$NEWL
 		fi
 
@@ -222,6 +222,8 @@ final_transformer() {
 
 	while read -r match; do
 		re=${match//'*'/'&ast';}
+		re=${re//'<'/'&lt;'}
+		re=${re//'>'/'&gt;'}
 		re=${re/'`'/'<code>'}
 		re=${re/'`'/'</code>'}
 		content=${content/"$match"/"$re"}

@@ -10,20 +10,19 @@
 </head>
 <body>
 <article>
-<!-- vim: set nolist: -->
 <h1> <span class="reset">🍱</span> Reference</h1>
-<div class='txt-c'><b>See the other modules:</b><br/>
-<a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a><br/></div>
-My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.<br/>
+<div class="txt-c" style="padding-bottom: 1.5em"><b>See the other modules:</b><br/>
+<a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a><br/>
+</div>My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.<br/>
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.<br/>
 List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a><br/>
 <br/>
-<h2> How do I use X?</h2>
+<h2> How do I rice X?</h2>
 <br/>
 <details>
 <summary>Emacs</summary>
 The youtube channel <a href="https://www.youtube.com/c/systemcrafters">System Crafters</a> has already created a significant amount of resources regarding getting starting with emacs, <br/>
-You can find them <a href="https://wiki.systemcrafters.cc/emacs/">here</a> - See the Emacs From Scratch series of an indepth series of writinig your own configuraton,<br/>
+You can find them <a href="https://wiki.systemcrafters.cc/emacs/">here</a> - See the Emacs From Scratch series for an indepth series of writinig your own configuraton,<br/>
 But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D<br/>
 <br/>
 Customizing emacs is 90% about your own passion, There is a lot you can do<br/>
@@ -121,6 +120,8 @@ How to make a vim colorscheme: <a href="https://www.reddit.com/r/vim/comments/8m
 Colorscheme template: <a href="https://github.com/romainl/vim-rnb">RNB</a><br/>
 See more on <a href="/out/knowledge/vim.html">Vim & Neovim</a>.<br/>
 <br/>
+Vim has good documentation on what most of the highlight groups are for, avail yourself of it.<br/>
+<br/>
 <h4> Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
 <pre class="showcase">
@@ -157,8 +158,6 @@ This is a general comparison of the most common terminal emulators as of October
 <th>Tabs / Splits</th>
 <th>Images</th>
 <th>Config</th>
-<th>GPU</th>
-<th>✨</th>
 </tr>
 </thead><tbody><tr>
 <td>Wezterm</td>
@@ -170,9 +169,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>Y</td>
 <td>Y</td>
 <td>  Y</td>
-<td>Lua</td>
-<td>Y</td>
-<td>10/10<br/></td>
+<td>Lua<br/></td>
 </tr>
 <tr>
 <td>Alacritty</td>
@@ -184,9 +181,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>Y</td>
 <td>N</td>
 <td>  N</td>
-<td>Yaml</td>
-<td>Y</td>
-<td>5/10<br/></td>
+<td>Yaml<br/></td>
 </tr>
 <tr>
 <td>Kitty</td>
@@ -198,9 +193,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>Y</td>
 <td>Y</td>
 <td>  Y</td>
-<td>Custom</td>
-<td>Y</td>
-<td>8/10<br/></td>
+<td>Custom<br/></td>
 </tr>
 <tr>
 <td>Xterm</td>
@@ -212,9 +205,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>N</td>
 <td>N</td>
 <td>  N</td>
-<td>Xres</td>
-<td>N</td>
-<td>5/10<br/></td>
+<td>Xres<br/></td>
 </tr>
 <tr>
 <td>St</td>
@@ -226,9 +217,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>N</td>
 <td>N</td>
 <td>  P</td>
-<td>C Header</td>
-<td>N</td>
-<td>8/10<br/></td>
+<td>C Header<br/></td>
 </tr>
 <tr>
 <td>Foot</td>
@@ -240,9 +229,7 @@ This is a general comparison of the most common terminal emulators as of October
 <td>Y</td>
 <td>N</td>
 <td>  Y</td>
-<td>INI</td>
-<td>N</td>
-<td>~<br/></td>
+<td>INI<br/></td>
 </tr>
 </tbody></table></div>
 <br/>
@@ -281,7 +268,7 @@ Compositor is a thing that sits between your window manager and X11 and makes st
 If the version in your package repositories has the features you want, I'd suggest you use that instead.<br/>
 <br/>
 <h4> I just want transparency and or shadow</h4>
-You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™™™<br/>
+You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™<br/>
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
@@ -308,8 +295,7 @@ The following are popular as of October 2021:<br/>
 snippet to configure animations on dccsillag or pijulius<br/>
 <br/>
 <pre class="showcase">
-<code>&num; Animations
-&num; (requires pijulius)
+<code><span style="color:#898989; font-style:italic"># Animations</span>
 <span style="color:#a94598; font-weight:bold">animations</span> = true<span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-stiffness = <span style="color:#48bac2; font-weight:bold">300.0</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-dampening = <span style="color:#48bac2; font-weight:bold">22.0</span><span style="color:#181818">;</span>
@@ -318,15 +304,22 @@ snippet to configure animations on dccsillag or pijulius<br/>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-open-window = <span style="color:#38781c">&quot;zoom&quot;</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-menu-window = <span style="color:#38781c">&quot;slide-down&quot;</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-transient-window = <span style="color:#38781c">&quot;slide-down&quot;</span><span style="color:#181818">;</span>
+<span style="color:#898989; font-style:italic"># (requires pijulius)</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-workspace-switch-in = <span style="color:#38781c">&quot;zoom&quot;</span><span style="color:#181818">;</span>
 <span style="color:#a94598; font-weight:bold">animation</span>-for-workspace-switch-out = <span style="color:#38781c">&quot;zoom&quot;</span><span style="color:#181818">;</span>
 </code>
 </pre>
 <br/>
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a><br/>
-To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want. Remember to use window classes whenever you can, window titles can be very finicky.<br/>
+To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want.<br/>
+Remember to use window classes whenever you can, window titles can be very finicky.<br/>
+The 2nd part of the window class is the relevant bit, for example: <br/>
+For <code>Application.Navigator</code>, You would put <code>class_g = 'Navigator'</code> in your picom config<br/>
 <br/>
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
+<br/>
+<br/>
+<br/>
 </details>
 <br/>
 <details>

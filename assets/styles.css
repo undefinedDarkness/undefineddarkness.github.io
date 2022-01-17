@@ -140,7 +140,7 @@ header img {
 /* Small helper classes */
 .txt-c {text-align: center }
 .reset {font-weight: normal}
-.pxl-art {image-rendering: pixelated}
+.pxl,.pxl-art {image-rendering: pixelated}
 
 /* Position something in the margin of content */
 .in-margin {

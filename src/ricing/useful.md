@@ -2,6 +2,7 @@
 
 #f How to RTFM & Get help
 Read manuals whenever you can, those can be easily accessed for any installed software by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).
+If manpages are too long for you, You can also try using [tldr-pages](https://github.com/tldr-pages/tldr) to get the very basics of an application with some examples
 
 Applications will list all their options there along with addition options specific to the application. Many apps also have GitHub wikis or documentation in the README for their app, kindly refer to those too.
 
@@ -76,5 +77,6 @@ Awesome is good at that too but maybe not to the same extent, but it has an exce
 Qtile is similar to awesome, but it uses python and I hear has some serious performance issues, but it has a wayland backend so that might be of note.
 
 [Full List & More details](https://wiki.archlinux.org/title/Window_manager#List_of_window_managers)
+[Comparison](https://wiki.archlinux.org/title/Comparison_of_tiling_window_managers)
 #END f
 
