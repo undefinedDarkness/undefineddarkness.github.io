@@ -1,0 +1,62 @@
+#+TITLE: Moving to Emacs 
+So recently out of frustration with developing on windows, I took it into my hands and reinstalled Linux,
+In this case  [[https://voidlinux.org/][Void Linux]] for the new year.
+To go along with the drastic change, I decided to finally move to Emacs...
+And this is my experiance with it.
+
+** Setting up Org mode
+There's no way I'd use emacs without at least trying out org mode and I love it very much,
+I might use it to replace my messy  [[../lorem.html][nesdown]] thing entirely, because it does the same things I imagined
+and in a better way too,
+
+- Write once export to many formats seamlessly without looking out of place
+- Decent syntax that doesnt require to remember a lot
+- Interactive features if required
+- WYSIWYG but much more powerful
+  
+ Of course by default, its nothing much to look at, but that can be easily rectified,
+ Org can do a really good job of hiding syntax till you absolutley need it, eg:
+
+ #+begin_src emacs-lisp
+   (setq org-hide-leading-stars t
+         org-hide-emphasis-markers t
+         org-hide-macro-markers t
+         org-link-descriptive t)
+ #+end_src
+
+ Also to get syntax highlighting in source blocks,
+ use ~org-fontify~
+
+ (You can find any more by doing M-x RET customize-group RET org-appearance)
+
+The plugins I used are:
+- org-superstar-mode - This allows me to customize header and list bullets as I please
+- pretty-symbols-mode - This allows to me to display bits of syntax in the way I want, for example =lambda= becomes lambda.
+  It is designed for one charachter but I use this hack which allows me to use multiple charachters in a string
+  #+begin_src emacs-lisp
+;; All credit to https://emacs.stackexchange.com/questions/34808/using-prettify-symbols-with-strings-instead-of-characters
+(defun my/add-visual-replacement (from to)
+(push (cons from (let ((composition nil))
+                    (dolist (char (string-to-list to)
+                                (nreverse (cdr composition)))
+                    (push char composition)
+                    (push '(Br . Bl) composition))))
+    prettify-symbols-alist))
+  #+end_src
+
+- variable-pitch-mode - Nothing special but allows me to switch the default font for a buffer
+
+I also like to indent all the content with its appropriate heading,
+=(setq org-startup-indented t)= does exactly that
+
+Another nice thing is LATEX preview right in the document, which I find very cool
+tho I do not use latex that often
+\[
+I = \frac{ml^2 sin^2 \theta}{3}
+\]
+I know its oversized but it took so long to work right since latex bad.
+
+And almost all of this is seamlessly exported to whatever format you choose if it supports all of it,
+In this case, HTML does.
+
+Modifying my SSG to work with org was relativley simple too.

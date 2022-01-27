@@ -62,12 +62,12 @@ one large screen if you want to work within a linux de / wm<br/>
 </li>
 </ul><br/>& Add the following to SHELL-rc file and do <code>exec $SHELL</code>:<br/>
 <pre class="showcase">
-<code><span style="color:#a94598; font-weight:bold">case</span> <span style="color:#38781c">&quot;$(uname -r)&quot;</span> <span style="color:#a94598; font-weight:bold">in</span>
-	<span style="color:#181818">&ast;</span>microsoft-standard-WSL2<span style="color:#181818">)</span>
+<code><span style="color:#a94598; font-weight:bold">case</span> <span style="color:#38781c">&quot;</span><span style="color:#c43e18">$(uname -r)</span><span style="color:#38781c">&quot;</span> <span style="color:#a94598; font-weight:bold">in</span>
+	<span style="color:#181818">&ast;</span>microsoft<span style="color:#48bac2; font-weight:bold">-standard-WSL2</span><span style="color:#181818">)</span>
 		<span style="color:#898989; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
-		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
-		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;$(sed -n &apos;s/nameserver //p&apos; /etc/resolv.conf):0&quot;</span>
-		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span>$<span style="color:#181818">(</span>ip route|<span style="color:#9c5a02; font-weight:bold">awk</span> <span style="color:#38781c">&apos;/^default/<span class="reset">print</span> <span style="color:#c43e18">$3</span><span style="color:#38781c"></span>&apos;</span><span style="color:#181818">):</span><span style="color:#c43e18">0.0</span>
+		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;</span><span style="color:#c43e18">$(grep nameserver /etc/resolv.conf | sed &#39;s/nameserver //&#39;)</span><span style="color:#38781c">:0&quot;</span>
+		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;</span><span style="color:#c43e18">$(sed -n &#39;s/nameserver //p&#39; /etc/resolv.conf)</span><span style="color:#38781c">:0&quot;</span>
+		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#c48218; font-weight:bold">$(ip route|awk &#39;/^default/<span class="reset">print $3</span>&#39;)</span><span style="color:#181818">:</span><span style="color:#c43e18">0.0</span>
 		<span style="color:#48bac2; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#181818">=</span><span style="color:#c43e18">1</span>
 		<span style="color:#181818">;;</span>
 <span style="color:#a94598; font-weight:bold">esac</span>

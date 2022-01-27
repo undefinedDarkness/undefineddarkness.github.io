@@ -48,6 +48,10 @@ pre {
 article { padding: 5vh 3vw 0 15vw; }
 header img, .txt-c, hr, .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
 
+.MathJax_Display {
+	padding-right: 15vw;
+}
+
 a {
 	color: inherit;
 	word-wrap: break-word;
@@ -64,6 +68,13 @@ li .in-margin {
 }
 
 blockquote { margin: 1em 0 1em 1em; }
+blockquote::before {
+	content: "❝";
+	position: absolute;
+	left: -1em;
+	font-size: 2.5em;
+	top: -0.4em;
+}
 figcaption { margin-left: 1em; }
 figure { margin: 0; }
 

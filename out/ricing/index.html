@@ -17,7 +17,7 @@
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.<br/>
 List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a><br/>
 <br/>
-<h2> How do I rice X?</h2>
+<h2> How do I rice <T>?</h2>
 <br/>
 <details>
 <summary>Emacs</summary>
@@ -26,6 +26,66 @@ You can find them <a href="https://wiki.systemcrafters.cc/emacs/">here</a> - See
 But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D<br/>
 <br/>
 Customizing emacs is 90% about your own passion, There is a lot you can do<br/>
+<br/>
+<h4> How to make it fast</h4>
+A pretty useless pursuit since emacs comes with its daemon mode which ought to take care of most people's need for speed,<br/>
+But this is kinda fun so a few basic tips are here to make it faster at starting up:<br/>
+<br/>
+<figure>
+<blockquote>
+Some of these techniques for fast startup I've documented in our <a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.<br/>
+<br/>
+The highlights are:<br/>
+<br/>
+<ul>
+<li>I suppress garbage collection during startup,<br/>
+</li>
+<li>I lazy load our package manager. This means avoiding package-initialize or, if you use straight like Doom does, bootstrapping straight. It also means no 200+ package-installed-p checks on startup.<br/>
+</li>
+<li>Package autoloads files are concatenated into one, large file. This saves on hundreds of file reads at startup (assuming you have hundreds of packages installed). I byte-compile it too.<br/>
+</li>
+<li>Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are not).<br/>
+</li>
+</ul><br/>The biggest gains come from lazy loading packages. Especially the big ones, like org, helm, and magit. Doom goes a bit further with this. A couple examples:<br/>
+<br/>
+<ul>
+<li>Dozens of packages (like recentf, savehist, autorevert, etc) are deferred until your first input (pre-command-hook) or the first file is opened (:before after-find-file).<br/>
+</li>
+<li>Org's babel packages aren't loaded all at once with org-babel-do-load-languages, but on demand when their src blocks are encountered (fontified) or executed. Same with its export backends.<br/>
+</li>
+<li>Doom loads some larger packages incrementally while it is idle. i.e. After 2s afk, it loads one of dash, f, s, with-editor, git-commit, package, eieio, lv, then transient every second, before finally loading magit (these are its dependencies). This process bows out when it detects user activity, and continues later when Emacs has been idle again for 2s. This helps with that first-time-load delay when starting magit. org and helm get similar treatment.<br/>
+</li>
+<li>If you use the daemon, the incremental-loader just loads them all immediately.<br/>
+</li>
+</ul><br/>Besides that, I've collected tidbits of elisp over the years that appear to help startup time, sometimes inexplicably. Here are a couple off the top of my head:<br/>
+<br/>
+    (add-to-list 'default-frame-alist '(font . "Fira Code-14")) instead of (set-frame-font "Fira Code-14" t t). The latter does more work than the former, under the hood.<br/>
+<br/>
+    (setq frame-inhibit-implied-resize t) -- Emacs resizes the (GUI) frame when your newly set font is larger (or smaller) than the system default. This seems to add 0.4-1s to startup.<br/>
+<br/>
+    (setq initial-major-mode 'fundamental-mode) -- I don't need the scratch buffer at startup. I have it a keybind away if I do. Starting text-mode at startup circumvents a couple startup optimizations (by eager-loading a couple packages associated with text modes, like flyspell), so starting it in fundamental-mode instead helps a bit.<br/>
+<br/>
+    An odd one: tty-run-terminal-initialization adds a couple seconds to startup for tty Emacs users when it is run too early. After deferring it slightly, this doesn't appear to be an issue anymore. Not a big tty Emacs user, so YMMV.<br/>
+</blockquote>
+<figcaption>hlissner - Author of DOOM Emacs</figcaption>
+</figure>
+<br/>
+(check the FAQ linked, it has a few more useful tricks)<br/>
+<br/>
+There are also a few useful tricks documented <a href="github.com/fortuneteller2k/.emacs.d">in f2k's emacs</a> config as well.<br/>
+<br/>
+</details>
+<br/>
+<details>
+<summary>Chromium</summary>
+Most chromium based browers do not support anything more than marginal theming,<br/>
+It is possible to affect a few changes by your gtk theme <a href="https://github.com/phocus/gtk/blob/master/scss/gtk-3.0/applications/_chromium.scss">[example</a>]<br/>
+<br/>
+You can also make your own Chromium theme tho again, these are quite limited in scope: <a href="https://developer.chrome.com/docs/extensions/mv3/themes/">https://developer.chrome.com/docs/extensions/mv3/themes/</a><br/>
+<br/>
+Vivaldi however allows injecting CSS into the browser UI, I found a few links on it but your mileage may vary<br/>
+<a href="https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/">https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/</a><br/>
+<a href="https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations">https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations</a><br/>
 </details>
 <br/>
 <details>
@@ -90,7 +150,7 @@ After installing, you have to make changes the following changes<br/>
 ~/.config/Trolltech.conf<br/>
 <pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">[Qt]</span>
-<span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span><span style="color:#9c5a02; font-weight:bold">GTK+</span>
+<span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span>GTK<span style="color:#181818">+</span>
 </code>
 </pre>
 <br/>
@@ -125,11 +185,11 @@ Vim has good documentation on what most of the highlight groups are for, avail y
 <h4> Get highlight group under cursor</h4>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
 <pre class="showcase">
-<code>function<span style="color:#181818">!</span> SynStack<span style="color:#181818">()</span>
-  <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span>exists<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&quot;&ast;synstack&quot;)</span>
+<code><span style="color:#a94598; font-weight:bold">function</span><span style="color:#181818">!</span> <span style="color:#c48218; font-weight:bold">SynStack</span><span style="color:#181818">()</span>
+  <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span><span style="color:#c48218; font-weight:bold">exists</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;&ast;synstack&quot;</span><span style="color:#181818">)</span>
     return
   <span style="color:#a94598; font-weight:bold">endif</span>
-  echo map<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
+  echo <span style="color:#c48218; font-weight:bold">map</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">synstack</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">line</span><span style="color:#181818">(</span><span style="color:#38781c">&#39;.&#39;</span><span style="color:#181818">),</span> <span style="color:#c48218; font-weight:bold">col</span><span style="color:#181818">(</span><span style="color:#38781c">&#39;.&#39;</span><span style="color:#181818">)),</span> <span style="color:#38781c">&#39;synIDattr(v:val, &quot;</span>name<span style="color:#898989; font-style:italic">&quot;)&#39;)</span>
 endfunc
 </code>
 </pre>
@@ -272,7 +332,7 @@ You're in luck, lots of choice for you. You can use <code>picom</code> / <code>x
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
-<i>Forcing application transparency has very little purpose</i> <span class="in-margin">⛔<br/></span>
+<i>Forcing application transparency has very little purpose in most cases however, and most user interface's are not designed with that in mind (eg: nvim)</i> <span class="in-margin">⛔<br/></span>
 <br/>
 <h4> I want blur too</h4>
 Just build the latest <a href="https://github.com/yshui/picom">master</a> and use picom with the --experimental-backends option.<br/>
@@ -282,7 +342,7 @@ To build picom from source, follow the instructions in the <a href="https://gith
 <h4> I want rounded corners too</h4>
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.<br/>
 <br/>
-A few window managers can draw rounded corners out of the box, so you might be able to utilize that.<br/>
+A few window managers can draw rounded corners out of the box, so you might be able to utilize that. (afaik awesome can)<br/>
 <br/>
 <h4> I want animations too</h4>
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.<br/>
@@ -290,6 +350,7 @@ The following are popular as of October 2021:<br/>
 <a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> slightly buggy sliding animations<br/>
 <a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has cool, configurable animations<br/>
 <a href="https://github.com/pijulius/picom">pijulius/picom</a>    -> fork of dccsillag, added animations and optimisations<br/>
+<br/>
 <a href="https://github.com/Tanish2002/picom">Tanish2002/picom</a>-> also has animations, try if the others do not work<br/>
 <br/>
 snippet to configure animations on dccsillag or pijulius<br/>
@@ -317,8 +378,6 @@ The 2nd part of the window class is the relevant bit, for example: <br/>
 For <code>Application.Navigator</code>, You would put <code>class_g = 'Navigator'</code> in your picom config<br/>
 <br/>
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
-<br/>
-<br/>
 <br/>
 </details>
 <br/>

@@ -7,7 +7,7 @@ My own take at a ricing guide. - Many people have helped with this, so doesn't m
 Most of it is useless if you already know, and it only covers the **very** very basics.
 List of ricing software you can use: https://github.com/fosslife/awesome-ricing
 
-## How do I rice X?
+## How do I rice <T>?
 
 #f Emacs
 The youtube channel [System Crafters](https://www.youtube.com/c/systemcrafters) has already created a significant amount of resources regarding getting starting with emacs, 
@@ -15,6 +15,53 @@ You can find them [here](https://wiki.systemcrafters.cc/emacs/) - See the Emacs 
 But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D
 
 Customizing emacs is 90% about your own passion, There is a lot you can do
+
+#### How to make it fast
+A pretty useless pursuit since emacs comes with its daemon mode which ought to take care of most people's need for speed,
+But this is kinda fun so a few basic tips are here to make it faster at starting up:
+
+>>>
+Some of these techniques for fast startup I've documented in our [FAQ](https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly).
+
+The highlights are:
+
+- I suppress garbage collection during startup,
+- I lazy load our package manager. This means avoiding package-initialize or, if you use straight like Doom does, bootstrapping straight. It also means no 200+ package-installed-p checks on startup.
+- Package autoloads files are concatenated into one, large file. This saves on hundreds of file reads at startup (assuming you have hundreds of packages installed). I byte-compile it too.
+- Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are not).
+
+The biggest gains come from lazy loading packages. Especially the big ones, like org, helm, and magit. Doom goes a bit further with this. A couple examples:
+
+- Dozens of packages (like recentf, savehist, autorevert, etc) are deferred until your first input (pre-command-hook) or the first file is opened (:before after-find-file).
+- Org's babel packages aren't loaded all at once with org-babel-do-load-languages, but on demand when their src blocks are encountered (fontified) or executed. Same with its export backends.
+- Doom loads some larger packages incrementally while it is idle. i.e. After 2s afk, it loads one of dash, f, s, with-editor, git-commit, package, eieio, lv, then transient every second, before finally loading magit (these are its dependencies). This process bows out when it detects user activity, and continues later when Emacs has been idle again for 2s. This helps with that first-time-load delay when starting magit. org and helm get similar treatment.
+- If you use the daemon, the incremental-loader just loads them all immediately.
+
+Besides that, I've collected tidbits of elisp over the years that appear to help startup time, sometimes inexplicably. Here are a couple off the top of my head:
+
+    (add-to-list 'default-frame-alist '(font . "Fira Code-14")) instead of (set-frame-font "Fira Code-14" t t). The latter does more work than the former, under the hood.
+
+    (setq frame-inhibit-implied-resize t) -- Emacs resizes the (GUI) frame when your newly set font is larger (or smaller) than the system default. This seems to add 0.4-1s to startup.
+
+    (setq initial-major-mode 'fundamental-mode) -- I don't need the scratch buffer at startup. I have it a keybind away if I do. Starting text-mode at startup circumvents a couple startup optimizations (by eager-loading a couple packages associated with text modes, like flyspell), so starting it in fundamental-mode instead helps a bit.
+
+    An odd one: tty-run-terminal-initialization adds a couple seconds to startup for tty Emacs users when it is run too early. After deferring it slightly, this doesn't appear to be an issue anymore. Not a big tty Emacs user, so YMMV.
+>>>hlissner - Author of DOOM Emacs
+(check the FAQ linked, it has a few more useful tricks)
+
+There are also a few useful tricks documented [in f2k's emacs](github.com/fortuneteller2k/.emacs.d) config as well.
+
+#END f
+
+#f Chromium
+Most chromium based browers do not support anything more than marginal theming,
+It is possible to affect a few changes by your gtk theme [[example](https://github.com/phocus/gtk/blob/master/scss/gtk-3.0/applications/_chromium.scss)]
+
+You can also make your own Chromium theme tho again, these are quite limited in scope: https://developer.chrome.com/docs/extensions/mv3/themes/
+
+Vivaldi however allows injecting CSS into the browser UI, I found a few links on it but your mileage may vary
+https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/
+https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations
 #END f
 
 #f Firefox
@@ -171,7 +218,7 @@ You're in luck, lots of choice for you. You can use `picom` / `xcompmgr` / `comp
 
 I still suggest using picom as it has the latest technology / optimizations, beside being the
 most commonly used & most supported one.
-*Forcing application transparency has very little purpose* IM:⛔
+*Forcing application transparency has very little purpose in most cases however, and most user interface's are not designed with that in mind (eg: nvim)* IM:⛔
 
 #### I want blur too
 Just build the latest [master](https://github.com/yshui/picom) and use picom with the --experimental-backends option.
@@ -181,7 +228,7 @@ To build picom from source, follow the instructions in the [README](https://gith
 #### I want rounded corners too
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.
 
-A few window managers can draw rounded corners out of the box, so you might be able to utilize that.
+A few window managers can draw rounded corners out of the box, so you might be able to utilize that. (afaik awesome can)
 
 #### I want animations too
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.
@@ -189,6 +236,7 @@ The following are popular as of October 2021:
 [jonaburg/picom](https://github.com/jonaburg/picom)    -> slightly buggy sliding animations
 [dccsillag/picom](https://github.com/dccsillag/picom)  -> has cool, configurable animations
 [pijulius/picom](https://github.com/pijulius/picom)    -> fork of dccsillag, added animations and optimisations
+
 [Tanish2002/picom](https://github.com/Tanish2002/picom)-> also has animations, try if the others do not work
 
 snippet to configure animations on dccsillag or pijulius
@@ -215,8 +263,6 @@ The 2nd part of the window class is the relevant bit, for example:
 For `Application.Navigator`, You would put `class_g = 'Navigator'` in your picom config
 
 [Arch wiki page](https://wiki.archlinux.org/title/Picom)
-
-
 
 #END f
 

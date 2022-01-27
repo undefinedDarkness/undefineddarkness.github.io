@@ -21,9 +21,10 @@ There is a good reason there are not that many good rices, it's a difficult thin
 If you can't do that, maybe ricing isn't for you. No harm just using a desktop environment.
 
 #### Getting help
+>>>
 Found a nice article on the topic, read it: 
 http://www.catb.org/esr/faqs/smart-questions.html
-
+>>>
 Ask for help in a community related to that one piece of software you want help for. Usually there is at least a GitHub discussion, an IRC chat room or a Matrix space / discord server for most things.
 Make good use of them, you'll meet developers of the software and actual users of the software there. Instead of asking in something like the UP server which is only mildly related to that software.
 
@@ -80,3 +81,25 @@ Qtile is similar to awesome, but it uses python and I hear has some serious perf
 [Comparison](https://wiki.archlinux.org/title/Comparison_of_tiling_window_managers)
 #END f
 
+#f Methodology
+This "guide" as I call it, isnt that much of a guide but more of a reference, Because *in my opinion* ricing is a very personal thing and such is very hard to teach,
+and since its so flexible trying to document every step on your journey that way would be too much work, so I have just collected useful tidbits of knowledge I found
+and tried to make it easier to document applications even I found difficult to theme. I have no attempt to hold anyone's hand through ricing through since if I do that
+It will become a how-to-make-a-rice-nes-likes guide; And I have a hard time putting such vague ideas about design and color into words, I am not a designer or artist after all.
+
+There is however a method to the madness, as you continue you pick up habits and orders in which to do things. Mine (personally) is to just jump right in and worry about the rest later
+so I dont really have much to say here but, as an example to follow:
+
+>>>
+This is the "framework" I usually follow:
+1) Design/Plan how I want my desktop to look like.
+2) Search which kind of enviroment I want (wm/de)
+  2.1) If DE I go gnome and don't change anything.
+  2.2) If WM I do a little bit of research and balance the pros and cons of each wm have to offer to me.
+3) Make colorscheme. (iterate it)
+4) Tweak WM and search for 3th party tools (bar/terminal/editor)
+5) Repeat steps 3 and 4 until I like the result.
+My personal preference nowadays is fvwm because is flexible enough for the things I need... the important part imho is iterating it slowly and having fun 
+>>> Caelie
+
+#END f

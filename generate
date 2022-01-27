@@ -23,12 +23,13 @@ while read -r line; do
 done < ./template.html
 post=$buffer
 
-server="deno run --unstable -A ./tool/server/server.ts --port=$port --live=false "
+server="deno run --unstable -A ./.tooling/server/server.ts --port=$port --live=false "
 
 get-modified-time () {
 	stat -c '%y' $1 | cut -d' ' -f1
 }
 
+emacs_config=$XDG_CONFIG_HOME/emacs/init.el
 build-file () {
 	out=${1/src/out}
 	mkdir -p "$(dirname $out)"
@@ -38,18 +39,24 @@ build-file () {
 			cp -f "$1" "$out"
 			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
 			;;
+		"org")
+			out=${out/.${out#*.}/.html}
+			emacs  "$1" --batch -l "${emacs_config}" -f org-html-export-to-html 
+			mv "${1/.org/.html}" "$out"
+			;;
 		"md")
 			out=${out/.${out#*.}/.html}
 
 			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
+			# printf 'Not building %s\n' "$1"
 
 			x=${out%%.html}
 			x=${x##out/}
 			header=${pre/\!TITLE\!/$x}
 			t=$(get-modified-time $1)
-			# header=${header/\!TIME\!/$t}
+			header=${header/\!TIME\!/$t}
 			printf '%s' "$header" > "$out"
-			bash tool/pond.sh "$1" 1>>$out #2>/dev/null # Debug fixes it somehow.. ;-;
+			bash ./.tooling/pond.sh "$1" 1>>$out #2>/dev/null # Debug fixes it somehow.. ;-;
 			printf '%s' "$post" >> "$out"
 			;;
 	esac
@@ -64,10 +71,10 @@ gen-index () {
 		while read -r match; do
 			file=${match%:*}
 			title=${match#*:}
-			title=${title#*'<h1>'}
+			title=${title#*'<h1'*'>'}
 			title=${title%'</h1>'*}
 			posts+="<li><a href='/$file'>$title</a></li>\n"
-		done < <(grep -roH '<h1>.*</h1>' ${folder} )
+		done < <(grep -ProH '<h1.*?>.*</h1>' ${folder} )
 		folder=${folder#*/}
 		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
 	done
@@ -118,9 +125,9 @@ case $1 in
 	live)
 		$server &
 
-		paths=$( find './src/' -name '*.md' )
+		paths=$( find './src/' -name '*.md' -or -name '*.org' -or -name '*.html' )
 		paths+='\n'
-		paths+=$( find './tool' -name '*.sh' )
+		paths+=$( find './.tooling' -name '*.sh' )
 		paths+='\n./generate'
 		paths+='\n./index.html'
 		paths+='\n./template.html'
@@ -136,7 +143,7 @@ case $1 in
 		mkdir -p src out
 		while read -r file; do
 			build-file "$file" &
-		done < <(find src -name "*.md" -or -name "*.html")
+		done < <(find src -name "*.md" -or -name "*.html" -or -name '*.org')
 
 		for job in $(jobs -p); do
 			wait "$job"
