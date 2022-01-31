@@ -48,6 +48,24 @@ build_org () {
 	mv ${1/.org/.html} ${out}
 }
 
+generate_index () {
+	cp ./src/index.html ./out/index.html
+	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
+		local posts=""
+		while read -r match; do
+			file=${match%:*}
+			title=${match#*:}
+			title=${title#*'<h1'*'>'}
+			title=${title%'</h1>'*}
+			posts+="<li><a href='/$file'>$title</a></li>\n"
+		done < <(grep -ProH '<h1.*?>.*</h1>' ${folder} )
+		folder=${folder#*/}
+		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
+	done
+	printf "Generated Article Index\n"
+	pkill --signal USR1 ${server%% *}
+}
+
 # Default: Build All Files
 
 case "$1" in
@@ -83,3 +101,11 @@ for file in ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org
 		;;
 	esac
 done
+
+for job in $(jobs -p); do
+	wait "$job"
+done
+
+generate_index
+
+exit
