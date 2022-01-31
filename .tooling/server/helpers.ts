@@ -72,7 +72,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
 
       const data = new TextDecoder("utf-8").decode(await Deno.readFile(path)).replace('</body>', SCRIPT+'</body>') // add to end of body tag
 
-      request.respondWith(
+      await request.respondWith(
         new Response(data, {
           status: 200,
           headers,
@@ -98,7 +98,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
           mimeType = canUseFile ? await getMimeType(path) : ""
       }
       headers.set("content-type", mimeType);
-      request.respondWith(
+      await request.respondWith(
         new Response(await Deno.readFile(path), {
           status: 200,
           headers,
@@ -110,7 +110,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
 
     else if (info.isDirectory) {
       headers.set("content-type", "text/html");
-      request.respondWith(
+      await request.respondWith(
         new Response(await getTree(path), {
           status: 200,
           headers,

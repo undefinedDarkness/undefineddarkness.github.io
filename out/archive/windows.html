@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/favicon.png" />
-<title>archive/windows</title>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css" />
-</head>
-<body>
-<article>
-<h1> Using Windows</h1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>Using Windows</title>
+		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1>Using Windows</h1>
+</header>
 <br/>
 This is gonna document my time, using the one and only Windows 10 :/<br/>
 Mostly because nvidia forced me to but oh well...<br/>
 <br/>
 <h2> Colemak</h2>
+<p>
 After installing the <a href="https://colemak.com/Windows">exe</a> from the colemak website...<br/>
 You can easily enough change the language while using windows but it presents a problem while being <br/>
 logging in (it uses the QWERTY layout at that time.),<br/>
 The detailed solution can be found <a href="https://forum.colemak.com/topic/494-howto-set-colemak-as-windows-xp-login-screen-layout-and-more/">here</a>.<br/>
 // I dunno why I felt like this was worth writing here. <br/>
 <br/>
+</p>
 <h2> WSL2</h2>
+<p>
 I was honestly surprised how good it was, it is amazing how well WSL works!<br/>
 Installation is a bit murky because the docs are spread out (I am just dumb.) but basically all you need to do is follow the steps here:<br/>
 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps">https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps</a><br/>
@@ -34,13 +41,17 @@ I think thats a fair bit more tricky.<br/>
 The choice should be obvious (I hope): The <a href="https://github.com/microsoft/terminal">windows terminal</a> works ootb with WSL and will even automatically add Distro profiles.<br/>
 From there its just a few clicks and you're up and running with a almost perfect command line linux experience!<br/>
 <br/>
+</p>
 <h4> Clipboard </h4>
+<p>
 Just right clicking to paste should work well for most things, but vim has a few issues with it, if you are using neovim though and you should be<br/>
 This can be easily remedied with the instructions here: <a href="https://0x0.st/N0sx">https://0x0.st/N0sx</a><br/>
 <br/>
 The rest should just work<br/>
 <br/>
+</p>
 <h4> Graphical Environment </h4>
+<p>
 WSL-G is a work in progress and right now only available for windows insiders so I haven't got a chance to use it although it seems pretty slick.<br/>
 You can however get X11 to work amazingly well via XRDP (X11 remote display ig ?)<br/>
 <br/>
@@ -77,7 +88,9 @@ one large screen if you want to work within a linux de / wm<br/>
 Now just run any graphical program (like say <code>xterm</code>) and bam! it should show up in windows,<br/>
 long as VcXsrv is running.<br/>
 <br/>
+</p>
 <h4> Filesystem </h4>
+<p>
 Accessing the linux file system from windows & vice versa<br/>
 <br/>
 In Linux, accessing the Windows filesystem is as simple as navigating to <code>/mnt/c</code><br/>
@@ -88,17 +101,19 @@ with each distribution's <code>/</code> directory.<br/>
 <br/>
 * Probably useful to setup shortcuts to these.<br/>
 <br/>
+</p>
 <h4> Web Servers </h4>
+<p>
 Since I got confused a bit here, they work exactly how you would expect,<br/>
 You can access linux web servers from windows so<br/>
 <code>localhost:5000</code> can be accessed as <code>localhost:5000</code> on windows too<br/>
 <br/>
 <h3> De bloating Windows</h3>
 This powershell script works rather well: <a href="https://github.com/Sycnex/Windows10Debloater">https://github.com/Sycnex/Windows10Debloater</a> for most of the obvious things anyway.<br/>
-<footer>
-<span class='in-margin'>✈</span>
-<a href="/out/index.html">Return To Index</a>
-</footer>
-</article>
-</body>
+			<footer>
+				<span class='in-margin'>✈</span>
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+		</article>
+	</body>
 </html>

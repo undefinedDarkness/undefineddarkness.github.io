@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/favicon.png" />
-<title>ricing/index</title>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css" />
-</head>
-<body>
-<article>
-<h1> <span class="reset">🍱</span> Reference</h1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>🍱 Reference</title>
+		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1><span class="reset">🍱</span> Reference</h1>
+</header>
 <div class="txt-c" style="padding-bottom: 1.5em"><b>See the other modules:</b><br/>
 <a href="/out/ricing/design.html">Design</a> - <a href="/out/ricing/useful.html">Useful Information</a> - <a href="/out/ricing/terminology.html">Terminology</a><br/>
 </div>My own take at a ricing guide. - Many people have helped with this, so doesn't make sense to call it my own.<br/>
@@ -18,16 +22,20 @@ Most of it is useless if you already know, and it only covers the <b>very</b> ve
 List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a><br/>
 <br/>
 <h2> How do I rice <T>?</h2>
+<p>
 <br/>
-<details>
+<details open>
 <summary>Emacs</summary>
+<p>
 The youtube channel <a href="https://www.youtube.com/c/systemcrafters">System Crafters</a> has already created a significant amount of resources regarding getting starting with emacs, <br/>
 You can find them <a href="https://wiki.systemcrafters.cc/emacs/">here</a> - See the Emacs From Scratch series for an indepth series of writinig your own configuraton,<br/>
 But as usual, Do not follow them word for word, Experiment your own and try to understand what each and every setting does :D<br/>
 <br/>
 Customizing emacs is 90% about your own passion, There is a lot you can do<br/>
 <br/>
+</p>
 <h4> How to make it fast</h4>
+<p>
 A pretty useless pursuit since emacs comes with its daemon mode which ought to take care of most people's need for speed,<br/>
 But this is kinda fun so a few basic tips are here to make it faster at starting up:<br/>
 <br/>
@@ -74,10 +82,12 @@ The highlights are:<br/>
 <br/>
 There are also a few useful tricks documented <a href="github.com/fortuneteller2k/.emacs.d">in f2k's emacs</a> config as well.<br/>
 <br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Chromium</summary>
+<p>
 Most chromium based browers do not support anything more than marginal theming,<br/>
 It is possible to affect a few changes by your gtk theme <a href="https://github.com/phocus/gtk/blob/master/scss/gtk-3.0/applications/_chromium.scss">[example</a>]<br/>
 <br/>
@@ -86,10 +96,12 @@ You can also make your own Chromium theme tho again, these are quite limited in 
 Vivaldi however allows injecting CSS into the browser UI, I found a few links on it but your mileage may vary<br/>
 <a href="https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/">https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/</a><br/>
 <a href="https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations">https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations</a><br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Firefox</summary>
+<p>
 You can customize the User Interface (Chrome) with Firefox CSS, see the following:<br/>
 <ul>
 <li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a><br/>
@@ -112,7 +124,9 @@ The structure of the file is usually as follows:<br/>
 You can use any of the selectors available for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@document">@-moz-document</a><br/>
 <i>NOTE: Stylus can also export to this format for easy usage</i><br/>
 <br/>
+</p>
 <h4> Start Page</h4>
+<p>
 You will need basic knowledge of HTML, CSS & JS.<br/>
 <a href="https://developer.mozilla.org/en-US/">MDN</a> is a nice place to learn.<br/>
 <br/>
@@ -120,10 +134,12 @@ Firefox has quite a few limitations on setting local files as your start page (n
 <br/>
 Then use <a href="https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/">this extension</a> to set the URL.<br/>
 Chromium users can use <a href="https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia">this</a> instead (Chrome places no limitations).<br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>GTK</summary>
+<p>
 This is most easily accomplished by forking an existing theme and modifying them. Most themes are open source and<br/>
 are easily modifiable (if you know CSS). Phocus is a nice one to start with since its code is clean scss and well structured, (<a href="https://github.com/phocus/gtk">https://github.com/phocus/gtk</a>)<br/>
 *NOTE: Phocus is not a GTK2 theme so it will not show up in <code>lxappearance</code>, Set your gtk theme using <a href="https://wiki.archlinux.org/title/GTK#Basic_theme_configuration">settings.ini</a> instead,<br/>
@@ -133,7 +149,9 @@ You can use <code>gtk-widget-factory</code> to test your theme, it comes package
 GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https://docs.gtk.org/gtk4/css-properties.html</a><br/>
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)<br/>
 <br/>
+</p>
 <h4> Uniform Look for GTK & QT Apps</h4>
+<p>
 <br/>
 Arch Wiki Link: <a href="https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines">https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines</a><br/>
 <br/>
@@ -142,7 +160,9 @@ By default, you have to apply themes for QT and GTK separately, with most GTK th
 To achieve a consistent look over both the styles, you can install <b>theme engines</b> like QGtkStyle (<a href="https://github.com/qt/qtstyleplugins">https://github.com/qt/qtstyleplugins</a>) or QGnomePlatform (<a href="https://github.com/FedoraQt/QGnomePlatform">https://github.com/FedoraQt/QGnomePlatform</a>).<br/>
 These theme engines can be used to translate themes between GTK and QT platforms.<br/>
 <br/>
+</p>
 <h4> QGtkStyle</h4>
+<p>
 After installing, you have to make changes the following changes<br/>
 <br/>
 <b>For QT4:</b> Edit the /etc/xdg/Trolltech.conf (system-wide) or ~/.config/Trolltech.conf (user-specific) file:<br/>
@@ -158,7 +178,9 @@ After installing, you have to make changes the following changes<br/>
 <br/>
 <i>NOTE: This requires that the configured GTK theme supports both GTK 2 and GTK 3</i><br/>
 <br/>
+</p>
 <h4> QGnomePlatform</h4>
+<p>
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.<br/>
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:<br/>
 <br/>
@@ -167,10 +189,12 @@ To enable it on other systems, after installing the qgnomeplatform package, set 
 </code>
 </pre>
 <br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Neovim / Vim</summary>
+<p>
 This is an interesting one. If you use a premade colorscheme, chances are, a <a href="https://github.com/chriskempson/base16">base16</a> or other vim theme already exists for it. Otherwise, you can make a base16 theme or make one from a wide variety of templates. There even exist generators for it. (<a href="https://pintovim.dev/">Pinto</a>, <a href="https://bytefluent.com/vivify/">Vivify</a>)<br/>
 And, of course, if a colorscheme is similar to yours, you can easily fork it and modify.<br/>
 <br/>
@@ -182,7 +206,9 @@ See more on <a href="/out/knowledge/vim.html">Vim & Neovim</a>.<br/>
 <br/>
 Vim has good documentation on what most of the highlight groups are for, avail yourself of it.<br/>
 <br/>
+</p>
 <h4> Get highlight group under cursor</h4>
+<p>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
 <pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">function</span><span style="color:#181818">!</span> <span style="color:#c48218; font-weight:bold">SynStack</span><span style="color:#181818">()</span>
@@ -197,13 +223,17 @@ endfunc
 but this doesnt work that well for treesitter, in which case using <a href="https://github.com/nvim-treesitter/playground/blob/master/lua/nvim-treesitter-playground/hl-info.lua">this code from treesitter-playground</a> works a fair bit better,<br/>
 to use them more easily, create a keybinding for <code>SynStack()</code> or <code>require('hl-info').show_hl_captures()</code> respectivley<br/>
 <br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Terminal</summary>
+<p>
 This is really simple too: popular color schemes usually have been ported for common terminal programs, even if it doesn't, it should still be really simple to implement, it's just 16 colors after all :P<br/>
 <br/>
+</p>
 <h4> Comparison</h4>
+<p>
 This is a general comparison of the most common terminal emulators as of October 2021.<br/>
 <br/>
 <div class="ovr-x"><table class="">
@@ -307,7 +337,9 @@ st patches: <a href="https://st.suckless.org/patches/">https://st.suckless.org/p
 <br/>
 <a href="https://wiki.archlinux.org/title/List_of_applications#Terminal">Arch wiki page</a><br/>
 <br/>
+</p>
 <h4> Images in the Terminal</h4>
+<p>
 This is an often sought after feature and often used with fetch scripts.<br/>
 Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">sixel</a>, though, so maybe that will end up being the standard.<br/>
 For terminals without image support entirely, there are hacks using <code>w3m-img</code> and <code>uberzerg</code> to get them...but they're finicky and don't just work™, so I'd recommend against them.<br/>
@@ -318,33 +350,43 @@ Alacritty doesn't support images and needs a hack;<br/>
 Wezterm natively supports iterms2's image format & sixel;<br/>
 Kitty has its own format;<br/>
 St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch">patch</a> and it needs a patch for the w3m hack to work too.<br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Picom</summary>
+<p>
 <i>The definition of compositor changes from X11 to Wayland, I am talking about X11 only:</i><br/>
 Compositor is a thing that sits between your window manager and X11 and makes stuff like transparency work. Recently, however, compositors have been used to implement blur, rounded corners and animations for a window manager to behave more like a desktop enviroment.<br/>
 <br/>
 If the version in your package repositories has the features you want, I'd suggest you use that instead.<br/>
 <br/>
+</p>
 <h4> I just want transparency and or shadow</h4>
+<p>
 You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™<br/>
 <br/>
 I still suggest using picom as it has the latest technology / optimizations, beside being the<br/>
 most commonly used & most supported one.<br/>
 <i>Forcing application transparency has very little purpose in most cases however, and most user interface's are not designed with that in mind (eg: nvim)</i> <span class="in-margin">⛔<br/></span>
 <br/>
+</p>
 <h4> I want blur too</h4>
+<p>
 Just build the latest <a href="https://github.com/yshui/picom">master</a> and use picom with the --experimental-backends option.<br/>
 To build picom from source, follow the instructions in the <a href="https://github.com/yshui/picom#build">README</a><br/>
 <i>Be very caution when using blur, excessive blur can make a rice look bad very easily.</i> <span class="in-margin">⛔<br/></span>
 <br/>
+</p>
 <h4> I want rounded corners too</h4>
+<p>
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.<br/>
 <br/>
 A few window managers can draw rounded corners out of the box, so you might be able to utilize that. (afaik awesome can)<br/>
 <br/>
+</p>
 <h4> I want animations too</h4>
+<p>
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.<br/>
 The following are popular as of October 2021:<br/>
 <a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> slightly buggy sliding animations<br/>
@@ -379,10 +421,12 @@ For <code>Application.Navigator</code>, You would put <code>class_g = 'Navigator
 <br/>
 <a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
 <br/>
+</p>
 </details>
 <br/>
-<details>
+<details open>
 <summary>Wallpapers</summary>
+<p>
 Good places to look for wallpapers are:<br/>
 <ul>
 <li><a href="https://images.google.com/">https://images.google.com/</a><br/>
@@ -426,7 +470,9 @@ I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that on
 <br/>
 Really depends on what you're doing and looking for tho..<br/>
 <br/>
+</p>
 <h4> Animated Wallpapers</h4>
+<p>
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):<br/>
 <br/>
 <code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code><br/>
@@ -440,25 +486,30 @@ Sources for pixelart animated wallpapers<br/>
 <br/>
 Googling will also get you a bit of resources .<br/>
 <br/>
+</p>
 <h4> Tiled Wallpapers</h4>
+<p>
 These are wallpapers that tiled like tiles in a pattern, <a href="/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp">example</a> repeated over your entire screen.<br/>
 Their usage is fairly simple:<br/>
 <code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code>, or manually tile it in your image editor of choice.<br/>
 <br/>
 You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a>, Their site has a bunch of cool ricing related stuff too.<br/>
+</p>
 </details>
 <br/>
+</p>
 <h3> Credits</h3>
+<p>
 Most of the following are members of the r/unixporn discord server.<br/>
 <br/>
 Animated Wallpaper - Dazai-san#6969<br/>
 Picom Animations - nuxsh#9338<br/>
 Uniform Look for GTK & QT Apps, QGtkStyle - Gingka#1796 <br/>
 Document has been edited by asdadsdafdfdssfd#7660<br/>
-<footer>
-<span class='in-margin'>✈</span>
-<a href="/out/index.html">Return To Index</a>
-</footer>
-</article>
-</body>
+			<footer>
+				<span class='in-margin'>✈</span>
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+		</article>
+	</body>
 </html>

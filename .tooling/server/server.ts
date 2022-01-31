@@ -98,7 +98,7 @@ async function serveConnection(conn: Deno.Conn) {
       socket.onclose = () => {
         sockets = sockets.splice(idx, 1);
       };
-      request.respondWith(response);
+      await request.respondWith(response);
       args.log && console.log(
         "\u001b[32mWS-CONNECT\u001b[0m Total connected sockets: " +
           sockets.length,

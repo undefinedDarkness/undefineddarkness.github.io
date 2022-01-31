@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/favicon.png" />
-<title>ricing/design</title>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css" />
-</head>
-<body>
-<article>
-<h1> <span class="reset">🎨</span> Design</h1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>🎨 Design</title>
+		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1><span class="reset">🎨</span> Design</h1>
+</header>
 Stuff related to the general design of a rice<br/>
 <br/>
-<details>
+<details open>
 <summary>Typography</summary>
+<p>
 <q>The style and appearance of printed matter.</q><br/>
 <br/>
 This is one place where you can really stand out and using a good font can make all the difference for both the looks of your rice, as well as its usability.<br/>
@@ -33,18 +38,23 @@ More on fonts: <a href="https://github.com/wooosh/themewiki/blob/master/guide/fo
 Here are the fonts I personally like for each one:<br/>
 <br/>
 <h4> Mono space:</h4>
+<p>
 <div class="horizontal showcase"><img src="/assets/images/font-previews/Roboto-Mono-Regular.webp" alt="Roboto Mono" title="Roboto Mono" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/IBM-Plex-Mono-Regular.webp" alt="IBM Plex Mono" title="IBM Plex Mono" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/JetBrains-Mono-Regular.webp" alt="JetBrains Mono" title="JetBrains Mono" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/Sarasa-Term-K.webp" alt="Sarasa Term K" title="Sarasa Term K" loading="lazy" /><br/>
 <a href="https://juliamono.netlify.app/"><img src="/assets/images/font-previews/JuliaMono-Regular.webp" alt="Julia Mono" title="Julia Mono" loading="lazy" /></a><br/>
 </div><br/>
+</p>
 <h4> Serif:</h4>
+<p>
 <div class="horizontal showcase"><a href="https://www.redaction.us/"><img src="/assets/images/font-previews/Redaction.webp" alt="Redaction" title="Redaction" loading="lazy" /></a><br/>
 <a href="https://edwardtufte.github.io/et-book/"><img src="/assets/images/font-previews/ETBembo-RomanLF.webp" alt="ET Bembo" title="ET Bembo" loading="lazy" /></a><br/>
 <a href="https://fonts.google.com/specimen/Piazzolla"><img src="/assets/images/font-previews/Piazzolla-Regular.webp" alt="Piazzolla" title="Piazzolla" loading="lazy" /></a><br/>
 </div><br/>
+</p>
 <h4> Sans Serif:</h4>
+<p>
 <div class="horizontal showcase"><img src="/assets/images/font-previews/Roboto.webp" alt="Roboto" title="Roboto" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/Ubuntu-Regular.webp" alt="Ubuntu Sans" title="Ubuntu Sans" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/IBM-Plex-Sans-Regular.webp" alt="IBM Plex Sans" title="IBM Plex Sans" loading="lazy" /><br/>
@@ -53,7 +63,9 @@ Here are the fonts I personally like for each one:<br/>
 🏴‍☠️ <a href="https://gitlab.com/exorcist365/fonts">Repository of mostly monospace fonts</a><br/>
 Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a><br/>
 <br/>
+</p>
 <h4> Nerd Fonts</h4>
+<p>
 Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.<br/>
 <br/>
 Where to get: <a href="https://www.nerdfonts.com/font-downloads">https://www.nerdfonts.com/font-downloads</a> (Get the one for the font you want)<br/>
@@ -72,7 +84,9 @@ git sparse<span style="color:#48bac2; font-weight:bold">-checkout</span> add src
 </code>
 </pre>
 <br/>
+</p>
 <h4> Bitmap Fonts</h4>
+<p>
 <br/>
 <div class="split"><img height="400" class='pxl' src="/assets/images/bitmap-eg.webp" title="Without AA" alt="Without AA" /><img height="400" class='pxl' src="/assets/images/aa-eg.webp" title="With AA" alt="With AA" /></div><br/>
 <a href="http://www.cs.ucc.ie/~gavin/cs1050/the_internet/slides/ch07s01s01.html.htm">What are they?</a><br/>
@@ -82,14 +96,18 @@ Bitmaps will not scale outside their designed font size;<br/>
 They will generally look a lot sharper than vector fonts because they are generally rendered without <a href="https://www.youtube.com/watch?v=hqi0114mwtY">AA</a>;<br/>
 All of which leads to pretty unique pixilated look that a lot of people like.<br/>
 <br/>
+</p>
 <h5> Using in GUI Applications</h5>
+<p>
 Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,<br/>
 Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,<br/>
 See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango">https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango</a><br/>
 <br/>
 You can also get GTK applications (this includes most browsers) to not antialias by using: <code>Xft.antialias: 0</code> in xresources.<br/>
 <br/>
+</p>
 <h5> Commonly used bitmap fonts:</h5>
+<p>
 <div class='showcase horizontal'><a href="https://github.com/slavfox/Cozette"><img src="/assets/images/font-previews/CozetteVector.png" alt="Cozette" title="Cozette" loading="lazy" /></a><br/>
 <a href="https://font.gohu.org"><img src="/assets/images/font-previews/Gohu-GohuFont.webp" alt="GohuFont" title="GohuFont" loading="lazy" /></a><br/>
 <a href="https://terminus-font.sourceforge.net"><img src="/assets/images/font-previews/Terminus.png" alt="Terminus" title="Terminus" loading="lazy" /></a>	<br/>
@@ -99,11 +117,15 @@ You can also get GTK applications (this includes most browsers) to not antialias
 <a href="https://github.com/Francesco149/bdf2x">Upscaling Bitmap Fonts</a><br/>
 <!-- TODO: Add a link on making a bitmap font to vector font		   Making use of bitmap fonts in pango etc apps --><br/>
 <br/>
+</p>
 </details>
 <br/>
+</p>
 <h2> Conventions</h2>
-<details>
+<p>
+<details open>
 <summary>CSS Box Model</summary>
+<p>
 <aside><p>This is important in many parts of ricing,and is the general method to define spacing in most applications.<br/>
 <br/>
 Content is your text, image whatever<br/>
@@ -114,11 +136,12 @@ Margin is spacing between the box and its siblings / parent box.<br/>
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">Better explanation</a><br/>
 </p><br/>
 <img src="/assets/images/box-model.webp" alt="Box Model Illustration" title="Box Model Illustration" loading="lazy" /><br/>
+</p>
 </details>
-<footer>
-<span class='in-margin'>✈</span>
-<a href="/out/index.html">Return To Index</a>
-</footer>
-</article>
-</body>
+			<footer>
+				<span class='in-margin'>✈</span>
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+		</article>
+	</body>
 </html>

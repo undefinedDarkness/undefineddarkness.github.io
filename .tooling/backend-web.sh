@@ -40,7 +40,7 @@ sh_script () {
 f () {
 	content=$1
 	shift
-	printf "<details>\n<summary>%s</summary>\n%s\n</details>" "${*#'#f '}" "$content"
+	printf "<details open>\n<summary>%s</summary>\n<p>\n%s\n</p>\n</details>\n" "${*#'#f '}" "$content"
 }
 
 # Right align text
@@ -118,6 +118,7 @@ initial_transformer () {
 	local inside_list=0
 	local inside_code_block=0
 	local inside_quote_block=0
+	local inside_paragraph=0
 	while read -r line; do
 
 		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )); then
@@ -127,10 +128,25 @@ initial_transformer () {
 		fi
 		
 		case "$line" in
-			'# '* | '## '* | '### '* | '#### '* | '##### '* | '###### '*)
+			# For reader mode.
+			'# '*)
+				if ! (( inside_code_block )); then
+					printf '<header>\n<h1>%s</h1>\n</header>\n' "${line#'# '}"
+					continue
+				fi
+				;;
+			'## '* | '### '* | '#### '* | '##### '* | '###### '*)
+
+				if (( inside_paragraph )); then
+					inside_paragraph=0
+					printf '</p>\n'
+				fi
+				
 				if ! (( inside_code_block )); then
 					local level=${line%% *}
 					printf '<h%d>%s</h%d>\n' "${#level}" "${line#"$level"}" "${#level}"
+					inside_paragraph=1
+					printf '<p>\n'
 					continue
 				fi
 				;;

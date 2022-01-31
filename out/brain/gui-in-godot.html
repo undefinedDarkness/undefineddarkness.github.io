@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/favicon.png" />
-<title>brain/gui-in-godot</title>
-<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/styles.css" />
-</head>
-<body>
-<article>
-<header><img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" /><h1> My experiance using Godot</h1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>My experiance using Godot</title>
+		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header><img src="/assets/images/dump/701e3e91-4b32-40e9-992b-7488feb7e002.webp" alt="icon" /><header>
+<h1>My experiance using Godot</h1>
+</header>
 </header>These are the results of my experiment with using the <a href="https://godotengine.org/">Godot game engine</a> for designing <br/>
 <a href="https://github.com/undefinedDarkness/cello">a toy music player</a>,<br/>
 I have divided them into things I like and things I'd like to see improved, <br/>
@@ -22,6 +26,7 @@ Or that there are GitHub issues open for some of the problems I found, I have no
 * NOTE: A lot of this is just me nitpicking...<br/>
 <br/>
 <h2> Things I loved</h2>
+<p>
 <ul>
 <li>The editor preview is bloody amazing coming from GTK where every change in the code required, relaunching the application;<br/>
 It helps so much with prototyping, You can even preview your entire app from the editor, like so:<br/>
@@ -57,8 +62,12 @@ And the tight integration it has with the larger engine is really nice to see as
 </li>
 <li>Godot's Drag & Drop support is very good within the application window itself, but you can get it to work with foreign apps as well.<br/>
 </li>
-</ul><br/><h2> Issues I had</h2>
+</ul><br/></p>
+<h2> Issues I had</h2>
+<p>
+</p>
 <h3> UI System</h3>
+<p>
 My experience thus far with UI design has been with GTK & CSS,<br/>
 GTK works in a pretty similar way to CSS so they're both pretty familiar to me,<br/>
 Most of these are things that would make me more comfortable using it but all of them are livable with in their current state<br/>
@@ -103,7 +112,9 @@ but it does appear to be rather powerful so that's fine by me<br/>
 I am not exactly sure what Godot is doing in this loading screen but if it is loading resources or anything not directly related to the drawing of the app UI, <br/>
 IMO there should be an option where Godot whatever it needs <b>and then</b> spawn and draw the window, so the user will notice a delay in app startup time but won't need to wait looking at a loading screen.<br/>
 </li>
-</ul><br/><h3> GDScript</h3>
+</ul><br/></p>
+<h3> GDScript</h3>
+<p>
 I am fairly well versed with Javascript/Typescript, Lua and have experience in C / Python / Rust,<br/>
 so most of this is from someone who isnt the most familiar with classes or what they are capable / useful for<br/>
 GDScript does hold your hand in many ways which makes it pretty simple to use as well<br/>
@@ -155,7 +166,9 @@ Turns out I was pretty dumb, Godot has a system for this, its called node paths 
 </li>
 <li>No way to type signal arguments like the C++ source can <span class="in-margin">IV<br/></span>
 </li>
-</ul><br/><h4> Editor / Tool Scripts </h4>
+</ul><br/></p>
+<h4> Editor / Tool Scripts </h4>
+<p>
 So if you want to run something in the editor (while editing) to show up in the preview of your game you use a tool script by appending <code>tool</code> at the top of your script file,<br/>
 This makes your <i>entire script</i> run in the editor, and <a href="https://docs.godotengine.org/en/stable/tutorials/misc/running_code_in_the_editor.html">the documentation</a> lists how your code can cause errors quite a few times,<br/>
 All this made me not really want to risk using them unless all the script did was affect the appearance of itself, which wasn't the case in my code for most cases,<br/>
@@ -171,7 +184,9 @@ Another thing I encountered was needing to restart the editor every time I wante
 <br/>
 Writing small snippets that run directly in the node editor would be nice to see as well<br/>
 <br/>
+</p>
 <h3> Other</h3>
+<p>
 <ul>
 <li>I found SCons (Godot's build tool) to be a bit fragile when compiling, It did work but it would break entirely if there was even a single error and it would lose all the compilation it had done so far,<br/>
 Which simply makes the next build even longer, <br/>
@@ -199,15 +214,17 @@ I would like to be able to open my scene tree and preview (in top bottom layout)
 <li>Currently no support for reading and writing to zip files, there exists <a href="https://github.com/flyingpimonster/godot/tree/zip-module-3.4">a module / custom build</a> that I ended up using but I think this functionality is basic enough to be included in the editor itself <br/>
 </li>
 </ul><br/><br/>
+</p>
 <h2> Conclusion</h2>
+<p>
 Godot's UI system is very well rounded and capable of solving most issues you might encounter, The way its editor system integrates with it is excellent<br/>
 and the overall experiance for the developer is very good, If there is something it can't solve out of the box plugins exist for most things,<br/>
 <br/>
 I will definatley keep it in mind if I ever want a app focused on GUI, and I hope to get the chance to use it again<br/>
-<footer>
-<span class='in-margin'>✈</span>
-<a href="/out/index.html">Return To Index</a>
-</footer>
-</article>
-</body>
+			<footer>
+				<span class='in-margin'>✈</span>
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+		</article>
+	</body>
 </html>

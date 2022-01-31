@@ -48,6 +48,8 @@ pre {
 article { padding: 5vh 3vw 0 15vw; }
 header img, .txt-c, hr, .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
 
+ul,p{ margin-top: 0; }
+
 .MathJax_Display {
 	padding-right: 15vw;
 }

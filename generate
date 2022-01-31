@@ -1,159 +1,85 @@
 #!/usr/bin/env bash
-#shellcheck disable=2059
 
-# Toad:
-# This is meant to be my super minimal SSG and meant to only fulfill my needs and do nothing more
+# Init:
 
-# Configuration
-port=5000
+# Enable bash options
+shopt -s globstar
+shopt -s nullglob
 
-# Extract relevant parts of the template
-buffer=
-pre=
-post=
-while read -r line; do
-	case "$line" in
-		"!CONTENT!")
-			pre=$buffer
-			buffer=
-			continue
-			;;
-	esac
-	buffer+="$line"$'\n'
-done < ./template.html
-post=$buffer
+template_pre_content=
+template_post_content=
+server='deno run --unstable -A ./.tooling/server/server.ts --port=5000 --live=false'
 
-server="deno run --unstable -A ./.tooling/server/server.ts --port=$port --live=false "
+# Helpers:
+format_doc_heading () {
+	doc_path=${1#'./src/'}
+	doc_path=${doc_path%'.'*}
 
-get-modified-time () {
-	stat -c '%y' $1 | cut -d' ' -f1
+	[[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]]
+	doc_title=${BASH_REMATCH[1]}
+	doc_title=${doc_title/'<span class="reset">'/}
+	doc_title=${doc_title/'</span>'/}
+	
+	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
+	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
 }
 
-emacs_config=$XDG_CONFIG_HOME/emacs/init.el
-build-file () {
+# Tasks:
+build_md () {
 	out=${1/src/out}
-	mkdir -p "$(dirname $out)"
-	
-	case "${out#*.}" in
-		"html")
-			cp -f "$1" "$out"
-			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
-			;;
-		"org")
-			out=${out/.${out#*.}/.html}
-			emacs  "$1" --batch -l "${emacs_config}" -f org-html-export-to-html 
-			mv "${1/.org/.html}" "$out"
-			;;
-		"md")
-			out=${out/.${out#*.}/.html}
-
-			printf "Building \033[34m%s\033[0m	\033[32m->\033[0m	\033[34m%s\033[0m\n" "$1" "$out"
-			# printf 'Not building %s\n' "$1"
-
-			x=${out%%.html}
-			x=${x##out/}
-			header=${pre/\!TITLE\!/$x}
-			t=$(get-modified-time $1)
-			header=${header/\!TIME\!/$t}
-			printf '%s' "$header" > "$out"
-			bash ./.tooling/pond.sh "$1" 1>>$out #2>/dev/null # Debug fixes it somehow.. ;-;
-			printf '%s' "$post" >> "$out"
-			;;
-	esac
-
+	out=${out/.md/.html}
+	printf '%s -> %s\n' "$1" "$out"
+	markup=$(bash ./.tooling/pond.sh $1)
+	format_doc_heading "$out"
+	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
 }
 
-# Generate Article Index: {{{
-gen-index () {
-	cp ./src/index.html ./out/index.html
-	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
-		local posts=""
-		while read -r match; do
-			file=${match%:*}
-			title=${match#*:}
-			title=${title#*'<h1'*'>'}
-			title=${title%'</h1>'*}
-			posts+="<li><a href='/$file'>$title</a></li>\n"
-		done < <(grep -ProH '<h1.*?>.*</h1>' ${folder} )
-		folder=${folder#*/}
-		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
-	done
-	printf "Generated Article Index\n"
-	pkill --signal USR1 ${server%% *}
-}
-# }}}
-
-post-build () {
-	gen-index
+build_html () {
+	out=${1/src/out}
+	printf '%s -> %s\n' "$1" "$out"
+	cp -v $1 $out
 }
 
-# Optimize Images: {{{
-optimize-image () {
-	file=${1%%:*}
-	image=${1#*:}
-	image_path=$image
-	[[ $image == *.webp ]] && return
-	echo "Converting $image to WEBP"
-	if [[ $image == https://* ]]; then
-		echo "Downloading"
-		image_path=/assets/images/dump/$(cat /proc/sys/kernel/random/uuid).webp
-		curl -L -o .$image_path --progress-bar $image
-	fi
-	echo "Saved output to $image_path"
-
-	out_image_path=${image_path/.png/.webp}
-	out_image_path=${out_image_path/.jpg/.webp}
-	cwebp .$image_path -o .$out_image_path -q 90
-	initial_size=$(du .$image_path)
-	final_size=$(du .$out_image_path)
-	if (( ${final_size%%	*} > ${initial_size%%	*} )); then
-		echo 'WEBP Conversion war larger than original image!!!'
-		rm .$out_image_path
-		out_image_path=$image_path
-		return
-	fi
-	echo ">>>> s!$image_path!$out_image_path!g $file"
-	sed -i "s!$image!$out_image_path!g" $file
-
-	printf '\n\n'
+build_org () {
+	out=${1/src/out}
+	out=${out/.org/.html}
+	emacs $1 --batch -l $XDG_CONFIG_HOME/emacs/init.el -f org-html-export-to-html
+	printf '%s -> %s\n' "$1" "$out"
+	mv ${1/.org/.html} ${out}
 }
-# }}}
 
-case $1 in
+# Default: Build All Files
 
-	# Serve files with hot reloading
-	live)
-		$server &
-
-		paths=$( find './src/' -name '*.md' -or -name '*.org' -or -name '*.html' )
-		paths+='\n'
-		paths+=$( find './.tooling' -name '*.sh' )
-		paths+='\n./generate'
-		paths+='\n./index.html'
-		paths+='\n./template.html'
-		echo -e "$paths" | entr "./generate"
-		;;
-	
-	serve)
+case "$1" in
+	"serve")
 		$server
-		;;
-
-	*)
-		start_t=$(date +%s.%N)
-		mkdir -p src out
-		while read -r file; do
-			build-file "$file" &
-		done < <(find src -name "*.md" -or -name "*.html" -or -name '*.org')
-
-		for job in $(jobs -p); do
-			wait "$job"
-		done
-
-		post-build
-
-		end_t=$(date +%s.%N)
-		printf -- "--- Finished in \e[31m"
-		awk "BEGIN{ printf $end_t - $start_t }"
-		printf -- "s\e[0m ---\n"
+		exit
 	;;
 esac
+
+itermediate=
+IFS="
+"
+while read -r line; do
+	if [[ "$line" == *"!CONTENT!" ]]; then
+		template_pre_content=$intermediate
+		intermediate=
+		continue
+	fi
+	intermediate+=$line$IFS
+done < ./template.html
+template_post_content=$intermediate
+
+for file in ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org; do
+	case "${file##*.}" in
+		'org')
+			build_org "$file" &
+		;;
+		'html')
+			build_html "$file" &
+		;;
+		'md')
+			build_md "$file" &
+		;;
+	esac
+done
