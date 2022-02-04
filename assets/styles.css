@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&display=swap');
+
 /* Global */
 * {
 	box-sizing: border-box; 
@@ -28,12 +30,34 @@ body {
 	color: var(--black);
 }
 
+/* @media (prefers-color-scheme: dark) { */
+/*     /\* quite literal, inversion of colors >:) *\/ */
+/*     :root { */
+/*         --black: #fafafa; */
+/*         --white: #181818; */
+/*     } */
+/* } */
+
 h1,h2,h3 {
 	font-family: var(--fancy);
 	font-weight: 900;
 }
 h1{font-size: 2.5em;}
+h1:first-of-type {
+    text-decoration: underline #555 5px;
+}
 h2{font-size: 2em;}
+h4{font-size: 1.3em;}
+h5{font-size:1.2em;}
+h6{font-size:1.1em;}
+
+h2::before {
+    content: " * ";
+    position: absolute;
+    left: -1em;
+    top: 0.1em;
+}
+
 h3{font-size:1.5em;}
 
 pre,code {
@@ -45,12 +69,12 @@ pre {
 	display: block;
 }
 
-article { padding: 5vh 3vw 0 15vw; }
-header img, .txt-c, hr, .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
+article { padding: 5vh 3vw 0 15vw; line-height: 1.5; }
+article .txt-c, article hr, article .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
 
-ul,p{ margin-top: 0; }
+article ul,p{ margin-top: 0; }
 
-.MathJax_Display {
+article .MathJax_Display {
 	padding-right: 15vw;
 }
 
@@ -77,6 +101,14 @@ blockquote::before {
 	font-size: 2.5em;
 	top: -0.4em;
 }
+blockquote::after {
+    content: "❞";
+    position: absolute;
+    font-size: 2.5em;
+    bottom: -0.1em;
+    right: -0.5em;
+}
+
 figcaption { margin-left: 1em; }
 figure { margin: 0; }
 

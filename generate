@@ -15,10 +15,11 @@ format_doc_heading () {
 	doc_path=${1#'./src/'}
 	doc_path=${doc_path%'.'*}
 
-	[[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]]
+	[[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
 	doc_title=${BASH_REMATCH[1]}
 	doc_title=${doc_title/'<span class="reset">'/}
 	doc_title=${doc_title/'</span>'/}
+    doc_title=${doc_title//'<img'*'>'/}
 	
 	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
 	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
@@ -29,7 +30,7 @@ build_md () {
 	out=${1/src/out}
 	out=${out/.md/.html}
 	printf '%s -> %s\n' "$1" "$out"
-	markup=$(bash ./.tooling/pond.sh $1)
+	markup=$(bash ./.tooling/pond.sh "$1")
 	format_doc_heading "$out"
 	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
 }
@@ -37,15 +38,15 @@ build_md () {
 build_html () {
 	out=${1/src/out}
 	printf '%s -> %s\n' "$1" "$out"
-	cp -v $1 $out
+	cp -v "$1" "$out"
 }
 
 build_org () {
 	out=${1/src/out}
 	out=${out/.org/.html}
-	emacs $1 --batch -l $XDG_CONFIG_HOME/emacs/init.el -f org-html-export-to-html
+	emacs "$1" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" -f org-html-export-to-html
 	printf '%s -> %s\n' "$1" "$out"
-	mv ${1/.org/.html} ${out}
+	mv "${1/.org/.html}" "${out}"
 }
 
 generate_index () {
@@ -53,17 +54,18 @@ generate_index () {
 	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
 		local posts=""
 		while read -r match; do
-			file=${match%:*}
+			file=${match%%:*}
 			title=${match#*:}
 			title=${title#*'<h1'*'>'}
 			title=${title%'</h1>'*}
+            title=${title//'<img'*'>'/} # clean up any markup that remains
 			posts+="<li><a href='/$file'>$title</a></li>\n"
-		done < <(grep -ProH '<h1.*?>.*</h1>' ${folder} )
+		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
 		folder=${folder#*/}
 		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
 	done
 	printf "Generated Article Index\n"
-	pkill --signal USR1 ${server%% *}
+	pkill --signal USR1 "${server% *}"
 }
 
 # Default: Build All Files
@@ -72,10 +74,16 @@ case "$1" in
 	"serve")
 		$server
 		exit
-	;;
+	    ;;
+    "live")
+        $server &
+        find src -name '*.html' -or -name '*.md' -or -name '*.org' | entr  "$0" 
+        pkill -P $$ # Clean up
+        exit
+        ;;
 esac
 
-itermediate=
+intermediate=
 IFS="
 "
 while read -r line; do

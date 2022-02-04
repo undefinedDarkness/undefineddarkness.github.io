@@ -6,7 +6,6 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="author" content="nes" />
 		<title>🎨 Design</title>
-		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
@@ -74,13 +73,13 @@ You then copy the icons from the site (^^) and use them in whatever text applica
 How to patch your own font:<br/>
 <pre class="showcase">
 <code><span style="color:#898989; font-style:italic"># Download the nerd fonts patcher and the glyphs it needs.</span>
-git clone <span style="color:#48bac2; font-weight:bold">--filter</span><span style="color:#181818">=</span>blob<span style="color:#181818">:</span>none <span style="color:#48bac2; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#181818">:</span>ryanoasis<span style="color:#181818">/</span>nerd<span style="color:#48bac2; font-weight:bold">-fonts</span>
-<span style="color:#48bac2; font-weight:bold">cd</span> nerd<span style="color:#48bac2; font-weight:bold">-fonts</span>
-git sparse<span style="color:#48bac2; font-weight:bold">-checkout</span> add src<span style="color:#181818">/</span>glyphs
+git clone <span style="color:#48bac2; font-weight:bold">--filter</span><span style="color:#181818">=</span>blob<span style="color:#181818">:</span>none <span style="color:#48bac2; font-weight:bold">--sparse</span> git&#64;github.com<span style="color:#181818">:</span>ryanoasis<span style="color:#181818">/</span>nerd-fonts
+<span style="color:#48bac2; font-weight:bold">cd</span> nerd-fonts
+git sparse-checkout add src<span style="color:#181818">/</span>glyphs
 
 <span style="color:#898989; font-style:italic"># Using the patcher</span>
 <span style="color:#898989; font-style:italic"># You need fontforge &amp; Python 3 for this to work:</span>
-.<span style="color:#181818">/</span>font<span style="color:#48bac2; font-weight:bold">-patcher</span> <span style="color:#181818">&lt;</span>PATH TO FONT<span style="color:#181818">&gt;</span>
+.<span style="color:#181818">/</span>font-patcher <span style="color:#181818">&lt;</span>PATH TO FONT<span style="color:#181818">&gt;</span>
 </code>
 </pre>
 <br/>

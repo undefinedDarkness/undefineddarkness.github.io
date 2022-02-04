@@ -25,6 +25,7 @@ const args = parse(Deno.args, {
   alias: { ignorePatterns: "ignore" },
 });
 
+
 if (args.help) {
   console.log(`
 \u001b[1m🍱 Bento\u001b[0m: A simple live server in deno
@@ -70,7 +71,10 @@ socket.addEventListener('open', function (event) {
 // Listen for messages
 socket.addEventListener('message', function (event) {
     console.log('🔥: ', event.data);
-	if (event.data == "UPDATE") { location.reload() }
+    if (event.data == "UPDATE") {
+WebSocket.close(socket);
+location.reload()
+}
 });
 
 socket.addEventListener('close', () => { console.log('🔥: Connection Closed') })
@@ -148,12 +152,13 @@ async function fileWatcher() {
   }
 }
 
-const listenToSignals = async () => {
+const listenToSignals = () => {
  Deno.addSignalListener("SIGUSR1", () => {
     console.log("\u001b[34mSIG\u001b[0m Update Signal Recieved");
     sockets.forEach((sock) => sock.send("UPDATE"));
   })
 };
+
 
 Deno.chdir(String(args["_"][0] ?? "."));
 try {

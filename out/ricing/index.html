@@ -6,7 +6,6 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="author" content="nes" />
 		<title>🍱 Reference</title>
-		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
@@ -170,7 +169,7 @@ After installing, you have to make changes the following changes<br/>
 ~/.config/Trolltech.conf<br/>
 <pre class="showcase">
 <code><span style="color:#a94598; font-weight:bold">[Qt]</span>
-<span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span>GTK<span style="color:#181818">+</span>
+<span style="color:#48bac2; font-weight:bold">style</span><span style="color:#181818">=</span><span style="color:#9c5a02; font-weight:bold">GTK+</span>
 </code>
 </pre>
 <br/>
@@ -211,11 +210,11 @@ Vim has good documentation on what most of the highlight groups are for, avail y
 <p>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
 <pre class="showcase">
-<code><span style="color:#a94598; font-weight:bold">function</span><span style="color:#181818">!</span> <span style="color:#c48218; font-weight:bold">SynStack</span><span style="color:#181818">()</span>
-  <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span><span style="color:#c48218; font-weight:bold">exists</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;&ast;synstack&quot;</span><span style="color:#181818">)</span>
+<code>function<span style="color:#181818">!</span> SynStack<span style="color:#181818">()</span>
+  <span style="color:#a94598; font-weight:bold">if</span> <span style="color:#181818">!</span>exists<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&quot;&ast;synstack&quot;)</span>
     return
   <span style="color:#a94598; font-weight:bold">endif</span>
-  echo <span style="color:#c48218; font-weight:bold">map</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">synstack</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">line</span><span style="color:#181818">(</span><span style="color:#38781c">&#39;.&#39;</span><span style="color:#181818">),</span> <span style="color:#c48218; font-weight:bold">col</span><span style="color:#181818">(</span><span style="color:#38781c">&#39;.&#39;</span><span style="color:#181818">)),</span> <span style="color:#38781c">&#39;synIDattr(v:val, &quot;</span>name<span style="color:#898989; font-style:italic">&quot;)&#39;)</span>
+  echo map<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">synstack(line(&apos;.&apos;), col(&apos;.&apos;)), &apos;synIDattr(v:val, &quot;name&quot;)&apos;)</span>
 endfunc
 </code>
 </pre>
@@ -466,7 +465,8 @@ here's Ubuntu's competition for 21.10: <a href="https://discourse.ubuntu.com/t/w
 Xubuntu's competition for 16.04: <a href="https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/">https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/</a><br/>
 PopOS's repository: <a href="https://github.com/pop-os/wallpapers/tree/master/original">https://github.com/pop-os/wallpapers/tree/master/original</a><br/>
 <br/>
-I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that one is definatley very NSFW<br/>
+I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that one is definatley very <b>NSFW</b><br/>
+<a href="https://boards.4chan.org/wg/catalog">Their catalog of threads</a><br/>
 <br/>
 Really depends on what you're doing and looking for tho..<br/>
 <br/>

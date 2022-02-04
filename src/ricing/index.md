@@ -295,7 +295,8 @@ here's Ubuntu's competition for 21.10: https://discourse.ubuntu.com/t/wallpaper-
 Xubuntu's competition for 16.04: https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/
 PopOS's repository: https://github.com/pop-os/wallpapers/tree/master/original
 
-I like [the /wg/ board too](https://boards.4chan.org/wg/) but that one is definatley very NSFW
+I like [the /wg/ board too](https://boards.4chan.org/wg/) but that one is definatley very **NSFW**
+[Their catalog of threads](https://boards.4chan.org/wg/catalog)
 
 Really depends on what you're doing and looking for tho..
 

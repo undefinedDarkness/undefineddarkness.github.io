@@ -3,6 +3,7 @@ import {
   join,
 } from "https://deno.land/std/path/mod.ts";
 
+
 function existsSync(filePath: string): boolean {
   try {
     Deno.lstatSync(filePath);
@@ -98,7 +99,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
           mimeType = canUseFile ? await getMimeType(path) : ""
       }
       headers.set("content-type", mimeType);
-      await request.respondWith(
+      request.respondWith(
         new Response(await Deno.readFile(path), {
           status: 200,
           headers,

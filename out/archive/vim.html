@@ -6,7 +6,6 @@
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="author" content="nes" />
 		<title>Vi IMproved</title>
-		<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
@@ -93,11 +92,11 @@ Improving the :grep command to work similar to how <a href="https://github.com/m
 See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything<br/>
 final snippet:<br/>
 <pre class="showcase">
-<code><span style="color:#a94598; font-weight:bold">function</span><span style="color:#181818">!</span> <span style="color:#c48218; font-weight:bold">Grep</span><span style="color:#181818">(...)</span>
-	return <span style="color:#c48218; font-weight:bold">system</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">join</span><span style="color:#181818">([</span><span style="color:#9c5a02; font-weight:bold">&amp;grepprg</span><span style="color:#181818">] + [</span><span style="color:#c48218; font-weight:bold">expandcmd</span><span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">join</span><span style="color:#181818">(</span>a<span style="color:#181818">:</span><span style="color:#c43e18">000</span><span style="color:#181818">,</span> <span style="color:#38781c">&#39; &#39;</span><span style="color:#181818">))],</span> <span style="color:#38781c">&#39; &#39;</span><span style="color:#181818">))</span>
-<span style="color:#a94598; font-weight:bold">endfunction</span>
-command<span style="color:#181818">! -</span>nargs<span style="color:#181818">=+ -</span>complete<span style="color:#181818">=</span>file_in_path <span style="color:#181818">-</span>bar Grep  cgetexpr <span style="color:#c48218; font-weight:bold">Grep</span><span style="color:#181818">(&lt;</span>f<span style="color:#181818">-</span>args<span style="color:#181818">&gt;)</span>
-command<span style="color:#181818">! -</span>nargs<span style="color:#181818">=+ -</span>complete<span style="color:#181818">=</span>file_in_path <span style="color:#181818">-</span>bar LGrep lgetexpr <span style="color:#c48218; font-weight:bold">Grep</span><span style="color:#181818">(&lt;</span>f<span style="color:#181818">-</span>args<span style="color:#181818">&gt;)</span>
+<code>function<span style="color:#181818">!</span> Grep<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">...)</span>
+	return system<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">join([&amp;grepprg] + [expandcmd(join(a:000, &apos; &apos;))], &apos; &apos;))</span>
+endfunction
+command<span style="color:#181818">! -</span>nargs<span style="color:#181818">=+ -</span>complete<span style="color:#181818">=</span>file_in_path <span style="color:#181818">-</span>bar Grep  cgetexpr Grep<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&lt;f-args&gt;)</span>
+command<span style="color:#181818">! -</span>nargs<span style="color:#181818">=+ -</span>complete<span style="color:#181818">=</span>file_in_path <span style="color:#181818">-</span>bar LGrep lgetexpr Grep<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">&lt;f-args&gt;)</span>
 <span style="color:#a94598; font-weight:bold">augroup</span> quickfix
 	<span style="color:#a94598; font-weight:bold">autocmd</span><span style="color:#181818">!</span>
 	<span style="color:#a94598; font-weight:bold">autocmd</span> QuickFixCmdPost cgetexpr cwindow
@@ -126,11 +125,11 @@ syntax highlighted goodness,<br/>
 And you can script it! Like so:<br/>
 <pre class="showcase">
 <code>lang<span style="color:#181818">=</span><span style="color:#38781c">&quot;</span><span style="color:#c43e18">$2</span><span style="color:#38781c">&quot;</span>
-f<span style="color:#181818">=</span><span style="color:#c48218; font-weight:bold">$(mktemp)</span>
-<span style="color:#48bac2; font-weight:bold">echo</span> <span style="color:#38781c">&quot;</span><span style="color:#c43e18">$0</span><span style="color:#38781c">&quot;</span> <span style="color:#181818">|</span> <span style="color:#9c5a02; font-weight:bold">head</span> <span style="color:#48bac2; font-weight:bold">-n -1</span> <span style="color:#181818">|</span> nvim <span style="color:#48bac2; font-weight:bold">-n --headless</span> \
+f<span style="color:#181818">=</span>$<span style="color:#181818">(</span>mktemp<span style="color:#181818">)</span>
+<span style="color:#48bac2; font-weight:bold">echo</span> <span style="color:#38781c">&quot;</span><span style="color:#c43e18">$0</span><span style="color:#38781c">&quot;</span> | <span style="color:#9c5a02; font-weight:bold">head</span> <span style="color:#48bac2; font-weight:bold">-n -1</span> | nvim <span style="color:#48bac2; font-weight:bold">-n --headless</span> \
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;let g:html_no_progress = 0&quot;</span>\
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;let g:html_ignore_folding = 0&quot;</span>\
-	<span style="color:#181818">+</span><span style="color:#38781c">&#39;let g:html_prevent_copy = &quot;fn&quot;&#39;</span>\
+	<span style="color:#181818">+</span><span style="color:#38781c">&apos;let g:html_prevent_copy = &quot;fn&quot;&apos;</span>\
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;set ft=</span><span style="color:#c43e18">$1</span><span style="color:#38781c">&quot;</span>\
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;runtime! syntax/2html.vim&quot;</span>\
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;wq!</span> <span style="color:#c43e18">$f</span><span style="color:#38781c">&quot;</span>\
@@ -210,25 +209,25 @@ But basically:<br/>
 </ul><br/>For dictionary completion, you can use the following snippet:<br/>
 You might need to rewrite it in vim script for vim...<br/>
 <pre class="showcase">
-<code><span style="color:#a94598; font-weight:bold">local</span> spell_complete <span style="color:#181818">=</span> vim<span style="color:#181818">.</span>api<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">nvim_replace_termcodes</span><span style="color:#181818">(</span><span style="color:#38781c">&#39;&lt;C-x&gt;&lt;C-k&gt;&#39;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">)</span> 
+<code><span style="color:#a94598; font-weight:bold">local</span> spell_complete <span style="color:#181818">=</span> vim<span style="color:#181818">.</span>api<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">nvim_replace_termcodes</span><span style="color:#181818">(</span><span style="color:#38781c">&apos;&lt;C-x&gt;&lt;C-k&gt;&apos;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">)</span> 
 <span style="color:#a94598; font-weight:bold">local</span> M <span style="color:#181818">= {}</span>
 <span style="color:#a94598; font-weight:bold">function</span> M<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">spell</span><span style="color:#181818">()</span>
 	<span style="color:#a94598; font-weight:bold">if</span> vim<span style="color:#181818">.</span>opt<span style="color:#181818">.</span>spell 
 	<span style="color:#a94598; font-weight:bold">and</span> <span style="color:#181818">(</span>vim<span style="color:#181818">.</span>fn<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">pumvisible</span><span style="color:#181818">() ==</span> <span style="color:#c43e18">0</span><span style="color:#181818">)</span> 
-	<span style="color:#a94598; font-weight:bold">and</span> <span style="color:#181818">((</span>vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&gt;=</span> <span style="color:#38781c">&#39;a&#39;</span> <span style="color:#a94598; font-weight:bold">and</span> vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&lt;=</span> <span style="color:#38781c">&#39;z&#39;</span><span style="color:#181818">)</span> 
-	<span style="color:#a94598; font-weight:bold">or</span> <span style="color:#181818">(</span>vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&gt;=</span> <span style="color:#38781c">&#39;A&#39;</span> <span style="color:#a94598; font-weight:bold">and</span> vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&lt;=</span> <span style="color:#38781c">&#39;Z&#39;</span><span style="color:#181818">))</span> <span style="color:#a94598; font-weight:bold">then</span>
-		vim<span style="color:#181818">.</span>fn<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">feedkeys</span><span style="color:#181818">(</span>spell_complete<span style="color:#181818">,</span> <span style="color:#38781c">&#39;n&#39;</span><span style="color:#181818">)</span>
+	<span style="color:#a94598; font-weight:bold">and</span> <span style="color:#181818">((</span>vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&gt;=</span> <span style="color:#38781c">&apos;a&apos;</span> <span style="color:#a94598; font-weight:bold">and</span> vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&lt;=</span> <span style="color:#38781c">&apos;z&apos;</span><span style="color:#181818">)</span> 
+	<span style="color:#a94598; font-weight:bold">or</span> <span style="color:#181818">(</span>vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&gt;=</span> <span style="color:#38781c">&apos;A&apos;</span> <span style="color:#a94598; font-weight:bold">and</span> vim<span style="color:#181818">.</span>v<span style="color:#181818">.</span>char <span style="color:#181818">&lt;=</span> <span style="color:#38781c">&apos;Z&apos;</span><span style="color:#181818">))</span> <span style="color:#a94598; font-weight:bold">then</span>
+		vim<span style="color:#181818">.</span>fn<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">feedkeys</span><span style="color:#181818">(</span>spell_complete<span style="color:#181818">,</span> <span style="color:#38781c">&apos;n&apos;</span><span style="color:#181818">)</span>
 	<span style="color:#a94598; font-weight:bold">end</span>
 <span style="color:#a94598; font-weight:bold">end</span>
 <span style="color:#a94598; font-weight:bold">function</span> M<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">setup_spell</span><span style="color:#181818">()</span>
 	vim<span style="color:#181818">.</span>opt<span style="color:#181818">.</span>spell <span style="color:#181818">=</span> <span style="color:#a94598; font-weight:bold">true</span>
 	vim<span style="color:#181818">.</span>cmd <span style="color:#38781c">[[ </span>
-<span style="color:#38781c">	autocmd InsertCharPre &ast; lua require(&#39;auto&#39;).spell() &quot; You&#39;ll need to change this </span>
+<span style="color:#38781c">	autocmd InsertCharPre &ast; lua require(&apos;auto&apos;).spell() &quot; You&apos;ll need to change this </span>
 <span style="color:#38781c">	]]</span>
 <span style="color:#a94598; font-weight:bold">end</span>
 
 <span style="color:#898989; font-style:italic">-- And this too:</span>
-vim<span style="color:#181818">.</span>cmd <span style="color:#38781c">[[ au FileType markdown,html lua require(&#39;auto&#39;).setup_spell() ]]</span>
+vim<span style="color:#181818">.</span>cmd <span style="color:#38781c">[[ au FileType markdown,html lua require(&apos;auto&apos;).setup_spell() ]]</span>
 
 <span style="color:#a94598; font-weight:bold">return</span> M 
 </code>
