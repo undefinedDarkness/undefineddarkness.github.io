@@ -82,7 +82,7 @@ Kind Icon is a small addition to corfu that shows the type of whatever item it i
 If you want a more powerful lsp client with more integration / options, You ought to check out lsp-mode.
 Similarly for corfu, try company-mode & company-box-mode, If your lsp needs are fairly simple like mine are, this duo should work just fine for you. 
 
-**** Linting / Formatting
+**** Linting
 I think there is only one correct answer to this and that is flycheck.
 It just works ootb and will automatically pick up any linters you have installed, and generally its been a install once, and don't worry about it plugin.
 
@@ -90,6 +90,8 @@ I am sure it's possible to make flymake entirely usable but it seems to be more 
 
 If you want to disable the default eldoc linter which is maybe the most stupid linter I have ever seen, do
 ~(setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))~
+
+*Haven't looked into formatting yet
 
 *** Speed
 On average, For me Emacs takes around 1s to fully start up, This isn't bad at all considering I haven't gone out of my way to make it faster and I haven't made use of daemon mode (which would make startup time irrelevant),
@@ -156,7 +158,7 @@ Before you delve any deeper, This is the end result in my Emacs configuration,
 /Font used is iA Writer Quattro - It's been made for iA writer which is a Markdown editor for MacOS, that looks really good./
 
 ~org-hide-emphasis-markers~ automatically hides any inline *emphasis* markers which leads to a much cleaner look.
-~org-pretty-entities~ 
+~org-pretty-entities~ converts text symbols into their unicode counterparts to ~<backslash>lambda~ becomes ~\lambda~ 
 For the list bullets, 
 Besides ~org-hide-leading-stars~, I use org-superstar (a improved version of org bullets), With all the heading stars changed to ~*~; I originally had a space to hide most stars but that broke indent mode too much.
 Then I set all the list bullets to use the unicode bullet character (•)
@@ -185,4 +187,4 @@ Vterm mode provides a excellent terminal that just works^TM, and I didn't need t
 Neotree & Treemacs are only file trees I have tried, and I prefer the way neotree works more than treemacs,
 Speedtree would be decent if it didn't popup a new window and could use icons
 
-Parinfer becomes a bit of a pain when it disagrees with me, but when it does work, It is lisp editing heaven
+Parinfer becomes a bit of a pain when it disagrees with me, but when it does work, It is lisp editing heaven but your mileage may vary.

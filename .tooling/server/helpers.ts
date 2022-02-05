@@ -54,7 +54,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
           status: 404,
           headers,
         }),
-      );
+      ).catch(console.error);
       return;
     }
 

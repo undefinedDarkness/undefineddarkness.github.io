@@ -253,6 +253,7 @@ final_transformer() {
 		s!IM:(.*)$!<span class="in-margin">\1</span>!gm;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
+        s!==(.+?)==!<mark>\1</mark>!g;
 		s!{(.+?)}!<span class="reset">\1</span>!;
 	' <<< "$content"
 }

@@ -28,9 +28,6 @@ const args = parse(Deno.args, {
 
 if (args.help) {
   console.log(`
-\u001b[1m🍱 Bento\u001b[0m: A simple live server in deno
-----------------
-
 \u001b[4mUsage:\u001b[0m
 > deno run --unstable --allow-read --allow-net --allow-run server.ts [options]
 
@@ -102,7 +99,7 @@ async function serveConnection(conn: Deno.Conn) {
       socket.onclose = () => {
         sockets = sockets.splice(idx, 1);
       };
-      await request.respondWith(response);
+        request.respondWith(response).catch(console.error);
       args.log && console.log(
         "\u001b[32mWS-CONNECT\u001b[0m Total connected sockets: " +
           sockets.length,

@@ -101,13 +101,13 @@ blockquote::before {
 	font-size: 2.5em;
 	top: -0.4em;
 }
-blockquote::after {
-    content: "❞";
-    position: absolute;
-    font-size: 2.5em;
-    bottom: -0.1em;
-    right: -0.5em;
-}
+/* blockquote::after { */
+/*     content: "❞"; */
+/*     position: absolute; */
+/*     font-size: 2.5em; */
+/*     bottom: -0.1em; */
+/*     right: -0.5em; */
+/* } */
 
 figcaption { margin-left: 1em; }
 figure { margin: 0; }
@@ -130,15 +130,7 @@ li:not(:first-child) {
 	margin: 1em 0;
 }
 
-mark {all: inherit;}
-mark::before {
-	content: "*";
-	color: var(--highlight);
-	font-size: 3em;
-	display: block;
-	position: absolute;
-	left: var(--margin);
-}
+mark {border:3px solid;padding: 0.8em;background:transparent;}
 
 /* Anchor footer to bottom of content */
 footer {
@@ -146,7 +138,7 @@ footer {
 	top: 100vh;
 	padding: 2em 0;
 }
-footer a { text-decoration: none; }
+footer > a:last-of-type { text-decoration: none; }
 
 /* Table */
 table { 
@@ -227,7 +219,7 @@ header img {
 .showcase::-webkit-scrollbar-thumb { background: var(--black); }
 .showcase img { border: 1px solid; }
 
-/* Tierlist Table Module */
+/*-- Tierlist Table Module --*/
 .tierlist tr:not(:last-child) {border-bottom: 1px solid var(--black);}
 .tierlist td:first-child {border-right: 1px solid var(--black);}
 .tierlist *, .tierlist { border: none; }
