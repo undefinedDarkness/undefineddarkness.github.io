@@ -73,12 +73,12 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
 
       const data = new TextDecoder("utf-8").decode(await Deno.readFile(path)).replace('</body>', SCRIPT+'</body>') // add to end of body tag
 
-      await request.respondWith(
+      request.respondWith(
         new Response(data, {
           status: 200,
           headers,
         }),
-      );
+      ).catch(console.error);
 
 	  return path
     } // }}}
@@ -104,7 +104,7 @@ export async function serveFile(path: string, request: Deno.RequestEvent, SCRIPT
           status: 200,
           headers,
         }),
-      );
+      ).catch(console.error);
 	  return path;
     }
 	// }}}

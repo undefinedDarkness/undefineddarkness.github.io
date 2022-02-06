@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 
 /* Global */
 * {
@@ -8,8 +8,8 @@
 
 :root {
 	--margin: -0.8em;
-	--fancy: 'Fraunces', cursive;
-	--normal: 'Commissioner', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	--fancy: 'Merriweather', sans-serif, cursive;
+	--normal: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	--black: #181818;
 	--white: #fff;
 }
@@ -63,6 +63,7 @@ h3{font-size:1.5em;}
 pre,code {
 	font-family: "Roboto Mono", monospace;
 	font-weight: 300;
+    line-height: 1;
 }
 pre {
 	text-align: left;
@@ -70,7 +71,7 @@ pre {
 }
 
 article { padding: 5vh 3vw 0 15vw; line-height: 1.5; }
-article .txt-c, article hr, article .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
+article .txt-c, article center, article hr, article .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
 
 article ul,p{ margin-top: 0; }
 
