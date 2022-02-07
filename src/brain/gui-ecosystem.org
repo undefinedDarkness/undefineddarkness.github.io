@@ -1,0 +1,13 @@
+** GUI Experiments
+This is a experiment to try out various native GUI frameworks and try to find one I can bear with.
+It involves creating a really simple TODO app in several frameworks,
+The ones I have chosen for this experiment are:
+
+- Flutter
+- GTK 3
+- Godot (The game engine)
+- Web (Electron / Website)
+- Nuklear
+
+The code for Godot will be written in it's own GDScript,
+GTK 3 & Nuklear will use C, Flutter Dart, Web JS ... you get the idea.

@@ -134,7 +134,7 @@ show all file types, only then can you open your markdown file or whatever<br/>
 </li>
 <li>No one liner / lambda functions <span class="in-margin">IV<br/></span>
 The way you pass functions is also really dumb, eg:<br/>
-<pre class="showcase">
+<pre>
 <code>node<span style="color:#181818">.</span><span style="color:#9c5a02; font-weight:bold">connect</span><span style="color:#181818">(</span><span style="color:#38781c">&quot;signal-name&quot;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">self</span><span style="color:#181818">,</span> <span style="color:#38781c">&quot;signal-name-callback&quot;</span><span style="color:#181818">, [</span> <span style="color:#38781c">&apos;apple&apos;</span> <span style="color:#181818">])</span>
 
 <span style="color:#898989; font-style:italic"># could be with lambdas</span>
@@ -155,7 +155,7 @@ a nice thing to see would be a way to link a get_node() call to a certain fixed 
 This method could be linked to the editor<br/>
 This is the thing I found most frustrating and would most like to see get fixed or alleviated</strike><br/>
 Turns out I was pretty dumb, Godot has a system for this, its called node paths and you can use them like so:<br/>
-<pre class="showcase">
+<pre>
 <code><span style="color:#a94598; font-weight:bold">export var</span> sidebar_path<span style="color:#181818">:</span> <span style="color:#48bac2; font-weight:bold">NodePath</span>
 <span style="color:#a94598; font-weight:bold">onready var</span> sidebar <span style="color:#181818">=</span> <span style="color:#9c5a02; font-weight:bold">get_node</span><span style="color:#181818">(</span>sidebar_path<span style="color:#181818">)</span>
 <span style="color:#898989; font-style:italic"># or as a clever one liner</span>
@@ -172,7 +172,7 @@ So if you want to run something in the editor (while editing) to show up in the 
 This makes your <i>entire script</i> run in the editor, and <a href="https://docs.godotengine.org/en/stable/tutorials/misc/running_code_in_the_editor.html">the documentation</a> lists how your code can cause errors quite a few times,<br/>
 All this made me not really want to risk using them unless all the script did was affect the appearance of itself, which wasn't the case in my code for most cases,<br/>
 What I would like to see, is a way to run / expose only specific functions in the editor, for example:<br/>
-<pre class="showcase">
+<pre>
 <code>editor <span style="color:#a94598; font-weight:bold">func</span> _ready<span style="color:#181818">:</span>
 	<span style="color:#9c5a02; font-weight:bold">add_dummy_items</span><span style="color:#181818">()</span>
 	<span style="color:#a94598; font-weight:bold">self</span><span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">modulate</span> <span style="color:#181818">=</span> <span style="color:#48bac2; font-weight:bold">Color</span><span style="color:#181818">(</span><span style="color:#c43e18">0</span><span style="color:#181818">,</span> <span style="color:#c43e18">0</span><span style="color:#181818">,</span> <span style="color:#c43e18">0</span><span style="color:#181818">)</span>

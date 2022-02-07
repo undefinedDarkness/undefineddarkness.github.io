@@ -66,6 +66,7 @@ pre,code {
     line-height: 1;
 }
 pre {
+    overflow-x: scroll;
 	text-align: left;
 	display: block;
 }
@@ -135,7 +136,7 @@ mark {border:3px solid;padding: 0.8em;background:transparent;}
 
 /* Anchor footer to bottom of content */
 footer {
-	position: sticky;
+	/* position: sticky; */
 	top: 100vh;
 	padding: 2em 0;
 }
@@ -165,7 +166,7 @@ thead th {
 	border-right: 1px solid var(--black);
 }
 
-
+article img {max-width: 75vw;}
 
 /* Style heading image to the right */
 header img {
@@ -211,6 +212,12 @@ header img {
 
 /* Show scrollbars as required */
 .ovr-x { overflow-x: auto; }
+
+@media only screen and (max-width: 600px) {
+    .hide-m {display:none}
+    article { padding-left: 8vw; }
+    header img { float: revert; }
+}
 
 /*-- Showcase Row Module --*/
 .showcase  { overflow-x: hidden;  }
