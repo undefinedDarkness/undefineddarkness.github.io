@@ -15,7 +15,7 @@
 }
 
 /* General Document */
-body, html, article {
+body, article {
 	width: 100%;
 	height: 100%;
 }
@@ -66,7 +66,7 @@ pre,code {
     line-height: 1;
 }
 pre {
-    overflow-x: scroll;
+    overflow-x: auto;
 	text-align: left;
 	display: block;
 }
@@ -136,8 +136,8 @@ mark {border:3px solid;padding: 0.8em;background:transparent;}
 
 /* Anchor footer to bottom of content */
 footer {
-	/* position: sticky; */
-	top: 100vh;
+	position: sticky;
+	top: 20vh;
 	padding: 2em 0;
 }
 footer > a:last-of-type { text-decoration: none; }

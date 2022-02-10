@@ -38,7 +38,7 @@ build_md () {
 build_html () {
 	out=${1/src/out}
 	printf '%s -> %s\n' "$1" "$out"
-	cp -v "$1" "$out"
+    cp -v "$1" "$out"
 }
 
 build_org () {
