@@ -49,6 +49,21 @@ build_org () {
 	mv "${1/.org/.html}" "${out}"
 }
 
+build () {
+    file=$1
+	case "${file##*.}" in
+		'org')
+			build_org "$file" &
+		;;
+		'html')
+			build_html "$file" &
+		;;
+		'md')
+			build_md "$file" &
+		;;
+	esac
+}
+
 generate_index () {
 	cp ./src/index.html ./out/index.html
 	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
@@ -58,7 +73,9 @@ generate_index () {
 			title=${match#*:}
 			title=${title#*'<h1'*'>'}
 			title=${title%'</h1>'*}
+            # title=${title//'&amp;'/'&'}
             title=${title//'<img'*'>'/} # clean up any markup that remains
+            # echo "Found title: $title"
 			posts+="<li><a href='/$file'>$title</a></li>\n"
 		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
 		folder=${folder#*/}
@@ -77,11 +94,14 @@ case "$1" in
 	    ;;
     "live")
         $server &
-        find src -name '*.html' -or -name '*.md' -or -name '*.org' | entr  "$0" 
+        $0 # Initial Build
+        find src -name '*.html' -or -name '*.md' -or -name '*.org' -not -name '.#*' | entr -p $0 - /_ 
         pkill -P $$ # Clean up
         exit
         ;;
 esac
+
+shift
 
 intermediate=
 IFS="
@@ -96,19 +116,14 @@ while read -r line; do
 done < ./template.html
 template_post_content=$intermediate
 
-for file in ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org; do
-	case "${file##*.}" in
-		'org')
-			build_org "$file" &
-		;;
-		'html')
-			build_html "$file" &
-		;;
-		'md')
-			build_md "$file" &
-		;;
-	esac
+files_to_build=$*
+[ -z "${files_to_build/ /}" ] && files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)
+oifs=$IFS
+IFS=" "
+for file in ${files_to_build}; do
+    build "$file"
 done
+IFS=$oifs
 
 for job in $(jobs -p); do
 	wait "$job"

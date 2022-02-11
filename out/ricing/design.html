@@ -104,9 +104,16 @@ See more: <a href="https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-P
 <br/>
 You can also get GTK applications (this includes most browsers) to not antialias by using: <code>Xft.antialias: 0</code> in xresources.<br/>
 <br/>
+Some distributions have disabled bitmap fonts by default, but you can fix it by following these steps:<br/>
+<pre>
+<code><span style="color:#48bac2; font-weight:bold">cd</span> <span style="color:#181818">/</span>etc<span style="color:#181818">/</span>fonts<span style="color:#181818">/</span>conf.d<span style="color:#181818">/</span>
+sudo <span style="color:#9c5a02; font-weight:bold">rm</span> <span style="color:#48bac2; font-weight:bold">-rf</span> <span style="color:#c43e18">70</span><span style="color:#48bac2; font-weight:bold">-no-bitmaps</span>.conf <span style="color:#181818">&amp;&amp;</span> sudo <span style="color:#9c5a02; font-weight:bold">ln</span> <span style="color:#48bac2; font-weight:bold">-s</span> ..<span style="color:#181818">/</span>conf.avail<span style="color:#181818">/</span><span style="color:#c43e18">70</span><span style="color:#48bac2; font-weight:bold">-yes-bitmaps</span>.conf .
+</code>
+</pre>
 </p>
-<h5> Commonly used bitmap fonts:</h5>
+<h5> </h5>
 <p>
+Commonly used bitmap fonts:<br/>
 <div class='showcase horizontal'><a href="https://github.com/slavfox/Cozette"><img src="/assets/images/font-previews/CozetteVector.png" alt="Cozette" title="Cozette" loading="lazy" /></a><br/>
 <a href="https://font.gohu.org"><img src="/assets/images/font-previews/Gohu-GohuFont.webp" alt="GohuFont" title="GohuFont" loading="lazy" /></a><br/>
 <a href="https://terminus-font.sourceforge.net"><img src="/assets/images/font-previews/Terminus.png" alt="Terminus" title="Terminus" loading="lazy" /></a>	<br/>
@@ -115,6 +122,11 @@ You can also get GTK applications (this includes most browsers) to not antialias
 <a href="https://github.com/Tecate/bitmap-fonts">Repository Of Bitmap Fonts</a><br/>
 <a href="https://github.com/Francesco149/bdf2x">Upscaling Bitmap Fonts</a><br/>
 <!-- TODO: Add a link on making a bitmap font to vector font		   Making use of bitmap fonts in pango etc apps --><br/>
+<br/>
+</p>
+<h4> Installing Fonts</h4>
+<p>
+Once you have your font files (usually in .ttf or .otf), You can install them by simply moving them to <code>~/.local/share/fonts</code><br/>
 <br/>
 </p>
 </details>

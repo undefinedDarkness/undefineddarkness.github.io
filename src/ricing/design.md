@@ -82,7 +82,13 @@ See more: https://nixers.net/Thread-Bitmap-fonts-PCF-BDF-support-with-Pango
 
 You can also get GTK applications (this includes most browsers) to not antialias by using: `Xft.antialias: 0` in xresources.
 
-##### Commonly used bitmap fonts:
+Some distributions have disabled bitmap fonts by default, but you can fix it by following these steps:
+```sh
+cd /etc/fonts/conf.d/
+sudo rm -rf 70-no-bitmaps.conf && sudo ln -s ../conf.avail/70-yes-bitmaps.conf .
+```
+##### 
+Commonly used bitmap fonts:
 <div class='showcase horizontal'>
 [![Cozette](/assets/images/font-previews/CozetteVector.png)](https://github.com/slavfox/Cozette)
 [![GohuFont](/assets/images/font-previews/Gohu-GohuFont.webp)](https://font.gohu.org)
@@ -96,6 +102,9 @@ You can also get GTK applications (this includes most browsers) to not antialias
 [Upscaling Bitmap Fonts](https://github.com/Francesco149/bdf2x)
 <!-- TODO: Add a link on making a bitmap font to vector font
 		   Making use of bitmap fonts in pango etc apps -->
+
+#### Installing Fonts
+Once you have your font files (usually in .ttf or .otf), You can install them by simply moving them to `~/.local/share/fonts`
 
 #END f
 

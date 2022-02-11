@@ -166,45 +166,7 @@ to use them more easily, create a keybinding for `SynStack()` or `require('hl-in
 #END f
 
 #f Terminal
-This is really simple too: popular color schemes usually have been ported for common terminal programs, even if it doesn't, it should still be really simple to implement, it's just 16 colors after all :P
-
-#### Comparison
-This is a general comparison of the most common terminal emulators as of October 2021.
-
-#TABLE	NAME	Ligatures	True Color	Fallback Fonts	OTF	Bitmaps	Wayland	Tabs / Splits	Images	Config
-Wezterm			Y			Y			Y				Y		Y		Y		Y			  Y		Lua
-Alacritty		P			Y			N				N		Y		Y		N			  N		Yaml
-Kitty			Y			Y			N				Y		N		Y		Y			  Y		Custom
-Xterm			N			N			N				N		Y		N		N			  N		Xres
-St				P			Y			P				N		Y		N		N			  P		C Header
-Foot			N			Y			Y				N		Y		Y		N			  Y		INI
-#END TABLE
-
-**Notes:**
-OTF = Open Type Features such as stylistic sets and the like
-P = With a patch or a fork
-Alacritty is the most commonly used terminal, (in the UP discord)
-Foot is wayland only.
-If you are looking into using st, I highly suggest you use [st-flexipatch](https://github.com/bakkeby/st-flexipatch) instead as it is much easier to use and modify.
-<!-- TODO: Add links to the forks / patches here -->
-
-Fork for ligatures in alacritty (super out of date and the alacritty author recommends just using another terminal):
-https://github.com/zenixls2/alacritty
-st patches: https://st.suckless.org/patches/
-
-[Arch wiki page](https://wiki.archlinux.org/title/List_of_applications#Terminal)
-
-#### Images in the Terminal
-This is an often sought after feature and often used with fetch scripts.
-Right now there is no standard and each terminal does their own thing, more and more are supporting [sixel](https://en.wikipedia.org/wiki/Sixel), though, so maybe that will end up being the standard.
-For terminals without image support entirely, there are hacks using `w3m-img` and `uberzerg` to get them...but they're finicky and don't just work™, so I'd recommend against them.
-[Full article](https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal)
-
-But here's a overview:
-Alacritty doesn't support images and needs a hack;
-Wezterm natively supports iterms2's image format & sixel;
-Kitty has its own format;
-St can support sixel via a [patch](https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch) and it needs a patch for the w3m hack to work too.
+Moved section to [terminal](terminal.html)
 #END f
 
 #f Picom

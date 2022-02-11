@@ -1,6 +1,9 @@
 # {📚} Useful Ricing Knowledge
 
 #f How to RTFM & Get help
+
+==TLDR: Read documentation before asking questions and if you don't find / can't think of an answer, put effort into asking questions and ask questions in places where they are most likely to answered.==
+
 Read manuals whenever you can, those can be easily accessed for any installed software by doing `man <NAME-OF-SOFTWARE>`, or by searching through a online [repository](https://manpages.debian.org/).
 If manpages are too long for you, You can also try using [tldr-pages](https://github.com/tldr-pages/tldr) to get the very basics of an application with some examples
 
@@ -21,10 +24,8 @@ There is a good reason there are not that many good rices, it's a difficult thin
 If you can't do that, maybe ricing isn't for you. No harm just using a desktop environment.
 
 #### Getting help
->>>
-Found a nice article on the topic, read it: 
-http://www.catb.org/esr/faqs/smart-questions.html
->>>
+==Found a nice article on the topic, read it:  http://www.catb.org/esr/faqs/smart-questions.html .==
+
 Ask for help in a community related to that one piece of software you want help for. Usually there is at least a GitHub discussion, an IRC chat room or a Matrix space / discord server for most things.
 Make good use of them, you'll meet developers of the software and actual users of the software there. Instead of asking in something like the UP server which is only mildly related to that software.
 
@@ -86,6 +87,8 @@ This "guide" as I call it, isnt that much of a guide but more of a reference, Be
 and since its so flexible trying to document every step on your journey that way would be too much work, so I have just collected useful tidbits of knowledge I found
 and tried to make it easier to document applications even I found difficult to theme. I have no attempt to hold anyone's hand through ricing through since if I do that
 It will become a how-to-make-a-rice-nes-likes guide; And I have a hard time putting such vague ideas about design and color into words, I am not a designer or artist after all.
+
+Along with that, I never meant for this guide to teach you design, That is something best left to professionals
 
 There is however a method to the madness, as you continue you pick up habits and orders in which to do things. Mine (personally) is to just jump right in and worry about the rest later
 so I dont really have much to say here but, as an example to follow:

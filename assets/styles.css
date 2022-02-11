@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 
+
 /* Global */
 * {
 	box-sizing: border-box; 
@@ -66,6 +67,7 @@ pre,code {
     line-height: 1;
 }
 pre {
+    overflow-y: hidden;
     overflow-x: auto;
 	text-align: left;
 	display: block;
@@ -132,7 +134,7 @@ li:not(:first-child) {
 	margin: 1em 0;
 }
 
-mark {border:3px solid;padding: 0.8em;background:transparent;}
+mark {display:inline-block;border:3px solid;padding: 0.8em;background:transparent;}
 
 /* Anchor footer to bottom of content */
 footer {
@@ -179,7 +181,7 @@ header img {
 /* Small helper classes */
 .txt-c {text-align: center }
 .reset {font-weight: normal}
-.pxl,.pxl-art {image-rendering: pixelated}
+.pxl,.pxl-art {image-rendering: crisp-edges}
 
 /* Position something in the margin of content */
 .in-margin {
