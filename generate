@@ -12,86 +12,110 @@ server='deno run --unstable -A ./.tooling/server/server.ts --port=5000 --live=fa
 
 # Helpers:
 format_doc_heading () {
-	doc_path=${1#'./src/'}
-	doc_path=${doc_path%'.'*}
+    doc_path=${1#'./src/'}
+    doc_path=${doc_path%'.'*}
 
-	[[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
-	doc_title=${BASH_REMATCH[1]}
-	doc_title=${doc_title/'<span class="reset">'/}
-	doc_title=${doc_title/'</span>'/}
+    [[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
+    doc_title=${BASH_REMATCH[1]}
+    doc_title=${doc_title/'<span class="reset">'/}
+    doc_title=${doc_title/'</span>'/}
     doc_title=${doc_title//'<img'*'>'/}
-	
-	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
-	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
+    
+    doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
+    doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
 }
 
 # Tasks:
 build_md () {
-	out=${1/src/out}
-	out=${out/.md/.html}
-	printf '%s -> %s\n' "$1" "$out"
-	markup=$(bash ./.tooling/pond.sh "$1")
-	format_doc_heading "$out"
-	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
+    out=${1/src/out}
+    out=${out/.md/.html}
+    # printf '%s -> %s\n' "$1" "$out"
+    markup=$(quiet=true bash ./.tooling/pond.sh "$1")
+    format_doc_heading "$out"
+    printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
 }
 
+# Has a 
 build_html () {
-	out=${1/src/out}
-	printf '%s -> %s\n' "$1" "$out"
-    cp -v "$1" "$out"
+    out=${1/src/out}
+    # printf '%s -> %s\n' "$1" "$out"
+    ln -sf "$(realpath $1)" "$(realpath $out)" 2> /dev/null
+    # cp -v "$1" "$out"
 }
 
 build_org () {
-	out=${1/src/out}
-	out=${out/.org/.html}
-	emacs "$1" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" -f org-html-export-to-html
-	printf '%s -> %s\n' "$1" "$out"
-	mv "${1/.org/.html}" "${out}"
+    out=${1/src/out}
+    out=${out/.org/.html}
+    emacs "$1" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" -f org-html-export-to-html > /dev/null 2> /dev/null 
+    # printf '%s -> %s\n' "$1" "$out"
+    mv "${1/.org/.html}" "${out}"
 }
 
+#=======================
+# Generic Build Function 
+#=======================
 build () {
     file=$1
-	case "${file##*.}" in
-		'org')
-			build_org "$file" &
-		;;
-		'html')
-			build_html "$file" &
-		;;
-		'md')
-			build_md "$file" &
-		;;
-	esac
+    case "${file##*.}" in
+        'org')
+            build_org "$file" &
+            ;;
+        'html')
+            build_html "$file" &
+            ;;
+        'md')
+            build_md "$file" &
+            ;;
+    esac
 }
 
+count=0
 generate_index () {
-	cp ./src/index.html ./out/index.html
-	find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
-		local posts=""
-		while read -r match; do
-			file=${match%%:*}
-			title=${match#*:}
-			title=${title#*'<h1'*'>'}
-			title=${title%'</h1>'*}
+    cp ./src/index.html ./out/index.html 2> /dev/null
+    find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
+        local posts=""
+        while read -r match; do
+            file=${match%%:*}
+            title=${match#*:}
+            title=${title#*'<h1'*'>'}
+            title=${title%'</h1>'*}
             # title=${title//'&amp;'/'&'}
             title=${title//'<img'*'>'/} # clean up any markup that remains
             # echo "Found title: $title"
-			posts+="<li><a href='/$file'>$title</a></li>\n"
-		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
-		folder=${folder#*/}
-		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
-	done
-	printf "Generated Article Index\n"
-	pkill --signal USR1 "${server% *}"
+            posts+="<li><a href='/$file'>$title</a></li>\n"
+        done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
+        folder=${folder#*/}
+        sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
+    done
+    printf "Finished generating %d files.\n" "$count"
+    pkill --signal USR1 "${server% *}"
+}
+
+domain="nes.is-a.dev"
+generate_rss_feed () {
+    cp ./template.xml ./out/rss.xml
+    posts=""
+    while read -r match; do
+        file=${match%%:*}
+        title=${match#*:}
+        title=${title#*'<h1'*'>'}
+        title=${title%'</h1>'*}
+        # title=${title//'&amp;'/'&'}
+        title=${title//'<i>'/} title=${title//'</i>'/} title=${title//'<span class="reset">'/} title=${title//'</span>'/}
+        title=${title//'<img'*'>'/} # clean up any markup that remains
+        file=${file#out/}
+        posts+="<item>\n<title>$title</title>\n<description>${file%.*}</description>\n<link>https://$domain/out/${file}</link>\n</item>\n"
+    done < <(grep -ProH '<h1.*?>.*</h1>' out/)
+    sed -i "s\`!ITEMS!\`$posts\`g" ./out/rss.xml
 }
 
 # Default: Build All Files
 
 case "$1" in
-	"serve")
-		$server
-		exit
-	    ;;
+    "serve")
+        $server
+        exit
+        ;;
     "live")
         $server &
         $0 # Initial Build
@@ -107,12 +131,12 @@ intermediate=
 IFS="
 "
 while read -r line; do
-	if [[ "$line" == *"!CONTENT!" ]]; then
-		template_pre_content=$intermediate
-		intermediate=
-		continue
-	fi
-	intermediate+=$line$IFS
+    if [[ "$line" == *"!CONTENT!" ]]; then
+        template_pre_content=$intermediate
+        intermediate=
+        continue
+    fi
+    intermediate+=$line$IFS
 done < ./template.html
 template_post_content=$intermediate
 
@@ -122,13 +146,15 @@ oifs=$IFS
 IFS=" "
 for file in ${files_to_build}; do
     build "$file"
+    count=$(( count + 1 ))
 done
 IFS=$oifs
 
 for job in $(jobs -p); do
-	wait "$job"
+    wait "$job"
 done
 
 generate_index
+generate_rss_feed
 
 exit

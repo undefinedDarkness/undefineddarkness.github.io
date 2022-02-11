@@ -2,7 +2,7 @@
 
 # Warning / Error / Debug
 warn () {
-	printf "\033[33mWWW\033[0m %s\n" "$@" >&2
+	[ -z "$quiet" ] && printf "\033[33mWWW\033[0m %s\n" "$@" >&2
 }
 
 err () {

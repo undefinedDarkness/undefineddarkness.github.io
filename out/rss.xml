@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nes's blog</title>
+    <description>A small place for tech, design, anything I think of</description>
+    <link>http://nes.is-a.dev</link>
+    <atom:link href="https://nes.is-a.dev/out/rss.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <item>
+<title> Common Jargon</title>
+<description>ricing/terminology</description>
+<link>https://nes.is-a.dev/out/ricing/terminology.html</link>
+</item>
+<item>
+<title>Terminal and Shell Customization</title>
+<description>ricing/terminal</description>
+<link>https://nes.is-a.dev/out/ricing/terminal.html</link>
+</item>
+<item>
+<title>Frequently Asked Questions</title>
+<description>ricing/faq</description>
+<link>https://nes.is-a.dev/out/ricing/faq.html</link>
+</item>
+<item>
+<title>🎨 Design</title>
+<description>ricing/design</description>
+<link>https://nes.is-a.dev/out/ricing/design.html</link>
+</item>
+<item>
+<title>🍱 Reference</title>
+<description>ricing/index</description>
+<link>https://nes.is-a.dev/out/ricing/index.html</link>
+</item>
+<item>
+<title>📚 Useful Ricing Knowledge</title>
+<description>ricing/useful</description>
+<link>https://nes.is-a.dev/out/ricing/useful.html</link>
+</item>
+<item>
+<title>My experiance using Godot</title>
+<description>brain/gui-in-godot</description>
+<link>https://nes.is-a.dev/out/brain/gui-in-godot.html</link>
+</item>
+<item>
+<title>My experience using Emacs</title>
+<description>brain/hello-new</description>
+<link>https://nes.is-a.dev/out/brain/hello-new.html</link>
+</item>
+<item>
+<title>Programming languages I like</title>
+<description>brain/languages</description>
+<link>https://nes.is-a.dev/out/brain/languages.html</link>
+</item>
+<item>
+<title>About Me</title>
+<description>about</description>
+<link>https://nes.is-a.dev/out/about.html</link>
+</item>
+<item>
+<title>Vi IMproved</title>
+<description>archive/vim</description>
+<link>https://nes.is-a.dev/out/archive/vim.html</link>
+</item>
+<item>
+<title>Got a display server to kill</title>
+<description>archive/wayland</description>
+<link>https://nes.is-a.dev/out/archive/wayland.html</link>
+</item>
+<item>
+<title>Using Windows</title>
+<description>archive/windows</description>
+<link>https://nes.is-a.dev/out/archive/windows.html</link>
+</item>
+<item>
+<title>Lorem Ipsum: Test Page</title>
+<description>lorem</description>
+<link>https://nes.is-a.dev/out/lorem.html</link>
+</item>
+
+  </channel>
+</rss>

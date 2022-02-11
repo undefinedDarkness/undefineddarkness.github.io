@@ -64,7 +64,7 @@ h3{font-size:1.5em;}
 pre,code {
 	font-family: "Roboto Mono", monospace;
 	font-weight: 300;
-    line-height: 1;
+    line-height: initial;
 }
 pre {
     overflow-y: hidden;
