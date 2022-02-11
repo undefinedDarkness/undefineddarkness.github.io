@@ -39,8 +39,8 @@ build_md () {
 build_html () {
     out=${1/src/out}
     # printf '%s -> %s\n' "$1" "$out"
-    ln -sf "$(realpath $1)" "$(realpath $out)" 2> /dev/null
-    # cp -v "$1" "$out"
+    # ln -sf "$(realpath $1)" "$(realpath $out)" 2> /dev/null
+    cp -v "$1" "$out"
 }
 
 build_org () {
@@ -82,6 +82,7 @@ generate_index () {
             # title=${title//'&amp;'/'&'}
             title=${title//'<img'*'>'/} # clean up any markup that remains
             # echo "Found title: $title"
+            [ -z "${title/ /}" ] && continue
             posts+="<li><a href='/$file'>$title</a></li>\n"
         done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
         folder=${folder#*/}
@@ -104,6 +105,7 @@ generate_rss_feed () {
         title=${title//'<i>'/} title=${title//'</i>'/} title=${title//'<span class="reset">'/} title=${title//'</span>'/}
         title=${title//'<img'*'>'/} # clean up any markup that remains
         file=${file#out/}
+            [ -z "${title/ /}" ] && continue
         posts+="<item>\n<title>$title</title>\n<description>${file%.*}</description>\n<link>https://$domain/out/${file}</link>\n</item>\n"
     done < <(grep -ProH '<h1.*?>.*</h1>' out/)
     sed -i "s\`!ITEMS!\`$posts\`g" ./out/rss.xml

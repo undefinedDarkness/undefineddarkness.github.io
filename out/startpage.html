@@ -1,1 +1,40 @@
-/home/portal/Documents/undefineddarkness.github.io/src/startpage.html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>My little startpage</title>
+		<!-- <link rel="stylesheet" href="/assets/styles.css" /> -->
+        <style>
+          body {
+              overflow: hidden;
+              background: #101010;
+             display: flex; justify-content: center; align-items: center; flex-direction: column
+          }
+          html,body {
+              width: 100%;
+              height: 100%;
+          }
+          h1 {
+              color: #555;
+              font-weight: 600;
+              font-family: "IBM Plex Sans"
+          }
+        </style>
+    </head>
+	<body >
+      <img src="/assets/images/dump/swordfish2.png" />
+      <h1></h1>
+	</body>
+    <script defer>
+      let titleText = ""
+      const $ = _ => document.querySelector(_)
+      fetch('/assets/expansions.txt').then(r => r.text()).then(r => {
+          titleText = r.split("\n")[Math.floor(Math.random() * 843)]
+          $('h1').innerText = titleText // Max: 842
+      })
+      // $('h1').innerText = 
+    </script>
+</html>
