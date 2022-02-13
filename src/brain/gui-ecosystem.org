@@ -11,3 +11,5 @@ The ones I have chosen for this experiment are:
 
 The code for Godot will be written in it's own GDScript,
 GTK 3 & Nuklear will use C, Flutter Dart, Web JS ... you get the idea.
+
+/Article Incomplete./

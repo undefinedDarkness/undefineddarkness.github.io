@@ -73,14 +73,8 @@ pre {
 	display: block;
 }
 
-article { padding: 5vh 3vw 0 15vw; line-height: 1.5; }
-article .txt-c, article center, article hr, article .split { margin-right: 12vw; } /* Right margins for proper centering to occur */
-
+article { padding: 0 5vw; line-height: 1.5; }
 article ul,p{ margin-top: 0; }
-
-article .MathJax_Display {
-	padding-right: 15vw;
-}
 
 a {
 	color: inherit;
@@ -105,13 +99,6 @@ blockquote::before {
 	font-size: 2.5em;
 	top: -0.4em;
 }
-/* blockquote::after { */
-/*     content: "❞"; */
-/*     position: absolute; */
-/*     font-size: 2.5em; */
-/*     bottom: -0.1em; */
-/*     right: -0.5em; */
-/* } */
 
 figcaption { margin-left: 1em; }
 figure { margin: 0; }
@@ -154,6 +141,13 @@ table {
 table * {
 	text-align: center;
 	margin: 0;
+}
+
+/* Footnotes */
+h2.footnotes {display: none;}
+#footnotes {border-top: 1px solid; padding-top: 0.5em;  }
+.footpara {
+    display: inline;
 }
 
 table td:first-child {text-align: left;}
