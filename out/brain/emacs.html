@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-13 Sun 23:25 -->
+<!-- 2022-02-14 Mon 09:52 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My experience using Emacs</title>
@@ -42,9 +42,9 @@ And of course since I like bringing pain onto myself, I decided to forgo <a href
 </p>
 
 
-<section id="outline-container-org8da26d7" class="outline-2">
-<h2 id="org8da26d7">Getting used to it</h2>
-<div class="outline-text-2" id="text-org8da26d7">
+<section id="outline-container-org6be9124" class="outline-2">
+<h2 id="org6be9124">Getting used to it</h2>
+<div class="outline-text-2" id="text-org6be9124">
 <p>
 Getting used to Emacs wasn't really hard once I installed <a href="https://github.com/emacs-evil/evil">evil-mode</a>,<br>
 That plugin makes Emacs follow vim's system of insert, normal &amp; visual modes as well as follow vim's keybind system, Which is much more comfortable for me,<br>
@@ -62,13 +62,13 @@ Moving around files from directly in the editor was something I needed to get us
 </p>
 
 <p>
-Using Emacs's bookmark system with <a href="#org412d9c1">Consult</a> has helped with moving around a lot however.<br>
+Using Emacs's bookmark system with <a href="#org9f78bbc">Consult</a> has helped with moving around a lot however.<br>
 </p>
 </div>
 
-<div id="outline-container-org8cc2eb2" class="outline-3">
-<h3 id="org8cc2eb2">Compiling Emacs for great good</h3>
-<div class="outline-text-3" id="text-org8cc2eb2">
+<div id="outline-container-org0c6ba88" class="outline-3">
+<h3 id="org0c6ba88">Compiling Emacs for great good</h3>
+<div class="outline-text-3" id="text-org0c6ba88">
 <p>
 Another reason I decided to try Emacs now of all times was that there were 3 exciting features that had just recently been implemented,<br>
 Native Compilation, Pure GTK Support &amp; Pixel Smooth Scrolling.<br>
@@ -118,13 +118,13 @@ sudo make install -j$(<span style="font-weight: bold;">nproc</span>)
 </section>
 
 
-<section id="outline-container-orgf0723cf" class="outline-2">
-<h2 id="orgf0723cf">Getting comfortable in it</h2>
-<div class="outline-text-2" id="text-orgf0723cf">
+<section id="outline-container-orgf36b41f" class="outline-2">
+<h2 id="orgf36b41f">Getting comfortable in it</h2>
+<div class="outline-text-2" id="text-orgf36b41f">
 </div>
-<div id="outline-container-org602a1c2" class="outline-3">
-<h3 id="org602a1c2">Corfu + Eglot (+ Kind Icon) = ❤️</h3>
-<div class="outline-text-3" id="text-org602a1c2">
+<div id="outline-container-org83ebf37" class="outline-3">
+<h3 id="org83ebf37">Corfu + Eglot (+ Kind Icon) = ❤️</h3>
+<div class="outline-text-3" id="text-org83ebf37">
 <p>
 Corfu is a very minimal Emacs plugin that offers wonderful in buffer completions,<br>
 that just works<sup>TM</sup>  <br>
@@ -150,9 +150,9 @@ Similarly for corfu, try company-mode &amp; company-box-mode, If your lsp needs 
 </p>
 </div>
 
-<div id="outline-container-org203d70b" class="outline-4">
-<h4 id="org203d70b">Linting</h4>
-<div class="outline-text-4" id="text-org203d70b">
+<div id="outline-container-orgf239c6c" class="outline-4">
+<h4 id="orgf239c6c">Linting</h4>
+<div class="outline-text-4" id="text-orgf239c6c">
 <p>
 I think there is only one correct answer to this and that is flycheck.<br>
 It just works ootb and will automatically pick up any linters you have installed, and generally its been a install once, and don't worry about it plugin.<br>
@@ -174,9 +174,9 @@ If you want to disable the default eldoc linter which is maybe the most stupid l
 </div>
 </div>
 
-<div id="outline-container-orgbd940d2" class="outline-3">
-<h3 id="orgbd940d2">Speed</h3>
-<div class="outline-text-3" id="text-orgbd940d2">
+<div id="outline-container-orgfb428e0" class="outline-3">
+<h3 id="orgfb428e0">Speed</h3>
+<div class="outline-text-3" id="text-orgfb428e0">
 <p>
 On average, For me Emacs takes around 1s to fully start up, This isn't bad at all considering I haven't gone out of my way to make it faster and I haven't made use of daemon mode (which would make startup time irrelevant),<br>
 And since I don't close it often it matters even less. But here are a few tricks I used to speed it up from its vanilla state (Still not as extreme as DOOM Emacs does tho).<br>
@@ -235,9 +235,9 @@ The garbage collector and the file alist trick help a fair bit as well.<br>
 </div>
 </div>
 
-<div id="outline-container-org6285f49" class="outline-3">
-<h3 id="org6285f49">Org Mode</h3>
-<div class="outline-text-3" id="text-org6285f49">
+<div id="outline-container-org17b7cca" class="outline-3">
+<h3 id="org17b7cca">Org Mode</h3>
+<div class="outline-text-3" id="text-org17b7cca">
 <p>
 I was always skeptical of how good org mode would be, Cause I had seen emacs users proclaim org mode as the killer feature for Emacs which I disagreed with (and still do) but now I understand what they were talking about,<br>
 It is really amazing how flexible org mode is.<br>
@@ -271,13 +271,13 @@ so that WYSIWYG.<br>
 <p>
 Though I would like to see a <i>bit</i> more flexibility when it comes to syntax, I much prefer some of markdown's syntax compared to what org has (though its not too bad) and would like to customize some parts of the export process.<br>
 Example: I would like to display keybindings on my site from a document written in org, but Org has no way to export <code>&lt;kbd&gt;&lt;/kbd&gt;</code><br>
-tags out of the box, and the few SO solutions I have found seems to be pretty ugly hacks, I'll have to try and see which one isn't broken yet.<br>
+tags out of the box, and the few SO solutions I have found seems to be pretty ugly hacks in my opinion, I'll have to try and see which one isn't broken yet.<br>
 </p>
 </div>
 
-<div id="outline-container-org04297ad" class="outline-4">
-<h4 id="org04297ad">Making Org Mode Pretty</h4>
-<div class="outline-text-4" id="text-org04297ad">
+<div id="outline-container-org781aff8" class="outline-4">
+<h4 id="org781aff8">Making Org Mode Pretty</h4>
+<div class="outline-text-4" id="text-org781aff8">
 <p>
 Before you delve any deeper, This is the end result in my Emacs configuration,<br>
 <img src="../../assets/images/org-mode.png" alt="org-mode.png"><br>
@@ -311,9 +311,9 @@ You can see all the customizations I made in:<br>
 </div>
 </div>
 
-<div id="outline-container-org412d9c1" class="outline-3">
-<h3 id="org412d9c1">Consult</h3>
-<div class="outline-text-3" id="text-org412d9c1">
+<div id="outline-container-org9f78bbc" class="outline-3">
+<h3 id="org9f78bbc">Consult</h3>
+<div class="outline-text-3" id="text-org9f78bbc">
 <p>
 One thing I missed quite a lot from Neovim was telescope, That is an amazing plugin that allows you to very quickly search through and filter files, contents of files, buffers, tabs, functions in the file etc.<br>
 It didn't take long till I found <a href="https://github.com/minad/vertico">consult</a> which combined with <a href="https://github.com/minad/vertico">vertico</a> replicates most of the experience I want as well if not better than telescope (Combining various useful things in the buffer selection menu),<br>
@@ -326,9 +326,9 @@ as does Emacs so it does not <code>cd</code> to the folder which contains my cod
 </div>
 </div>
 
-<div id="outline-container-orgb517995" class="outline-3">
-<h3 id="orgb517995">Other Stuff</h3>
-<div class="outline-text-3" id="text-orgb517995">
+<div id="outline-container-orgf9f6b0f" class="outline-3">
+<h3 id="orgf9f6b0f">Other Stuff</h3>
+<div class="outline-text-3" id="text-orgf9f6b0f">
 <p>
 Vterm mode provides a excellent terminal that just works<sup>TM</sup>, and I didn't need to do any particular configuration for it.<br>
 </p>

@@ -149,7 +149,7 @@ so that WYSIWYG.
 
 Though I would like to see a /bit/ more flexibility when it comes to syntax, I much prefer some of markdown's syntax compared to what org has (though its not too bad) and would like to customize some parts of the export process.
 Example: I would like to display keybindings on my site from a document written in org, but Org has no way to export ~<kbd></kbd>~
-tags out of the box, and the few SO solutions I have found seems to be pretty ugly hacks, I'll have to try and see which one isn't broken yet.
+tags out of the box, and the few SO solutions I have found seems to be pretty ugly hacks in my opinion, I'll have to try and see which one isn't broken yet.
 
 **** Making Org Mode Pretty
 
