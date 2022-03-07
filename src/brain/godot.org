@@ -109,14 +109,14 @@ void fragment() {
      #+end_src
 
 **** Fonts
-Godot's system is good currently and allows a lot of flexibility when defining what font to use, allowing you to toggle filtering / not use vector fonts etc.
-But its inability to use fonts from the system is a bit annoying, I have to package every font I want with the project; That is probably fine for a game but picking up fonts from the system would be useful functionality.
+     Godot's system is good currently and allows a lot of flexibility when defining what font to use, allowing you to toggle filtering / not use vector fonts etc.
+     But its inability to use fonts from the system is a bit annoying, I have to package every font I want with the project; That is probably fine for a game but picking up fonts from the system would be useful functionality.
 
-And from a bit of messing around, looks like the only way to use things like *bold* /italic/ and __under line__ in the general UI, is to use a ~RichTextLabel~ that accept BBcode markup,
-and even for that you need to define separate fonts for each weight / slant you want. :/
-No fancy variable fonts here.
+     And from a bit of messing around, looks like the only way to use things like *bold* /italic/ and __under line__ in the general UI, is to use a ~RichTextLabel~ that accept BBcode markup,
+     and even for that you need to define separate fonts for each weight / slant you want. :/
+     No fancy variable fonts here.
  
-For other widgets, if there is no font property for it, you're out of luck.
+     For other widgets, if there is no font property for it, you're out of luck.
 
 **** Theme Editor
      You might call this a nitpick, but it is something worth nothing I feel. This is what the default theme editor looks like and while its certainly usable...
@@ -190,10 +190,16 @@ func _ready() -> void:
 
 *** Other
 
-As for performance, while I won't call it light weight , its not too outrageously intensive, as long as you tone down the fps and don't go nuts with the asset loading, it'll probably be fine...
-Memory usage can get out of hand if you don't mind it tho.
-/I found 25 fps to be good enough for my purposes./
+    As for performance, while I won't call it light weight , its not too outrageously intensive, as long as you tone down the fps and don't go nuts with the asset loading, it'll probably be fine...
+    Memory usage can get out of  hand if you don't mind it tho.
+    /I found 25 fps to be good enough for my purposes./
+    For GUI alone though, it's not very good.
 
-It definitely isn't the best if you want a accessible UI system, outside of like translations, you won't find much of that here.
+    It definitely isn't the best if you want a accessible UI system, outside of like translations, you won't find much of that here.
+
+    <<Editor Layout>>
+    The editor UI is really inflexible, while the default layout is perfectly functional, If you want to customize it to any greater extent than moving a few panes around, you're out of luck :/
+    For example, I wanted a layout with the preview and node editor in a vertical layout to the left and a script editor to the right, But this is not possible,
+    Godot 4 introduces a split screen editor so that's a start.
 
 [fn:1] This has been addressed in Godot V4.

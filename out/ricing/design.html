@@ -36,7 +36,7 @@ You can find most of them on <a href="https://fonts.google.com">Google Fonts</a>
 More on fonts: <a href="https://github.com/wooosh/themewiki/blob/master/guide/fonts.md">https://github.com/wooosh/themewiki/blob/master/guide/fonts.md</a><br/>
 Here are the fonts I personally like for each one:<br/>
 <br/>
-<h4> Mono space:</h4>
+<h4 id="####-Mono space:"> Mono space:</h4>
 <p>
 <div class="horizontal showcase"><img src="/assets/images/font-previews/Roboto-Mono-Regular.webp" alt="Roboto Mono" title="Roboto Mono" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/IBM-Plex-Mono-Regular.webp" alt="IBM Plex Mono" title="IBM Plex Mono" loading="lazy" /><br/>
@@ -45,14 +45,14 @@ Here are the fonts I personally like for each one:<br/>
 <a href="https://juliamono.netlify.app/"><img src="/assets/images/font-previews/JuliaMono-Regular.webp" alt="Julia Mono" title="Julia Mono" loading="lazy" /></a><br/>
 </div><br/>
 </p>
-<h4> Serif:</h4>
+<h4 id="####-Serif:"> Serif:</h4>
 <p>
 <div class="horizontal showcase"><a href="https://www.redaction.us/"><img src="/assets/images/font-previews/Redaction.webp" alt="Redaction" title="Redaction" loading="lazy" /></a><br/>
 <a href="https://edwardtufte.github.io/et-book/"><img src="/assets/images/font-previews/ETBembo-RomanLF.webp" alt="ET Bembo" title="ET Bembo" loading="lazy" /></a><br/>
 <a href="https://fonts.google.com/specimen/Piazzolla"><img src="/assets/images/font-previews/Piazzolla-Regular.webp" alt="Piazzolla" title="Piazzolla" loading="lazy" /></a><br/>
 </div><br/>
 </p>
-<h4> Sans Serif:</h4>
+<h4 id="####-Sans Serif:"> Sans Serif:</h4>
 <p>
 <div class="horizontal showcase"><img src="/assets/images/font-previews/Roboto.webp" alt="Roboto" title="Roboto" loading="lazy" /><br/>
 <img src="/assets/images/font-previews/Ubuntu-Regular.webp" alt="Ubuntu Sans" title="Ubuntu Sans" loading="lazy" /><br/>
@@ -63,7 +63,7 @@ Here are the fonts I personally like for each one:<br/>
 Compare Different Fonts: <a href="https://wooosh.github.io/themewiki/fontindex/">ThemeWiki</a><br/>
 <br/>
 </p>
-<h4> Nerd Fonts</h4>
+<h4 id="####-Nerd Fonts"> Nerd Fonts</h4>
 <p>
 Nerd fonts are patched versions of common fonts you know and love to include a large amount of text icons, these are commonly used in apps that are unable to actually render icons.<br/>
 <br/>
@@ -84,7 +84,7 @@ git sparse-checkout add src<span style="color:#181818">/</span>glyphs
 </pre>
 <br/>
 </p>
-<h4> Bitmap Fonts</h4>
+<h4 id="####-Bitmap Fonts"> Bitmap Fonts</h4>
 <p>
 <br/>
 <div class="split"><img height="400" class='pxl' src="/assets/images/bitmap-eg.webp" title="Without AA" alt="Without AA" /><img height="400" class='pxl' src="/assets/images/aa-eg.webp" title="With AA" alt="With AA" /></div><br/>
@@ -96,7 +96,7 @@ They will generally look a lot sharper than vector fonts because they are genera
 All of which leads to pretty unique pixilated look that a lot of people like.<br/>
 <br/>
 </p>
-<h5> Using in GUI Applications</h5>
+<h5 id="#####-Using in GUI Applications"> Using in GUI Applications</h5>
 <p>
 Pango (a text library used in most GUI applications on Linux) does not directly support bitmap fonts, but it is still possible to get them to work,<br/>
 Bitmap fonts can be converted to a truetype (supported by pango) trojan horse which contains the bitmap data, using tools like, fontforge or <a href="https://gitlab.freedesktop.org/xorg/app/fonttosfnt">fonttosfnt</a>,<br/>
@@ -111,7 +111,7 @@ sudo <span style="color:#9c5a02; font-weight:bold">rm</span> <span style="color:
 </code>
 </pre>
 </p>
-<h5> </h5>
+<h5 id="#####-"> </h5>
 <p>
 Commonly used bitmap fonts:<br/>
 <div class='showcase horizontal'><a href="https://github.com/slavfox/Cozette"><img src="/assets/images/font-previews/CozetteVector.png" alt="Cozette" title="Cozette" loading="lazy" /></a><br/>
@@ -124,7 +124,7 @@ Commonly used bitmap fonts:<br/>
 <!-- TODO: Add a link on making a bitmap font to vector font		   Making use of bitmap fonts in pango etc apps --><br/>
 <br/>
 </p>
-<h4> Installing Fonts</h4>
+<h4 id="####-Installing Fonts"> Installing Fonts</h4>
 <p>
 Once you have your font files (usually in .ttf or .otf), You can install them by simply moving them to <code>~/.local/share/fonts</code><br/>
 <br/>
@@ -132,7 +132,7 @@ Once you have your font files (usually in .ttf or .otf), You can install them by
 </details>
 <br/>
 </p>
-<h2> Conventions</h2>
+<h2 id="##-Conventions"> Conventions</h2>
 <p>
 <details open>
 <summary>CSS Box Model</summary>
@@ -153,6 +153,7 @@ Margin is spacing between the box and its siblings / parent box.<br/>
 				<span class='in-margin'>✈</span>
 				<a href="/out/index.html">Return To Index</a>
 			</footer>
-		</article>
+	  </article>
+      <script src="/assets/ipage.js" />
 	</body>
 </html>

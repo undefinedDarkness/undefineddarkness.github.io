@@ -20,7 +20,7 @@
 Most of it is useless if you already know, and it only covers the <b>very</b> very basics.<br/>
 List of ricing software you can use: <a href="https://github.com/fosslife/awesome-ricing">https://github.com/fosslife/awesome-ricing</a><br/>
 <br/>
-<h2> How do I rice <T>?</h2>
+<h2 id="##-How do I rice <T>?"> How do I rice <T>?</h2>
 <p>
 <br/>
 <details open>
@@ -33,7 +33,7 @@ But as usual, Do not follow them word for word, Experiment your own and try to u
 Customizing emacs is 90% about your own passion, There is a lot you can do<br/>
 <br/>
 </p>
-<h4> How to make it fast</h4>
+<h4 id="####-How to make it fast"> How to make it fast</h4>
 <p>
 A pretty useless pursuit since emacs comes with its daemon mode which ought to take care of most people's need for speed,<br/>
 But this is kinda fun so a few basic tips are here to make it faster at starting up:<br/>
@@ -124,7 +124,7 @@ You can use any of the selectors available for <a href="https://developer.mozill
 <i>NOTE: Stylus can also export to this format for easy usage</i><br/>
 <br/>
 </p>
-<h4> Start Page</h4>
+<h4 id="####-Start Page"> Start Page</h4>
 <p>
 You will need basic knowledge of HTML, CSS & JS.<br/>
 <a href="https://developer.mozilla.org/en-US/">MDN</a> is a nice place to learn.<br/>
@@ -149,7 +149,7 @@ GTK CSS reference: <a href="https://docs.gtk.org/gtk4/css-properties.html">https
 Using the GTK Debugger: <a href="https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger">https://elkowar.github.io/eww/working_with_gtk.html#gtk-debugger</a> (This should work anywhere)<br/>
 <br/>
 </p>
-<h4> Uniform Look for GTK & QT Apps</h4>
+<h4 id="####-Uniform Look for GTK & QT Apps"> Uniform Look for GTK & QT Apps</h4>
 <p>
 <br/>
 Arch Wiki Link: <a href="https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines">https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications#Theme_engines</a><br/>
@@ -160,7 +160,7 @@ To achieve a consistent look over both the styles, you can install <b>theme engi
 These theme engines can be used to translate themes between GTK and QT platforms.<br/>
 <br/>
 </p>
-<h4> QGtkStyle</h4>
+<h4 id="####-QGtkStyle"> QGtkStyle</h4>
 <p>
 After installing, you have to make changes the following changes<br/>
 <br/>
@@ -178,7 +178,7 @@ After installing, you have to make changes the following changes<br/>
 <i>NOTE: This requires that the configured GTK theme supports both GTK 2 and GTK 3</i><br/>
 <br/>
 </p>
-<h4> QGnomePlatform</h4>
+<h4 id="####-QGnomePlatform"> QGnomePlatform</h4>
 <p>
 This theme applies the appearance settings of GNOME for QT Applications. It is enabled by default on GNOME since version 3.20.<br/>
 To enable it on other systems, after installing the qgnomeplatform package, set the environment variable:<br/>
@@ -206,7 +206,7 @@ See more on <a href="/out/knowledge/vim.html">Vim & Neovim</a>.<br/>
 Vim has good documentation on what most of the highlight groups are for, avail yourself of it.<br/>
 <br/>
 </p>
-<h4> Get highlight group under cursor</h4>
+<h4 id="####-Get highlight group under cursor"> Get highlight group under cursor</h4>
 <p>
 Since i've been writing a port for <a href="https://gitlab.com/snakedye/chocolate">chocolate</a>, this is a problem i've encountered, the real basic solution is to do:<br/>
 <pre>
@@ -241,7 +241,7 @@ Compositor is a thing that sits between your window manager and X11 and makes st
 If the version in your package repositories has the features you want, I'd suggest you use that instead.<br/>
 <br/>
 </p>
-<h4> I just want transparency and or shadow</h4>
+<h4 id="####-I just want transparency and or shadow"> I just want transparency and or shadow</h4>
 <p>
 You're in luck, lots of choice for you. You can use <code>picom</code> / <code>xcompmgr</code> / <code>compton</code>, anything you want and generally it'll just work™<br/>
 <br/>
@@ -250,21 +250,21 @@ most commonly used & most supported one.<br/>
 <i>Forcing application transparency has very little purpose in most cases however, and most user interface's are not designed with that in mind (eg: nvim)</i> <span class="in-margin">⛔<br/></span>
 <br/>
 </p>
-<h4> I want blur too</h4>
+<h4 id="####-I want blur too"> I want blur too</h4>
 <p>
 Just build the latest <a href="https://github.com/yshui/picom">master</a> and use picom with the --experimental-backends option.<br/>
 To build picom from source, follow the instructions in the <a href="https://github.com/yshui/picom#build">README</a><br/>
 <i>Be very caution when using blur, excessive blur can make a rice look bad very easily.</i> <span class="in-margin">⛔<br/></span>
 <br/>
 </p>
-<h4> I want rounded corners too</h4>
+<h4 id="####-I want rounded corners too"> I want rounded corners too</h4>
 <p>
 Again, picom master has the thing for you, picom has implemented rounder corners in the xrender and legacy glx backends.<br/>
 <br/>
 A few window managers can draw rounded corners out of the box, so you might be able to utilize that. (afaik awesome can)<br/>
 <br/>
 </p>
-<h4> I want animations too</h4>
+<h4 id="####-I want animations too"> I want animations too</h4>
 <p>
 Use one of the popular forks I guess :/, I don't know how well picom animations work, but I don't expect it to be spectacular.<br/>
 The following are popular as of October 2021:<br/>
@@ -351,7 +351,7 @@ I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that on
 Really depends on what you're doing and looking for tho..<br/>
 <br/>
 </p>
-<h4> Animated Wallpapers</h4>
+<h4 id="####-Animated Wallpapers"> Animated Wallpapers</h4>
 <p>
 For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):<br/>
 <br/>
@@ -367,7 +367,7 @@ Sources for pixelart animated wallpapers<br/>
 Googling will also get you a bit of resources .<br/>
 <br/>
 </p>
-<h4> Tiled Wallpapers</h4>
+<h4 id="####-Tiled Wallpapers"> Tiled Wallpapers</h4>
 <p>
 These are wallpapers that tiled like tiles in a pattern, <a href="/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp">example</a> repeated over your entire screen.<br/>
 Their usage is fairly simple:<br/>
@@ -378,7 +378,7 @@ You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-
 </details>
 <br/>
 </p>
-<h3> Credits</h3>
+<h3 id="###-Credits"> Credits</h3>
 <p>
 Most of the following are members of the r/unixporn discord server.<br/>
 <br/>
@@ -390,6 +390,7 @@ Document has been edited by asdadsdafdfdssfd#7660<br/>
 				<span class='in-margin'>✈</span>
 				<a href="/out/index.html">Return To Index</a>
 			</footer>
-		</article>
+	  </article>
+      <script src="/assets/ipage.js" />
 	</body>
 </html>

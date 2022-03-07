@@ -1,5 +1,4 @@
 <header>
-![](/assets/images/nes-export.webp)
 # Lorem Ipsum: Test Page
 </header>
 <!-- 

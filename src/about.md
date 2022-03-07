@@ -12,12 +12,13 @@ I have become familiar with Typescript, Bash and Lua [among other languages](htt
 I wish to learn Haskell, Erlang and maybe a variant of Scheme at some point
 
 To combine that with my interest in Design, 
-I have decent knowledge of building a GUI in Godot, The web and GTK, And I know my way around a linux system
+I have decent knowledge of building a graphical user interfaces, And I know my way around a linux system
 <div class='split' style="margin-top: 1em;">
 <div>
 Anime/Manga Recommendations:
 - Cowboy Bebop
 - Evangelion
+- FLCL
 - Monster
 - Tokyo Goul
 - Demon Slayer 

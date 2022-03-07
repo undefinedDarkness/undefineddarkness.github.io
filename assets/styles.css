@@ -1,27 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 /* Global */
 * {
 	box-sizing: border-box; 
 	position: relative;
 }
 
-.underline { text-decoration: underline; }
 
 :root {
 	--margin: -0.8em;
-	--fancy: 'Merriweather', sans-serif, cursive;
+	--fancy: 'PT Serif', sans-serif, cursive;
 	--normal: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	--black: #181818;
 	--white: #fff;
 }
 
 /* General Document */
-body, article {
-	width: 100%;
-	height: 100%;
-}
+html,body {height: 100%;}
+.underline { text-decoration: underline; }
 
 body {
 	tab-size: 4;
@@ -31,17 +26,21 @@ body {
 	font-family: var(--normal);
 	background-color: var(--white);
 	color: var(--black);
+
+    display: flex;
+    flex-wrap: wrap;
 }
 
-footer { margin-left: 5vw; }
+footer { margin-left: 5vw; display: flex; align-items: center; }
 
-/* @media (prefers-color-scheme: dark) { */
-/*     /\* quite literal, inversion of colors >:) *\/ */
-/*     :root { */
-/*         --black: #fafafa; */
-/*         --white: #181818; */
-/*     } */
-/* } */
+kbd {
+    display: inline-block;
+    background: var(--black);
+    color: #aaa;
+    padding: 0 5px;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
 
 h1,h2,h3 {
 	font-family: var(--fancy);
@@ -49,20 +48,12 @@ h1,h2,h3 {
 }
 h1{font-size: 2.5em;}
 h1:first-of-type {
-    text-decoration: underline #555 5px;
+    /* text-decoration: underline #555 5px; */
 }
 h2{font-size: 2em;}
 h4{font-size: 1.3em;}
 h5{font-size:1.2em;}
 h6{font-size:1.1em;}
-
-h2::before {
-    content: " * ";
-    position: absolute;
-    left: -1em;
-    top: 0.25em;
-}
-
 h3{font-size:1.5em;}
 
 pre,code {
@@ -74,7 +65,10 @@ pre {
     overflow-y: hidden;
     overflow-x: auto;
 	text-align: left;
-	display: block;
+}
+
+pre,figure {
+	display: inline-block;
 }
 
 article { padding: 0 5vw; line-height: 1.5; }
@@ -95,7 +89,9 @@ li .in-margin {
 	left: -3em;
 }
 
-blockquote { margin: 1em 0 1em 1em; }
+figcaption {text-align: right}
+
+blockquote { margin: 1em 0 0 5em; }
 blockquote::before {
 	content: "❝";
 	position: absolute;
@@ -129,9 +125,7 @@ mark {display:inline-block;border:3px solid;padding: 0.8em;background:transparen
 
 /* Anchor footer to bottom of content */
 footer {
-	position: sticky;
-	top: 20vh;
-	padding: 2em 0;
+	padding: 2em 0 0 0;
 }
 footer > a:last-of-type { text-decoration: none; }
 
@@ -207,6 +201,7 @@ header img {
 /* Arrange children horizontally */
 .horizontal:not(p) > p, .horizontal {
 	display: flex;
+    flex-wrap: wrap;
 	column-gap: 1em;
 }
 

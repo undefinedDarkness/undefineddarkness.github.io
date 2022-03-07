@@ -144,7 +144,9 @@ initial_transformer () {
 				
 				if ! (( inside_code_block )); then
 					local level=${line%% *}
-					printf '<h%d>%s</h%d>\n' "${#level}" "${line#"$level"}" "${#level}"
+                    local id=${line,,}
+                    id=${line/' '/'-'}
+					printf '<h%d id="%s">%s</h%d>\n' "${#level}" "$id" "${line#"$level"}" "${#level}"
 					inside_paragraph=1
 					printf '<p>\n'
 					continue
