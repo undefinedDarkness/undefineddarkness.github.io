@@ -5,6 +5,10 @@
 </header>
 <i>This is just a bunch of neat stuff I find related to Vim, maybe plugins, scripts or just neat settings.</i>
 
+Speaking of which, I found this neat article on the history of vim:
+https://twobithistory.org/2018/08/05/where-vim-came-from.html
+Might be a fun read.
+
 ## Plugins
 - <a href="https://github.com/dense-analysis/ale">🍻 Asynchronous Linting Engine</a>
 A great plugin that takes care of Linting, Formatting & Autocompletion

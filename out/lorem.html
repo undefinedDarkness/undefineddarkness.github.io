@@ -155,8 +155,35 @@ Inline in code sections:<br/>
 <br/>
 Inline in code inline:<br/>
 <code>Hello &ast;&ast;world&ast;&ast; - I hope I dont trigger any edge &ast;cases&ast;</code><br/>
+<br/>
+</p>
+<h2 id="##-Testing Classes"> Testing Classes</h2>
+<p>
+<br/>
+<code>.txt-c</code><br/>
+<div class="txt-c">Same as &lt;center&gt;, Legacy basically</div><br/>
+<code>.reset</code><br/>
+<b>I am bold, I am <span class="reset">RESET</span> but without breaking the bold tag, Workaround for generation limitations</b><br/>
+<br/>
+<code>.pxl</code>, <code>.pxl-art</code><br/>
+Render image as if it were pixel art<br/>
+<div class="horizontal"><img width="256" height="256" class="pxl" src="https://pixeljoint.com/files/icons/full/agentcrow1.png" /><img width="256" height="256"  src="https://pixeljoint.com/files/icons/full/agentcrow1.png" /><div>    <img src="https://pixeljoint.com/files/icons/full/agentcrow1.png" /><br/>
+    <a href="https://pixeljoint.com/pixelart/145581.htm">Original</a><br/>
+</div></div><br/>
+<code>.in-margin</code><br/>
+Show arbitrary text in the article margin, used in the generator<br/>
+<br/>
+I love chess <span class="in-margin">♞<br/></span>
+<br/>
+<section class="demo"><br/>
+<code>.split</code><br/>
+<div class="split"><div>It would appear I have been sliced</div><div>in twain</div></div><br/>
+<code>.quad</code><br/>
+<div class="quad"><div>Flexible</div><div>grid</div><div>layout</div><div>as</div><div>you</div><div>expect</div></div><br/>
+<code>.horizontal</code> same as quad but no longer a fixed size / amount of columns, uses flexbox<br/>
+<br/>
+</section>
 			<footer>
-				<span class='in-margin'>✈</span>
 				<a href="/out/index.html">Return To Index</a>
 			</footer>
 	  </article>

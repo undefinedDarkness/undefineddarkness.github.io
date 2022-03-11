@@ -1,4 +1,4 @@
-** GUI Experiments
+#+TITLE: GUI Experiments
 This is a experiment to try out various native GUI frameworks and try to find one I can bear with.
 It involves creating a +really simple TODO+ app in several frameworks,
 The ones I have chosen for this experiment are:

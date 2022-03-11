@@ -116,3 +116,50 @@ printf '%d' $(( 2 * 3 * 5 ))
 
 Inline in code inline:
 `Hello **world** - I hope I dont trigger any edge *cases*`
+
+## Testing Classes
+
+`.txt-c`
+<div class="txt-c">Same as &lt;center&gt;, Legacy basically</div>
+
+`.reset`
+<b>I am bold, I am <span class="reset">RESET</span> but without breaking the bold tag, Workaround for generation limitations</b>
+
+
+`.pxl`, `.pxl-art`
+Render image as if it were pixel art
+<div class="horizontal">
+<img width="256" height="256" class="pxl" src="https://pixeljoint.com/files/icons/full/agentcrow1.png" />
+<img width="256" height="256"  src="https://pixeljoint.com/files/icons/full/agentcrow1.png" />
+<div>
+    <img src="https://pixeljoint.com/files/icons/full/agentcrow1.png" />
+    <a href="https://pixeljoint.com/pixelart/145581.htm">Original</a>
+</div>
+</div>
+
+`.in-margin`
+Show arbitrary text in the article margin, used in the generator
+
+I love chess IM:♞
+
+<section class="demo">
+
+`.split`
+<div class="split">
+<div>It would appear I have been sliced</div>
+<div>in twain</div>
+</div>
+
+`.quad`
+<div class="quad">
+<div>Flexible</div>
+<div>grid</div>
+<div>layout</div>
+<div>as</div>
+<div>you</div>
+<div>expect</div>
+</div>
+
+`.horizontal` same as quad but no longer a fixed size / amount of columns, uses flexbox
+
+</section>

@@ -121,10 +121,10 @@ initial_transformer () {
 	local inside_paragraph=0
 	while read -r line; do
 
-		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )); then
+		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )) && ! (( inside_quote_block )); then
 			inside_list=0	
-			printf '</li>\n</ul><br/>'
-				continue
+            printf '</li>\n</ul><br/>'
+			continue
 		fi
 		
 		case "$line" in
@@ -256,6 +256,5 @@ final_transformer() {
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
         s!==(.+?)==!<mark>\1</mark>!g;
-		s!{(.+?)}!<span class="reset">\1</span>!;
 	' <<< "$content"
 }

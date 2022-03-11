@@ -6,11 +6,17 @@
 shopt -s globstar
 shopt -s nullglob
 
+# SSG Options
 template_pre_content=
 template_post_content=
 server='deno run --unstable -A ./.tooling/server/server.ts --port=5000 --live=false'
 
 # Helpers:
+
+fin () {
+    [ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
+}
+
 format_doc_heading () {
     doc_path=${1#'./src/'}
     doc_path=${doc_path%'.'*}
@@ -29,36 +35,37 @@ format_doc_heading () {
 build_md () {
     out=${1/src/out}
     out=${out/.md/.html}
-    # printf '%s -> %s\n' "$1" "$out"
     markup=$(quiet=true bash ./.tooling/pond.sh "$1")
     format_doc_heading "$out"
     printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
+    fin "$1"
 }
 
-# Has a 
 build_html () {
     out=${1/src/out}
-    # printf '%s -> %s\n' "$1" "$out"
-    # ln -sf "$(realpath $1)" "$(realpath $out)" 2> /dev/null
-    cp -v "$1" "$out"
+    cp "$1" "$out"
+    fin "$1"
 }
+
+emacs_arguments=('--batch' '-l' "$XDG_CONFIG_HOME/emacs/init.el" "-l" "org" "-l" "ox-html")
 
 build_org () {
     out=${1/src/out}
     out=${out/.org/.html}
-    emacs "$1" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" -f org-html-export-to-html > /dev/null 2> /dev/null 
-    # printf '%s -> %s\n' "$1" "$out"
-    mv "${1/.org/.html}" "${out}"
+    out=$(realpath "$out")
+    emacs_arguments+=('--file' "$1" '-f' 'org-html-export-to-html' '--eval' "(rename-file \"$(realpath "${1/.org/.html}")\" \"$out\" t)")
+    fin "$1"
 }
 
 #=======================
 # Generic Build Function 
 #=======================
+
 build () {
     file=$1
     case "${file##*.}" in
         'org')
-            build_org "$file" &
+            build_org "$file" 
             ;;
         'html')
             build_html "$file" &
@@ -66,7 +73,14 @@ build () {
         'md')
             build_md "$file" &
             ;;
+        *)
+            return
+            ;;
     esac
+}
+
+generate_org_full () {
+    emacs ${emacs_arguments[@]} >/dev/null 2>&1
 }
 
 count=0
@@ -88,7 +102,7 @@ generate_index () {
         folder=${folder#*/}
         sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
     done
-    printf "Finished generating %d files.\n" "$count"
+    printf "\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
     pkill --signal USR1 "${server% *}"
 }
 
@@ -151,6 +165,8 @@ for file in ${files_to_build}; do
     count=$(( count + 1 ))
 done
 IFS=$oifs
+
+generate_org_full &
 
 for job in $(jobs -p); do
     wait "$job"
