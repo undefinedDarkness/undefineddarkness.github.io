@@ -8,11 +8,12 @@ for (let fold of folds) {
     fold.open = false
 }
 
-(async () => {
+const main = async () => {
 
     // Page uses mermaid graphs so import it.
     if ($('.mermaid')) {
         console.log(await import("https://cdn.jsdelivr.net/npm/mermaid/+esm"))
     }
 
-})()
+}
+main()
