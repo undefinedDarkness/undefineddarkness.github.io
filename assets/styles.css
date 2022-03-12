@@ -1,5 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Public+Sans:ital,wght@0,400;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans&display=swap');
 
+@font-face {
+    font-family: "Redaction";
+    src: url(Redaction-Regular.otf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Redaction";
+    src: url(Redaction-Italic.otf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Redaction";
+    src: url(Redaction-Bold.otf);
+    font-weight: bold;
+}
+
+
+var,.special {
+    font-style: italic;
+    font-family: "Redaction";
+}
 
 /* -- GLOBAL -- */
 
@@ -9,10 +32,10 @@
 }
 
 :root {
+    --monospace: "IBM Plex Mono", monospace;
     --margin: -0.8em;
-    --fancy: "PT Serif", sans-serif, cursive;
-    --normal: "Public Sans", system-ui, -apple-system, BlinkMacSystemFont,
-              "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --serif: "Redaction", serif;
+    --normal: "IBM Plex Sans", system-ui, sans-serif;
     --black: #181818;
     --white: #fff;
 }
@@ -40,17 +63,20 @@ body {
 kbd {
     display: inline-block;
     background: var(--black);
+    font-family: var(--monospace);
     color: #aaa;
     padding: 0 5px;
     border-radius: 5px;
     font-size: 1.1em;
 }
 
-h1,
-h2,
-h3 {
-    font-family: var(--fancy);
-    font-weight: 900;
+h1,h2,h3,h4,h5,h6 {
+    font-family: var(--serif);
+    font-weight: normal;
+}
+
+h1,h2,h3 {
+    font-weight: bold;
 }
 h1 {
     font-size: 2.5em;
@@ -73,8 +99,7 @@ h3 {
 
 pre,
 code {
-    font-family: "Roboto Mono", monospace;
-    font-weight: 300;
+    font-family:  var(--monospace);
     line-height: initial;
 }
 pre {
@@ -264,6 +289,11 @@ li .in-margin {
 .txt-c {
     text-align: center;
 }
+.block-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .reset {
     font-weight: normal;
 }
@@ -278,7 +308,7 @@ li .in-margin {
     left: 2em;
     user-select: none;
     display: inline-block;
-    font-family: var(--fancy);
+    font-family: var(--serif);
 }
 
 .demo .quad > * , .demo .split > * {
@@ -308,6 +338,7 @@ li .in-margin {
     display: flex;
     flex-wrap: wrap;
     column-gap: 1em;
+    row-gap: 1em;
 }
 
 /* Show scrollbars as required */
@@ -319,12 +350,19 @@ li .in-margin {
     text-decoration: none;
     border-right: 2px solid;
     font-style: italic;
-    padding-right: 5px;
+    padding: 0 8px;
 }
 
 .linklist a:last-of-type { border-right: 0; }
 
 @media only screen and (max-width: 600px) {
+    .quad {
+        grid-template-columns: unset;
+}
+    h1 {
+        font-size: 2em;
+    }
+
     .hide-m {
         display: none;
     }
@@ -333,6 +371,12 @@ li .in-margin {
     }
     header img {
         float: revert;
+    }
+    blockquote {
+        margin-left: 1em;
+    }
+    blockquote::before {
+        left: -0.7em;
     }
 }
 

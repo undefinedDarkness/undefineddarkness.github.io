@@ -11,17 +11,17 @@
 	<body>
 	  <article>
 
-<header><header>
+<header>
 <h1>Lorem Ipsum: Test Page</h1>
 </header>
-</header><!-- This page documents my own additions to GFM Markdown<br/>
+<!-- This page documents my own additions to GFM Markdown<br/>
 Centered around being really easy to remember<br/>
 and simple to use while writing.<br/>
 New syntax is mainly added where writing it out in HTML would be either tedious or break the flow of the document;<br/>
 Sometimes a new transformer is added, they work like this:<br/>
 '''<br/>
 #transformer
-Content to be passed to transformer<br/>
+Content to be passed to transformer
 #END transformer
 '''<br/>
 Transformer content is then substitiuted into the document,<br/>
@@ -42,8 +42,10 @@ TODO: Nested markdown inlines<br/>
 Testing Inlines:<br/>
 Normal text - <i>italic text</i> - <b>bold text</b><br/>
 I am a <a href="https://example.com">link</a><br/>
+f(<span class="special">x</span>) = <span class="special">x</span> + 10 <!-- <span class="special"><thing></span> gives it in a serif italic font, for extra highlighting  --><br/>
 <br/>
-<mark>Pay attention to me</mark><br/>
+<br/>
+<mark>This page is responsive, try it on a phone! </mark><br/>
 <br/>
 <code>1 &ast; 2 &ast; 3 = 3!</code><br/>
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated<br/>
@@ -70,7 +72,7 @@ is a spice.<br/>
 </li>
 </ul><br/>Checking for Syntax Highlighting:<br/>
 <pre>
-<code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
+<code>#include <stdio.h><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
 
 <span style="color:#48bac2; font-weight:bold">float</span> <span style="color:#c48218; font-weight:bold">Q_rsqrt</span><span style="color:#181818">(</span> <span style="color:#48bac2; font-weight:bold">float</span> number <span style="color:#181818">)</span>
 <span style="color:#181818">{</span>
@@ -98,11 +100,11 @@ is a spice.<br/>
 <details open>
 <summary>Do folds work?</summary>
 <p>
-I guess they do :)<br/>
+I guess they do :)
 </p>
 </details>
 <br/>
-<!-- <span class="in-margin">... will add <code>...</code> to the article margin --></span>
+<!-- <span class="in-margin"><span class="special">. will add <code></span>.</code> to the article margin --></span>
 I should be next to a percent sign <span class="in-margin">%<br/></span>
 <br/>
 What about tables?<br/>
@@ -117,15 +119,15 @@ Columns are seperated by any amount of spaces and at least 1 tab.<br/>
 </tr>
 </thead><tbody><tr>
 <td>Apple</td>
-<td>Carrot<br/></td>
+<td>Carrot</td>
 </tr>
 <tr>
 <td>Orange</td>
-<td>Tomato<br/></td>
+<td>Tomato</td>
 </tr>
 <tr>
 <td>Banana</td>
-<td>Eggplant<br/></td>
+<td>Eggplant</td>
 </tr>
 </tbody></table></div>
 <br/>
@@ -142,7 +144,9 @@ And this was his message: “After me comes the one more powerful than I, the st
 <br/>
 <br/>
 The design of the site was havily inspired by: <a href="https://www.kunisch.info/">https://www.kunisch.info/</a><br/>
-and some of the fonts were chosen with the help of cae<br/>
+<strike>and some of the fonts were chosen with the help of cae</strike><br/>
+<br/>
+I have deliberated on which fonts to use to fix the design appropriately and have finally settled on Redaction for headings, IBM Plex Sans / Mono for body text and code respectivley<br/>
 <br/>
 <h2 id="##-Edge Cases"> Edge Cases</h2>
 <p>
@@ -179,9 +183,12 @@ I love chess <span class="in-margin">♞<br/></span>
 <code>.split</code><br/>
 <div class="split"><div>It would appear I have been sliced</div><div>in twain</div></div><br/>
 <code>.quad</code><br/>
-<div class="quad"><div>Flexible</div><div>grid</div><div>layout</div><div>as</div><div>you</div><div>expect</div></div><br/>
+<div class="quad"><div>Responsive</div><div>grid</div><div>layout</div><div>as</div><div>you</div><div>expect</div></div><br/>
 <code>.horizontal</code> same as quad but no longer a fixed size / amount of columns, uses flexbox<br/>
+<code>.ovr-x</code> simply hides any X axis overflow<br/>
 <br/>
+<code>.linklist</code><br/>
+<div class="linklist"><a>A</a><a>bunch</a><a>of</a><a>links</a></div><br/>
 </section>
 			<footer>
 				<a href="/out/index.html">Return To Index</a>

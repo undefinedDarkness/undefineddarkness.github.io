@@ -2,95 +2,100 @@
 
 
 ** Comparison of terminals
-| Name      | Ligatures | Fallback | Advanced | Bitmaps | Wayland | Tabs | Images | Config     | Rating |
-|-----------+-----------+----------+----------+---------+---------+------+--------+------------+--------|
-| Wezterm   | Y         | Y        | Y        | Y       | Y       | Y    | Y      | Lua        | 10/10  |
-| Alacritty | P         | N        | N        | Y       | Y       | N    | N      | Yaml       | 5/10   |
-| Kitty     | Y         | N        | Y        | N       | Y       | Y    | Y      | Custom     | 8/10   |
-| Xterm     | N         | N        | N        | Y       | N       | N    | N      | Xresources | 6/10   |
-| St        | P         | P        | N        | Y       | N       | N    | P      | C header   | 7/10   |
-| Foot      | N         | Y        | N        | Y       | Y       | N    | Y      | INI        | N/A    |
+   | Name      | Ligatures | Fallback | Advanced | Bitmaps | Wayland | Tabs | Images | Config     | Rating |
+   |-----------+-----------+----------+----------+---------+---------+------+--------+------------+--------|
+   | Wezterm   | Y         | Y        | Y        | Y       | Y       | Y    | Y      | Lua        | 10/10  |
+   | Alacritty | P         | N        | N        | Y       | Y       | N    | N      | Yaml       | 5/10   |
+   | Kitty     | Y         | N        | Y        | N       | Y       | Y    | Y      | Custom     | 8/10   |
+   | Xterm     | N         | N        | N        | Y       | N       | N    | N      | Xresources | 6/10   |
+   | St        | P         | P        | N        | Y       | N       | N    | P      | C header   | 7/10   |
+   | Foot      | N         | Y        | N        | Y       | Y       | N    | Y      | INI        | N/A    |
+   | Vte       | N         | N        | N        | N       | N       | N    | P      | GUI        | 5/10   |
 
-*Notes:* 
-Fallback refers to the ability to fallback fonts, that is find a character in the next font in a list if it is not in the first one.
-Advances refers to the capability of advanced open type features, primarily stylistic sets
-The foot terminal is wayland exclusive, and it has no rating as I have not had time to review it
-If you're thinking about using st, I highly suggest you use [[https://github.com/bakkeby/st-flexipatch][st-flexipatch]] right from the start, It will save you a lot of time
 
-[[https://github.com/zenixls2/alacritty][Fork for ligatures in alacritty]] - Even the alacritty author recommends you simply use another terminal if you want ligatures.
-It is possible to enable bitmap fonts in kitty, using the ~kitty-bitmap~ AUR package, [[https://github.com/slavfox/Cozette#kitty][More instructions]] - The author does not and will never support bitmap fonts
+   *Notes:* 
+   - Fallback refers to the ability to fallback fonts, that is find a character in the next font in a list if it is not in the first one.
+   - Advanced refers to the capability of advanced open type features, primarily stylistic sets
+   - The foot terminal is wayland exclusive, and it has no rating as I have not had time to review it
+   - If you're thinking about using st, I highly suggest you use [[https://github.com/bakkeby/st-flexipatch][st-flexipatch]] right from the start, It will save you a lot of time
+   - VTE refers to any terminal that uses the [[https://gitlab.gnome.org/GNOME/vte][vte]] library as a shortcut, this does almost 99.99% of the heavy lifting for you so behaviour across different vte terminals tends to be the same, for example, gnome-terminal, xfce-terminal, [[https://github.com/endaaman/tym][tym]] all leverage the vte library.
 
-[[https://wiki.archlinux.org/title/List_of_applications#Terminal][Arch Wiki Page]]
+   [[https://github.com/zenixls2/alacritty][Fork for ligatures in alacritty]] - Even the alacritty author recommends you simply use another terminal if you want ligatures.
+   It is possible to enable bitmap fonts in kitty, using the ~kitty-bitmap~ AUR package, [[https://github.com/slavfox/Cozette#kitty][More instructions]] - The author does not and will never support bitmap fonts
+
+   Issue page for sixel support in vte: https://gitlab.gnome.org/GNOME/vte/-/issues/253
+
+   [[https://wiki.archlinux.org/title/List_of_applications#Terminal][Arch Wiki Page]]
 
 ** Images in the terminal
 
-This is an often sought after feature and often used with fetch scripts.
-Right now there is no standard and each terminal does their own thing, more and more are supporting [[https://en.wikipedia.org/wiki/Sixel][Sixel]], though, so maybe that will end up being the standard.
-For terminals without image support entirely, there are hacks using ~w3m-img~ and ~uberzerg~ to get them...but they're finicky and don't just work™, so I'd recommend against them.
-[[https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal][Full article]]
+   This is an often sought after feature and often used with fetch scripts.
+   Right now there is no standard and each terminal does their own thing, more and more are supporting [[https://en.wikipedia.org/wiki/Sixel][Sixel]], though, so maybe that will end up being the standard.
+   For terminals without image support entirely, there are hacks using ~w3m-img~ and ~uberzerg~ to get them...but they're finicky and don't just work™, so I'd recommend against them.
+   [[https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal][Full article]]
 
-*Overview:*
-Alacritty doesn't support images and needs a hack;
-Wezterm natively supports iterms2's image format & sixel;
-Kitty has its own format;
-St can support sixel via a [[https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch][patch]]
+   *Overview:*
+   Alacritty doesn't support images and needs a hack;
+   Wezterm natively supports iterms2's image format & sixel;
+   Kitty has its own format;
+   St can support sixel via a [[https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch][patch]]
 
 ** Prompts
-A shell is usually configured with a /prompt/. This is a small indicator to tell you the computer is waiting for user input, Its usually printed on every new line after the end of a command in a shell
-Eg:
-#+BEGIN_SRC
+   A shell is usually configured with a /prompt/. This is a small indicator to tell you the computer is waiting for user input, Its usually printed on every new line after the end of a command in a shell
+   Eg:
+   #+BEGIN_SRC
 $ uname -r
 5.10.11-11-amd64
 $ neofetch
-#+END_SRC
-In this example, ~$~ is the prompt character.
-You can make it very fancy and make it display some useful information if you so like.
+   #+END_SRC
+   In this example, ~$~ is the prompt character.
+   You can make it very fancy and make it display some useful information if you so like.
 
-[[https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html][Default Format Specifiers]] (for Bash)
-of note:
-~\[~ and ~\]~ are used to denote characters that must not be printed (color escape codes for example), make sure to use them or the prompt calculation will be wrong.
+   [[https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html][Default Format Specifiers]] (for Bash)
+   of note:
+   ~\[~ and ~\]~ are used to denote characters that must not be printed (color escape codes for example), make sure to use them or the prompt calculation will be wrong.
 
-If you'd rather just not bother doing it yourself, You can use [[https://starship.rs/][Starship]] to get a pre-made one, rtfm manual for how to modify it.
+   If you'd rather just not bother doing it yourself, You can use [[https://starship.rs/][Starship]] to get a pre-made one, rtfm manual for how to modify it.
 
-Example prompt (this is gentoo's default one):
-~PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '~
+   Example prompt (this is gentoo's default one):
+   ~PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '~
 
 *** Terminal Color Codes & Decorations
-Terminals generally support a couple or more of 3 color modes, they are:
-- True Color (Full RGB Color)
-- 256 Color
-- 8 Color (Everything supports this one)
+    Terminals generally support a couple or more of 3 color modes, they are:
+    - True Color (Full RGB Color)
+    - 256 Color
+    - 8 Color (Everything supports this one)
 
-*The reset code is ~\033[0m~* (This removes any formatting)
-*This is how you change text formatting in the terminal by putting these codes in between the text you want to be formatted.
+    *The reset code is ~\033[0m~* (This removes any formatting)
+    *This is how you change text formatting in the terminal by putting these codes in between the text you want to be formatted.
 
-To change foreground color:
-~\033[3<N>m~
+    To change foreground color:
+    ~\033[3<N>m~
 
-To change background color:
-~\033[4<N>m~
+    To change background color:
+    ~\033[4<N>m~
 
-To change foreground color to bright:
-~\033[3<N>;1m~
+    To change foreground color to bright:
+    ~\033[3<N>;1m~
 
-To change background color to bright:
-~\033[4<N>;1m~
+    To change background color to bright:
+    ~\033[4<N>;1m~
 
 
-Where <N> is one of the following:
-| Color   | Number |
-|---------+--------|
-| Black   |      0 |
-| Red     |      1 |
-| Green   |      2 |
-| Yellow  |      3 |
-| Blue    |      4 |
-| Magenta |      5 |
-| Cyan    |      6 |
-| White   |      7 |
+    Where <N> is one of the following:
+    | Color   | Number |
+    |---------+--------|
+    | Black   |      0 |
+    | Red     |      1 |
+    | Green   |      2 |
+    | Yellow  |      3 |
+    | Blue    |      4 |
+    | Magenta |      5 |
+    | Cyan    |      6 |
+    | White   |      7 |
 
 **** Decorations
-- Bold ~\033[1m~
-- Italic ~\033[3m~
-- Underline ~\033[4m~
-- Reversed ~\033[7m~
+     - Bold ~\033[1m~
+     - Italic ~\033[3m~
+     - Underline ~\033[4m~
+     - Reversed ~\033[7m~

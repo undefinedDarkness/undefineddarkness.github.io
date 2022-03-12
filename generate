@@ -17,15 +17,24 @@ fin () {
     [ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
 }
 
+clean_markup () {
+    local -n ptr=${1}
+    ptr=${ptr//'<span class="reset">'/}
+    ptr=${ptr//'</span>'/}
+    ptr=${ptr#*'<h1'*'>'}
+    ptr=${ptr%'</h1>'*}
+    ptr=${ptr//'}'/}
+    ptr=${ptr//'{'/}
+    ptr=${ptr//'<img'*'>'/}
+}
+
 format_doc_heading () {
     doc_path=${1#'./src/'}
     doc_path=${doc_path%'.'*}
 
     [[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
     doc_title=${BASH_REMATCH[1]}
-    doc_title=${doc_title/'<span class="reset">'/}
-    doc_title=${doc_title/'</span>'/}
-    doc_title=${doc_title//'<img'*'>'/}
+    clean_markup doc_title
     
     doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
     doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
@@ -91,11 +100,9 @@ generate_index () {
         while read -r match; do
             file=${match%%:*}
             title=${match#*:}
-            title=${title#*'<h1'*'>'}
-            title=${title%'</h1>'*}
-            # title=${title//'&amp;'/'&'}
-            title=${title//'<img'*'>'/} # clean up any markup that remains
-            # echo "Found title: $title"
+
+            clean_markup title
+            
             [ -z "${title/ /}" ] && continue
             posts+="<li><a href='/$file'>$title</a></li>\n"
         done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )

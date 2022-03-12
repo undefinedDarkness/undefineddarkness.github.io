@@ -67,7 +67,7 @@ sudo make install -j$(nproc)
 
 ** Getting comfortable in it
 
-*** Corfu + Eglot (+ Kind Icon) = ❤️
+*** LSP Completion 
     Corfu is a very minimal Emacs plugin that offers wonderful in buffer completions,
     that just works^TM  
 
@@ -80,11 +80,12 @@ sudo make install -j$(nproc)
     Kind Icon is a small addition to corfu that shows the type of whatever item it is next to, which is pretty handy and it looks nice to boot.
 
     If you want a more powerful lsp client with more integration / options, You ought to check out lsp-mode.
-    Similarly for corfu, try company-mode & company-box-mode, If your lsp needs are fairly simple like mine are, this duo should work just fine for you. 
+    Similarly for corfu, try company-mode & company-box-mode, If your lsp needs are fairly simple like mine are, this duo should work just fine for you.
+    EDIT: I have recently abandoned eglot for lsp-mode since it suits my needs better and I found it easier to configure  
 
 **** Linting
      I think there is only one correct answer to this and that is flycheck.
-     It just works ootb and will automatically pick up any linters you have installed, and generally its been a install once, and don't worry about it plugin.
+     It just works out of the box and will automatically pick up any linters you have installed, and generally its been a install once, and don't worry about it plugin.
 
      I am sure it's possible to make flymake entirely usable but it seems to be more trouble than it's worth to me.
 

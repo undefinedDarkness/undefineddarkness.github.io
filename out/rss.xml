@@ -22,17 +22,22 @@
 <link>https://nes.is-a.dev/out/ricing/faq.html</link>
 </item>
 <item>
-<title>🎨 Design</title>
+<title>{🎨} Design</title>
 <description>ricing/design</description>
 <link>https://nes.is-a.dev/out/ricing/design.html</link>
 </item>
 <item>
-<title>🍱 Reference</title>
+<title>🍱 Index</title>
 <description>ricing/index</description>
 <link>https://nes.is-a.dev/out/ricing/index.html</link>
 </item>
 <item>
-<title>📚 Useful Ricing Knowledge</title>
+<title>How do I rice THING?</title>
+<description>ricing/how-to-rice-thing</description>
+<link>https://nes.is-a.dev/out/ricing/how-to-rice-thing.html</link>
+</item>
+<item>
+<title>{📚} Useful Ricing Knowledge</title>
 <description>ricing/useful</description>
 <link>https://nes.is-a.dev/out/ricing/useful.html</link>
 </item>

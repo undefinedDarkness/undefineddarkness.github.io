@@ -1,6 +1,4 @@
-<header>
 # Lorem Ipsum: Test Page
-</header>
 <!-- 
 This page documents my own additions to GFM Markdown
 Centered around being really easy to remember
@@ -31,8 +29,10 @@ TODO: Nested markdown inlines
 Testing Inlines:
 Normal text - *italic text* - **bold text**
 I am a [link](https://example.com)
+f(..x..) = ..x.. + 10 <!-- ..<thing>.. gives it in a serif italic font, for extra highlighting  -->
 
-==Pay attention to me==
+
+==This page is responsive, try it on a phone! ==
 
 `1 * 2 * 3 = 3!`
 https://www.youtube.com/watch?v=dQw4w9WgXcQ - Link is automatically generated
@@ -105,7 +105,9 @@ And this was his message: “After me comes the one more powerful than I, the st
 >>> Mark 1:6-8
 
 The design of the site was havily inspired by: https://www.kunisch.info/
-and some of the fonts were chosen with the help of cae
+~~and some of the fonts were chosen with the help of cae~~
+
+I have deliberated on which fonts to use to fix the design appropriately and have finally settled on Redaction for headings, IBM Plex Sans / Mono for body text and code respectivley
 
 ## Edge Cases
 Inline in code sections:
@@ -152,7 +154,7 @@ I love chess IM:♞
 
 `.quad`
 <div class="quad">
-<div>Flexible</div>
+<div>Responsive</div>
 <div>grid</div>
 <div>layout</div>
 <div>as</div>
@@ -161,5 +163,14 @@ I love chess IM:♞
 </div>
 
 `.horizontal` same as quad but no longer a fixed size / amount of columns, uses flexbox
+`.ovr-x` simply hides any X axis overflow
+
+`.linklist`
+<div class="linklist">
+<a>A</a>
+<a>bunch</a>
+<a>of</a>
+<a>links</a>
+</div>
 
 </section>

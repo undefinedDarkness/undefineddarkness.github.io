@@ -77,7 +77,7 @@ one large screen if you want to work within a linux de / wm<br/>
 		<span style="color:#898989; font-style:italic"># For WSL (Windows Subsystem For Linux)</span>
 		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;$(grep nameserver /etc/resolv.conf | sed &apos;s/nameserver //&apos;):0&quot;</span>
 		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span><span style="color:#38781c">&quot;$(sed -n &apos;s/nameserver //p&apos; /etc/resolv.conf):0&quot;</span>
-		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span>$<span style="color:#181818">(</span>ip route|<span style="color:#9c5a02; font-weight:bold">awk</span> <span style="color:#38781c">&apos;/^default/<span class="reset">print</span> <span style="color:#c43e18">$3</span><span style="color:#38781c"></span>&apos;</span><span style="color:#181818">):</span><span style="color:#c43e18">0.0</span>
+		<span style="color:#48bac2; font-weight:bold">export</span> DISPLAY<span style="color:#181818">=</span>$<span style="color:#181818">(</span>ip route|<span style="color:#9c5a02; font-weight:bold">awk</span> <span style="color:#38781c">&apos;/^default/{print</span> <span style="color:#c43e18">$3</span><span style="color:#38781c">}&apos;</span><span style="color:#181818">):</span><span style="color:#c43e18">0.0</span>
 		<span style="color:#48bac2; font-weight:bold">export</span> LIBGL_ALWAYS_INDIRECT<span style="color:#181818">=</span><span style="color:#c43e18">1</span>
 		<span style="color:#181818">;;</span>
 <span style="color:#a94598; font-weight:bold">esac</span>

@@ -58,6 +58,10 @@ center () {
 	printf "<p style=\"text-align:center\">\n%s\n</p>" "$1"
 }
 
+verbatim () {
+    printf '%s' "$1"  
+}
+
 # Create a table with
 # the columns defined by a tab seperated list
 # and the rows denoted by newlines
@@ -119,6 +123,7 @@ initial_transformer () {
 	local inside_code_block=0
 	local inside_quote_block=0
 	local inside_paragraph=0
+    local inside_transformer_block=0
 	while read -r line; do
 
 		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )) && ! (( inside_quote_block )); then
@@ -152,7 +157,7 @@ initial_transformer () {
 					continue
 				fi
 				;;
-			'#-'*)
+  			'#-'*)
 				printf '<h3>%s</h3>\n' "${line#'#-'}"
 				continue
 				;;
@@ -164,6 +169,14 @@ initial_transformer () {
 				printf '&num;%s\n' "${line#'#~'}"
 				continue
 				;;
+            '#END '*)
+                inside_transformer_block=0
+				printf '%s' "$line"
+                ;;
+            '#'*)
+                inside_transformer_block=1
+				printf '%s' "$line"
+                ;;
 			'> '*)
 				printf '<q>%s</q><br/>\n' "${line#'> '}"
 				continue
@@ -222,8 +235,7 @@ initial_transformer () {
 
 		
 		if (( inside_code_block == 0 )) ; then
-			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]]; then
-				# dbg "$line starts with #"
+			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]] || (( inside_transformer_block )); then
 				printf '\n'; 
 				continue
 			fi
@@ -252,6 +264,7 @@ final_transformer() {
 		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy" />@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
+        s!\.\.(.+?)\.\.!<span class="special">\1</span>!g;
 		s!IM:(.*)$!<span class="in-margin">\1</span>!gm;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;

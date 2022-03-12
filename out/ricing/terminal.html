@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-03-11 Fri 23:36 -->
+<!-- 2022-03-12 Sat 22:13 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Terminal and Shell Customization</title>
@@ -15,9 +15,9 @@
 <h1 class="title">Terminal and Shell Customization</h1>
 </header>
 
-<section id="outline-container-org7a4f412" class="outline-2">
-<h2 id="org7a4f412">Comparison of terminals</h2>
-<div class="outline-text-2" id="text-org7a4f412">
+<section id="outline-container-org290f685" class="outline-2">
+<h2 id="org290f685">Comparison of terminals</h2>
+<div class="outline-text-2" id="text-org290f685">
 <table>
 
 
@@ -134,20 +134,41 @@
 <td class="org-left">INI</td>
 <td class="org-left">N/A</td>
 </tr>
+
+<tr>
+<td class="org-left">Vte</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">P</td>
+<td class="org-left">GUI</td>
+<td class="org-left">5/10</td>
+</tr>
 </tbody>
 </table>
 
+
 <p>
 <b>Notes:</b> <br>
-Fallback refers to the ability to fallback fonts, that is find a character in the next font in a list if it is not in the first one.<br>
-Advances refers to the capability of advanced open type features, primarily stylistic sets<br>
-The foot terminal is wayland exclusive, and it has no rating as I have not had time to review it<br>
-If you're thinking about using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">st-flexipatch</a> right from the start, It will save you a lot of time<br>
 </p>
+<ul class="org-ul">
+<li>Fallback refers to the ability to fallback fonts, that is find a character in the next font in a list if it is not in the first one.<br></li>
+<li>Advanced refers to the capability of advanced open type features, primarily stylistic sets<br></li>
+<li>The foot terminal is wayland exclusive, and it has no rating as I have not had time to review it<br></li>
+<li>If you're thinking about using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">st-flexipatch</a> right from the start, It will save you a lot of time<br></li>
+<li>VTE refers to any terminal that uses the <a href="https://gitlab.gnome.org/GNOME/vte">vte</a> library as a shortcut, this does almost 99.99% of the heavy lifting for you so behaviour across different vte terminals tends to be the same, for example, gnome-terminal, xfce-terminal, <a href="https://github.com/endaaman/tym">tym</a> all leverage the vte library.<br></li>
+</ul>
 
 <p>
 <a href="https://github.com/zenixls2/alacritty">Fork for ligatures in alacritty</a> - Even the alacritty author recommends you simply use another terminal if you want ligatures.<br>
 It is possible to enable bitmap fonts in kitty, using the <code>kitty-bitmap</code> AUR package, <a href="https://github.com/slavfox/Cozette#kitty">More instructions</a> - The author does not and will never support bitmap fonts<br>
+</p>
+
+<p>
+Issue page for sixel support in vte: <a href="https://gitlab.gnome.org/GNOME/vte/-/issues/253">https://gitlab.gnome.org/GNOME/vte/-/issues/253</a><br>
 </p>
 
 <p>
@@ -156,9 +177,9 @@ It is possible to enable bitmap fonts in kitty, using the <code>kitty-bitmap</co
 </div>
 </section>
 
-<section id="outline-container-org5462693" class="outline-2">
-<h2 id="org5462693">Images in the terminal</h2>
-<div class="outline-text-2" id="text-org5462693">
+<section id="outline-container-orgc463e17" class="outline-2">
+<h2 id="orgc463e17">Images in the terminal</h2>
+<div class="outline-text-2" id="text-orgc463e17">
 <p>
 This is an often sought after feature and often used with fetch scripts.<br>
 Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">Sixel</a>, though, so maybe that will end up being the standard.<br>
@@ -176,9 +197,9 @@ St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/bl
 </div>
 </section>
 
-<section id="outline-container-org19a8f7c" class="outline-2">
-<h2 id="org19a8f7c">Prompts</h2>
-<div class="outline-text-2" id="text-org19a8f7c">
+<section id="outline-container-org8518742" class="outline-2">
+<h2 id="org8518742">Prompts</h2>
+<div class="outline-text-2" id="text-org8518742">
 <p>
 A shell is usually configured with a <i>prompt</i>. This is a small indicator to tell you the computer is waiting for user input, Its usually printed on every new line after the end of a command in a shell<br>
 Eg:<br>
@@ -209,9 +230,9 @@ Example prompt (this is gentoo's default one):<br>
 </p>
 </div>
 
-<div id="outline-container-org1c6724a" class="outline-3">
-<h3 id="org1c6724a">Terminal Color Codes &amp; Decorations</h3>
-<div class="outline-text-3" id="text-org1c6724a">
+<div id="outline-container-org41e5c52" class="outline-3">
+<h3 id="org41e5c52">Terminal Color Codes &amp; Decorations</h3>
+<div class="outline-text-3" id="text-org41e5c52">
 <p>
 Terminals generally support a couple or more of 3 color modes, they are:<br>
 </p>
@@ -308,9 +329,9 @@ Where &lt;N&gt; is one of the following:<br>
 </table>
 </div>
 
-<div id="outline-container-org1cbcfe9" class="outline-4">
-<h4 id="org1cbcfe9">Decorations</h4>
-<div class="outline-text-4" id="text-org1cbcfe9">
+<div id="outline-container-org511deed" class="outline-4">
+<h4 id="org511deed">Decorations</h4>
+<div class="outline-text-4" id="text-org511deed">
 <ul class="org-ul">
 <li>Bold <code>\033[1m</code><br></li>
 <li>Italic <code>\033[3m</code><br></li>
