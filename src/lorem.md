@@ -152,7 +152,19 @@ I love chess IM:♞
 <div>in twain</div>
 </div>
 
+`.split-e`
+Variant of split that uses 19em columns, seems to split stuff neatly
+Falls back to `1fr 1fr` when on mobile
+
+<div class="split-e">
+<div>It would appear I have been sliced</div>
+<div>in twain</div>
+</div>
+
 `.quad`
+19em flexible grid with 2 rows
+Breaks on mobile
+
 <div class="quad">
 <div>Responsive</div>
 <div>grid</div>

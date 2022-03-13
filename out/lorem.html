@@ -182,7 +182,15 @@ I love chess <span class="in-margin">♞<br/></span>
 <section class="demo"><br/>
 <code>.split</code><br/>
 <div class="split"><div>It would appear I have been sliced</div><div>in twain</div></div><br/>
+<code>.split-e</code><br/>
+Variant of split that uses 19em columns, seems to split stuff neatly<br/>
+Falls back to <code>1fr 1fr</code> when on mobile<br/>
+<br/>
+<div class="split-e"><div>It would appear I have been sliced</div><div>in twain</div></div><br/>
 <code>.quad</code><br/>
+19em flexible grid with 2 rows<br/>
+Breaks on mobile<br/>
+<br/>
 <div class="quad"><div>Responsive</div><div>grid</div><div>layout</div><div>as</div><div>you</div><div>expect</div></div><br/>
 <code>.horizontal</code> same as quad but no longer a fixed size / amount of columns, uses flexbox<br/>
 <code>.ovr-x</code> simply hides any X axis overflow<br/>

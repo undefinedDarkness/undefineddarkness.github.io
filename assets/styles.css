@@ -57,7 +57,7 @@ body {
     color: var(--black);
 
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 kbd {
@@ -113,11 +113,12 @@ figure {
     display: inline-block;
 }
 
-article {
+article, main {
     width: 100%;
     padding: 0 5vw;
     line-height: 1.5;
 }
+main ul,
 article ul,
 p {
     margin-top: 0;
@@ -211,7 +212,7 @@ footer > a:last-of-type::before {
     padding-right: 10px;
 }
 
-article footer {
+main footer, article footer {
     margin-left: 0;
 }
 
@@ -268,7 +269,7 @@ thead th {
     border-right: 1px solid var(--black);
 }
 
-article img {
+article img, main img {
     max-width: 75vw;
 }
 
@@ -310,25 +311,35 @@ li .in-margin {
     font-family: var(--serif);
 }
 
-.demo .quad > * , .demo .split > * {
+.demo .split-e > *, .demo .quad > * , .demo .split > * {
     border: 2.5px solid coral;
     text-align: center;
 }
 
 
 /* Split section vertically */
-.split {
+.split, .split-e {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+}
+
+.split-e {
+    grid-template-columns: 19em 19em;
 }
 
 /* Fit as many items as possible */
-.quad {
+
+.quad-e,.quad {
     grid-template-columns: repeat(auto-fit, 19em);
     grid-template-rows: 1fr 1fr;
     display: grid;
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+}
+.quad-e {
+    grid-template-columns: repeat(auto-fit, 18em);
 }
 
 /* Arrange children horizontally */
@@ -347,7 +358,7 @@ li .in-margin {
 
 .linklist a {
     text-decoration: none;
-    border-right: 2px solid;
+    border-right: 2px solid #888;
     font-style: italic;
     padding: 0 8px;
 }
@@ -357,7 +368,10 @@ li .in-margin {
 @media only screen and (max-width: 600px) {
     .quad {
         grid-template-columns: unset;
-}
+    }
+    .split-e {
+        grid-template-columns: 1fr 1fr;
+    }
     h1 {
         font-size: 2em;
     }

@@ -87,6 +87,11 @@
 <link>https://nes.is-a.dev/out/archive/windows.html</link>
 </item>
 <item>
+<title>Index</title>
+<description>index</description>
+<link>https://nes.is-a.dev/out/index.html</link>
+</item>
+<item>
 <title>Lorem Ipsum: Test Page</title>
 <description>lorem</description>
 <link>https://nes.is-a.dev/out/lorem.html</link>
