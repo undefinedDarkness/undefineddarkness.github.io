@@ -17,7 +17,9 @@ graph TD
     click F "/out/ricing/faq.html"
     click G "/out/ricing/how-to-rice-thing.html"
     click H "/out/ricing/terminal.html"
-    </div></div>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js"></script>
+</div>
 #END verbatim
 
 ## Credits
