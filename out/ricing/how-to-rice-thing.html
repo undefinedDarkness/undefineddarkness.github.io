@@ -79,12 +79,12 @@ Besides that, I've collected tidbits of elisp over the years that appear to help
 <summary>Chromium</summary>
 <p>
 Most chromium based browers do not support anything more than marginal theming,<br/>
-It is possible to affect a few changes by your gtk theme <a href="https://github.com/phocus/gtk/blob/master/scss/gtk-3.0/applications/_chromium.scss">[example</a>]<br/>
+It is possible to affect a few changes by your GTK theme <a href="https://github.com/phocus/gtk/blob/master/scss/gtk-3.0/applications/_chromium.scss">[example</a>]<br/>
 <br/>
 You can also make your own Chromium theme tho again, these are quite limited in scope: <a href="https://developer.chrome.com/docs/extensions/mv3/themes/">https://developer.chrome.com/docs/extensions/mv3/themes/</a><br/>
+It is also possible to inject CSS into devtools with an extension, GitHub has a few repos.<br/>
 <br/>
-Vivaldi however allows injecting CSS into the browser UI, I found a few links on it but your mileage may vary<br/>
-<a href="https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/">https://www.reddit.com/r/vivaldibrowser/comments/gso6bx/questions_about_css_customisations/</a><br/>
+Vivaldi, however, allows injecting CSS into the browser UI:<br/>
 <a href="https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations">https://forum.vivaldi.net/topic/10629/vivaldi-ui-customisations</a><br/>
 </p>
 </details>
@@ -92,7 +92,7 @@ Vivaldi however allows injecting CSS into the browser UI, I found a few links on
 <details open>
 <summary>Firefox</summary>
 <p>
-You can customize the User Interface (Chrome) with Firefox CSS, see the following:<br/>
+You can customize the User Interface (called chrome) with Firefox CSS, see the following:<br/>
 <ul>
 <li><a href="https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials">Getting started guide</a><br/>
 </li>
@@ -103,7 +103,7 @@ You can customize the User Interface (Chrome) with Firefox CSS, see the followin
 </ul><br/>You can use <a href="https://add0n.com/stylus.html">Stylus</a> to modify the appearance of certain websites.<br/>
 <i>NOTE: Does not work on extension (except Stylus) and built-in browser webpages.</i><br/>
 <br/>
-Firefox also supports <code>userContent.css</code> for overriding the styles of a site, To use it simply follow the same instructions as for userChrome.css but create this file too in the same directory (chrome),<br/>
+Firefox also supports <code>userContent.css</code> for overriding the styles of a website (browser webpages included). To use it, simply follow the same instructions as for userChrome.css, but create this file too in the same directory (chrome),<br/>
 The structure of the file is usually as follows:<br/>
 <pre>
 <code><span style="color:#48bac2; font-weight:bold">&#64;-moz-document</span> domain<span style="color:#181818">(</span><span style="color:#38781c">&quot;discord.com&quot;</span><span style="color:#181818">) {</span>
@@ -117,7 +117,7 @@ You can use any of the selectors available for <a href="https://developer.mozill
 </p>
 <h4 id="####-Start Page"> Start Page</h4>
 <p>
-You will need basic knowledge of HTML, CSS & JS.<br/>
+You will need basic knowledge of HTML, CSS & JS (optional).<br/>
 <a href="https://developer.mozilla.org/en-US/">MDN</a> is a nice place to learn.<br/>
 <br/>
 Firefox has quite a few limitations on setting local files as your start page (no external requests or imports of any kind), so it may be easier to host your start page on some static site hosting service (GitHub Pages, Netlify, Surge.sh).<br/>
@@ -284,7 +284,7 @@ snippet to configure animations on dccsillag or pijulius<br/>
 </pre>
 <br/>
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a><br/>
-To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> & click the window you want.<br/>
+To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> and click the window you want.<br/>
 Remember to use window classes whenever you can, window titles can be very finicky.<br/>
 The 2nd part of the window class is the relevant bit, for example: <br/>
 For <code>Application.Navigator</code>, You would put <code>class_g = 'Navigator'</code> in your picom config<br/>
@@ -302,22 +302,17 @@ Good places to look for wallpapers are:<br/>
 <li><a href="https://images.google.com/">https://images.google.com/</a><br/>
 Includes a search by colour and resolution, so you can find a wallpaper matching your screen size.<br/>
 </li>
-<li><a href="https://subtlepatterns.com/">https://subtlepatterns.com/</a><br/>
-Tiling wallpapers that are provided as backgrounds for websites.<br/>
-</li>
 <li><a href="https://unsplash.com/">https://unsplash.com/</a><br/>
 A source of free quality high res photos, all released under creative commons licensing so are free to use.<br/>
 </li>
 <li><a href="https://wallhaven.cc/">https://wallhaven.cc/</a><br/>
 A clone of wallbase after that was shut down, has searches by colour, resolution.<br/>
 </li>
-<li><a href="https://web.archive.org/web/20130708152642/http://squidfingers.com/patterns">https://web.archive.org/web/20130708152642/http://squidfingers.com/patterns</a><br/>
-158 tiling wallpapers. [archive link because normal page is dead]<br/>
-</li>
 <li><a href="http://simpledesktops.com/">http://simpledesktops.com/</a><br/>
 Wonderful sets of minimal wallpapers.<br/>
+I like <a href="https://boards.4chan.org/wg/catalog">the /wg/ board too</a>, but that one is <b>NSFW</b><br/>
 </li>
-</ul><br/>Source: <a href="https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers">https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers</a><br/>
+</ul><br/>Source: <a href="https://www.reddit.com/r/unixporn/wiki/ricing#wiki_wallpapers">unixporn wiki</a><br/>
 <br/>
 A few personal repositories of wallpapers (usually high quality and categorized):<br/>
 <ul>
@@ -332,39 +327,48 @@ A few personal repositories of wallpapers (usually high quality and categorized)
 <li>Frenzy's: <a href="https://github.com/FrenzyExists/wallpapers">https://github.com/FrenzyExists/wallpapers</a><br/>
 </li>
 </ul><br/>You could try the distro wallpaper competitions / repositories too, for example:<br/>
-here's Ubuntu's competition for 21.10: <a href="https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8">https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8</a><br/>
+Ubuntu's competition for 21.10: <a href="https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8">https://discourse.ubuntu.com/t/wallpaper-competition-for-impish-indri-ubuntu-21-10/22852/8</a><br/>
 Xubuntu's competition for 16.04: <a href="https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/">https://xubuntu.org/news/xubuntu-16-04-wallpaper-competition-winners/</a><br/>
 PopOS's repository: <a href="https://github.com/pop-os/wallpapers/tree/master/original">https://github.com/pop-os/wallpapers/tree/master/original</a><br/>
 <br/>
-I like <a href="https://boards.4chan.org/wg/">the /wg/ board too</a> but that one is definatley very <b>NSFW</b><br/>
-<a href="https://boards.4chan.org/wg/catalog">Their catalog of threads</a><br/>
-<br/>
-Really depends on what you're doing and looking for tho..<br/>
+Reverse image search:<br/>
+<ul>
+<li>iqdb.org (mostly anime)<br/>
+</li>
+<li>tineye.com<br/>
+</li>
+<li>saucenao.com<br/>
+</li>
+<li>yandex.ru/images<br/>
+</li>
+</ul><br/>Really depends on what you're doing and looking for tho..<br/>
 <br/>
 </p>
 <h4 id="####-Animated Wallpapers"> Animated Wallpapers</h4>
 <p>
-For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for video files or gifview for gif files):<br/>
+For those who don't know how to set animated walls, here's a command for it (you will need xwinwrap and mpv for videos or gifview for gifs):<br/>
 <br/>
 <code>xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio ~/path/to/video.mp4</code><br/>
 <br/>
 If the above doesn't work correctly, use this one:<br/>
 <code>xwinwrap -ov -g 1920x1080+0+0 -- mpv -wid WID ~/path/to/video.flv --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings</code><br/>
 <br/>
-Sources for pixelart animated wallpapers<br/>
+Sources for pixelart animated wallpapers:<br/>
 <a href="https://1041uuu.tumblr.com/">https://1041uuu.tumblr.com/</a><br/>
 <a href="https://waneella.tumblr.com/">https://waneella.tumblr.com/</a><br/>
-<br/>
-Googling will also get you a bit of resources .<br/>
 <br/>
 </p>
 <h4 id="####-Tiled Wallpapers"> Tiled Wallpapers</h4>
 <p>
 These are wallpapers that tiled like tiles in a pattern, <a href="/assets/images/dump/e038c16d-6663-40b9-8b21-82ad64927848.webp">example</a> repeated over your entire screen.<br/>
-Their usage is fairly simple:<br/>
-<code>feh --bg-tile |path-to-wallpaper|</code> or if you have a bitmap you can use <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code>, or manually tile it in your image editor of choice.<br/>
+Their usage is fairly simple, use the one you have installed:<br/>
+<code>feh --bg-tile |path-to-wallpaper|</code><br/>
+<code>xwallpaper --tile |path-to-wallpaper|</code><br/>
+<code>nitrogen --set-tiled |path-to-wallpaper|</code><br/>
+for bitmaps - <code>xsetroot -bitmap |path-to-bitmap-wallpaper|</code><br/>
+..or manually tile it in your image editor of choice.<br/>
 <br/>
-You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a>, Their site has a bunch of cool ricing related stuff too.<br/>
+You can find a bunch of sources here: <a href="https://notes.neeasade.net/tiled-wallpaper-sources.html">https://notes.neeasade.net/tiled-wallpaper-sources.html</a><br/>
 </p>
 </details>
 <br/>
