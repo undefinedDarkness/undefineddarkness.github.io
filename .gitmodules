@@ -1,0 +1,3 @@
+[submodule "src/ricing"]
+	path = src/ricing
+	url = git@github.com:undefinedDarkness/ricing-guide.git

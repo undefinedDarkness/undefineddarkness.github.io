@@ -46,6 +46,7 @@ build_md () {
     out=${out/.md/.html}
     markup=$(quiet=true bash ./.tooling/pond.sh "$1")
     format_doc_heading "$out"
+    mkdir -p "$(dirname "$out")"
     printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
     fin "$1"
 }

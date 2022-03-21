@@ -7,16 +7,6 @@
     <atom:link href="https://nes.is-a.dev/out/rss.xml" rel="self" type="application/rss+xml" />
     <language>en</language>
     <item>
-<title> Common Jargon</title>
-<description>ricing/terminology</description>
-<link>https://nes.is-a.dev/out/ricing/terminology.html</link>
-</item>
-<item>
-<title>Terminal and Shell Customization</title>
-<description>ricing/terminal</description>
-<link>https://nes.is-a.dev/out/ricing/terminal.html</link>
-</item>
-<item>
 <title>Frequently Asked Questions</title>
 <description>ricing/faq</description>
 <link>https://nes.is-a.dev/out/ricing/faq.html</link>

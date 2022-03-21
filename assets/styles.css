@@ -1,28 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans&display=swap');
 
 @font-face {
+    font-display: swap;
     font-family: "Redaction";
     src: url(Redaction-Regular.otf);
     font-weight: normal;
 }
 
 @font-face {
+    font-display: swap;
     font-family: "Redaction";
     src: url(Redaction-Italic.otf);
     font-style: italic;
 }
 
 @font-face {
+    font-display: swap; 
     font-family: "Redaction";
     src: url(Redaction-Bold.otf);
     font-weight: bold;
 }
 
 
-var,.special {
-    font-style: italic;
-    font-family: "Redaction";
-}
 
 /* -- GLOBAL -- */
 
@@ -162,6 +161,10 @@ figcaption {
 }
 figure {
     margin: 0;
+}
+var,.special {
+    font-style: italic;
+    font-family: "Redaction";
 }
 
 /* Animate <summary> icon */
