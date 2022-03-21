@@ -75,9 +75,9 @@ Making the most out of vanilla vim features<br/>
 <details open>
 <summary>NetRW</summary>
 <p>
-Using NetRW as a file tree.
-From <a href="https://shapeshed.com/vim-netrw/">this post</a>
-tldr:
+Using NetRW as a file tree.<br/>
+From <a href="https://shapeshed.com/vim-netrw/">this post</a><br/>
+tldr:<br/>
 <pre>
 <code><span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_banner <span style="color:#181818">=</span> <span style="color:#c43e18">0</span> <span style="color:#898989; font-style:italic">&quot; Hide the banner</span>
 <span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_browse_split <span style="color:#181818">=</span> <span style="color:#c43e18">3</span> <span style="color:#898989; font-style:italic">&quot; Open in new tab</span>
@@ -85,16 +85,16 @@ tldr:
 <span style="color:#a94598; font-weight:bold">let</span> g<span style="color:#181818">:</span>netrw_liststyle <span style="color:#181818">=</span> <span style="color:#c43e18">3</span> <span style="color:#898989; font-style:italic">&quot; Show files in tree form</span>
 </code>
 </pre>
-See what each option does with <code>:help netrw-browser-settings</code>
+See what each option does with <code>:help netrw-browser-settings</code><br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>:Grep</summary>
 <p>
-Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works
-See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything
-final snippet:
+Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works<br/>
+See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything<br/>
+final snippet:<br/>
 <pre>
 <code>function<span style="color:#181818">!</span> Grep<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">...)</span>
 	return system<span style="color:#181818">(</span><span style="color:#c48218; font-weight:bold">join([&amp;grepprg] + [expandcmd(join(a:000, &apos; &apos;))], &apos; &apos;))</span>
@@ -108,24 +108,25 @@ command<span style="color:#181818">! -</span>nargs<span style="color:#181818">=+
 <span style="color:#a94598; font-weight:bold">augroup END</span>
 </code>
 </pre>
+<br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>Tab Indicator</summary>
 <p>
-If and only if you indent with tabs, vim can bestow upon you a slick tab line:
-<code>set list lcs=tab:\│\ " There is a space here :)</code>
+If and only if you indent with tabs, vim can bestow upon you a slick tab line:<br/>
+<code>set list lcs=tab:\│\ " There is a space here :)</code><br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>Export to HTML</summary>
 <p>
-This is a pretty neat capability I did not know vim had,
-By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML with all of vim's
-syntax highlighted goodness,
-And you can script it! Like so:
+This is a pretty neat capability I did not know vim had,<br/>
+By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML with all of vim's<br/>
+syntax highlighted goodness,<br/>
+And you can script it! Like so:<br/>
 <pre>
 <code>lang<span style="color:#181818">=</span><span style="color:#38781c">&quot;</span><span style="color:#c43e18">$2</span><span style="color:#38781c">&quot;</span>
 f<span style="color:#181818">=</span>$<span style="color:#181818">(</span>mktemp<span style="color:#181818">)</span>
@@ -139,78 +140,78 @@ f<span style="color:#181818">=</span>$<span style="color:#181818">(</span>mktemp
 	<span style="color:#181818">+</span><span style="color:#38781c">&quot;q!&quot;</span> <span style="color:#181818">-</span> <span style="color:#c43e18">1</span><span style="color:#181818">&gt; /</span>dev<span style="color:#181818">/</span>null
 </code>
 </pre>
-You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,
-<a href="/assets/make.html">Here</a> is a example file from the make script of this website.
-* ✏ <strike>This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow
+You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,<br/>
+<a href="/assets/make.html">Here</a> is a example file from the make script of this website.<br/>
+* ✏ <strike>This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow<br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>Improving :help and :Man</summary>
 <p>
-I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:
-<code>au FileType help,man nnoremap &lt;buffer&gt; &lt;CR&gt; &lt;C-]&gt;</code>
-This makes it so hitting enter in a help buffer will try to just to the currently selected word 
-(the world the cursor is on.)
-Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation">https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation</a>
-
+I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:<br/>
+<code>au FileType help,man nnoremap &lt;buffer&gt; &lt;CR&gt; &lt;C-]&gt;</code><br/>
+This makes it so hitting enter in a help buffer will try to just to the currently selected word <br/>
+(the world the cursor is on.)<br/>
+Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation">https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation</a><br/>
+<br/>
 </p>
 <h4 id="####-Using vim as a man pager "> Using vim as a man pager </h4>
 <p>
-There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but 
-the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:
+There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but <br/>
+the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:<br/>
 <pre>
 <code>man <span style="color:#181818">() {</span>
 	nvim <span style="color:#181818">+</span><span style="color:#38781c">&quot;Man</span> <span style="color:#c43e18">$2</span> <span style="color:#38781c"></span><span style="color:#c43e18">$1</span><span style="color:#38781c">&quot;</span> <span style="color:#181818">+</span><span style="color:#38781c">&quot;only&quot;</span>
 <span style="color:#181818">}</span>
 </code>
 </pre>
-If you use vim, remember to add this to your vimrc:
-<code>runtime ftplugin/man.vim</code>
-as <code>:help ft-man-plugin</code> instructs you to.
-
-* This has some issues like files like <code>./local.man</code> but I do not often use this so its not a problem for me.
+If you use vim, remember to add this to your vimrc:<br/>
+<code>runtime ftplugin/man.vim</code><br/>
+as <code>:help ft-man-plugin</code> instructs you to.<br/>
+<br/>
+* This has some issues like files like <code>./local.man</code> but I do not often use this so its not a problem for me.<br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>Linting</summary>
 <p>
-Here are a few useful gists on the topic:
-<a href="https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252">https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252</a><br> 
-<a href="https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29">https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29</a>
- 
-What I did to get <code>shellcheck</code> to work:
+Here are a few useful gists on the topic:<br/>
+<a href="https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252">https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252</a><br> <br/>
+<a href="https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29">https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29</a><br/>
+ <br/>
+What I did to get <code>shellcheck</code> to work:<br/>
 <ul>
-<li>Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files
+<li>Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files<br/>
 </li>
-<li>Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings
+<li>Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings<br/>
 </li>
-<li>From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%&ast;[^:]:%m,%f:%l: %t%&ast;[^:]:%m," . &errorformat</code>
+<li>From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%&ast;[^:]:%m,%f:%l: %t%&ast;[^:]:%m," . &errorformat</code><br/>
 </li>
-<li>Made vim run <code>:make</code> on file write.
+<li>Made vim run <code>:make</code> on file write.<br/>
 </li>
-</ul><br/>✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot
-simpler to just use ALE for those, fine for stuff like GCC or Shell check tho
+</ul><br/>✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot<br/>
+simpler to just use ALE for those, fine for stuff like GCC or Shell check tho<br/>
 </p>
 </details>
 <br/>
 <details open>
 <summary>Spell Checking & Dictionary Completion</summary>
 <p>
-As much as I hate to link a luke smith video, this one actually explains stuff so here you go: <a href="https://www.youtube.com/watch?v=ez1XBUqbS68">https://www.youtube.com/watch?v=ez1XBUqbS68</a>
-But basically:
+As much as I hate to link a luke smith video, this one actually explains stuff so here you go: <a href="https://www.youtube.com/watch?v=ez1XBUqbS68">https://www.youtube.com/watch?v=ez1XBUqbS68</a><br/>
+But basically:<br/>
 <ul>
-<li>Enable spell checking with <code>:set spell</code>
+<li>Enable spell checking with <code>:set spell</code><br/>
 </li>
-<li>Add words to the white list with <code>zg</code>
+<li>Add words to the white list with <code>zg</code><br/>
 </li>
-<li>Add words to the black list with <code>zug</code>
+<li>Add words to the black list with <code>zug</code><br/>
 </li>
-<li>Go through the suggest corrections with <code>z=</code> while your cursor is over misspelled word.
+<li>Go through the suggest corrections with <code>z=</code> while your cursor is over misspelled word.<br/>
 </li>
-</ul><br/>For dictionary completion, you can use the following snippet:
-You might need to rewrite it in vim script for vim...
+</ul><br/>For dictionary completion, you can use the following snippet:<br/>
+You might need to rewrite it in vim script for vim...<br/>
 <pre>
 <code><span style="color:#a94598; font-weight:bold">local</span> spell_complete <span style="color:#181818">=</span> vim<span style="color:#181818">.</span>api<span style="color:#181818">.</span><span style="color:#c48218; font-weight:bold">nvim_replace_termcodes</span><span style="color:#181818">(</span><span style="color:#38781c">&apos;&lt;C-x&gt;&lt;C-k&gt;&apos;</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">,</span> <span style="color:#a94598; font-weight:bold">true</span><span style="color:#181818">)</span> 
 <span style="color:#a94598; font-weight:bold">local</span> M <span style="color:#181818">= {}</span>
@@ -235,7 +236,7 @@ vim<span style="color:#181818">.</span>cmd <span style="color:#38781c">[[ au Fil
 <span style="color:#a94598; font-weight:bold">return</span> M 
 </code>
 </pre>
-It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...
+It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...<br/>
 </p>
 </details>
 <br/>

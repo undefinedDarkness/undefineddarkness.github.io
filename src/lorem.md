@@ -79,6 +79,9 @@ int main () {
 <!-- Folds can be created with the 'f'old transformer -->
 #f Do folds work?
 I guess they do :)
+
+==Gotta check if new lines work==
+
 #END f
 
 <!-- IM:... will add `...` to the article margin -->

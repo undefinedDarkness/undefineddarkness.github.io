@@ -26,16 +26,6 @@ box () {
 	printf "<div class='box'>\n%s\n</div>" "$1"
 }
 
-# NOTE: This is very unsafe.
-# !! Run a shell script and return its output.
-sh_script () {
-	#f=$(mktemp)
-	#echo "$1" >> "$f"
-	#$SHELL "$f"
-	#rm "$f"
-	$1
-}
-
 # Folded text
 f () {
 	content=$1
@@ -173,6 +163,10 @@ initial_transformer () {
                 inside_transformer_block=0
 				printf '%s' "$line"
                 ;;
+            '#verbatim'*|'#VERBATIM'*)
+                inside_transformer_block='verbatim'
+                printf '%s' "$line"
+                ;;
             '#'*)
                 inside_transformer_block=1
 				printf '%s' "$line"
@@ -235,7 +229,7 @@ initial_transformer () {
 
 		
 		if (( inside_code_block == 0 )) ; then
-			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]] || (( inside_transformer_block )); then
+			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]] || [[ "$inside_transformer_block" == 'verbatim' ]]; then
 				printf '\n'; 
 				continue
 			fi

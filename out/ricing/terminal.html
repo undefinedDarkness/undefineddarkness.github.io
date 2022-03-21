@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2022-03-21 Mon 14:47 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terminal and Shell Customization</title>
+<meta name="author" content="nes" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+<article id="content" class="content">
+<header>
+<h1 class="title">Terminal and Shell Customization</h1>
+</header>
+
+<section id="outline-container-orgb416bd9" class="outline-2">
+<h2 id="orgb416bd9">Comparison of terminals</h2>
+<div class="outline-text-2" id="text-orgb416bd9">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Ligatures</th>
+<th scope="col" class="org-left">Fallback</th>
+<th scope="col" class="org-left">Advanced</th>
+<th scope="col" class="org-left">Bitmaps</th>
+<th scope="col" class="org-left">Wayland</th>
+<th scope="col" class="org-left">Tabs</th>
+<th scope="col" class="org-left">Images</th>
+<th scope="col" class="org-left">Config</th>
+<th scope="col" class="org-left">Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Wezterm</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Lua</td>
+<td class="org-left">10/10</td>
+</tr>
+
+<tr>
+<td class="org-left">Alacritty</td>
+<td class="org-left">P</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">Yaml</td>
+<td class="org-left">5/10</td>
+</tr>
+
+<tr>
+<td class="org-left">Kitty</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">Custom</td>
+<td class="org-left">8/10</td>
+</tr>
+
+<tr>
+<td class="org-left">Xterm</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">Xresources</td>
+<td class="org-left">6/10</td>
+</tr>
+
+<tr>
+<td class="org-left">St</td>
+<td class="org-left">P</td>
+<td class="org-left">P</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">P</td>
+<td class="org-left">C header</td>
+<td class="org-left">7/10</td>
+</tr>
+
+<tr>
+<td class="org-left">Foot</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">Y</td>
+<td class="org-left">N</td>
+<td class="org-left">Y</td>
+<td class="org-left">INI</td>
+<td class="org-left">N/A</td>
+</tr>
+
+<tr>
+<td class="org-left">Vte</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">N</td>
+<td class="org-left">P</td>
+<td class="org-left">GUI</td>
+<td class="org-left">5/10</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+<b>Notes:</b> <br>
+</p>
+<ul class="org-ul">
+<li>Fallback refers to the ability to fallback fonts, that is find a character in the next font in a list if it is not in the first one.<br></li>
+<li>Advanced refers to the capability of advanced open type features, primarily stylistic sets<br></li>
+<li>The foot terminal is wayland exclusive, and it has no rating as I have not had time to review it<br></li>
+<li>If you're thinking about using st, I highly suggest you use <a href="https://github.com/bakkeby/st-flexipatch">st-flexipatch</a> right from the start, It will save you a lot of time<br></li>
+<li>VTE refers to any terminal that uses the <a href="https://gitlab.gnome.org/GNOME/vte">vte</a> library as a shortcut, this does almost 99.99% of the heavy lifting for you so behaviour across different vte terminals tends to be the same, for example, gnome-terminal, xfce-terminal, <a href="https://github.com/endaaman/tym">tym</a> all leverage the vte library.<br></li>
+</ul>
+
+<p>
+<a href="https://github.com/zenixls2/alacritty">Fork for ligatures in alacritty</a> - Even the alacritty author recommends you simply use another terminal if you want ligatures.<br>
+It is possible to enable bitmap fonts in kitty, using the <code>kitty-bitmap</code> AUR package, <a href="https://github.com/slavfox/Cozette#kitty">More instructions</a> - The author does not and will never support bitmap fonts<br>
+</p>
+
+<p>
+Issue page for sixel support in vte: <a href="https://gitlab.gnome.org/GNOME/vte/-/issues/253">https://gitlab.gnome.org/GNOME/vte/-/issues/253</a><br>
+</p>
+
+<p>
+<a href="https://wiki.archlinux.org/title/List_of_applications#Terminal">Arch Wiki Page</a><br>
+</p>
+</div>
+</section>
+
+<section id="outline-container-orga7e4656" class="outline-2">
+<h2 id="orga7e4656">Images in the terminal</h2>
+<div class="outline-text-2" id="text-orga7e4656">
+<p>
+This is an often sought after feature and often used with fetch scripts.<br>
+Right now there is no standard and each terminal does their own thing, more and more are supporting <a href="https://en.wikipedia.org/wiki/Sixel">Sixel</a>, though, so maybe that will end up being the standard.<br>
+For terminals without image support entirely, there are hacks using <code>w3m-img</code> and <code>uberzerg</code> to get them&#x2026;but they're finicky and don't just work™, so I'd recommend against them.<br>
+<a href="https://github.com/dylanaraps/neofetch/wiki/Images-in-the-terminal">Full article</a><br>
+</p>
+
+<p>
+<b>Overview:</b><br>
+Alacritty doesn't support images and needs a hack;<br>
+Wezterm natively supports iterms2's image format &amp; sixel;<br>
+Kitty has its own format;<br>
+St can support sixel via a <a href="https://gitlab.com/exorcist365/dotfulls/-/blob/master/.local/share/src/st/patches/0001-add-st-sixel.patch">patch</a><br>
+</p>
+</div>
+</section>
+
+<section id="outline-container-org17c5c72" class="outline-2">
+<h2 id="org17c5c72">Prompts</h2>
+<div class="outline-text-2" id="text-org17c5c72">
+<p>
+A shell is usually configured with a <i>prompt</i>. This is a small indicator to tell you the computer is waiting for user input, Its usually printed on every new line after the end of a command in a shell<br>
+Eg:<br>
+</p>
+<pre class="example">
+$ uname -r
+5.10.11-11-amd64
+$ neofetch
+</pre>
+<p>
+In this example, <code>$</code> is the prompt character.<br>
+You can make it very fancy and make it display some useful information if you so like.<br>
+</p>
+
+<p>
+<a href="https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html">Default Format Specifiers</a> (for Bash)<br>
+of note:<br>
+<code>\[</code> and <code>\]</code> are used to denote characters that must not be printed (color escape codes for example), make sure to use them or the prompt calculation will be wrong.<br>
+</p>
+
+<p>
+If you'd rather just not bother doing it yourself, You can use <a href="https://starship.rs/">Starship</a> to get a pre-made one, rtfm manual for how to modify it.<br>
+</p>
+
+<p>
+Example prompt (this is gentoo's default one):<br>
+<code>PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '</code><br>
+</p>
+</div>
+
+<div id="outline-container-org8b2f21a" class="outline-3">
+<h3 id="org8b2f21a">Terminal Color Codes &amp; Decorations</h3>
+<div class="outline-text-3" id="text-org8b2f21a">
+<p>
+Terminals generally support a couple or more of 3 color modes, they are:<br>
+</p>
+<ul class="org-ul">
+<li>True Color (Full RGB Color)<br></li>
+<li>256 Color<br></li>
+<li>8 Color (Everything supports this one)<br></li>
+</ul>
+
+<p>
+<b>The reset code is <code>\033[0m</code></b> (This removes any formatting)<br>
+*This is how you change text formatting in the terminal by putting these codes in between the text you want to be formatted.<br>
+</p>
+
+<p>
+To change foreground color:<br>
+<code>\033[3&lt;N&gt;m</code><br>
+</p>
+
+<p>
+To change background color:<br>
+<code>\033[4&lt;N&gt;m</code><br>
+</p>
+
+<p>
+To change foreground color to bright:<br>
+<code>\033[3&lt;N&gt;;1m</code><br>
+</p>
+
+<p>
+To change background color to bright:<br>
+<code>\033[4&lt;N&gt;;1m</code><br>
+</p>
+
+
+<p>
+Where &lt;N&gt; is one of the following:<br>
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Color</th>
+<th scope="col" class="org-right">Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Black</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">Red</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Green</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">Yellow</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">Blue</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">Magenta</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-left">Cyan</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-left">White</td>
+<td class="org-right">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgb82c704" class="outline-4">
+<h4 id="orgb82c704">Decorations</h4>
+<div class="outline-text-4" id="text-orgb82c704">
+<ul class="org-ul">
+<li>Bold <code>\033[1m</code><br></li>
+<li>Italic <code>\033[3m</code><br></li>
+<li>Underline <code>\033[4m</code><br></li>
+<li>Reversed <code>\033[7m</code><br></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</article>
+</body>
+</html>
