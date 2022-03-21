@@ -375,6 +375,9 @@ li .in-margin {
     .split-e {
         grid-template-columns: 1fr 1fr;
     }
+    .force-break {
+        grid-template-columns: 1fr !important;
+    }
     h1 {
         font-size: 2em;
     }
