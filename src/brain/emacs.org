@@ -192,3 +192,5 @@ sudo make install -j$(nproc)
     Speedtree would be decent if it didn't popup a new window and could use icons
 
     Parinfer becomes a bit of a pain when it disagrees with me, but when it does work, It is lisp editing heaven but your mileage may vary.
+
+    My buddy nuxsh also wrote a similar article: https://nuxsh.is-a.dev/blog/emacs.html
