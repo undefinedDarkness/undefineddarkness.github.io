@@ -262,11 +262,9 @@ The following are popular as of October 2021:<br/>
 <a href="https://github.com/jonaburg/picom">jonaburg/picom</a>    -> slightly buggy sliding animations<br/>
 <a href="https://github.com/dccsillag/picom">dccsillag/picom</a>  -> has cool, configurable animations<br/>
 <a href="https://github.com/pijulius/picom">pijulius/picom</a>    -> fork of dccsillag, added animations and optimisations<br/>
-<br/>
 <a href="https://github.com/Tanish2002/picom">Tanish2002/picom</a>-> also has animations, try if the others do not work<br/>
 <br/>
 snippet to configure animations on dccsillag or pijulius<br/>
-<br/>
 <pre>
 <code><span style="color:#898989; font-style:italic"># Animations</span>
 <span style="color:#a94598; font-weight:bold">animations</span> = true<span style="color:#181818">;</span>
@@ -283,13 +281,25 @@ snippet to configure animations on dccsillag or pijulius<br/>
 </code>
 </pre>
 <br/>
+snippet to configure animations on jonaburg<br/>
+<pre>
+<code><span style="color:#a94598; font-weight:bold">transition</span>-length = <span style="color:#48bac2; font-weight:bold">300</span>
+<span style="color:#a94598; font-weight:bold">transition</span>-pow-x = <span style="color:#48bac2; font-weight:bold">0.1</span>
+<span style="color:#a94598; font-weight:bold">transition</span>-pow-y = <span style="color:#48bac2; font-weight:bold">0.1</span>
+<span style="color:#a94598; font-weight:bold">transition</span>-pow-w = <span style="color:#48bac2; font-weight:bold">0.1</span>
+<span style="color:#a94598; font-weight:bold">transition</span>-pow-h = <span style="color:#48bac2; font-weight:bold">0.1</span>
+<span style="color:#a94598; font-weight:bold">size</span>-transition = true
+</code>
+</pre>
+<br/>
 Example configuration with most of the available options: <a href="https://github.com/yshui/picom/blob/next/picom.sample.conf">https://github.com/yshui/picom/blob/next/picom.sample.conf</a><br/>
 To get a window class for a exclude / include, use <code>xwininfo</code> or <code>xprop</code> and click the window you want.<br/>
 Remember to use window classes whenever you can, window titles can be very finicky.<br/>
 The 2nd part of the window class is the relevant bit, for example: <br/>
 For <code>Application.Navigator</code>, You would put <code>class_g = 'Navigator'</code> in your picom config<br/>
 <br/>
-<a href="https://wiki.archlinux.org/title/Picom">Arch wiki page</a><br/>
+<a href="https://nuxsh.is-a.dev/blog/picom.html">Nuxsh's Page About Picom Forks</a><br/>
+<a href="https://wiki.archlinux.org/title/Picom">Arch Wiki Page</a><br/>
 <br/>
 </p>
 </details>
