@@ -181,6 +181,6 @@ for job in $(jobs -p); do
 done
 
 generate_index
-generate_rss_feed
+# generate_rss_feed
 
 exit

@@ -1,26 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans&display=swap');
-
-@font-face {
-    font-display: swap;
-    font-family: "Redaction";
-    src: url(Redaction-Regular.otf);
-    font-weight: normal;
-}
-
-@font-face {
-    font-display: swap;
-    font-family: "Redaction";
-    src: url(Redaction-Italic.otf);
-    font-style: italic;
-}
-
-@font-face {
-    font-display: swap; 
-    font-family: "Redaction";
-    src: url(Redaction-Bold.otf);
-    font-weight: bold;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;700&display=swap');
+@import url("extras.css");
+@import url("minor.css");
 
 
 /* -- GLOBAL -- */
@@ -33,7 +13,7 @@
 :root {
     --monospace: "IBM Plex Mono", monospace;
     --margin: -0.8em;
-    --serif: "Redaction", serif;
+    /* --serif: "Redaction", serif; */
     --normal: "IBM Plex Sans", system-ui, sans-serif;
     --black: #181818;
     --white: #fff;
@@ -52,7 +32,7 @@ body {
     overflow-x: hidden;
     margin: 0;
     font-family: var(--normal);
-    background-color: var(--white);
+    background-color: ivory;
     color: var(--black);
 
     display: flex;
@@ -70,8 +50,8 @@ kbd {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: var(--serif);
-    font-weight: normal;
+    font-family: var(--monospace);
+    /* font-weight: normal; */
 }
 
 h1,h2,h3 {
@@ -206,11 +186,11 @@ footer {
     align-items: center;
 }
 
-footer > a:last-of-type {
+footer > a[href="/out/index.html"] {
     text-decoration: none;
 }
 
-footer > a:last-of-type::before {
+footer > a[href="/out/index.html"]::before {
     content: "✈";
     padding-right: 10px;
 }
@@ -288,103 +268,7 @@ li .in-margin {
     left: -3em;
 }
 
-/* Small helper classes */
-.txt-c {
-    text-align: center;
-}
-.block-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.reset {
-    font-weight: normal;
-}
-.pxl,
-.pxl-art {
-    image-rendering: crisp-edges;
-}
-
-/* Position something in the margin of content */
-.in-margin {
-    position: absolute;
-    left: 2em;
-    user-select: none;
-    display: inline-block;
-    font-family: var(--serif);
-}
-
-.demo .split-e > *, .demo .quad > * , .demo .split > * {
-    border: 2.5px solid coral;
-    text-align: center;
-}
-
-
-/* Split section vertically */
-.split, .split-e {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-}
-
-.split-e {
-    grid-template-columns: 19em 19em;
-}
-
-/* Fit as many items as possible */
-
-.quad-e,.quad {
-    grid-template-columns: repeat(auto-fit, 19em);
-    grid-template-rows: 1fr 1fr;
-    display: grid;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-}
-.quad-e {
-    grid-template-columns: repeat(auto-fit, 18em);
-}
-
-/* Arrange children horizontally */
-.horizontal:not(p) > p,
-.horizontal {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 1em;
-    row-gap: 1em;
-}
-
-/* Show scrollbars as required */
-.ovr-x {
-    overflow-x: auto;
-}
-
-.linklist a {
-    text-decoration: none;
-    border-right: 2px solid #888;
-    font-style: italic;
-    padding: 0 8px;
-}
-
-.linklist a:last-of-type { border-right: 0; }
-
 @media only screen and (max-width: 600px) {
-    .quad {
-        grid-template-columns: unset;
-    }
-    .split-e {
-        grid-template-columns: 1fr 1fr;
-    }
-    .force-break {
-        grid-template-columns: 1fr !important;
-    }
-    h1 {
-        font-size: 2em;
-    }
-
-    .hide-m {
-        display: none;
-    }
     article {
         padding-left: 8vw;
     }
@@ -399,50 +283,3 @@ li .in-margin {
     }
 }
 
-/*-- Showcase Row Module --*/
-.showcase {
-    overflow-x: hidden;
-}
-.showcase:hover {
-    overflow-x: auto;
-}
-.showcase::-webkit-scrollbar {
-    width: 0.8em;
-}
-.showcase::-webkit-scrollbar-track {
-    border: 1px solid;
-}
-.showcase::-webkit-scrollbar-thumb {
-    background: var(--black);
-}
-.showcase img {
-    border: 1px solid;
-}
-
-/*-- Tierlist Table Module --*/
-.tierlist tr:not(:last-child) {
-    border-bottom: 1px solid var(--black);
-}
-.tierlist td:first-child {
-    border-right: 1px solid var(--black);
-}
-.tierlist *,
-.tierlist {
-    border: none;
-}
-
-.tierlist tr:nth-child(1) td:first-child {
-    background: rgb(255, 127, 127);
-}
-.tierlist tr:nth-child(2) td:first-child {
-    background: rgb(255, 191, 127);
-}
-.tierlist tr:nth-child(3) td:first-child {
-    background: rgb(255, 223, 127);
-}
-.tierlist tr:nth-child(4) td:first-child {
-    background: rgb(255, 255, 127);
-}
-.tierlist tr:nth-child(5) td:first-child {
-    background: rgb(191, 255, 127);
-}
