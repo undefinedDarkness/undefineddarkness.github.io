@@ -1,6 +1,6 @@
 #+TITLE: GUI Experiments
 This is a experiment to try out various native GUI frameworks and try to find one I can bear with.
-It involves creating a +really simple TODO+ app in several frameworks,
+It involves creating a app in several frameworks,
 The ones I have chosen for this experiment are:
 
 - Flutter
@@ -9,11 +9,16 @@ The ones I have chosen for this experiment are:
 - Web (Electron / Website)
 - Egui
 
-The code for Godot will be written in it's own GDScript,
-GTK 3 will use C, Flutter Dart, Web JS ... you get the idea.
+** Web
+Endlessly flexible to the point its overwhelming, Almost any part you don't like about it you can swap out entirely.
+Don't like javascript? its possible to use something like elm or even wasm
 
-I am purposely using egui instead of dear imgui since I don't want to spend time learning / setting up C++
-and not for much other reason.
+CSS is wonderful for styling if you can keep of the cascading order and the many properties you need to keep track of.
+Of course by its nature it is quite /distant/ from the metal and silicon, so..
 
+For desktop app purposes while it is certainly a available option for various usecases, it cant take benefit of the many reasons one would
+feel the need to write a entirely native application, especially on desktop.
 
-/Article Incomplete./
+Javascript..., let's not open that can of worms, shall we?
+
+Personally, the way CSS & HTML cooperate makes a understandable structure in my head but it can become messy very quickly

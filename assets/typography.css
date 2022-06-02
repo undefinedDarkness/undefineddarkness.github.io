@@ -1,0 +1,51 @@
+@font-face {
+	font-family: "Recursive";
+	src: url("/assets/Recursive.woff2") format("woff2-variations");
+}
+
+:root {
+	--mono-variant: "MONO" 1;
+	--sans-variant: "CASL" 0.5;
+}
+
+body {
+	font-size: 1.4em;
+	font-variation-settings: var(--sans-variant);
+}
+
+body,code,kbd {
+	font-family: Recursive;
+}
+
+i {
+	font-style: oblique 15deg;
+}
+
+kbd {
+	font-size: 1.1em;
+}
+summary{font-size: larger;}
+figcaption,var,.special{font-style: italic}
+h4,h5,h6 {
+	font-weight: normal;
+}
+h1,h2,h3,h4,h5,h6,code,kbd {
+	font-variation-settings: var(--mono-variant) !important;
+}
+h1 {
+    font-size: 2.5em;
+}
+h2 {
+    font-size: 2em;
+}
+h4 {
+    font-size: 1.3em;
+}
+h5 {
+    font-size: 1.2em;
+}
+h6 {
+    font-size: 1.1em;
+}
+h3 {
+    font-size: 1.5em;

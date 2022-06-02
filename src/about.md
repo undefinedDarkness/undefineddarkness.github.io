@@ -1,6 +1,6 @@
 <style>.horizontal a {background: inherit;color: inherit;}</style>
 <header>
-<img src="/assets/images/pfp.png" alt="my pfp" width="200" height="200" align='right' class="rounded" />
+<img src="/assets/images/pfp.png" alt="my pfp" width="200" height="200" class="rounded" />
 <h1>About Me</h1>
 </header>
 Hello, Welcome to my site 👋
