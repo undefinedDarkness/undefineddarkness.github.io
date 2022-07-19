@@ -11,8 +11,9 @@ As part of my interest in Computers,
 I have become familiar with Typescript, Bash and Lua [among other languages](https://github-readme-stats.vercel.app/api/top-langs/?username=undefinedDarkness&layout=compact&langs_count=8)
 I wish to learn Haskell, Erlang and maybe a variant of Scheme at some point
 
-To combine that with my interest in Design, 
+To combine that with my interest in Design,
 I have decent knowledge of building a graphical user interfaces, And I know my way around a linux system
+
 <div class='split' style="margin-top: 1em;">
 <div>
 Anime/Manga Recommendations:
@@ -20,7 +21,7 @@ Anime/Manga Recommendations:
 - Evangelion
 - FLCL
 - Monster
-- Tokyo Goul
+- Tokyo Ghoul
 - Demon Slayer 
 </div>
 <div>
