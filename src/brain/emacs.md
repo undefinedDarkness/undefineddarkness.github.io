@@ -154,8 +154,8 @@ irrelevant), And since I don't close it often it matters even less. But
 here are a few tricks I used to speed it up from its vanilla state
 (Still not as extreme as DOOM Emacs does tho).
 
-> > > Some of these techniques for fast startup I've documented in our
-> > > [FAQ](https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly).
+>>> 
+Some of these techniques for fast startup I've documented in our [FAQ](https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly).
 
 The highlights are:
 
@@ -216,7 +216,7 @@ startup for tty Emacs users when it is run too early. After deferring
 it slightly, this doesn't appear to be an issue anymore. Not a big tty
 Emacs user, so YMMV.
 
-> > > — Hlissner (Author of DOOM Emacs)
+>>> — Hlissner (Author of DOOM Emacs)
 
 I can't say how much of each has contributed to helping my start up
 times but in general, The best advice I (personally) can give is to

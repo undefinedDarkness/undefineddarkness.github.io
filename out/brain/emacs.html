@@ -182,8 +182,9 @@ irrelevant), And since I don't close it often it matters even less. But<br/>
 here are a few tricks I used to speed it up from its vanilla state<br/>
 (Still not as extreme as DOOM Emacs does tho).<br/>
 <br/>
-<q>> > Some of these techniques for fast startup I've documented in our</q><br/>
-<q>> > <a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.</q><br/>
+<figure>
+<blockquote>
+Some of these techniques for fast startup I've documented in our <a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.<br/>
 <br/>
 The highlights are:<br/>
 <br/>
@@ -201,12 +202,12 @@ The highlights are:<br/>
 </li>
 <li>Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are<br/>
   not).<br/>
-</li>
-</ul><br/>The biggest gains come from lazy loading packages. Especially the big<br/>
+<br/>
+The biggest gains come from lazy loading packages. Especially the big<br/>
 ones, like org, helm, and magit. Doom goes a bit further with this. A<br/>
 couple examples:<br/>
 <br/>
-<ul>
+</li>
 <li>Dozens of packages (like recentf, savehist, autorevert, etc) are<br/>
   deferred until your first input (pre-command-hook) or the first<br/>
   file is opened (:before after-find-file).<br/>
@@ -227,37 +228,40 @@ couple examples:<br/>
 </li>
 <li>If you use the daemon, the incremental-loader just loads them all<br/>
   immediately.<br/>
-</li>
-</ul><br/>Besides that, I've collected tidbits of elisp over the years that<br/>
+<br/>
+Besides that, I've collected tidbits of elisp over the years that<br/>
 appear to help startup time, sometimes inexplicably. Here are a couple<br/>
 off the top of my head:<br/>
 <br/>
-<ul>
+</li>
 <li><code>(add-to-list 'default-frame-alist '(font . "Fira Code-14"))</code><br/>
   instead of <code>(set-frame-font "Fira Code-14" t t)</code>. The latter does<br/>
   more work than the former, under the hood.<br/>
+<br/>
 </li>
-</ul><br/><ul>
 <li><code>(setq frame-inhibit-implied-resize t)</code> – Emacs resizes the (GUI)<br/>
   frame when your newly set font is larger (or smaller) than the<br/>
   system default. This seems to add 0.4-1s to startup.<br/>
+<br/>
 </li>
-</ul><br/><ul>
 <li><code>(setq initial-major-mode 'fundamental-mode)</code> – I don't need the<br/>
   scratch buffer at startup. I have it a keybind away if I do.<br/>
   Starting text-mode at startup circumvents a couple startup<br/>
   optimizations (by eager-loading a couple packages associated with<br/>
   text modes, like flyspell), so starting it in fundamental-mode<br/>
   instead helps a bit.<br/>
-</li>
-</ul><br/>An odd one: tty-run-terminal-initialization adds a couple seconds to<br/>
+<br/>
+An odd one: tty-run-terminal-initialization adds a couple seconds to<br/>
 startup for tty Emacs users when it is run too early. After deferring<br/>
 it slightly, this doesn't appear to be an issue anymore. Not a big tty<br/>
 Emacs user, so YMMV.<br/>
 <br/>
-<q>> > — Hlissner (Author of DOOM Emacs)</q><br/>
+</blockquote>
+<figcaption>— Hlissner (Author of DOOM Emacs)</figcaption>
+</figure>
 <br/>
-I can't say how much of each has contributed to helping my start up<br/>
+</li>
+</ul><br/>I can't say how much of each has contributed to helping my start up<br/>
 times but in general, The best advice I (personally) can give is to<br/>
 async everything as much as possible. The garbage collector and the file<br/>
 alist trick help a fair bit as well.<br/>
