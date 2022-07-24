@@ -16,6 +16,7 @@ I have decent knowledge of building a graphical user interfaces, And I know my w
 
 <div class='split' style="margin-top: 1em;">
 <div>
+
 Anime/Manga Recommendations:
 - Cowboy Bebop
 - Evangelion
@@ -23,14 +24,15 @@ Anime/Manga Recommendations:
 - Monster
 - Tokyo Ghoul
 - Demon Slayer 
+
 </div>
 <div>
 You can find me on
 
 <div class='horizontal'>
-[<img src="/assets/images/dump/discord.svg" width='48' height='48' alt='discord' />](https://discord.com/users/639075808279003137)
-[<img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/reddit.svg" width='48' height='48' alt='reddit' />](https://reddit.com/u/Nebula1S)
-[<img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/github.svg" width='48' height='48' alt='github' />](https://github.com/undefinedDarkess)
+<a href="https://discord.com/users/639075808279003137"><img src="/assets/images/dump/discord.svg" width='48' height='48' alt='discord' /></a>
+<a href="https://reddit.com/u/Nebula1S"><img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/reddit.svg" width='48' height='48' alt='reddit' /></a>
+<a href="https://github.com/undefinedDarkness"><img src="https://raw.githubusercontent.com/edent/SuperTinyIcons/master/images/svg/github.svg" width='48' height='48' alt='github' /></a>
 </div>
 </div>
 </div>
