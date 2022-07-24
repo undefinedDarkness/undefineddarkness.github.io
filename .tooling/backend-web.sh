@@ -6,6 +6,7 @@
 # using Vim's :TOHtml command
 
 __syntax_hl () {
+
 	highlight\
 		--syntax "$1"\
 		-q\
@@ -114,14 +115,17 @@ initial_transformer () {
 	local inside_quote_block=0
 	local inside_paragraph=0
     local inside_transformer_block=0
+	local loaded_mermaid=0
+	
 	while read -r line; do
 
 		if [ -z "${line/ /}" ] && (( inside_list )) && ! (( inside_code_block )) && ! (( inside_quote_block )); then
 			inside_list=0	
+			dbg "SKIPPING LINE : $line"
             printf '</li>\n</ul><br/>'
 			continue
 		fi
-		
+
 		case "$line" in
 			# For reader mode.
 			'# '*)
@@ -147,49 +151,51 @@ initial_transformer () {
 					continue
 				fi
 				;;
-  			'#-'*)
-				printf '<h3>%s</h3>\n' "${line#'#-'}"
-				continue
-				;;
 			'---' | '___' | '***' )
-				printf '<hr />\n'
-				continue
+				(( inside_code_block == 0 )) && printf '<hr />\n' && continue
 				;;
 			'#~'*)
-				printf '&num;%s\n' "${line#'#~'}"
-				continue
+				(( inside_code_block == 0 )) && printf '&num;%s\n' "${line#'#~'}" && continue
 				;;
             '#END '*)
-                inside_transformer_block=0
-				printf '%s' "$line"
+                (( inside_code_block == 0 )) && inside_transformer_block=0 && printf '%s' "$line"
                 ;;
             '#verbatim'*|'#VERBATIM'*)
-                inside_transformer_block='verbatim'
-                printf '%s' "$line"
+                (( inside_code_block == 0 )) && inside_transformer_block='verbatim' && printf '%s' "$line"
                 ;;
             '#'*)
-                inside_transformer_block=1
-				printf '%s' "$line"
+                (( inside_code_block == 0 )) && inside_transformer_block=1 && printf '%s' "$line"
                 ;;
 			'> '*)
-				printf '<q>%s</q><br/>\n' "${line#'> '}"
+				(( inside_code_block == 0 )) && printf '<q>%s</q><br/>\n' "${line#'> '}" || printf '%s' "$line"
 				continue
 				;;
 			'```'*)
 
 				if (( inside_code_block )); then
-					dbg 'Passing to syntax-hl: %s' "$buffer"
-					__syntax_hl "$language" <<< "$buffer"
+					dbg "--- END CODE BLOCK ---"
+
+					if [ "$language" = "mermaid" ]; then
+						printf '<div class="mermaid">%s</div>' "$buffer"
+						loaded_mermaid=1
+					elif [ -z "$language" ]; then
+						printf '%s</code>\n</pre>\n' "${buffer//'#'/'&#35;'}"
+					else 
+						# dbg 'Passing to syntax-hl: %s' "$buffer"
+						__syntax_hl "$language" <<< "$buffer"
+						printf '</code>\n</pre>\n'
+					fi
+					
 					unset buffer
 					unset language
 					inside_code_block=0
-					printf '</code>\n</pre>\n'
 					continue
 				else
 					local buffer=''
 					local language=${line#'```'}
 					inside_code_block=1
-					printf '<pre>\n<code>'
+					[ "$language" != "mermaid" ] && printf '<pre>\n<code>'
+					dbg "--- CODE BLOCK ---"
 					continue
 				fi
 				;;
@@ -225,10 +231,8 @@ initial_transformer () {
 		
 		if (( inside_code_block == 1 )); then
 			buffer+=$line$NEWL
-		fi
-
-		
-		if (( inside_code_block == 0 )) ; then
+			dbg "++ $line"
+		else
 			if [[ "$line" == '#'* ]] || [[ "$line" == "<!--"*"-->" ]] || [[ "$inside_transformer_block" == 'verbatim' ]]; then
 				printf '\n'; 
 				continue
@@ -239,6 +243,12 @@ initial_transformer () {
 			fi
 		fi
 	done 
+
+	if (( loaded_mermaid )); then 
+		printf '<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});
+</script>'
+	fi
 }
 
 final_transformer() {
@@ -258,8 +268,6 @@ final_transformer() {
 		s@!\[(.*?)\]\((.+?)\)@<img src="\2" alt="\1" title="\1" loading="lazy" />@g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-        s!\.\.(.+?)\.\.!<span class="special">\1</span>!g;
-		s!IM:(.*)$!<span class="in-margin">\1</span>!gm;
 		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
         s!==(.+?)==!<mark>\1</mark>!g;

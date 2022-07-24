@@ -24,7 +24,7 @@ lot of places but it wasn't my thought, The UI is mostly set in stone,<br/>
 The configuration being done statically in JSON (Meaning, there is no<br/>
 way for me to script anything) limits a lot and I just didn't feel<br/>
 really comfortable using it, tho the way everything tends to just<br/>
-work<sup>tm</sup> is really nice. \*Even using CSS to modify the VS Code<br/>
+work<sup>tm</supis really nice. \*Even using CSS to modify the VS Code<br/>
 UI is a difficult task, You need to go through a few hoops to even<br/>
 inject CSS, which in my opinion should be a builtin feature; VS Code's<br/>
 predecessor Atom had a prettier UI and was more flexible in this respect<br/>
@@ -47,8 +47,8 @@ is, And of course since I like bringing pain onto myself, I decided to<br/>
 forgo <a href="https://github.com/hlissner/doom-emacs">Doom Emacs</a> and do a from<br/>
 scratch configuration.<br/>
 <br/>
-*If you are starting out with Emacs, I recommend starting with DOOM,<br/>
-It's a good & fast configuration, You will have a much easier time.*<br/>
+_If you are starting out with Emacs, I recommend starting with DOOM,<br/>
+It's a good & fast configuration, You will have a much easier time._<br/>
 <br/>
 <h2 id="##-Getting used to it"> Getting used to it</h2>
 <p>
@@ -68,7 +68,7 @@ Moving around files from directly in the editor was something I needed<br/>
 to get used to as well, In neovim, I would just quit the editor / spawn<br/>
 a new terminal, <code>cd</code> to where I wanted to go, and open neovim again.<br/>
 <br/>
-Using Emacs's bookmark system with <i>Consult</i> has helped with moving<br/>
+Using Emacs's bookmark system with _Consult_ has helped with moving<br/>
 around a lot however.<br/>
 <br/>
 </p>
@@ -102,7 +102,7 @@ emacs, It's not perfect, it still scrolls by lines instead of actual<br/>
 pixels but it is quite smooth and I don't hate using it.<br/>
 <br/>
 <pre>
-<code>(pixel-scroll-precision-mode)    
+<code>(pixel-scroll-precision-mode)
 </code>
 </pre>
 <br/>
@@ -119,7 +119,7 @@ sudo apt install libgccjit-10-dev
 git clone <a href="https://git.savannah.gnu.org/git/emacs.git">https://git.savannah.gnu.org/git/emacs.git</a> --depth 1 -b master
 cd emacs
 ./autogen.sh
-./configure.sh --with-native-compilation --with-pgtk --with-sqlite3 
+./configure.sh --with-native-compilation --with-pgtk --with-sqlite3
 sudo make install -j$(nproc)
 </code>
 </pre>
@@ -167,8 +167,7 @@ I am sure it's possible to make flymake entirely usable but it seems<br/>
 to be more trouble than it's worth to me.<br/>
 <br/>
 If you want to disable the default eldoc linter which is maybe the<br/>
-most stupid linter I have ever seen, do `(setq<br/>
-flycheck-disabled-checkers '(emacs-lisp-checkdoc))`<br/>
+most stupid linter I have ever seen, do <code>(setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))</code><br/>
 <br/>
 \*Haven't looked into formatting yet<br/>
 <br/>
@@ -183,69 +182,80 @@ irrelevant), And since I don't close it often it matters even less. But<br/>
 here are a few tricks I used to speed it up from its vanilla state<br/>
 (Still not as extreme as DOOM Emacs does tho).<br/>
 <br/>
-<q>Some of these techniques for fast startup I've documented in our</q><br/>
-<q><a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.</q><br/>
-<q></q><br/>
-<q>The highlights are:</q><br/>
-<q></q><br/>
-<q>  - I suppress garbage collection during startup,</q><br/>
-<q>  - I lazy load our package manager. This means avoiding</q><br/>
-<q>    package-initialize or, if you use straight like Doom does,</q><br/>
-<q>    bootstrapping straight. It also means no 200+ package-installed-p</q><br/>
-<q>    checks on startup.</q><br/>
-<q>  - Package autoloads files are concatenated into one, large file.</q><br/>
-<q>    This saves on hundreds of file reads at startup (assuming you have</q><br/>
-<q>    hundreds of packages installed). I byte-compile it too.</q><br/>
-<q>  - Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are</q><br/>
-<q>    not).</q><br/>
-<q></q><br/>
-<q>The biggest gains come from lazy loading packages. Especially the big</q><br/>
-<q>ones, like org, helm, and magit. Doom goes a bit further with this. A</q><br/>
-<q>couple examples:</q><br/>
-<q></q><br/>
-<q>  - Dozens of packages (like recentf, savehist, autorevert, etc) are</q><br/>
-<q>    deferred until your first input (pre-command-hook) or the first</q><br/>
-<q>    file is opened (:before after-find-file).</q><br/>
-<q>  - Org's babel packages aren't loaded all at once with</q><br/>
-<q>    org-babel-do-load-languages, but on demand when their src blocks</q><br/>
-<q>    are encountered (fontified) or executed. Same with its export</q><br/>
-<q>    backends.</q><br/>
-<q>  - Doom loads some larger packages incrementally while it is idle.</q><br/>
-<q>    i.e. After 2s afk, it loads one of dash, f, s, with-editor,</q><br/>
-<q>    git-commit, package, eieio, lv, then transient every second,</q><br/>
-<q>    before finally loading magit (these are its dependencies). This</q><br/>
-<q>    process bows out when it detects user activity, and continues</q><br/>
-<q>    later when Emacs has been idle again for 2s. This helps with that</q><br/>
-<q>    first-time-load delay when starting magit. org and helm get</q><br/>
-<q>    similar treatment.</q><br/>
-<q>  - If you use the daemon, the incremental-loader just loads them all</q><br/>
-<q>    immediately.</q><br/>
-<q></q><br/>
-<q>Besides that, I've collected tidbits of elisp over the years that</q><br/>
-<q>appear to help startup time, sometimes inexplicably. Here are a couple</q><br/>
-<q>off the top of my head:</q><br/>
-<q></q><br/>
-<q>  - <code>(add-to-list 'default-frame-alist '(font . "Fira Code-14"))</code></q><br/>
-<q>    instead of <code>(set-frame-font "Fira Code-14" t t)</code>. The latter does</q><br/>
-<q>    more work than the former, under the hood.</q><br/>
-<q></q><br/>
-<q>  - <code>(setq frame-inhibit-implied-resize t)</code> – Emacs resizes the (GUI)</q><br/>
-<q>    frame when your newly set font is larger (or smaller) than the</q><br/>
-<q>    system default. This seems to add 0.4-1s to startup.</q><br/>
-<q></q><br/>
-<q>  - <code>(setq initial-major-mode 'fundamental-mode)</code> – I don't need the</q><br/>
-<q>    scratch buffer at startup. I have it a keybind away if I do.</q><br/>
-<q>    Starting text-mode at startup circumvents a couple startup</q><br/>
-<q>    optimizations (by eager-loading a couple packages associated with</q><br/>
-<q>    text modes, like flyspell), so starting it in fundamental-mode</q><br/>
-<q>    instead helps a bit.</q><br/>
-<q></q><br/>
-<q>An odd one: tty-run-terminal-initialization adds a couple seconds to</q><br/>
-<q>startup for tty Emacs users when it is run too early. After deferring</q><br/>
-<q>it slightly, this doesn't appear to be an issue anymore. Not a big tty</q><br/>
-<q>Emacs user, so YMMV.</q><br/>
-<q></q><br/>
-<q>— Hlissner (Author of DOOM Emacs)</q><br/>
+<q>> > Some of these techniques for fast startup I've documented in our</q><br/>
+<q>> > <a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.</q><br/>
+<br/>
+The highlights are:<br/>
+<br/>
+<ul>
+<li>I suppress garbage collection during startup,<br/>
+</li>
+<li>I lazy load our package manager. This means avoiding<br/>
+  package-initialize or, if you use straight like Doom does,<br/>
+  bootstrapping straight. It also means no 200+ package-installed-p<br/>
+  checks on startup.<br/>
+</li>
+<li>Package autoloads files are concatenated into one, large file.<br/>
+  This saves on hundreds of file reads at startup (assuming you have<br/>
+  hundreds of packages installed). I byte-compile it too.<br/>
+</li>
+<li>Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are<br/>
+  not).<br/>
+</li>
+</ul><br/>The biggest gains come from lazy loading packages. Especially the big<br/>
+ones, like org, helm, and magit. Doom goes a bit further with this. A<br/>
+couple examples:<br/>
+<br/>
+<ul>
+<li>Dozens of packages (like recentf, savehist, autorevert, etc) are<br/>
+  deferred until your first input (pre-command-hook) or the first<br/>
+  file is opened (:before after-find-file).<br/>
+</li>
+<li>Org's babel packages aren't loaded all at once with<br/>
+  org-babel-do-load-languages, but on demand when their src blocks<br/>
+  are encountered (fontified) or executed. Same with its export<br/>
+  backends.<br/>
+</li>
+<li>Doom loads some larger packages incrementally while it is idle.<br/>
+  i.e. After 2s afk, it loads one of dash, f, s, with-editor,<br/>
+  git-commit, package, eieio, lv, then transient every second,<br/>
+  before finally loading magit (these are its dependencies). This<br/>
+  process bows out when it detects user activity, and continues<br/>
+  later when Emacs has been idle again for 2s. This helps with that<br/>
+  first-time-load delay when starting magit. org and helm get<br/>
+  similar treatment.<br/>
+</li>
+<li>If you use the daemon, the incremental-loader just loads them all<br/>
+  immediately.<br/>
+</li>
+</ul><br/>Besides that, I've collected tidbits of elisp over the years that<br/>
+appear to help startup time, sometimes inexplicably. Here are a couple<br/>
+off the top of my head:<br/>
+<br/>
+<ul>
+<li><code>(add-to-list 'default-frame-alist '(font . "Fira Code-14"))</code><br/>
+  instead of <code>(set-frame-font "Fira Code-14" t t)</code>. The latter does<br/>
+  more work than the former, under the hood.<br/>
+</li>
+</ul><br/><ul>
+<li><code>(setq frame-inhibit-implied-resize t)</code> – Emacs resizes the (GUI)<br/>
+  frame when your newly set font is larger (or smaller) than the<br/>
+  system default. This seems to add 0.4-1s to startup.<br/>
+</li>
+</ul><br/><ul>
+<li><code>(setq initial-major-mode 'fundamental-mode)</code> – I don't need the<br/>
+  scratch buffer at startup. I have it a keybind away if I do.<br/>
+  Starting text-mode at startup circumvents a couple startup<br/>
+  optimizations (by eager-loading a couple packages associated with<br/>
+  text modes, like flyspell), so starting it in fundamental-mode<br/>
+  instead helps a bit.<br/>
+</li>
+</ul><br/>An odd one: tty-run-terminal-initialization adds a couple seconds to<br/>
+startup for tty Emacs users when it is run too early. After deferring<br/>
+it slightly, this doesn't appear to be an issue anymore. Not a big tty<br/>
+Emacs user, so YMMV.<br/>
+<br/>
+<q>> > — Hlissner (Author of DOOM Emacs)</q><br/>
 <br/>
 I can't say how much of each has contributed to helping my start up<br/>
 times but in general, The best advice I (personally) can give is to<br/>
@@ -285,7 +295,7 @@ I am going to try doing a thing I've wanted to do with it, I want to<br/>
 replicate the appearance of the document in my editor in my website so<br/>
 that WYSIWYG.<br/>
 <br/>
-Though I would like to see a <i>bit</i> more flexibility when it comes to<br/>
+Though I would like to see a _bit_ more flexibility when it comes to<br/>
 syntax, I much prefer some of markdown's syntax compared to what org has<br/>
 (though its not too bad) and would like to customize some parts of the<br/>
 export process. Example: I would like to display keybindings on my site<br/>
@@ -294,13 +304,17 @@ from a document written in org, but Org has no way to export<br/>
 seems to be pretty ugly hacks in my opinion, I'll have to try and see<br/>
 which one isn't broken yet. <code>M-x</code> doctor - Hey I got it to work :)<br/>
 <br/>
-1.  Making Org Mode Pretty<br/>
-    <br/>
+</p>
+<h3 id="###-Making Org Mode Pretty"> Making Org Mode Pretty</h3>
+<p>
+<br/>
     Before you delve any deeper, This is the end result in my Emacs<br/>
-    configuration, <img src="<span class="special">/</span>/assets/images/org-mode.png" alt="" title="" loading="lazy" /> *Font used is<br/>
+    configuration,<br/>
+    <img src="../../assets/images/org-mode.png" alt="" title="" loading="lazy" /><br/>
+    *Font used is<br/>
     iA Writer Quattro - It's been made for iA writer which is a Markdown<br/>
     editor for MacOS, that looks really good.*<br/>
-    <br/>
+<br/>
     <code>org-hide-emphasis-markers</code> automatically hides any inline<br/>
     <b>emphasis</b> markers which leads to a much cleaner look.<br/>
     <code>org-pretty-entities</code> converts text symbols into their unicode<br/>
@@ -310,20 +324,20 @@ which one isn't broken yet. <code>M-x</code> doctor - Hey I got it to work :)<br
     to <code>&ast;</code>; I originally had a space to hide most stars but that broke<br/>
     indent mode too much. Then I set all the list bullets to use the<br/>
     unicode bullet character (•)<br/>
-    <br/>
+<br/>
     The rest is just customizing highlight groups, with `customize-group<br/>
     org-faces`.<br/>
-    <br/>
+<br/>
     EDIT: *I have found a plugin that does a lot of this in a much<br/>
     better way than I could,<br/>
     <a href="https://github.com/minad/org-modern/">org-modern</a>, It also replaces<br/>
     org-superstar*<br/>
-    <br/>
+<br/>
     Besides that I have done some other tweaks in places to clean up the<br/>
     experiance when editing, example: Using padding around the entire<br/>
     emacs window, Disabling parts of the default UI, Showing word count<br/>
     on the mode line.<br/>
-    <br/>
+<br/>
     You can see all the customizations I made in:<br/>
     <a href="https://github.com/undefinedDarkness/rice/blob/master/.config/emacs/modules/appearance.el">appearance.el</a><br/>
     <a href="https://github.com/undefinedDarkness/rice/blob/master/.config/emacs/modules/writing.el">writing.el</a><br/>

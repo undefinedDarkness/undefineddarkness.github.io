@@ -137,14 +137,12 @@ generate_rss_feed () {
 
 case "$1" in
     "serve")
-        $server
+        python3 -m http.server &
         exit
         ;;
     "live")
-        $server &
-        $0 # Initial Build
-        find src -name '*.html' -or -name '*.md' -or -name '*.org' -not -name '.#*' | entr -p $0 - /_ 
-        pkill -P $$ # Clean up
+        python3 -m http.server &
+        find src -name '*.html' -or -name '*.md' -or -name '*.org' -not -name '.#*' | entr $0 
         exit
         ;;
 esac
@@ -174,7 +172,7 @@ for file in ${files_to_build}; do
 done
 IFS=$oifs
 
-generate_org_full &
+#generate_org_full &
 
 for job in $(jobs -p); do
     wait "$job"

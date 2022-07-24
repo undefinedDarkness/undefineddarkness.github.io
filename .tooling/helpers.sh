@@ -23,7 +23,7 @@ contains() {
 }
 
 # Contains but for an array
-contains-in-array () {
+contains_in_array () {
   local e match="$1"
   shift
   for e; do [[ "$e" == "$match" ]] && return 0; done

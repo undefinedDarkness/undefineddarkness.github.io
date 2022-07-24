@@ -56,9 +56,10 @@ main () {
 _line_number=0
  while read -r line; do
 	_line_number=$(( _line_number + 1 ))
+	inside_code_block=0
 
 	case "$line" in
-		"#END "*)
+		"#END "*)	
 			;;
 		"#"*)
 				# Detected Transformer!
@@ -111,6 +112,7 @@ _line_number=0
 					file="$new_file_contents"
 				fi
 
+				# MAGIC PART - IGNORE IT
 				main "$1" 
 				break
 			;;
