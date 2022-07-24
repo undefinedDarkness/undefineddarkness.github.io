@@ -9,7 +9,7 @@ lot of places but it wasn't my thought, The UI is mostly set in stone,
 The configuration being done statically in JSON (Meaning, there is no
 way for me to script anything) limits a lot and I just didn't feel
 really comfortable using it, tho the way everything tends to just
-work<sup>tm</supis really nice. \*Even using CSS to modify the VS Code
+work<sup>tm</sup>is really nice. \*Even using CSS to modify the VS Code
 UI is a difficult task, You need to go through a few hoops to even
 inject CSS, which in my opinion should be a builtin feature; VS Code's
 predecessor Atom had a prettier UI and was more flexible in this respect
