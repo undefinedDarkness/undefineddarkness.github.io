@@ -4,13 +4,12 @@ Disclaimer: I havent used any of these languages for a long time or written a pr
 with any of them, These are just my opinons on them from what ive heard and what little ive tried of them.
 So please take this with a grain of salt, 🧂  
 
-#TABLE	.tierlist
-Happy	    Rust		Kotlin	C#		
-Interested	Haskell		Erlang	Clojure
-Boring		Javascript	Lua		Dart	Python Typescript
-Stinky		C			Java	PHP
-Not Good	Go			Perl	ELisp
-#END TABLE
+| Happy      | Rust       | Kotlin | C#      |
+| :--------- | :--------- | :----- | :------ |
+| Interested | Haskell    | Erlang | Clojure |
+| Boring     | Javascript | Lua    | Dart    |	Python	Typescript
+| Stinky     | C          | Java   | PHP     |
+| Not Good   | Go         | Perl   | ELisp   |
 
 The languages in "Interesting" are ones I dont know particularly well...
 So I might move them around when I finally get to learning them properly.
