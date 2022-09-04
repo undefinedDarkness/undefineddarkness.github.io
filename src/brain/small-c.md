@@ -102,16 +102,12 @@ The rust folks seem to always have trouble with binary size 😉, Maybe they hav
 Consulting https://github.com/johnthagen/min-sized-rust , We find one thing of interest, Link Time Optimization (LTO)..
 
 ### What is LTO?
-Link Time Optimization (LTO) gives GCC the capability of dumping its internal representation (GIMPLE) to disk, so that all the different compilation units that make up a single executable can be optimized as a single module. This expands the scope of inter-procedural optimizations to encompass the whole program (or, rather, everything that is visible at link time). 
-
+(GCC DOCS) Link Time Optimization (LTO) gives GCC the capability of dumping its internal representation (GIMPLE) to disk, so that all the different compilation units that make up a single executable can be optimized as a single module. This expands the scope of inter-procedural optimizations to encompass the whole program (or, rather, everything that is visible at link time). 
 Learn More: https://en.wikipedia.org/wiki/Interprocedural_optimization#WPO_and_LTO
 
-It's enabled with `-flto`
 Okay, but what does it do for us?
-
-Quite a bit, Using it we have shaved off 16kb to reach 40kb, so in total a 47% decrease of our initial 76kb, not bad at all
-**NOTE**: Enabling -flto sometimes caused me a segfault at program start with clang, but this didnt occur with gcc, so
-YMMV
+Quite a bit, Using it we have shaved off 16kb to reach 40kb, so in total a 47% decrease of our initial 76kb, not bad at all, The flag to enable it is `-flto`
+**NOTE**: Enabling `-flto` sometimes caused me a segfault at program start with clang, but this didnt occur with gcc, so YMMV
 
 ## Executable Packing
 If you wanted to go even furthur you could try [UPX](https://upx.github.io/), Which actually compresses your biniary and this works since
@@ -120,9 +116,12 @@ the decompression code + compressed data ends up smaller than the initial binary
 I am not a big fan of such an approach, feels like cheating but it is an actual approach so how much does it help?
 Running it with the highest compression level (-9) on our 40kb binary yields a binary size of 24kb...
 Wow that is actually amazing, I didnt think it would reduce the size that much..
-I should use this more.. wow, I should've tried this earlier...
-NOTE: Since upx is often used in malware, There are chances it might get flagged by an antivirus,
+That is really impressive
+
+**NOTE:** Since upx is often used in malware, There are chances it might get flagged by an antivirus,
 But running through virus total shows only [results](https://is.gd/MtqIMG) from Google & Ikarus(?)
+
+**NOTE:** In a web enviroment, files are usually transferred while being gzip-compressed, UPX would be negligible for .wasm files and it doesnt support it anyway.
 
 ```
 76K     min
@@ -132,13 +131,12 @@ But running through virus total shows only [results](https://is.gd/MtqIMG) from 
 24K     min-Os-s-flto-upx
 ```
 
-So in total we managed to decrease our binary by **68%**, Less than half of its original size
+So in total we managed to decrease our binary by **68%** without changing a single line of code, Less than half of its original size
 I am very pleased with that..
 
-Of course, even this isn't enough to achieve feats like .kkrieger, A entire 3d fps game demo is a extremely impressive 95kb,
+Of course, even this isn't enough to achieve feats like .kkrieger, A entire 3d fps game demo in a extremely impressive 95kb,
 When code is *actually written* to be small, and optimized to the limit towards that purpose.
 Learn more about how it's so small:
 https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/
 https://www.youtube.com/watch?v=bD1wWY1YD-M
 
-Since in a web enviroment, files are usually transferred while being gzip-compressed, UPX would be negligible for .wasm files and it doesnt support it anyway.

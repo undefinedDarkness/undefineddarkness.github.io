@@ -122,16 +122,12 @@ Consulting <a href="https://github.com/johnthagen/min-sized-rust">https://github
 </p>
 <h3 id="what-is lto?">What is LTO?</h3>
 <p>
-Link Time Optimization (LTO) gives GCC the capability of dumping its internal representation (GIMPLE) to disk, so that all the different compilation units that make up a single executable can be optimized as a single module. This expands the scope of inter-procedural optimizations to encompass the whole program (or, rather, everything that is visible at link time). <br/>
-<br/>
+(GCC DOCS) Link Time Optimization (LTO) gives GCC the capability of dumping its internal representation (GIMPLE) to disk, so that all the different compilation units that make up a single executable can be optimized as a single module. This expands the scope of inter-procedural optimizations to encompass the whole program (or, rather, everything that is visible at link time). <br/>
 Learn More: <a href="https://en.wikipedia.org/wiki/Interprocedural_optimization#WPO_and_LTO">https://en.wikipedia.org/wiki/Interprocedural_optimization#WPO_and_LTO</a><br/>
 <br/>
-It's enabled with <code>-flto</code><br/>
 Okay, but what does it do for us?<br/>
-<br/>
-Quite a bit, Using it we have shaved off 16kb to reach 40kb, so in total a 47% decrease of our initial 76kb, not bad at all<br/>
-<b>NOTE</b>: Enabling -flto sometimes caused me a segfault at program start with clang, but this didnt occur with gcc, so<br/>
-YMMV<br/>
+Quite a bit, Using it we have shaved off 16kb to reach 40kb, so in total a 47% decrease of our initial 76kb, not bad at all, The flag to enable it is <code>-flto</code><br/>
+<b>NOTE</b>: Enabling <code>-flto</code> sometimes caused me a segfault at program start with clang, but this didnt occur with gcc, so YMMV<br/>
 <br/>
 </p>
 <h2 id="executable-packing">Executable Packing</h2>
@@ -142,9 +138,12 @@ the decompression code + compressed data ends up smaller than the initial binary
 I am not a big fan of such an approach, feels like cheating but it is an actual approach so how much does it help?<br/>
 Running it with the highest compression level (-9) on our 40kb binary yields a binary size of 24kb...<br/>
 Wow that is actually amazing, I didnt think it would reduce the size that much..<br/>
-I should use this more.. wow, I should've tried this earlier...<br/>
-NOTE: Since upx is often used in malware, There are chances it might get flagged by an antivirus,<br/>
+That is really impressive<br/>
+<br/>
+<b>NOTE:</b> Since upx is often used in malware, There are chances it might get flagged by an antivirus,<br/>
 But running through virus total shows only <a href="https://is.gd/MtqIMG">results</a> from Google & Ikarus(?)<br/>
+<br/>
+<b>NOTE:</b> In a web enviroment, files are usually transferred while being gzip-compressed, UPX would be negligible for .wasm files and it doesnt support it anyway.<br/>
 <br/>
 <pre>
 <code>76K     min
@@ -155,16 +154,15 @@ But running through virus total shows only <a href="https://is.gd/MtqIMG">result
 </code>
 </pre>
 <br/>
-So in total we managed to decrease our binary by <b>68%</b>, Less than half of its original size<br/>
+So in total we managed to decrease our binary by <b>68%</b> without changing a single line of code, Less than half of its original size<br/>
 I am very pleased with that..<br/>
 <br/>
-Of course, even this isn't enough to achieve feats like .kkrieger, A entire 3d fps game demo is a extremely impressive 95kb,<br/>
+Of course, even this isn't enough to achieve feats like .kkrieger, A entire 3d fps game demo in a extremely impressive 95kb,<br/>
 When code is <i>actually written</i> to be small, and optimized to the limit towards that purpose.<br/>
 Learn more about how it's so small:<br/>
 <a href="https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/">https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/</a><br/>
 <a href="https://www.youtube.com/watch?v=bD1wWY1YD-M">https://www.youtube.com/watch?v=bD1wWY1YD-M</a><br/>
 <br/>
-Since in a web enviroment, files are usually transferred while being gzip-compressed, UPX would be negligible for .wasm files and it doesnt support it anyway.<br/>
 			<footer style="margin-bottom: 2em;">
 				<a href="/out/index.html">Return Home</a>
 			</footer>
