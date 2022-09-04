@@ -128,6 +128,15 @@ initial_transformer () {
 
 		case "$line" in
 			# For reader mode.
+			'</'*'>'*)
+				inside_transformer_block=0
+				printf '%s\n' "$line"
+				continue
+			;;
+			'<'*'>'*)
+				inside_transformer_block='verbatim'
+				printf '%s' "$line"
+			;;
 			'# '*)
 				if ! (( inside_code_block )); then
 					printf '<header>\n<h1>%s</h1>\n</header>\n' "${line#'# '}"
@@ -143,9 +152,10 @@ initial_transformer () {
 				
 				if ! (( inside_code_block )); then
 					local level=${line%% *}
-                    local id=${line,,}
-                    id=${line/' '/'-'}
-					printf '<h%d id="%s">%s</h%d>\n' "${#level}" "$id" "${line#"$level"}" "${#level}"
+                    local id=${line#"$level "}
+					id=${id,,}
+                    id=${id/' '/'-'}
+					printf '<h%d id="%s">%s</h%d>\n' "${#level}" "$id" "${line#"$level "}" "${#level}"
 					inside_paragraph=1
 					printf '<p>\n'
 					continue

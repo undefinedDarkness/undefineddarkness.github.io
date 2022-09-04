@@ -137,11 +137,11 @@ generate_rss_feed () {
 
 case "$1" in
     "serve")
-        python3 -m http.server &
+		# $server &
         exit
         ;;
     "live")
-        python3 -m http.server &
+		python3 -m http.server 5050 &
         find src -name '*.html' -or -name '*.md' -or -name '*.org' -not -name '.#*' | entr $0 
         exit
         ;;

@@ -56,7 +56,6 @@ main () {
 _line_number=0
  while read -r line; do
 	_line_number=$(( _line_number + 1 ))
-	inside_code_block=0
 
 	case "$line" in
 		"#END "*)	

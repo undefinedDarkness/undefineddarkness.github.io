@@ -11,10 +11,12 @@
 	<body>
 	  <article>
 
-<header><header>
+<header>
+<header>
 <h1>Lorem Ipsum: Test Page</h1>
 </header>
-</header><!-- This page documents my own additions to GFM Markdown<br/>
+</header>
+<!-- This page documents my own additions to GFM Markdown<br/>
 Centered around being really easy to remember<br/>
 and simple to use while writing.<br/>
 New syntax is mainly added where writing it out in HTML would be either tedious or break the flow of the document;<br/>
@@ -37,38 +39,39 @@ Nesdown tries its best to output valid HTML whenever possible<br/>
 TODO: Nested markdown inlines<br/>
 --><br/>
 <!-- You can use markdown in HTML blocks, no problem  -->
-<div class='txt-c'><a href="/src/lorem.md">View Page Source</a></div><br/>
+<div class='txt-c'><a href="/src/lorem.md">View Page Source</a></div>
+
 <!-- These are as you'd expect -->
-Testing Inlines:<br/>
-Normal text - <i>italic text</i> - <b>bold text</b><br/>
-I am a <a href="https://example.com">link</a><br/>
-<br/>
-<mark>Pay attention to me</mark><br/>
-<br/>
-<code>1 &ast; 2 &ast; 3 = 3!</code><br/>
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated<br/>
+Testing Inlines:
+Normal text - <i>italic text</i> - <b>bold text</b>
+I am a <a href="https://example.com">link</a>
+
+<mark>Pay attention to me</mark>
+
+<code>1 &ast; 2 &ast; 3 = 3!</code>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated
 <q>A quote</q><br/>
-Newlines should intuitively<br/>
-be preserved...<br/>
-<br/>
+Newlines should intuitively
+be preserved...
+
 <hr />
-<br/>
-Testing list<br/>
+
+Testing list
 <ul>
-<li>Pumpkin<br/>
+<li>Pumpkin
 </li>
-<li>Milk<br/>
+<li>Milk
 </li>
-<li>Eggs<br/>
+<li>Eggs
 </li>
-<li>Flowers<br/>
+<li>Flowers
 </li>
-<li>Carrots<br/>
+<li>Carrots
 </li>
-<li><a href="https://en.wikipedia.org/wiki/Coriander">Coriander</a><br/>
-is a spice.<br/>
+<li><a href="https://en.wikipedia.org/wiki/Coriander">Coriander</a>
+is a spice.
 </li>
-</ul><br/>Checking for Syntax Highlighting:<br/>
+</ul><br/>Checking for Syntax Highlighting:
 <pre>
 <code><span style="color:#8b6c37">#include &lt;stdio.h&gt;</span>
 
@@ -103,13 +106,14 @@ I guess they do :)<br/>
 </details>
 <br/>
 <!-- IM:... will add <code>...</code> to the article margin -->
-I should be next to a percent sign IM:%<br/>
-<br/>
-What about tables?<br/>
-<!-- My own table syntax:<br/>
-Rows are separated by lines<br/>
-Columns are seperated by any amount of spaces and at least 1 tab.<br/>
---><br/>
+I should be next to a percent sign IM:%
+
+What about tables?
+<!-- 
+My own table syntax:
+Rows are separated by lines
+Columns are seperated by any amount of spaces and at least 1 tab.
+-->
 <div class="ovr-x"><table class="">
 <thead><tr>
 <th>Fruits</th>
@@ -133,27 +137,27 @@ Block Quotes & Captions:<br/>
 <!-- Pretty simple here too, the last line automatically becomes the caption -->
 <figure>
 <blockquote>
-John wore clothing made of camel’s hair, with a leather belt around his waist,<br/>
-and he ate locusts and wild honey. <br/>
-And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”<br/>
+John wore clothing made of camel’s hair, with a leather belt around his waist,
+and he ate locusts and wild honey. 
+And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”
 </blockquote>
 <figcaption>Mark 1:6-8</figcaption>
 </figure>
-<br/>
-<br/>
-The design of the site was havily inspired by: <a href="https://www.kunisch.info/">https://www.kunisch.info/</a><br/>
-and some of the fonts were chosen with the help of cae<br/>
-<br/>
-<h2 id="##-Edge Cases"> Edge Cases</h2>
+
+
+The design of the site was havily inspired by: <a href="https://www.kunisch.info/">https://www.kunisch.info/</a>
+and some of the fonts were chosen with the help of cae
+
+<h2 id="edge-cases">Edge Cases</h2>
 <p>
-Inline in code sections:<br/>
+Inline in code sections:
 <pre>
 <code><span style="color:#48bac2; font-weight:bold">export</span> __OPENGL__<span style="color:#181818">=</span><span style="color:#c43e18">1</span>
 <span style="color:#48bac2; font-weight:bold">printf</span> <span style="color:#38781c">&apos;%d&apos;</span> $<span style="color:#181818">((</span> <span style="color:#c43e18">2</span> <span style="color:#181818">&ast;</span> <span style="color:#c43e18">3</span> <span style="color:#181818">&ast;</span> <span style="color:#c43e18">5</span> <span style="color:#181818">))</span>
 </code>
 </pre>
-<br/>
-Tables & Transformers in code sections:<br/>
+
+Tables & Transformers in code sections:
 <pre>
 <code>&#35;TABLE	A	B
 		C	D
@@ -166,9 +170,9 @@ ___
 hr shouldnt work either
 </code>
 </pre>
-<br/>
-Inline in code inline:<br/>
-<code>Hello &ast;&ast;world&ast;&ast; - I hope I dont trigger any edge &ast;cases&ast;</code><br/>
+
+Inline in code inline:
+<code>Hello &ast;&ast;world&ast;&ast; - I hope I dont trigger any edge &ast;cases&ast;</code>
 			<footer style="margin-bottom: 2em;">
 				<a href="/out/index.html">Return Home</a>
 			</footer>
