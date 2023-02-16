@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
 @font-face {
     font-family: "Victor Mono";
     src: url('./VictorMono-MediumItalic.woff2');
@@ -46,7 +48,7 @@ body {
         linear-gradient(to right, #222  1px, transparent 1px),
         linear-gradient(to bottom, #222  1px, transparent 1px);
     color: #fafafa ;
-    font-family: "Input Mono";
+    font-family: "Space Mono", 'Courier New', Courier, monospace;
 }
 
 body,
