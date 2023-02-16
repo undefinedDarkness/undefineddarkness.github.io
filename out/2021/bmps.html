@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>A day of fixing bitmap fonts on Linux/X11</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1>A day of fixing bitmap fonts on Linux/X11</h1>
+</header>
+<br/>
+Bitmap fonts are something I have always been very interested in,<br/>
+They do not offer much or any of the flexibility vector fonts have made common place but<br/>
+In return you recieve a simple thing, pixel perfect text, that is without any anti aliasing whatsoever.<br/>
+<br/>
+However, It has been a pain point for me to get them working as I wish as many of the text rendering software on linux at least expects vector fonts and is configured as such.<br/>
+<br/>
+To get started, I wanted to install the <a href="https://github.com/turquoise-hexagon/cherry">cherry</a> font, handily it comes with a install script that wouldnt you know it, <i>doesnt work</i> :<<br/>
+While it builds to Opentype Bitmap Font files just fine, <code>fc-list</code> just doesnt find them.<br/>
+<br/>
+<i>NOTE</i>: This behaviour tends to be very inconsistent across distros, it <i>just</i> works in some distributions, but for context, I am writing from an Debian machine, I expect much of it to apply to Ubuntu distros too<br/>
+<br/>
+Why would that be? well even though there is support for them implemented for both font config and xft; Debian has disabled them, for a pretty good reason.<br/>
+Bitmap looks like shit for almost every case in modern UI and only works in some very specific contexts, Besides that it can look even worse on some high resolution displays as they don't contain a lot of detail and can't be scaled up much.<br/>
+<br/>
+Besides that pango techically removed support for them when it switched to harfbuzz for its text shaping, though in some configurations, you can get it to work.<br/>
+<br/>
+But, not all hope is lost, if you are determined enough, it is possible to renable them.<br/>
+<br/>
+<h2 id="reenabling">Reenabling</h2>
+<p>
+Font config configurations are stored in xml files and debian ships with several pre made ones installed / available to be installed.<br/>
+<br/>
+Any installed configurations can be found in <code>/etc/fonts/conf.d</code><br/>
+And available configurations can be found in <code>/etc/fonts/avail.d</code> & <code>/usr/share/fontconfig/conf.avail</code><br/>
+<br/>
+You can verify any installed configurations  with <code>$ fc-conflist</code><br/>
+<br/>
+You'll notice a <code>70-no-bitmaps.conf</code> file that is the culprit for our bitmap starvation.<br/>
+to disable it, you can simply remove the symlink with <code>rm</code>.<br/>
+<br/>
+Once this is done however, you will notice text in your web browser (firefox in my case, might apply to chromium too, idk) becoming a shitshow.<br/>
+This happens because sites can use system fonts which it expects to be installed on every system, eg: sans-serif, serif, monospace to avoid loading custom fonts or to fit in more with the rest of the operating system.<br/>
+You can notice this effect rather prominently on Github & Wikipedia.<br/>
+<br/>
+On a fresh debian install,<br/>
+<code>sans-serif</code> will be matched to <code>DejaVu Sans</code><br/>
+<code>monospace</code> will be matched to <code>Liberation Mono</code><br/>
+<code>serif</code> will be matched to <code>DejaVu Serif</code><br/>
+I am guessing these from memory, it might be something else, you can find out with <code>fc-match</code><br/>
+<br/>
+After our little wrench was thrown in the works, all the X11 core fonts are now available for font-config to choose from (about 814 fonts in total),<br/>
+This would be all within expectations, if some for god given reason, many of the X11 fonts are bitmap variants of fonts that are common use today as vectors, eg: Helvetica, Times New Roman, ...<br/>
+With this much choice (bitmaps + vectors), FC gets very confused and tends to prefer picking bitmaps, ruining our good UI design.<br/>
+<br/>
+I am not certain why it is this way, but I also don't want to dig deep into FC configuration to find out, and my current hack that seems to have worked in most cases that I have personally encountered is to create a different FC config with a higher priority and setup aliases for common font names<br/>
+so that they will point to modern vector fonts.<br/>
+<br/>
+My current alias file: <br/>
+<pre>
+	<code></fontconfig>
+<span style="color:#e3ceab">&lt;?xml</span> <span style="color:#dfdfbf; font-weight:bold">version</span>=<span style="color:#cc9393">&quot;1.0&quot;</span><span style="color:#e3ceab">?&gt;</span>
+<span style="color:#e3ceab">&lt;!DOCTYPE</span> fontconfig SYSTEM <span style="color:#cc9393">&quot;fonts.dtd&quot;</span><span style="color:#e3ceab">&gt;</span>
+<span style="color:#e3ceab">&lt;fontconfig&gt;</span>
+  <span style="color:#e3ceab">&lt;description&gt;</span>
+  	Alias common font names to vectors, to avoid bitmaps messing it up
+  <span style="color:#e3ceab">&lt;/description&gt;</span>
+
+  <span style="color:#e3ceab">&lt;alias</span> <span style="color:#dfdfbf; font-weight:bold">binding</span>=<span style="color:#cc9393">&quot;same&quot;</span><span style="color:#e3ceab">&gt;</span>
+    <span style="color:#e3ceab">&lt;family&gt;</span>Helvetica<span style="color:#e3ceab">&lt;/family&gt;</span>
+    <span style="color:#e3ceab">&lt;prefer&gt;</span>
+      <span style="color:#e3ceab">&lt;family&gt;</span>Liberation Sans<span style="color:#e3ceab">&lt;/family&gt;</span>
+    <span style="color:#e3ceab">&lt;/prefer&gt;</span>
+  <span style="color:#e3ceab">&lt;/alias&gt;</span>
+
+	</code>
+</pre>
+<br/>
+hopefully its workings are visible to you, this file can be placed as <code>~/.config/fontconfig/conf.d/01-alias.conf</code> or in one of the other places font config will look.<br/>
+And there you go, kinda working bitmap fonts!<br/>
+<br/>
+To use them, <code>fc-list</code> can find the xft font description to string and their font names.<br/>
+<code>xfontsel</code> can also be used but iirc thats only in the case of .pcf.gz fonts installed directly into X11<br/>
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>

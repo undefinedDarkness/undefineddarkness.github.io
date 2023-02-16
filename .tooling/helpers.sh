@@ -17,6 +17,17 @@ dbg () {
 	fi
 }
 
+clean_markup () {
+    local -n ptr=${1}
+    ptr=${ptr//'<span class="reset">'/}
+    ptr=${ptr//'</span>'/}
+    ptr=${ptr#*'<h1'*'>'}
+    ptr=${ptr%'</h1>'*}
+    ptr=${ptr//'}'/}
+    ptr=${ptr//'{'/}
+    ptr=${ptr//'<img'*'>'/}
+}
+
 # Check if a "string list" contains a word.
 contains() {
     case " $1 " in *" $2 "*) return 0; esac; return 1

@@ -1,12 +1,11 @@
 @font-face {
-	font-family: "Recursive";
-	src: url("/assets/Recursive.woff2") format("woff2-variations");
+	font-family: "Work Sans";
+	src: url("./other/WorkSans.woff2");
 }
 
+
 :root {
-	--mono-variant: "MONO" 1;
-	--sans-variant: "CASL" 0.5;
-	--article-size: 0.8em
+	--article-size: 1em
 }
 
 article {
@@ -15,31 +14,31 @@ article {
 
 body {
 	font-size: 1.4em;
-	font-variation-settings: var(--sans-variant);
 }
 
-pre {
-	font-variation-settings: var(--mono-variant);
-}
-
-body,code,kbd, pre {
-	font-family: Recursive;
+body {
+	font-family: "Work Sans";
 }
 
 i {
 	font-style: oblique 15deg;
 }
 
-kbd {
-	font-size: 1.1em;
+kbd, pre, code {
+	font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+	font-size: calc(0.9 * var(--article-size));
 }
+
 summary{font-size: larger;}
 figcaption,var,.special{font-style: italic}
+
 h4,h5,h6 {
 	font-weight: normal;
+	margin: 0;
 }
-h1,h2,h3,h4,h5,h6,code,kbd {
-	font-variation-settings: var(--mono-variant) !important;
+h1,h2,h3 {
+	font-weight: normal;
+	font-variation-settings: 'wght' 700;
 }
 
 h1 {

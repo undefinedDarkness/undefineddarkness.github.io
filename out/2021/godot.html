@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>My experience with Godot</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1>My experience with Godot</h1>
+</header>
+<br/>
+*This is my attempt at rewriting the original article, Since that one<br/>
+wasn't well structured and a few of my opinions had changed since then*<br/>
+<br/>
+After spending some time making Cello in Godot's UI system, I have to<br/>
+say it has been the most <b>fun</b> I have had making any GUI application,<br/>
+It's not perfect by any means but it is extremely good.<br/>
+<br/>
+<h2 id="editing">Editing</h2>
+<p>
+<br/>
+The editor is the main part that makes it fun, The Godot Engine's editor<br/>
+is extremely capable and previewing the ui in editor & hot reloading (to<br/>
+some extent) ui code is a wonderful experience<br/>
+<br/>
+Most things can be easily visualized and with Godot's powerful scene<br/>
+system, Your UI can be as modular as you like, It also allows for easy<br/>
+reusability in code, Need a button in a specific color, create a scene<br/>
+for it and drag and drop it where ever you need it.<br/>
+<br/>
+No compile step or commands to run also is really nice (in comparison to<br/>
+something like GTK)<br/>
+<br/>
+Godot's Node system also works wonderfully well for GUI, since<br/>
+everything is a child of some other thing and the structure works really<br/>
+well for me mentally.<br/>
+<br/>
+A visible display of what signals are connected where also helps<br/>
+visualize interactions a lot more neatly.<br/>
+<br/>
+Code Editor, UI Editor all being under one window is pretty convenient<br/>
+too.<br/>
+<br/>
+No complaints here, the experience you get is really good, I don't think<br/>
+of them as complaints but there are a few places it could be improved in<br/>
+my opinion, <i>Theme Editor</i><br/>
+<br/>
+</p>
+<h2 id="ui-system">UI System</h2>
+<p>
+<br/>
+In my opinion, The UI system in godot while not capable enough to fit<br/>
+every single use case in the world (is there any software that does?),<br/>
+it will easily fill 99.999% of them. Despite being part of a game engine<br/>
+whose main focus as you can guess, is making games…, the UI system is<br/>
+very capable and doesn't assume it's environment is always a game.<br/>
+<br/>
+</p>
+<h3 id="responsiveness">Responsiveness</h3>
+<p>
+<br/>
+While I don't think it can beat the web here, it does a really good with<br/>
+little effort, A bit of messing in Project Settings can yield usable<br/>
+results. (for usable at least), You just need to set the<br/>
+<code>2d/window/stretch</code> settings as you need.<br/>
+<br/>
+These are mine for Cello, which have so far worked fine for me.<br/>
+<br/>
+  - Mode: disabled<br/>
+  - Aspect: ignore<br/>
+  - Shrink: 1 (default)<br/>
+<br/>
+</p>
+<h3 id="layout">Layout</h3>
+<p>
+<br/>
+<a href="https://docs.godotengine.org/en/stable/tutorials/ui/gui_containers.html">Godot Docs Page</a><br/>
+<br/>
+*I highly suggest you take a read through it if you're interested, It<br/>
+explains everything in a much better way than I could.<br/>
+<br/>
+The layout system I am most used to is definitely CSS Flexbox, there is<br/>
+just something about it resizing to fit the child neatly that is<br/>
+intuitive. A layout that tries to fit everything as compactly as it can<br/>
+(like awesome's <code>wibox.layout.fixed.&lt;orientation&gt;</code>) also makes sense.<br/>
+<br/>
+Godot doesn't really do either of those, well not in the way I am used<br/>
+to anyway, Godot's main layouting power comes in the form of 2<br/>
+containers, <code>VBoxContainer</code> & <code>HBoxContainer</code>, both of them initially<br/>
+try to fit everything as compactly as possible, but this doesn't really<br/>
+work as you'd expect, every child widget tends to by default, not<br/>
+request any space at all, which leaves them all at 0px width (so not<br/>
+visible).<br/>
+<br/>
+To fix these each widget (Godot calls them Nodes but I am going to use<br/>
+Widget & Node interchangeably), has some size flags to determine its<br/>
+behaviour when requesting space. They are:<br/>
+<br/>
+  - Expand<br/>
+  - Fill<br/>
+  - Shrink Center<br/>
+  - Shrink End<br/>
+<br/>
+and a <i>stretch ratio</i>; I am going to ignore Shrink Center & Shrink End<br/>
+since so far I have not had the need to use them. Fill should be on at<br/>
+all times or it will get really confusing, I am still not entirely sure<br/>
+on what it does, I guess "Should I fill the space allocated to me?"<br/>
+<br/>
+Expand is the main one, it says "I will take up as much of my parent's<br/>
+space as possible", So for example: 2 children nodes both having expand<br/>
+= true, would look like (they divide the parent's space evenly)<br/>
+<br/>
+<img src="../../assets/images/dump/godot-expand-show.png" alt="" title="" loading="lazy" /><br/>
+<br/>
+Then if this isn't enough for you, <i>it often isn't</i>, Stretch Ratio can<br/>
+help you out, it determines how much of the parent's space the child is<br/>
+willing to gobble up, for example 1 is 100% of the space, 0.5 is 50% and<br/>
+so on and so forth, this is a 6:4 stretch ratio<br/>
+<br/>
+<img src="../../assets/images/dump/godot-ratio-show.png" alt="" title="" loading="lazy" /><br/>
+<br/>
+Make sure your ratio sums up to 1, or it won't make sense.<br/>
+<br/>
+Of course there are also times when you need pixel perfect sizes for<br/>
+things, this is where any Control node's <code>rect_min_size</code> property comes<br/>
+in, It's comparatively simple, You simply define how many X and Y pixels<br/>
+you want.<br/>
+<br/>
+<img src="../../assets/images/dump/godot-min-size-show.png" alt="" title="" loading="lazy" /><br/>
+<br/>
+This is after disabling Expand & Fill as they interfere, Fill is mostly<br/>
+fine but if you want your child's height to be less than your parent's<br/>
+height, turn it off.<br/>
+<br/>
+Overall I wouldn't say it is the most intuitive system out there, it<br/>
+takes a while to know what trick to use for it to behave but its usable<br/>
+at least.<br/>
+<br/>
+</p>
+<h3 id="styling">Styling</h3>
+<p>
+<br/>
+This was one the main factors in me deciding to try out Godot, The UI<br/>
+styling is very capable and excellent in its class, I was looking for a<br/>
+GUI framework that could be easily styled that wasn't GTK & Web.<br/>
+<br/>
+I wouldn't say its perfect, I would have preferred a more CSS like<br/>
+approach with selectors and properties that apply to all widgets but its<br/>
+passable, for maximum styling on individual widgets, You might need to<br/>
+wrap many of them in a Panel tho.<br/>
+<br/>
+The theme system is pretty capable, it applies to the widget whose<br/>
+property it is and any child widgets, without overriding a theme from a<br/>
+parent widget further up in the hierarchy; and the editor experience for<br/>
+most properties is very good.<br/>
+<br/>
+1.  Rounded Corners for images \[1\]<br/>
+    <br/>
+    While you can apply <code>corner-radius</code> for most theme-able widgets, a<br/>
+    surprising exceptions is <code>TextureRect</code>, the fix I found was to use<br/>
+    this shader from someone, I lost the source apologies.<br/>
+    <br/>
+    <code></code>` glsl<br/>
+    shader_type canvas_item;<br/>
+    render_mode blend_mix,unshaded;<br/>
+    <br/>
+    uniform vec4 color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);<br/>
+    <br/>
+    uniform float radius : hint_range(0.0, 1.0) = 0.0;<br/>
+    uniform vec2 size = vec2(1.0, 1.0);<br/>
+    <br/>
+    void fragment() {<br/>
+      vec4 texture_color = texture(TEXTURE, UV);<br/>
+      COLOR = texture_color * color;<br/>
+    <br/>
+      vec2 size_ratio = vec2(max(1.0, size.x / size.y), max(1.0, size.y / size.x));<br/>
+      float half_radius = 0.5 * radius;<br/>
+      vec2 dist_max = half_radius / size_ratio;<br/>
+      vec2 edge_pos = clamp(UV, dist_max, 1.0 - dist_max);<br/>
+      float edge_dist = distance(UV <i> size_ratio, edge_pos </i> size_ratio);<br/>
+      COLOR.a *= step(edge_dist, half_radius + 0.000001);<br/>
+    }<br/>
+    <code></code>`<br/>
+<br/>
+2.  Fonts<br/>
+    <br/>
+    Godot's system is good currently and allows a lot of flexibility<br/>
+    when defining what font to use, allowing you to toggle filtering /<br/>
+    not use vector fonts etc. But its inability to use fonts from the<br/>
+    system is a bit annoying, I have to package every font I want with<br/>
+    the project; That is probably fine for a game but picking up fonts<br/>
+    from the system would be useful functionality.<br/>
+    <br/>
+    And from a bit of messing around, looks like the only way to use<br/>
+    things like <b>bold</b> <i>italic</i> and<br/>
+    <span class="underline"><span class="underline">under<br/>
+    line</span></span> in the general UI, is to use a <code>RichTextLabel</code><br/>
+    that accept BBcode markup, and even for that you need to define<br/>
+    separate fonts for each weight / slant you want. :/ No fancy<br/>
+    variable fonts here.<br/>
+    <br/>
+    For other widgets, if there is no font property for it, you're out<br/>
+    of luck.<br/>
+<br/>
+3.  Theme Editor<br/>
+    <br/>
+    You might call this a nitpick, but it is something worth nothing I<br/>
+    feel. This is what the default theme editor looks like and while its<br/>
+    certainly usable…<br/>
+    <br/>
+    <img src="../../assets/images/dump/godot-theme-editor.png" alt="" title="" loading="lazy" /><br/>
+    <br/>
+    I think it's a bit more confusing than it should be, You have to<br/>
+    select what you want to change from the Type: drop down menu,<br/>
+    instead of intuitively clicking on one of the widgets in the preview<br/>
+    to modify it.<br/>
+    <br/>
+    I'd prefer just the preview window without all the buttons at the<br/>
+    top, and a sidebar with all the available properties in one<br/>
+    condensed view for modification.<br/>
+    <br/>
+    TODO: Create mockup<br/>
+<br/>
+</p>
+<h2 id="gdscript">GDScript</h2>
+<p>
+<br/>
+I decided that to get the most out of the box experience, I would use<br/>
+Godot's own builtin scripting language (called GDScript) and also<br/>
+because it integrated the best with the Engine, (C\# also integrates<br/>
+very well). While I wouldn't call it unusable, It certainly was not<br/>
+<i>fun</i> to use.<br/>
+<br/>
+The syntax which is mostly copied from Python is fine… Some things<br/>
+taking several lines when they shouldn't need to is a bit frustrating<br/>
+but it's fine.<br/>
+<br/>
+\[2\] GDScript recently gained support for Static Typing which is great<br/>
+but to say its fragile is putting it mildly, It's optional so it's very<br/>
+lightly enforced, And in some places is missing entirely. There is still<br/>
+no way to define some kind of interface type over dictionary, or define<br/>
+a array that will take only a certain value (There is <code>PoolStringArray</code><br/>
+and friends but those are only for a few data types) Signal parameters<br/>
+can't be typed currently<br/>
+<br/>
+Godot has what it calls "tool scripts", that is scripts that run<br/>
+directly in the editor, (this can be used to create much more<br/>
+interactive previews or some custom in editor tooling), but the main<br/>
+problem I have with them is that by default the entire script is run in<br/>
+its entirety, A small flaw is that if you decide to run one of your<br/>
+game's scripts as a tool script, potentially to avoid writing the code<br/>
+twice, The only way to exclude some game specific code to run in the<br/>
+editor which would probably error it out and maybe even crash it or slow<br/>
+it down a lot is to do<br/>
+<br/>
+<pre>
+	<code>if Engine.editor_hint:
+    print(&quot;Running in editor&quot;)
+   return
+	</code>
+</pre>
+<br/>
+which is just ugly in a word, I'd rather a way alongside the if check<br/>
+somewhat like this<br/>
+<br/>
+<pre>
+	<code>editor func only_in_editor():
+    print(&quot;I only run in the editor&quot;)
+	</code>
+</pre>
+<br/>
+Definitely a nitpick, but true private functions would be nice to go<br/>
+along with the static typing<br/>
+<br/>
+Also although Godot's node system is wonderful in most cases, in a few<br/>
+places it feel just kinda sticky, like <i>the</i> way to run functions from<br/>
+other script files (This is very basic stuff) is to have 2 scripts like<br/>
+this:<br/>
+<br/>
+<pre>
+	<code><span style="color:#e3ceab">extends</span> Node
+
+<span style="color:#e3ceab">func</span> <span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span>name<span style="color:#dcdccc">:</span> String<span style="color:#dcdccc">) -&gt;</span> String<span style="color:#dcdccc">:</span>
+  <span style="color:#e3ceab">return</span> <span style="color:#cc9393">&quot;Hello there, &quot;</span> <span style="color:#dcdccc">+</span> name
+
+	</code>
+</pre>
+<br/>
+&<br/>
+<br/>
+<pre>
+	<code><span style="color:#e3ceab">extends</span> Node
+
+<span style="color:#e3ceab">var</span> hello <span style="color:#dcdccc">=</span> <span style="color:#e3ceab">preload</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;res://hello.gd&quot;</span><span style="color:#dcdccc">).</span><span style="color:#aae3b2">new</span><span style="color:#dcdccc">()</span>
+
+<span style="color:#e3ceab">func</span> <span style="color:#aae3b2">_ready</span><span style="color:#dcdccc">() -&gt;</span> void<span style="color:#dcdccc">:</span>
+    <span style="color:#e3ceab">print</span><span style="color:#dcdccc">(</span>hello<span style="color:#dcdccc">.</span><span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Jeffery&quot;</span><span style="color:#dcdccc">))</span>
+
+	</code>
+</pre>
+<br/>
+This might be fine, but I just don't like it :| A proper import / export<br/>
+system would be nice to see<br/>
+<br/>
+Tween <b>nodes</b> which are used for animation but are meant to be used<br/>
+almost entirely from within code become a bit annoying after some time.<br/>
+\[3\]<br/>
+<br/>
+Maybe I was expecting a bit too much though, It's not <i>designed</i> for a<br/>
+lot of this, but in my opinion a lot of it leads to simply better /<br/>
+neater code or at least it does and static typing even helps me<br/>
+significantly when writing code.<br/>
+<br/>
+</p>
+<h3 id="other">Other</h3>
+<p>
+<br/>
+As for performance, while I won't call it light weight , its not too<br/>
+outrageously intensive, as long as you tone down the fps and don't go<br/>
+nuts with the asset loading, it'll probably be fine… Memory usage can<br/>
+get out of hand if you don't mind it tho. *I found 25 fps to be good<br/>
+enough for my purposes.* For GUI alone though, it's not very good.<br/>
+<br/>
+It definitely isn't the best if you want a accessible UI system, outside<br/>
+of like translations, you won't find much of that here.<br/>
+<br/>
+</p>
+<h4 id="editor-layout">Editor Layout</h4>
+<p>
+ The editor UI is really inflexible, while the<br/>
+default layout is perfectly functional, If you want to customize it to<br/>
+any greater extent than moving a few panes around, you're out of luck :/<br/>
+For example, I wanted a layout with the preview and node editor in a<br/>
+vertical layout to the left and a script editor to the right, But this<br/>
+is not possible, Godot 4 introduces a split screen editor so that's a<br/>
+start.<br/>
+<br/>
+<br/>
+Footnotes:<br/>
+1.  This has been addressed in Godot V4.<br/>
+2.  This has been addressed in Godot V4.<br/>
+3.  This has been addressed in Godot V4.<br/>
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>

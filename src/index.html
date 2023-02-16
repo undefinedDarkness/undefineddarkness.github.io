@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	<title>Full Index</title>
-	<link href="https://fonts.googleapis.com/css2?family=Commissioner&family=Fraunces:wght@900&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/styles.css" />
-    <style>a { display: inline-block; text-decoration: none; }</style>
-  </head>
-  <body>
-	<main class='page block-center  force-break'>
-      <ul style='list-style-type: none;'>
-        <h3>Blog</h3>
-        <!-- <li><h3>Brain</h3></li> -->
-        !POSTS-BRAIN!
-        
-        <h3>Archive</h3>
-        !POSTS-ARCHIVE!
-      </ul>
-      <!-- <ul style="list-style-type: none;"> -->
-      <!--   <h3>Ricing Guide</h3> -->
-      <!--   !POSTS-RICING! -->
-      <!-- </ul> -->
-      </main>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <title>Full Index</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    main ul {
+      margin-top: 2em !important;
+    }
+
+    ul li:not(:first-child) {
+      margin: 0.5em !important;
+    }
+
+    ul li a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main class='page block-center  force-break'>
+    <ul style='list-style-type: none;'>
+      <li>
+        <h1>2022</h1>
+      </li>
+      !POSTS-2022!
+    </ul>
+    <ul style='list-style-type: none;'>
+      <li>
+        <h1>2021</h1>
+      </li>
+      !POSTS-2021!
+    </ul>
+  </main>
+</body>
+
 </html>

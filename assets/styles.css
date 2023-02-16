@@ -12,7 +12,24 @@
 :root {
     --margin: -0.8em;
     --black: #181818;
-    --white: #fff;
+    --white: #fafafa;
+}
+
+pre {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --black: #fafafa;
+        --white: #181818;
+    }
+
+    pre {
+        background-color: var(--white);
+        color: var(--black);
+    }
 }
 
 /* -- DOCUMENT -- */
@@ -26,7 +43,7 @@ body {
     tab-size: 4;
     overflow-x: hidden;
     margin: 0;
-    background-color: ivory;
+    background-color:var(--white);
     color: var(--black);
 
     display: flex;
@@ -54,10 +71,19 @@ pre,
 code {
     line-height: initial;
 }
+
 pre {
     overflow-y: hidden;
     overflow-x: auto;
     text-align: left;
+    margin: 0;
+    padding: 1em;
+    white-space: normal;
+    border-radius: 5px;
+}
+
+pre > code {
+    white-space: pre;
 }
 
 figure {
@@ -100,7 +126,7 @@ li > blockquote {
 blockquote::before {
     content: "❝";
     position: absolute;
-    left: -1em;
+    left: -1.5em;
     font-size: 2.5em;
     top: -0.4em;
 }
@@ -122,6 +148,7 @@ summary::before {
     position: absolute;
     font-size: 0.8em;
     left: -1.2em;
+    top: 0.15em;
     transition: all 0.3s ease;
 }
 details[open] summary::before {
@@ -133,11 +160,9 @@ li:not(:first-child) {
 }
 
 mark {
-    color: inherit;
-    display: inline-block;
-    border: 3px solid;
-    padding: 0.8em;
-    background: transparent;
+    background: tomato;
+    padding: 0.45em;
+    border-radius: 5px;
 }
 
 /* ARTICLE FOOTER */
@@ -191,40 +216,17 @@ h2.footnotes {
     text-decoration: underline;
 }
 
-table td:first-child {
-    text-align: left;
-}
-th,
-td {
-    padding: 8px;
-}
-table td {
-    border-right: 1px solid;
-}
-th {
-    white-space: nowrap;
-}
-thead tr,
-.tbl-showcase tr:first-child td {
-    border-bottom: 1px solid;
-}
-
-thead th {
-    background: var(--black);
-    color: var(--white);
-    border-right: 1px solid var(--black);
-}
-
 article img, main img {
-    max-width: 75vw;
+    object-fit: contain;
+    object-position: left;
+    max-height: 60vh;
+    width: 100%;
 }
 
 /* Style heading image to the right */
 header img {
     float: right;
     border-radius: 5px;
-    max-width: 200px;
-    max-height: 200px;
 }
 li .in-margin {
     top: 0;

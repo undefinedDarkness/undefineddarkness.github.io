@@ -1,0 +1,317 @@
+@font-face {
+    font-family: "Victor Mono";
+    src: url('./VictorMono-MediumItalic.woff2');
+}
+/*
+.halt-animation {
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+}
+
+.halt-animation * {
+    animation-delay: 0ms !important;
+    animation-duration: 0ms !important;
+}
+*/
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    /* allow all elements to inherit box-sizing */
+    box-sizing: inherit;
+}
+
+body {
+    --box-x: 0px;
+    --box-y: 0px;
+    --box-width: 30vw;
+    --box-height: 25vh;
+
+    --cursor-size: 40px;
+    --options-menu-position-x: min(75vw, 800px);
+    --offset-x: calc(max(var(--popout-size), var(--box-width)) + 6em);
+    --imagebox-position-x: calc(max(var(--offset-x), 100vw - var(--offset-x)));
+    --popout-size: 32vw;
+    --border-colour: #1976D2;
+    --surface: #1a1a1a;
+    padding: 1em;
+    background-color: #000;
+    margin: 0;
+    background-size: 40px 40px;
+    position: relative;
+    background-image:
+        linear-gradient(to right, #222  1px, transparent 1px),
+        linear-gradient(to bottom, #222  1px, transparent 1px);
+    color: #fafafa ;
+    font-family: "Input Mono";
+}
+
+body,
+html {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+span.special {
+    font-family: 'Victor Mono';
+    background: linear-gradient(to right, orange, orangered);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#rectangle,
+#cursor,
+#options-menu {
+    position: absolute;
+}
+
+.box {
+    border: 3px solid var(--border-colour);
+    border-radius: 4px;
+    background-color: var(--surface);
+    user-select: none;
+}
+
+#rectangle {
+    animation: rectangle-expand 2s;
+    animation-fill-mode: forwards;
+    display: flex;
+    transform-origin: top left;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: var(--box-width);
+    height: var(--box-height);
+    translate: var(--box-x) var(--box-y);
+}
+
+@keyframes rectangle-expand {
+    from {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    to {
+        display: block;
+    }
+}
+
+/*
+    Mouse Movement:
+    1) Drag and resize box 4s t=0
+    2) Click 0.5 t=4s
+    2.5) TYPING 4s t=4.5s
+    3) Move to position 2 1s t=8.5s
+    4) Open options menu 0.5s t=9.5s
+    5) Click for imagebox 1s t=10s
+    5.5) IMAGEBOX SLIDE IN 1s
+    6) Move to side button 1s t=12s
+*/
+
+#cursor {
+    display: block;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    background-color: tomato;
+    border-radius: 100%;
+    animation: mouse-drag 4s,
+        mouse-click 0.5s linear 4s,
+        mouse-move-to-options-menu 1s 8.5s,
+        mouse-click 0.5s linear 9.5s,
+        mouse-click 0.5s 11s,
+        mouse-close-options-menu 1s 12s,
+        mouse-click 0.5s 13s;
+    animation-fill-mode: forwards;
+    z-index: 999;
+    position: absolute;
+}
+
+@keyframes mouse-close-options-menu {
+    from {
+        translate: var(--options-menu-position-x) 30px;
+    }
+
+    to {
+        translate: 0 calc(50vh - 2em);
+    }
+}
+
+@keyframes mouse-move-to-options-menu {
+    from {
+        translate: var(--box-x) var(--box-y);
+    }
+
+    to {
+        translate: var(--options-menu-position-x) 30px;
+    }
+}
+
+@keyframes mouse-drag {
+    from {
+        translate: none;
+    }
+
+    50% {
+        translate: calc(var(--box-width)) calc(var(--box-height));
+    }
+
+    to {
+        translate: var(--box-x) var(--box-y);
+    }
+}
+
+@keyframes mouse-click {
+    50% {
+        scale: 1.5;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+#textbox {
+    width: 0;
+    overflow: hidden;
+    animation: textbox-typing 4s 4.5s steps(20, end),
+        blink-cursor 0.5s step-end 4.5s infinite;
+    animation-fill-mode: forwards;
+    white-space: nowrap;
+    font-size: 3em;
+    max-width: max-content;
+    border-right: 5px solid transparent;
+}
+
+@keyframes textbox-typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-cursor {
+
+    from,
+    to {
+        border-right-color: none;
+    }
+
+    50% {
+        border-right-color: orange;
+    }
+}
+
+#options-menu {
+    overflow: hidden;
+    height: 0;
+    width: 0;
+    translate: var(--options-menu-position-x) 20px;
+    background-color: white;
+    color: black;
+    animation: options-menu-reveal 1s 9.5s, options-menu-reveal 1s 13s reverse;
+    animation-fill-mode: forwards;
+    max-height: 110px;
+    list-style: none;
+    padding: 0;
+    z-index: 2;
+    margin: 0;
+    max-width: max-content;
+}
+
+@keyframes options-menu-reveal {
+    from {
+        height: 0;
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#options-menu li:first-child {
+    background-color: #42A5F5;
+    color: white;
+}
+
+#options-menu li {
+    padding: 1em;
+}
+
+#imagebox {
+    max-width: fit-content;
+    --scale: 1;
+    position: absolute;
+    animation: slide-in 1s 11s;
+    scale: var(--scale);
+    animation-fill-mode: forwards;
+    z-index: 5;
+    right: -100%;
+    left: 100%;
+}
+
+#imagebox img {
+    object-fit: contain;
+    max-width: 100%;
+}
+
+#imagebox div {
+    padding: 1em;
+    max-width: fit-content;
+}
+
+@keyframes slide-in {
+    to {
+        right: 0;
+        left: var(--imagebox-position-x);
+    }
+}
+
+#foldoutbutton {
+    position: absolute;
+    background-color: #3a3a3a;
+    border-radius: 0 50% 50% 0;
+    width: 4em;
+    height: 4em;
+    background-image: url(/assets/other/chevron.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    top: calc(50vh - 2em);
+    left: 0;
+}
+
+
+#popout {
+    position: absolute;
+    top: calc(50vh - 2em);
+    left: -100%;
+    animation: slide-out 1s 13.8s forwards;
+    padding: 1em;
+    font-size: 1.5em;
+    width: var(--popout-size);
+}
+
+h2 {
+    margin: 0.4em 0;
+}
+
+p {
+    margin: 0;
+}
+
+@keyframes slide-out {
+    to {
+        left: 0;
+    }
+}

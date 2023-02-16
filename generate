@@ -9,7 +9,6 @@ shopt -s nullglob
 # SSG Options
 template_pre_content=
 template_post_content=
-server='deno run --unstable -A ./.tooling/server/server.ts --port=5000 --live=false'
 
 # Helpers:
 
@@ -90,13 +89,17 @@ build () {
 }
 
 generate_org_full () {
-    emacs ${emacs_arguments[@]} >/dev/null 2>&1
+    emacs "${emacs_arguments[@]}" >/dev/null 2>&1
 }
 
 count=0
 generate_index () {
     cp ./src/index.html ./out/index.html 2> /dev/null
-    find out/ -maxdepth 1 -type d -not -path 'out/'  | while read -r folder; do
+    find out/ \
+		-maxdepth 1 \
+		-type d \
+		-not -path 'out/'\
+		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2  | while read -r folder; do
         local posts=""
         while read -r match; do
             file=${match%%:*}
@@ -110,44 +113,85 @@ generate_index () {
         folder=${folder#*/}
         sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
     done
-    printf "\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
-    pkill --signal USR1 "${server% *}"
+
+    if (( count == 1 )); then
+        printf "\r\e[33m\e[1mBUILT\e[0m %d files." "$count"
+    else
+        printf "\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
+    fi
+    # pkill --signal USR1 "${server% *}"
 }
 
-domain="nes.is-a.dev"
-generate_rss_feed () {
-    cp ./template.xml ./out/rss.xml
-    posts=""
-    while read -r match; do
-        file=${match%%:*}
-        title=${match#*:}
-        title=${title#*'<h1'*'>'}
-        title=${title%'</h1>'*}
-        # title=${title//'&amp;'/'&'}
-        title=${title//'<i>'/} title=${title//'</i>'/} title=${title//'<span class="reset">'/} title=${title//'</span>'/}
-        title=${title//'<img'*'>'/} # clean up any markup that remains
-        file=${file#out/}
-            [ -z "${title/ /}" ] && continue
-        posts+="<item>\n<title>$title</title>\n<description>${file%.*}</description>\n<link>https://$domain/out/${file}</link>\n</item>\n"
-    done < <(grep -ProH '<h1.*?>.*</h1>' out/)
-    sed -i "s\`!ITEMS!\`$posts\`g" ./out/rss.xml
-}
+# domain="nes.is-a.dev"
+# generate_rss_feed () {
+#     cp ./template.xml ./out/rss.xml
+#     posts=""
+#     while read -r match; do
+#         file=${match%%:*}
+#         title=${match#*:}
+#         title=${title#*'<h1'*'>'}
+#         title=${title%'</h1>'*}
+#         # title=${title//'&amp;'/'&'}
+#         title=${title//'<i>'/} title=${title//'</i>'/} title=${title//'<span class="reset">'/} title=${title//'</span>'/}
+#         title=${title//'<img'*'>'/} # clean up any markup that remains
+#         file=${file#out/}
+#             [ -z "${title/ /}" ] && continue
+#         posts+="<item>\n<title>$title</title>\n<description>${file%.*}</description>\n<link>https://$domain/out/${file}</link>\n</item>\n"
+#     done < <(grep -ProH '<h1.*?>.*</h1>' out/)
+#     sed -i "s\`!ITEMS!\`$posts\`g" ./out/rss.xml
+# }
+
+# !!!
+
+liveStartMessage="
+\e[34m
+         {
+      {   }
+       }_{ __{
+    .-{   }   }-.
+   (   }     {   )
+   |\`-.._____..-'|
+   |             ;--.
+   |            (__  \\
+   |             | )  )
+   |             |/  /
+   |             /  /   
+   |            (  /
+   \\             y'
+    \`-.._____..-'
+\e[0m
+\e[33m
+/----------------------\\
+|\e[1m      LIVE BUILD      \e[0m\e[33m|
+\\----------------------/\e[0m
+"
 
 # Default: Build All Files
 
 case "$1" in
     "serve")
-		# $server &
-        exit
+        python3 -m http.server 5050
+		exit
         ;;
     "live")
-		python3 -m http.server 5050 &
-        find src -name '*.html' -or -name '*.md' -or -name '*.org' -not -name '.#*' | entr $0 
-        exit
+		echo -e "$liveStartMessage"
+		python3 ./.tooling/hs.py &
+		serverPid=$!
+		sleep 1
+		find src \
+			-name '*.html' \
+			-or \
+			-name '*.md' \
+			-or \
+			-name '*.org' \
+			-not \
+			-name '.#*' | entr -p "$0" /_ 
+	
+		kill $serverPid
+		exit
         ;;
 esac
 
-shift
 
 intermediate=
 IFS="
@@ -162,8 +206,10 @@ while read -r line; do
 done < ./template.html
 template_post_content=$intermediate
 
-files_to_build=$*
-[ -z "${files_to_build/ /}" ] && files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)
+files_to_build="$*"
+if [ -z "${files_to_build/ /}" ]; then
+		files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)
+fi
 oifs=$IFS
 IFS=" "
 for file in ${files_to_build}; do
@@ -172,13 +218,12 @@ for file in ${files_to_build}; do
 done
 IFS=$oifs
 
-#generate_org_full &
-
 for job in $(jobs -p); do
     wait "$job"
 done
 
+# POST BUILD TASKS
+
 generate_index
-# generate_rss_feed
 
 exit

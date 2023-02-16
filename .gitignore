@@ -1,0 +1,4 @@
+./research/bin/*
+node_modules
+*.tsbuildinfo
+package-lock.json

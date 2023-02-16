@@ -72,10 +72,21 @@
     row-gap: 1em;
 }
 
+.img-sml {
+    max-width: 200px;
+    max-height: 200px;
+}
+
 /* Show scrollbars as required */
 .ovr-x {
     overflow-x: auto;
 }
+
+/*
+.katex-html {
+    display: none;
+}
+*/
 
 .linklist a {
     text-decoration: none;

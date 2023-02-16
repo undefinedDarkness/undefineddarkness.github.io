@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>🍝 My custom markdown flavour</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<img src="https://imgs.xkcd.com/comics/standards.png" />
+
+<header>
+<h1>🍝 My custom markdown flavour</h1>
+</header>
+</header>
+<br/>
+Markdown is nearly ubquitious now-a-days. Anytime you need a simple text format for documentation or formatting,<br/>
+It is at the ready.<br/>
+<br/>
+I like it's simplicity a lot too but how strict some of the syntax rules end up being, They kind of rub me the wrong way.<br/>
+So when making this site, I decided I would finally fix it myself, Of course, It wouldn't do if it was written in a "normal" language like Python or C or Rust or something, No It had to be different, and so it was written in Bash. (Not posix cause writing something perfectly in posix makes me pine for bash builtins)<br/>
+<br/>
+The result is ~600 lines of barely unreadable sphagetti, Even I can't read what<br/>
+it's doing sometimes. But as the old adeage goes, What's not broken don't fix, and believe me I've tried to replace it entirely but then give up because of how much effort it would be.<br/>
+<br/>
+So here are some of the things I added to <i>nesdown</i>:<br/>
+You can find it here, <a href="https://github.com/undefinedDarkness/undefineddarkness.github.io/tree/master/.tooling">https://github.com/undefinedDarkness/undefineddarkness.github.io/tree/master/.tooling</a><br/>
+<br/>
+<h3 id="markdown-in html blocks">Markdown in HTML blocks</h3>
+<p>
+Since I couldn't be bothered to implement the correct logic and this works just as well,<br/>
+<br/>
+It just barely colliding into inline HTML markup but processes any markdown it finds within.<br/>
+<br/>
+So now something like this<br/>
+<pre>
+	<code>&lt;div class&equals;'txt-c'&gt;&lsqb;View Page Source&rsqb;(/src/2022/nesdown.md)&lt;/div&gt;
+
+	</code>
+</pre>
+will generate:<br/>
+<div class='txt-c'><a href="/src/2022/nesdown.md">View Page Source</a></div><br/>
+</p>
+<h3 id="block-quotes">Block Quotes</h3>
+<p>
+This isn't anything new either, but I cant ever remember the syntax for other flavours<br/>
+<br/>
+<pre>
+	<code>&gt;&gt;&gt;
+Be the change you want to see in the world.
+&gt;&gt;&gt; Mahtma Gandhi
+
+	</code>
+</pre>
+becomes<br/>
+<figure>
+<blockquote>
+Be the change you want to see in the world.<br/>
+</blockquote>
+<figcaption>Mahtma Gandhi</figcaption>
+</figure>
+<br/>
+<br/>
+</p>
+<h3 id="inlines">Inlines</h3>
+<p>
+Because I could, I barely use these...<br/>
+<pre>
+	<code>&equals;&equals;Pay attention to me&equals;&equals;
+
+	</code>
+</pre>
+<br/>
+<mark>You better</mark><br/>
+<br/>
+</p>
+<h3 id="syntax-highlighting">Syntax Highlighting</h3>
+<p>
+This is nothing new, but the neat part is that its done entirely in the markdown generation step.<br/>
+So no javascript library is required later.<br/>
+<br/>
+<pre>
+	<code><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
+
+<span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#aabfe3">Q_rsqrt</span><span style="color:#dcdccc">(</span> <span style="color:#dfdfbf; font-weight:bold">float</span> number <span style="color:#dcdccc">)</span>
+<span style="color:#dcdccc">{</span>
+    <span style="color:#dfdfbf; font-weight:bold">long</span> i<span style="color:#dcdccc">;</span>
+    <span style="color:#dfdfbf; font-weight:bold">float</span> x2<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">;</span>
+    <span style="color:#dfdfbf; font-weight:bold">const float</span> threehalfs <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">1.5</span>F<span style="color:#dcdccc">;</span>
+
+    x2 <span style="color:#dcdccc">=</span> number <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">0.5</span>F<span style="color:#dcdccc">;</span>
+    y  <span style="color:#dcdccc">=</span> number<span style="color:#dcdccc">;</span>
+    i  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">long</span> <span style="color:#dcdccc">&ast; ) &amp;</span>y<span style="color:#dcdccc">;</span>                       <span style="color:#7f9f7f; font-style:italic">// evil floating point bit level hacking</span>
+    i  <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0x5f3759df</span> <span style="color:#dcdccc">- (</span> i <span style="color:#dcdccc">&gt;&gt;</span> <span style="color:#dca3a3; font-weight:bold">1</span> <span style="color:#dcdccc">);</span>               <span style="color:#7f9f7f; font-style:italic">// what the fuck? </span>
+    y  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#dcdccc">&ast; ) &amp;</span>i<span style="color:#dcdccc">;</span>
+    y  <span style="color:#dcdccc">=</span> y <span style="color:#dcdccc">&ast; (</span> threehalfs <span style="color:#dcdccc">- (</span> x2 <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">) );</span>   <span style="color:#7f9f7f; font-style:italic">// 1st iteration</span>
+<span style="color:#7f9f7f; font-style:italic">//  y  = y &ast; ( threehalfs - ( x2 &ast; y &ast; y ) );   // 2nd iteration, this can be removed</span>
+
+    <span style="color:#e3ceab">return</span> y<span style="color:#dcdccc">;</span>
+<span style="color:#dcdccc">}</span>
+
+<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span> <span style="color:#dcdccc">() {</span>
+    <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Hello world</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">);</span>
+<span style="color:#dcdccc">}</span>
+	</code>
+</pre>
+<br/>
+</p>
+<h2 id="transformers">Transformers</h2>
+<p>
+I built it initially around the idea of these, but essentially they're like functions that take raw text as input and output html.<br/>
+The raw text can really be anything, which is where I find them really useful.<br/>
+<br/>
+And making a transformer is as simply as creating a new bash function.<br/>
+<br/>
+</p>
+<h3 id="table-transformer">Table Transformer</h3>
+<p>
+Markdown table syntax is just painful. Sure, it's readable in text form but thats only if you have a mess of differently sized columns and data values which is really easy to get into,<br/>
+<br/>
+Since of course I could do a better job than all the bright people that have spent a lot of time thinking about the markdown syntax, This was what I came up with and to be entirely honestly, I'm quite happy with it, It's not very clear but it's decently readable and fortunatley easy to modify as well.<br/>
+<br/>
+<pre>
+	<code>&#35;TABLE Fruits   Vegetables
+       Apple    Carrot
+       Orange   Tomato
+       Banana   Eggplant
+&#35;END TABLE
+
+	</code>
+</pre>
+becomes<br/>
+<div class="ovr-x"><table class="">
+<tbody><tr>
+<td>Apples</td>
+<td>Carrot<br/></td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>Tomato<br/></td>
+</tr>
+<tr>
+<td>Banana</td>
+<td>Eggplant<br/></td>
+</tr>
+</tbody></table></div>
+<br/>
+where columns are seperated by exactly 1 tab and any amount of spaces (for alignment)<br/>
+This syntax pretty much breaks the moment you want something really long though, but at that point, I think just using HTML Tables directly is the best idea.<br/>
+<br/>
+</p>
+<h3 id="verbatim-transformer 👨‍🦼">Verbatim Transformer 👨‍🦼</h3>
+<p>
+A crutch to deal with nesdown not having any idea of what its doing when transforming markdown syntax, Just spits out the input its given and ~sort of~ guarrentes that it wont be changed in any way.<br/>
+<br/>
+</p>
+<h3 id="(f)-fold transformer">(f) Fold Transformer</h3>
+<p>
+A slight syntactic sugar over <code>&lt;detail&gt;</code> & <code>&lt;summary&gt;</code><br/>
+<br/>
+<pre>
+	<code>&#35;f It's a secret
+I said it was a secret &gt;:(
+&#35;END f
+
+	</code>
+</pre>
+becomes<br/>
+
+<details>
+	<summary>
+		<h4>It's a secret</h4>
+	</summary>
+	<p>
+		I said it was a secret >:(<br/>
+	</p>
+</details>
+<br/>
+</p>
+<h2 id="problems">Problems</h2>
+<p>
+Currently to make new lines break like I want, A lot of <code>&lt;br&gt;</code>s are scattered throughout the output.<br/>
+<br/>
+Besides that, the output is really quite ugly, I know its not meant for a person to read but still...<br/>
+<br/>
+Performance isn't a problem since it is plenty fast for my mediocre needs.<br/>
+<br/>
+<hr />
+<br/>
+I know my little toy isn't remarkable in any particular way but I was hoping to showcare it since over the years, Ive spent a decent chunk of time on it.<br/>
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>

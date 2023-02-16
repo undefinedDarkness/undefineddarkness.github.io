@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>Making a small working binary</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1>Making a small working binary</h1>
+</header>
+<br/>
+I was wondering how small it was possible to make could get a non trivial program, without actually changing the code itself, ie: mostly compiler flags and such.<br/>
+<br/>
+I might be using "non trivial" wrongly here but I mean a program that can actually do something.<br/>
+<br/>
+Well, let us start with a non trivial program and go from there,<br/>
+For this I will make use of the wonderful <a href="https://github.com/erkkah/tigr">tigr graphics library</a><br/>
+<br/>
+<pre>
+	<code><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdlib.h&gt;</span>
+<span style="color:#ffcfaf; font-weight:bold">#include</span> <span style="color:#cc9393">&quot;tigr.h&quot;</span><span style="color:#ffcfaf; font-weight:bold"></span>
+<span style="color:#ffcfaf; font-weight:bold">#include &lt;time.h&gt;</span>
+<span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
+
+<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">int</span> min<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">int</span> max<span style="color:#dcdccc">) {</span>
+  <span style="color:#e3ceab">return</span> min <span style="color:#dcdccc">+</span> <span style="color:#aabfe3">rand</span><span style="color:#dcdccc">() / (</span>RAND_MAX <span style="color:#dcdccc">/ (</span>max <span style="color:#dcdccc">-</span> min <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">) +</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
+<span style="color:#dcdccc">}</span>
+
+<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span><span style="color:#dcdccc">() {</span>
+
+  <span style="color:#aabfe3">srand</span><span style="color:#dcdccc">(</span><span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
+
+  Tigr <span style="color:#dcdccc">&ast;</span>screen <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">tigrWindow</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">320</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">240</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;Hello&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
+  <span style="color:#dfdfbf; font-weight:bold">int</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">;</span>
+  <span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>fmt <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
+  <span style="color:#e3ceab">while</span> <span style="color:#dcdccc">(!</span><span style="color:#aabfe3">tigrClosed</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">)) {</span>
+    <span style="color:#aabfe3">tigrClear</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">));</span>
+
+    <span style="color:#aabfe3">tigrPrint</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> tfont<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">120</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">110</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">),</span>
+              <span style="color:#cc9393">&quot;Hello, world.&quot;</span><span style="color:#dcdccc">);</span>
+	<span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>fmt<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%d, %d&quot;</span><span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">);</span>
+	<span style="color:#aabfe3">tigrPrint</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> tfont<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">120</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">110</span> <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">16</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">),</span> fmt<span style="color:#dcdccc">);</span>
+
+    <span style="color:#aabfe3">tigrMouse</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">, &amp;</span>x<span style="color:#dcdccc">, &amp;</span>y<span style="color:#dcdccc">,</span> NULL<span style="color:#dcdccc">);</span>
+    <span style="color:#aabfe3">tigrFillCircle</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">8</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xff</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">));</span>
+
+    <span style="color:#e3ceab">for</span> <span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">int</span> i <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">;</span> i <span style="color:#dcdccc">&lt;</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">;</span> i<span style="color:#dcdccc">++) {</span>
+      <span style="color:#dfdfbf; font-weight:bold">int</span> x <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">320</span><span style="color:#dcdccc">);</span>
+      <span style="color:#dfdfbf; font-weight:bold">int</span> y <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">240</span><span style="color:#dcdccc">);</span>
+      <span style="color:#aabfe3">tigrLine</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">10</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xff</span><span style="color:#dcdccc">));</span>
+    <span style="color:#dcdccc">}</span>
+
+    <span style="color:#aabfe3">tigrUpdate</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">);</span>
+  <span style="color:#dcdccc">}</span>
+  <span style="color:#aabfe3">free</span><span style="color:#dcdccc">(</span>fmt<span style="color:#dcdccc">);</span>
+  <span style="color:#aabfe3">tigrFree</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">);</span>
+  <span style="color:#e3ceab">return</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">;</span>
+<span style="color:#dcdccc">}</span>
+	</code>
+</pre>
+Nothing flashy, it just opens a window, draws some text and some rain.<br/>
+Compiling with <code>cc app.c tigr.c -o app -lGl -lX11</code> gives us our executable, whose size is 76kb.<br/>
+<br/>
+For such a simple program, surely we can do better right?<br/>
+<br/>
+<h2 id="compiler-flags">Compiler Flags</h2>
+<p>
+<br/>
+</p>
+<h3 id="-os">-Os</h3>
+<p>
+How about telling the compiler to optimize for size with the <code>-Os</code> flag?<br/>
+With it, The new binary is 68kb, a decrease of 10.52%, Not bad if I say so myself.<br/>
+However in my experience this doesnt always happen, quite often the decrease is so small, that it won't even be measured.<br/>
+<br/>
+You can find out what it does by starting from here, <a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options">https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options</a><br/>
+<br/>
+</p>
+<h3 id="-s">-s</h3>
+<p>
+Since we are willing to play hard and fast with how perfectly, our code executes, We can try being more aggressive in stripping information from our binary.<br/>
+<br/>
+GNU Binutils includes the <code>strip</code> utility which its manpage tells us, Is used to discard symbols and other data from object files<br/>
+Seems like what we are looking for.<br/>
+<br/>
+Adding it via the compiler flag <code>-s</code>, We get a binary 26% smaller than the 76kb original, not bad.<br/>
+<br/>
+Following the saying, "Good artists create, Great artists steal",<br/>
+Consulting <a href="https://github.com/johnthagen/min-sized-rust">https://github.com/johnthagen/min-sized-rust</a> , We find one thing of interest, Link Time Optimization (LTO)..<br/>
+<br/>
+</p>
+<h3 id="-flto">-flto</h3>
+<p>
+Basically this tells the linker to apply optimizations during linking time. It's more complicated than that but I don't understand it.<br/>
+<br/>
+So what does it do for us?<br/>
+Quite a bit, Using it we have shaved off 16kb to reach 40kb, so in total (with -Os and -s) a 47% decrease of our initial 76kb, not bad at all.<br/>
+<br/>
+<b>NOTE</b>: Enabling <code>-flto</code> sometimes caused me a segfault at program start with clang, but this didnt occur with GCC, so it seems like GCC has a more mature implementation.<br/>
+<br/>
+</p>
+<h2 id="executable-packing">Executable Packing</h2>
+<p>
+If you wanted to go even furthur you could try <a href="https://upx.github.io/">UPX</a>, Which actually compresses your biniary and this works since<br/>
+the decompression code + compressed data ends up smaller than the initial binary.<br/>
+<br/>
+Although some would consider this cheating, It is still a legtimate method and does work,<br/>
+Running it with the highest compression level (-9) on our 40kb binary yields a binary size of 24kb, A decrease of 60% which is undeniably really impressive.<br/>
+<br/>
+<b>NOTE:</b> Since upx is often used in malware, There are chances it might get flagged by an antivirus,<br/>
+But running through virus total shows only <a href="https://is.gd/MtqIMG">results</a> from Google & Ikarus(?)<br/>
+<br/>
+<b>NOTE:</b> In a web enviroment, files are usually transferred while being gzip-compressed, UPX would be negligible for .wasm files and it doesnt support it anyway.<br/>
+<br/>
+<img src="/assets/images/size-chart.svg" alt="" title="" loading="lazy" /> <br/>
+</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>
+So in total we managed to decrease our binary by <b>68%</b> without changing a single line of code, Less than half of its original size<br/>
+I am very pleased with that..<br/>
+<br/>
+Of course, even this isn't anything compared to marvellous feats of engineering like <a href="https://en.wikipedia.org/wiki/.kkrieger">.kkreiger</a>, A entire 3d fps game demo in a extremely impressive 95kb,<br/>
+When code is <i>actually written</i> to be small, and optimized to the limit towards that purpose.<br/>
+More on why:<br/>
+<a href="https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/">https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/</a><br/>
+<a href="https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/">https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/</a><br/>
+<a href="https://www.youtube.com/watch?v=bD1wWY1YD-M">https://www.youtube.com/watch?v=bD1wWY1YD-M</a><br/>
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>

@@ -1,0 +1,7 @@
+set terminal (svg/png) <- desired output format
+set output (filename)
+plot [x,X] [y,Y] f(x) 
+
+Plot command can be given with lw N for thickness
+
+set xtics (increment)

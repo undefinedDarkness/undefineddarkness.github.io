@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>My experience with Emacs</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<header>
+<h1>My experience with Emacs</h1>
+</header>
+<br/>
+I suppose I should explain what I am comparing it with, The main editors<br/>
+I have used before this for any amount of time are, VS Code & Neovim,<br/>
+both very good editors, excellent at a lot of things.<br/>
+<br/>
+VS Code was something of a cushioned experiance, there was thought in a lot of<br/>
+places but it wasn't my thought, The UI is mostly set in stone, The<br/>
+configuration being done statically in JSON (Meaning, there is no way for me to<br/>
+script anything) limits a lot and I just didn't feel really comfortable using<br/>
+it, tho the way everything tends to just work<sup>tm</sup> is really nice. Even<br/>
+using CSS to modify the VS Code UI is a difficult task, You need to go through a<br/>
+few hoops to even inject CSS, which in my opinion should be a builtin feature;<br/>
+VS Code's predecessor Atom had a prettier UI and was more flexible in this<br/>
+respect :/<br/>
+<br/>
+Neovim, I really enjoyed my time using Neovim, it is a very polished<br/>
+editor and is very good at what it does (That is to say, good at editing<br/>
+text files quickly then exiting), But I found the restrictions placed by<br/>
+a Terminal User Interface to be a bit limiting with how I wanted my<br/>
+editor to look, It is still very good and much more customizable than VS<br/>
+Code. (All this applies to vanilla vim too)<br/>
+<br/>
+So the main reasons I was interested in Emacs, was the fully featured<br/>
+graphical user interface which was extremely flexible, The ability to<br/>
+use Emacs for much more than just text editing, It can do that too but it can do a lot of other things rather well and so can be used as a sort of <br/>
+integrated development enviroment for everything <br/>
+<a href="gui-in-godot.html">My time using godot</a> made me realize how nice of a experience that is,<br/>
+And of course since I like bringing pain onto myself, I decided to forgo <a href="https://github.com/hlissner/doom-emacs">Doom Emacs</a> and do a from scratch configuration.<br/>
+<br/>
+If you are starting out with Emacs, I recommend starting with DOOM,<br/>
+It's a good & fast configuration, You will have a much easier time.<br/>
+<br/>
+<h2 id="getting-used to it">Getting used to it</h2>
+<p>
+<br/>
+Getting used to Emacs wasn't really hard once I installed<br/>
+<a href="https://github.com/emacs-evil/evil">evil-mode</a>, That plugin makes Emacs<br/>
+follow vim's system of insert, normal & visual modes as well as follow<br/>
+vim's keybind system, Which is much more comfortable for me, and so I<br/>
+didn't really need to learn how to use Emacs for editing.<br/>
+<br/>
+After that, the main changes I had to get used to was getting rid of my<br/>
+habit of opening & closing vim many times when editing several files,<br/>
+Emacs isn't meant to be used like that, instead you open one Emacs<br/>
+instance and you leave it open for as long as you need.<br/>
+<br/>
+Moving around files from directly in the editor was something I needed<br/>
+to get used to as well, In neovim, I would just quit the editor / spawn<br/>
+a new terminal, <code>cd</code> to where I wanted to go, and open neovim again.<br/>
+<br/>
+Using Emacs's bookmark system with _Consult_ has helped with moving<br/>
+around a lot however.<br/>
+<br/>
+</p>
+<h3 id="compiling-emacs for great good">Compiling Emacs for great good</h3>
+<p>
+<br/>
+Another reason I decided to try Emacs now of all times was that there<br/>
+were 3 exciting features that had just recently been implemented, Native<br/>
+Compilation, Pure GTK Support & Pixel Smooth Scrolling.<br/>
+<br/>
+<b>Native Compilation</b>: This implements gccjit in Emacs to speed up<br/>
+Elisp significantly, After using it personally I can't tell the<br/>
+difference but many people have noticed a difference and it's a good<br/>
+thing to have in the background.<br/>
+<br/>
+<a href="https://www.emacswiki.org/emacs/GccEmacs">Emacs Wiki page</a>, <br/>
+<a href="https://zenodo.org/record/3736363/files/GCCEMACS_proceeding.pdf?download=1">Paper talking about it</a><br/>
+<br/>
+<b>Pure GTK Support</b>: This one does not really affect me but it is<br/>
+exciting anyway, Emacs for some time now has been mostly stuck to the<br/>
+X11 environment since it uses a lot of Xorg specific functionality, Pure<br/>
+GTK does away with all that meaning Emacs can be run natively in Wayland<br/>
+too.<br/>
+<br/>
+<b>Smooth Scrolling</b>: This one is really really epic, Emacs has been<br/>
+known for shitty scrolling & I have even experienced it being shitty<br/>
+many times, It is really laggy and unnatural to use. This fixes all<br/>
+that, It allows for actually good smooth scrolling built right into<br/>
+emacs, It's not perfect, it still scrolls by lines instead of actual<br/>
+pixels but it is quite smooth and I don't hate using it.<br/>
+<br/>
+<pre>
+	<code>(pixel-scroll-precision-mode)
+	</code>
+</pre>
+<br/>
+All 3 of these required me to build Emacs 29 from source (At the time of<br/>
+writing, Emacs 28 hasn't been released yet), But building Emacs isnt<br/>
+really difficult, and if you use Debian Unstable (sid), You don't need<br/>
+to compile anything as [prebuilt<br/>
+binaries](<a href="http://emacs.secretsauce.net/">http://emacs.secretsauce.net/</a>) are available for you, Just do<br/>
+<br/>
+<pre>
+	<code># Uncomment the deb-src lines in /etc/apt/sources.list
+sudo apt-get build-dep emacs
+sudo apt install libgccjit-10-dev
+git clone <a href="https://git.savannah.gnu.org/git/emacs.git">https://git.savannah.gnu.org/git/emacs.git</a> --depth 1 -b master
+cd emacs
+./autogen.sh
+./configure.sh --with-native-compilation --with-pgtk --with-sqlite3
+sudo make install -j$(nproc)
+	</code>
+</pre>
+<br/>
+</p>
+<h2 id="getting-comfortable in it">Getting comfortable in it</h2>
+<p>
+</p>
+<h3 id="lsp-completion">LSP Completion</h3>
+<p>
+<br/>
+Corfu is a very minimal Emacs plugin that offers wonderful in buffer<br/>
+completions, that just works<sup>TM</sup><br/>
+<br/>
+Eglot (unsurprisingly) is a mininal LSP client for Emacs. By default it<br/>
+won't do much but there is a sister plugin called cape that exports more<br/>
+functionality, like completing from ispell, completing file paths etc.<br/>
+<br/>
+The two were practically made for each other \<3. They both work really<br/>
+well and it was really simple to get Deno's LSP working once I figured<br/>
+out that I needed to "enable" it in eglot's initialization options. (Why<br/>
+isn't it enabled by default \>:( )<br/>
+<br/>
+Kind Icon is a small addition to corfu that shows the type of whatever<br/>
+item it is next to, which is pretty handy and it looks nice to boot.<br/>
+<br/>
+If you want a more powerful lsp client with more integration / options,<br/>
+You ought to check out lsp-mode. Similarly for corfu, try company-mode &<br/>
+company-box-mode, If your lsp needs are fairly simple like mine are,<br/>
+this duo should work just fine for you. EDIT: I have recently abandoned<br/>
+eglot for lsp-mode since it suits my needs better and I found it easier<br/>
+to configure<br/>
+<br/>
+</p>
+<h3 id="linting">Linting</h3>
+<p>
+<br/>
+I think there is only one correct answer to this and that is<br/>
+flycheck. It just works out of the box and will automatically pick<br/>
+up any linters you have installed, and generally its been a install<br/>
+once, and don't worry about it plugin.<br/>
+<br/>
+I am sure it's possible to make flymake entirely usable but it seems<br/>
+to be more trouble than it's worth to me.<br/>
+<br/>
+If you want to disable the default eldoc linter which is maybe the<br/>
+most stupid linter I have ever seen, do <code>(setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))</code><br/>
+<br/>
+\*Haven't looked into formatting yet<br/>
+<br/>
+</p>
+<h3 id="speed">Speed</h3>
+<p>
+<br/>
+On average, For me Emacs takes around 1s to fully start up, This isn't<br/>
+bad at all considering I haven't gone out of my way to make it faster<br/>
+and I haven't made use of daemon mode (which would make startup time<br/>
+irrelevant), And since I don't close it often it matters even less. But<br/>
+here are a few tricks I used to speed it up from its vanilla state<br/>
+(Still not as extreme as DOOM Emacs does tho).<br/>
+<br/>
+<figure>
+<blockquote>
+Some of these techniques for fast startup I've documented in our <a href="https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly">FAQ</a>.<br/>
+<br/>
+The highlights are:<br/>
+<br/>
+<ul>
+<li>I suppress garbage collection during startup,<br/>
+</li>
+<li>I lazy load our package manager. This means avoiding<br/>
+  package-initialize or, if you use straight like Doom does,<br/>
+  bootstrapping straight. It also means no 200+ package-installed-p<br/>
+  checks on startup.<br/>
+</li>
+<li>Package autoloads files are concatenated into one, large file.<br/>
+  This saves on hundreds of file reads at startup (assuming you have<br/>
+  hundreds of packages installed). I byte-compile it too.<br/>
+</li>
+<li>Almost all our packages are lazy loaded (iirc, 2-3 out of 300 are<br/>
+  not).<br/>
+<br/>
+The biggest gains come from lazy loading packages. Especially the big<br/>
+ones, like org, helm, and magit. Doom goes a bit further with this. A<br/>
+couple examples:<br/>
+<br/>
+</li>
+<li>Dozens of packages (like recentf, savehist, autorevert, etc) are<br/>
+  deferred until your first input (pre-command-hook) or the first<br/>
+  file is opened (:before after-find-file).<br/>
+</li>
+<li>Org's babel packages aren't loaded all at once with<br/>
+  org-babel-do-load-languages, but on demand when their src blocks<br/>
+  are encountered (fontified) or executed. Same with its export<br/>
+  backends.<br/>
+</li>
+<li>Doom loads some larger packages incrementally while it is idle.<br/>
+  i.e. After 2s afk, it loads one of dash, f, s, with-editor,<br/>
+  git-commit, package, eieio, lv, then transient every second,<br/>
+  before finally loading magit (these are its dependencies). This<br/>
+  process bows out when it detects user activity, and continues<br/>
+  later when Emacs has been idle again for 2s. This helps with that<br/>
+  first-time-load delay when starting magit. org and helm get<br/>
+  similar treatment.<br/>
+</li>
+<li>If you use the daemon, the incremental-loader just loads them all<br/>
+  immediately.<br/>
+<br/>
+Besides that, I've collected tidbits of elisp over the years that<br/>
+appear to help startup time, sometimes inexplicably. Here are a couple<br/>
+off the top of my head:<br/>
+<br/>
+</li>
+<li><code>(add-to-list 'default-frame-alist '(font . "Fira Code-14"))</code><br/>
+  instead of <code>(set-frame-font "Fira Code-14" t t)</code>. The latter does<br/>
+  more work than the former, under the hood.<br/>
+<br/>
+</li>
+<li><code>(setq frame-inhibit-implied-resize t)</code> – Emacs resizes the (GUI)<br/>
+  frame when your newly set font is larger (or smaller) than the<br/>
+  system default. This seems to add 0.4-1s to startup.<br/>
+<br/>
+</li>
+<li><code>(setq initial-major-mode 'fundamental-mode)</code> – I don't need the<br/>
+  scratch buffer at startup. I have it a keybind away if I do.<br/>
+  Starting text-mode at startup circumvents a couple startup<br/>
+  optimizations (by eager-loading a couple packages associated with<br/>
+  text modes, like flyspell), so starting it in fundamental-mode<br/>
+  instead helps a bit.<br/>
+<br/>
+An odd one: tty-run-terminal-initialization adds a couple seconds to<br/>
+startup for tty Emacs users when it is run too early. After deferring<br/>
+it slightly, this doesn't appear to be an issue anymore. Not a big tty<br/>
+Emacs user, so YMMV.<br/>
+<br/>
+</blockquote>
+<figcaption>— Hlissner (Author of DOOM Emacs)</figcaption>
+</figure>
+<br/>
+</li>
+</ul><br/>I can't say how much of each has contributed to helping my start up<br/>
+times but in general, The best advice I (personally) can give is to<br/>
+async everything as much as possible. The garbage collector and the file<br/>
+alist trick help a fair bit as well.<br/>
+<br/>
+</p>
+<h3 id="org-mode">Org Mode</h3>
+<p>
+<br/>
+I was always skeptical of how good org mode would be, Cause I had seen<br/>
+emacs users proclaim org mode as the killer feature for Emacs which I<br/>
+disagreed with (and still do) but now I understand what they were<br/>
+talking about, It is really amazing how flexible org mode is.<br/>
+<br/>
+It is the more powerful / flexible markdown I had always wanted, and<br/>
+tried to achieve with <a href="../lorem.html">nesdown</a>. And it actually looks /<br/>
+feels good to edit too, since you can smartly hide almost all of the<br/>
+syntactic visual noise and get a very clean experience editing it.<br/>
+<br/>
+And if you want to send your document to someone, there are myriad of<br/>
+ways you can export your document, for example: this whole article was<br/>
+written in org mode and exported to HTML, I might consider abandoning<br/>
+nesdown entirely; Org does the same job and does it better with much<br/>
+better editor integration. Not being able to directly write html feels a<br/>
+bit stifling but I am going to consider it as a lesson in self control<br/>
+(yes, this is me just coping with it)<br/>
+<br/>
+Org has made me actually interested in taking digital notes, instead of<br/>
+ones with pen and paper, Its agenda features are really capable as well,<br/>
+Though I haven't been able to grasp them fully just yet.<br/>
+<br/>
+I have yet to try out org-roam, but I am excited to do so, It looks<br/>
+really interesting for note taking.<br/>
+<br/>
+I am going to try doing a thing I've wanted to do with it, I want to<br/>
+replicate the appearance of the document in my editor in my website so<br/>
+that WYSIWYG.<br/>
+<br/>
+Though I would like to see a _bit_ more flexibility when it comes to<br/>
+syntax, I much prefer some of markdown's syntax compared to what org has<br/>
+(though its not too bad) and would like to customize some parts of the<br/>
+export process. Example: I would like to display keybindings on my site<br/>
+from a document written in org, but Org has no way to export<br/>
+<code>&lt;kbd&gt;&lt;/kbd&gt;</code> tags out of the box, and the few SO solutions I have found<br/>
+seems to be pretty ugly hacks in my opinion, I'll have to try and see<br/>
+which one isn't broken yet. <code>M-x</code> doctor - Hey I got it to work :)<br/>
+<br/>
+</p>
+<h3 id="making-org mode pretty">Making Org Mode Pretty</h3>
+<p>
+<br/>
+    Before you delve any deeper, This is the end result in my Emacs<br/>
+    configuration,<br/>
+    <img src="../../assets/images/org-mode.png" alt="" title="" loading="lazy" /><br/>
+    *Font used is<br/>
+    iA Writer Quattro - It's been made for iA writer which is a Markdown<br/>
+    editor for MacOS, that looks really good.*<br/>
+<br/>
+    <code>org-hide-emphasis-markers</code> automatically hides any inline<br/>
+    <b>emphasis</b> markers which leads to a much cleaner look.<br/>
+    <code>org-pretty-entities</code> converts text symbols into their unicode<br/>
+    counterparts to <code>&lt;backslash&gt;lambda</code> becomes <code>\lambda</code> For the list<br/>
+    bullets, Besides <code>org-hide-leading-stars</code>, I use org-superstar (a<br/>
+    improved version of org bullets), With all the heading stars changed<br/>
+    to <code>&ast;</code>; I originally had a space to hide most stars but that broke<br/>
+    indent mode too much. Then I set all the list bullets to use the<br/>
+    unicode bullet character (•)<br/>
+<br/>
+    The rest is just customizing highlight groups, with `customize-group<br/>
+    org-faces`.<br/>
+<br/>
+    EDIT: *I have found a plugin that does a lot of this in a much<br/>
+    better way than I could,<br/>
+    <a href="https://github.com/minad/org-modern/">org-modern</a>, It also replaces<br/>
+    org-superstar*<br/>
+<br/>
+    Besides that I have done some other tweaks in places to clean up the<br/>
+    experiance when editing, example: Using padding around the entire<br/>
+    emacs window, Disabling parts of the default UI, Showing word count<br/>
+    on the mode line.<br/>
+<br/>
+    You can see all the customizations I made in:<br/>
+    <a href="https://github.com/undefinedDarkness/rice/blob/master/.config/emacs/modules/appearance.el">appearance.el</a><br/>
+    <a href="https://github.com/undefinedDarkness/rice/blob/master/.config/emacs/modules/writing.el">writing.el</a><br/>
+    <a href="https://github.com/undefinedDarkness/rice/blob/master/.config/emacs/modules/custom.el">custom.el</a><br/>
+<br/>
+</p>
+<h3 id="consult">Consult</h3>
+<p>
+<br/>
+One thing I missed quite a lot from Neovim was telescope, That is an<br/>
+amazing plugin that allows you to very quickly search through and filter<br/>
+files, contents of files, buffers, tabs, functions in the file etc. It<br/>
+didn't take long till I found<br/>
+<a href="https://github.com/minad/vertico">consult</a> which combined with<br/>
+<a href="https://github.com/minad/vertico">vertico</a> replicates most of the<br/>
+experience I want as well if not better than telescope (Combining<br/>
+various useful things in the buffer selection menu),<br/>
+<br/>
+Tho since it runs the file searching functions in the same dir as the<br/>
+current file when I usually want it to run in the parent directory which<br/>
+is the actual project folder, It still needs some work, as does Emacs so<br/>
+it does not <code>cd</code> to the folder which contains my code, but opens it<br/>
+relative to the project folder.<br/>
+<br/>
+</p>
+<h3 id="other-stuff">Other Stuff</h3>
+<p>
+<br/>
+Vterm mode provides a excellent terminal that just works<sup>TM</sup>,<br/>
+and I didn't need to do any particular configuration for it.<br/>
+<br/>
+Neotree & Treemacs are only file trees I have tried, and I prefer the<br/>
+way neotree works more than treemacs, Speedtree would be decent if it<br/>
+didn't popup a new window and could use icons<br/>
+<br/>
+Parinfer becomes a bit of a pain when it disagrees with me, but when it<br/>
+does work, It is lisp editing heaven but your mileage may vary.<br/>
+<br/>
+My buddy nuxsh also wrote a similar article:<br/>
+<<a href="https://nuxsh.is-a.dev/blog/emacs.html>">https://nuxsh.is-a.dev/blog/emacs.html></a>
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>
