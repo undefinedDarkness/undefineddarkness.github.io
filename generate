@@ -119,6 +119,7 @@ generate_index () {
     else
         printf "\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
     fi
+    cp ./out/index.html ./index.html -v
     # pkill --signal USR1 "${server% *}"
 }
 
