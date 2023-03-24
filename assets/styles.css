@@ -92,7 +92,7 @@ figure {
 
 article, main {
     width: 100%;
-    padding: 0 5vw;
+    padding: 0 16vw;
     line-height: 1.5;
 }
 main ul,
@@ -155,14 +155,18 @@ details[open] summary::before {
     transform: rotate(90deg);
 }
 
+/*
 li:not(:first-child) {
     margin: 1em 0;
 }
+*/
 
 mark {
-    background: tomato;
-    padding: 0.45em;
+	background: #262626;
+	padding: 1em;
+	color: inherit;
     border-radius: 5px;
+	display: inline-block;
 }
 
 /* ARTICLE FOOTER */
@@ -192,7 +196,7 @@ main footer, article footer {
 table {
     border-collapse: collapse;
     table-layout: fixed;
-    border: 1px solid;
+    border: 1px solid #aaa;
 }
 
 table * {

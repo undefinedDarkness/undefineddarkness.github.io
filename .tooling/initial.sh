@@ -134,7 +134,7 @@ initial_transformer () {
 						buffer=${buffer//'['/'&lsqb;'}
 						buffer=${buffer//']'/'&rsqb;'}
 						buffer=${buffer//'='/'&equals;'}
-						printf '%s\n\t</code>\n</pre>\n' "${buffer}"
+						printf '%s</code>\n</pre>\n' "${buffer}"
 					else 
 						__syntax_hl "$language" <<< "$buffer"
 						printf '\t</code>\n</pre>\n'

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="author" content="nes" />
+		<title>Fast Inverse Square Root (Quake III Arena)</title>
+		<link rel="stylesheet" href="/assets/styles.css" />
+	</head>
+	<body>
+	  <article>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg" alt="" title="" loading="lazy" /><br/>
+<header>
+<h1>Fast Inverse Square Root (Quake III Arena)</h1>
+</header>
+In 1999, The Source code for the game quake 3 arena was released, containing a rather ingenious algoritm for calculating the inverse square root of a number (\(\frac{1}{\sqrt{x}}\)), In a case, its required to calculate this very often for vector calculations and when quake 3 was being made, it was an expensive calculation that required approximation.<br/>
+<br/>
+<pre>
+	<code><span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#aabfe3">Q_rsqrt</span><span style="color:#dcdccc">(</span> <span style="color:#dfdfbf; font-weight:bold">float</span> number <span style="color:#dcdccc">)</span>
+<span style="color:#dcdccc">{</span>
+	<span style="color:#dfdfbf; font-weight:bold">int32_t</span> i<span style="color:#dcdccc">;</span>
+	<span style="color:#dfdfbf; font-weight:bold">float</span> x2<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">;</span>
+	<span style="color:#dfdfbf; font-weight:bold">const float</span> threehalfs <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">1.5</span>F<span style="color:#dcdccc">;</span>
+
+	x2 <span style="color:#dcdccc">=</span> number <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">0.5</span>F<span style="color:#dcdccc">;</span>
+	y  <span style="color:#dcdccc">=</span> number<span style="color:#dcdccc">;</span>
+	i  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">int32_t</span> <span style="color:#dcdccc">&ast; ) &amp;</span>y<span style="color:#dcdccc">;</span>                       <span style="color:#7f9f7f; font-style:italic">// evil floating point bit level hacking</span>
+	i  <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0x5f3759df</span> <span style="color:#dcdccc">- (</span> i <span style="color:#dcdccc">&gt;&gt;</span> <span style="color:#dca3a3; font-weight:bold">1</span> <span style="color:#dcdccc">);</span>               <span style="color:#7f9f7f; font-style:italic">// what the fuck? </span>
+	y  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#dcdccc">&ast; ) &amp;</span>i<span style="color:#dcdccc">;</span>
+	y  <span style="color:#dcdccc">=</span> y <span style="color:#dcdccc">&ast; (</span> threehalfs <span style="color:#dcdccc">- (</span> x2 <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">) );</span>   <span style="color:#7f9f7f; font-style:italic">// 1st iteration</span>
+<span style="color:#7f9f7f; font-style:italic">//	y  = y &ast; ( threehalfs - ( x2 &ast; y &ast; y ) );   // 2nd iteration, this can be removed</span>
+
+	<span style="color:#e3ceab">return</span> y<span style="color:#dcdccc">;</span>
+<span style="color:#dcdccc">}</span>
+	</code>
+</pre>
+<br/>
+To understand this bit of trickery, we need to know a few things,<br/>
+<ul>
+<li>Binary reprensentation of integers and floating point numbers<br/>
+</li>
+<li>Math behind it<br/>
+</li>
+<li>C trickery<br/>
+</li>
+</ul><br/><h2 id="binary-reprentation of numbers">Binary Reprentation of Numbers</h2>
+<p>
+</p>
+<h3 id="integers">Integers</h3>
+<p>
+A <code>int32_t</code> as the name implies is 32 bits long<br/>
+<img src="/assets/images/binary.svg" alt="" title="" loading="lazy" /><br/>
+<br/>
+<br/>
+\[
+
+\]
+		<!-- KATEX LOADING -->
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="
+			renderMathInElement(document.body, {
+				output: 'mathml'
+			});
+		"></script>
+		
+			<footer style="margin-bottom: 2em;">
+				<a href="/out/index.html">Return To Index</a>
+			</footer>
+	  </article>
+	</body>
+</html>

@@ -3,6 +3,16 @@
 	src: url("./other/WorkSans.woff2");
 }
 
+@font-face {
+	font-family: "PT Serif";
+	src: url("./other/PTSerif.woff");
+}
+
+@font-face {
+	font-family: "PT Serif";
+	src: url("./other/PTF75F-webfont.woff");
+	font-weight: bold;
+}
 
 :root {
 	--article-size: 1em
@@ -32,6 +42,10 @@ kbd, pre, code {
 summary{font-size: larger;}
 figcaption,var,.special{font-style: italic}
 
+h1,h2,h3,h4,h5,h6 {
+	font-family: "PT Serif";
+}
+
 h4,h5,h6 {
 	font-weight: normal;
 	margin: 0;
@@ -43,14 +57,12 @@ h1,h2,h3 {
 
 h1 {
 	margin-bottom: 0.1em;
-}
-
-h1 {
     font-size: calc(2.5 * var(--article-size));
 }
 
 
 h2 {
+	margin-bottom: 0.3em;
 	font-size: calc(2 * var(--article-size));
 }
 

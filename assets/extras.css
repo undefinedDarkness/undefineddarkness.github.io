@@ -48,3 +48,17 @@
 .tierlist tr:nth-child(5) td:first-child {
     background: rgb(191, 255, 127);
 }
+
+
+
+td {
+	padding: 0.3em 1em;
+}
+
+tr {
+	border-bottom: 1px solid #aaaaaa;
+}
+
+td:not(:last-of-type) {
+	border-right: 1px solid #aaa;
+}

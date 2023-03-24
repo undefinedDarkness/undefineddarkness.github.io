@@ -162,7 +162,8 @@ Source for   sin(x): https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c
 #END f
 
 ## Conclusion
-The results from my very naive implementation are as follows, This is without any effort made to optimize the code and most is copied from here and there so the comparison isn't entirely fair.
+The results from my very naive implementation are as follows, This is without any effort made to optimize the code and most is copied from here and there so the comparison isn't entirely fair,
+I also added the SIMD AVX sin function from libmvec for fun too :)
 
 ---
 https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c - sin(x) implementation in musl std c lib

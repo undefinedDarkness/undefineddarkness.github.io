@@ -85,7 +85,8 @@ The raw text can really be anything, which is where I find them really useful.
 And making a transformer is as simply as creating a new bash function.
 
 ### Table Transformer
-Markdown table syntax is just painful. Sure, it's readable in text form but thats only if you have a mess of differently sized columns and data values which is really easy to get into,
+Markdown table syntax is just painful. Sure, it's readable in text form but thats only if you don't have a mess of differently sized columns and data values. (which is really easy) And if you do, its painful to edit manually,
+you always gotta delegate to some tool which is a whole mess
 
 Since of course I could do a better job than all the bright people that have spent a lot of time thinking about the markdown syntax, This was what I came up with and to be entirely honestly, I'm quite happy with it, It's not very clear but it's decently readable and fortunatley easy to modify as well.
 

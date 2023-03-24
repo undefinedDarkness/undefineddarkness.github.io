@@ -109,63 +109,17 @@ generate_index () {
             
             [ -z "${title/ /}" ] && continue
             posts+="<li><a href='/$file'>$title</a></li>\n"
-        done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
+			((count++))
+		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
         folder=${folder#*/}
         sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
     done
 
-    if (( count == 1 )); then
-        printf "\r\e[33m\e[1mBUILT\e[0m %d files." "$count"
-    else
-        printf "\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
-    fi
-    cp ./out/index.html ./index.html -v
-    # pkill --signal USR1 "${server% *}"
+    printf "\r\e[33m\e[1mBUILT\e[0m %d files." "$count"
+    cp ./out/index.html ./index.html 
 }
 
-# domain="nes.is-a.dev"
-# generate_rss_feed () {
-#     cp ./template.xml ./out/rss.xml
-#     posts=""
-#     while read -r match; do
-#         file=${match%%:*}
-#         title=${match#*:}
-#         title=${title#*'<h1'*'>'}
-#         title=${title%'</h1>'*}
-#         # title=${title//'&amp;'/'&'}
-#         title=${title//'<i>'/} title=${title//'</i>'/} title=${title//'<span class="reset">'/} title=${title//'</span>'/}
-#         title=${title//'<img'*'>'/} # clean up any markup that remains
-#         file=${file#out/}
-#             [ -z "${title/ /}" ] && continue
-#         posts+="<item>\n<title>$title</title>\n<description>${file%.*}</description>\n<link>https://$domain/out/${file}</link>\n</item>\n"
-#     done < <(grep -ProH '<h1.*?>.*</h1>' out/)
-#     sed -i "s\`!ITEMS!\`$posts\`g" ./out/rss.xml
-# }
-
-# !!!
-
-liveStartMessage="
-\e[34m
-         {
-      {   }
-       }_{ __{
-    .-{   }   }-.
-   (   }     {   )
-   |\`-.._____..-'|
-   |             ;--.
-   |            (__  \\
-   |             | )  )
-   |             |/  /
-   |             /  /   
-   |            (  /
-   \\             y'
-    \`-.._____..-'
-\e[0m
-\e[33m
-/----------------------\\
-|\e[1m      LIVE BUILD      \e[0m\e[33m|
-\\----------------------/\e[0m
-"
+liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
 
 # Default: Build All Files
 

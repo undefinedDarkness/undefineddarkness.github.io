@@ -107,7 +107,7 @@ async def main():
     await runner.setup()
     site = web.TCPSite(runner, "localhost", 5000)
     await site.start()
-    print("🔥 Server Started @ \u001b[31mlocalhost:5000\u001b[0m")
+    print("Server Started @ \u001b[31mlocalhost:5000\u001b[0m")
 
     # Initialize File Watcher
     await watch()

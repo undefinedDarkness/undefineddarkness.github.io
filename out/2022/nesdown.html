@@ -40,8 +40,7 @@ It just barely colliding into inline HTML markup but processes any markdown it f
 So now something like this<br/>
 <pre>
 	<code>&lt;div class&equals;'txt-c'&gt;&lsqb;View Page Source&rsqb;(/src/2022/nesdown.md)&lt;/div&gt;
-
-	</code>
+</code>
 </pre>
 will generate:<br/>
 <div class='txt-c'><a href="/src/2022/nesdown.md">View Page Source</a></div><br/>
@@ -54,8 +53,7 @@ This isn't anything new either, but I cant ever remember the syntax for other fl
 	<code>&gt;&gt;&gt;
 Be the change you want to see in the world.
 &gt;&gt;&gt; Mahtma Gandhi
-
-	</code>
+</code>
 </pre>
 becomes<br/>
 <figure>
@@ -72,8 +70,7 @@ Be the change you want to see in the world.<br/>
 Because I could, I barely use these...<br/>
 <pre>
 	<code>&equals;&equals;Pay attention to me&equals;&equals;
-
-	</code>
+</code>
 </pre>
 <br/>
 <mark>You better</mark><br/>
@@ -121,8 +118,7 @@ And making a transformer is as simply as creating a new bash function.<br/>
 </p>
 <h3 id="table-transformer">Table Transformer</h3>
 <p>
-Markdown table syntax is just painful. Sure, it's readable in text form but thats only if you have a mess of differently sized columns and data values which is really easy to get into,<br/>
-<br/>
+Markdown table syntax is just painful to edit manually, You almost always need to use some sort of tool to make it work correctly<br/>
 Since of course I could do a better job than all the bright people that have spent a lot of time thinking about the markdown syntax, This was what I came up with and to be entirely honestly, I'm quite happy with it, It's not very clear but it's decently readable and fortunatley easy to modify as well.<br/>
 <br/>
 <pre>
@@ -131,8 +127,7 @@ Since of course I could do a better job than all the bright people that have spe
        Orange   Tomato
        Banana   Eggplant
 &#35;END TABLE
-
-	</code>
+</code>
 </pre>
 becomes<br/>
 <div class="ovr-x"><table class="">
@@ -167,8 +162,7 @@ A slight syntactic sugar over <code>&lt;detail&gt;</code> & <code>&lt;summary&gt
 	<code>&#35;f It's a secret
 I said it was a secret &gt;:(
 &#35;END f
-
-	</code>
+</code>
 </pre>
 becomes<br/>
 
