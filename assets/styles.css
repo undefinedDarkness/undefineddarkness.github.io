@@ -72,8 +72,17 @@ code {
     line-height: initial;
 }
 
+img.inline {
+	max-width: 18em;
+	float: left;
+	display: inline-block;
+	margin-right: 1em;
+	margin-bottom: 1em;
+	width: unset;
+}
+
 pre {
-    overflow-y: hidden;
+	overflow-y: hidden;
     overflow-x: auto;
     text-align: left;
     margin: 0;
@@ -102,11 +111,14 @@ p {
 }
 
 a {
-    text-decoration: underline;
-    color: inherit;
+	color: #aaa;
+	text-decoration: none;
     word-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
+}
+a.special {
+	color: inherit;
 }
 
 

@@ -1,5 +1,6 @@
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg)
 # Fast Inverse Square Root (Quake III Arena)
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg" class="inline">
 In 1999, The Source code for the game quake 3 arena was released, containing a rather ingenious algoritm for calculating the inverse square root of a number (\(\frac{1}{\sqrt{x}}\)), In a case, its required to calculate this very often for vector calculations and when quake 3 was being made, it was an expensive calculation that required approximation.
 
 ```c

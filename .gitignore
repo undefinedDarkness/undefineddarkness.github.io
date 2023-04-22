@@ -1,4 +1,4 @@
 ./research/bin/*
 node_modules
 *.tsbuildinfo
-package-lock.json
+package-lock.jsonreseach/fsin

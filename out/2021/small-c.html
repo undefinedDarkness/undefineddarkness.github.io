@@ -5,14 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="author" content="nes" />
-		<title>Making a small working binary</title>
+		<title>Optimizing for size</title>
 		<link rel="stylesheet" href="/assets/styles.css" />
 	</head>
 	<body>
 	  <article>
 
 <header>
-<h1>Making a small working binary</h1>
+<h1>Optimizing for size</h1>
 </header>
 <br/>
 I was wondering how small it was possible to make could get a non trivial program, without actually changing the code itself, ie: mostly compiler flags and such.<br/>
@@ -86,13 +86,12 @@ You can find out what it does by starting from here, <a href="https://gcc.gnu.or
 <p>
 Since we are willing to play hard and fast with how perfectly, our code executes, We can try being more aggressive in stripping information from our binary.<br/>
 <br/>
-GNU Binutils includes the <code>strip</code> utility which its manpage tells us, Is used to discard symbols and other data from object files<br/>
+GNU Binutils includes the <code>strip</code> utility whose manpage tells us, Is used to discard symbols and other data from object files<br/>
 Seems like what we are looking for.<br/>
 <br/>
 Adding it via the compiler flag <code>-s</code>, We get a binary 26% smaller than the 76kb original, not bad.<br/>
 <br/>
-Following the saying, "Good artists create, Great artists steal",<br/>
-Consulting <a href="https://github.com/johnthagen/min-sized-rust">https://github.com/johnthagen/min-sized-rust</a> , We find one thing of interest, Link Time Optimization (LTO)..<br/>
+Following the saying, "Good artists create, Great artists steal", Consulting <a href="https://github.com/johnthagen/min-sized-rust">https://github.com/johnthagen/min-sized-rust</a> , We find one thing of interest, Link Time Optimization (LTO)..<br/>
 <br/>
 </p>
 <h3 id="-flto">-flto</h3>
@@ -128,11 +127,14 @@ I am very pleased with that..<br/>
 Of course, even this isn't anything compared to marvellous feats of engineering like <a href="https://en.wikipedia.org/wiki/.kkrieger">.kkreiger</a>, A entire 3d fps game demo in a extremely impressive 95kb,<br/>
 When code is <i>actually written</i> to be small, and optimized to the limit towards that purpose.<br/>
 More on why:<br/>
-<a href="https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/">https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/</a><br/>
-<a href="https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/">https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/</a><br/>
-<a href="https://www.youtube.com/watch?v=bD1wWY1YD-M">https://www.youtube.com/watch?v=bD1wWY1YD-M</a><br/>
+<ul>
+<li><a href="https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/">https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/</a><br/>
+</li>
+<li><a href="https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/">https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/</a><br/>
+</li>
+<li><a href="https://www.youtube.com/watch?v=bD1wWY1YD-M">https://www.youtube.com/watch?v=bD1wWY1YD-M</a><br/>
 			<footer style="margin-bottom: 2em;">
-				<a href="/out/index.html">Return To Index</a>
+				<a class="special" href="/out/index.html">Return To Index</a>
 			</footer>
 	  </article>
 	</body>

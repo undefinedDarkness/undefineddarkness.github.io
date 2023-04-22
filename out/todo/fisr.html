@@ -11,12 +11,13 @@
 	<body>
 	  <article>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg" alt="" title="" loading="lazy" /><br/>
 <header>
 <h1>Fast Inverse Square Root (Quake III Arena)</h1>
 </header>
-In 1999, The Source code for the game quake 3 arena was released, containing a rather ingenious algoritm for calculating the inverse square root of a number (\(\frac{1}{\sqrt{x}}\)), In a case, its required to calculate this very often for vector calculations and when quake 3 was being made, it was an expensive calculation that required approximation.<br/>
 <br/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg" class="inline">
+In 1999, The Source code for the game quake 3 arena was released, containing a rather ingenious algoritm for calculating the inverse square root of a number (\(\frac{1}{\sqrt{x}}\)), In a case, its required to calculate this very often for vector calculations and when quake 3 was being made, it was an expensive calculation that required approximation.
+
 <pre>
 	<code><span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#aabfe3">Q_rsqrt</span><span style="color:#dcdccc">(</span> <span style="color:#dfdfbf; font-weight:bold">float</span> number <span style="color:#dcdccc">)</span>
 <span style="color:#dcdccc">{</span>
@@ -36,24 +37,24 @@ In 1999, The Source code for the game quake 3 arena was released, containing a r
 <span style="color:#dcdccc">}</span>
 	</code>
 </pre>
-<br/>
-To understand this bit of trickery, we need to know a few things,<br/>
+
+To understand this bit of trickery, we need to know a few things,
 <ul>
-<li>Binary reprensentation of integers and floating point numbers<br/>
+<li>Binary reprensentation of integers and floating point numbers
 </li>
-<li>Math behind it<br/>
+<li>Math behind it
 </li>
-<li>C trickery<br/>
+<li>C trickery
 </li>
 </ul><br/><h2 id="binary-reprentation of numbers">Binary Reprentation of Numbers</h2>
 <p>
 </p>
 <h3 id="integers">Integers</h3>
 <p>
-A <code>int32_t</code> as the name implies is 32 bits long<br/>
-<img src="/assets/images/binary.svg" alt="" title="" loading="lazy" /><br/>
-<br/>
-<br/>
+A <code>int32_t</code> as the name implies is 32 bits long
+<img src="/assets/images/binary.svg" alt="" title="" loading="lazy" />
+
+
 \[
 
 \]
@@ -66,7 +67,7 @@ A <code>int32_t</code> as the name implies is 32 bits long<br/>
 		"></script>
 		
 			<footer style="margin-bottom: 2em;">
-				<a href="/out/index.html">Return To Index</a>
+				<a class="special" href="/out/index.html">Return To Index</a>
 			</footer>
 	  </article>
 	</body>

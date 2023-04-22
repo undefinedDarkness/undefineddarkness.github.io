@@ -1,4 +1,4 @@
-# Making a small working binary
+# Optimizing for size
 
 I was wondering how small it was possible to make could get a non trivial program, without actually changing the code itself, ie: mostly compiler flags and such.
 
@@ -65,13 +65,12 @@ You can find out what it does by starting from here, https://gcc.gnu.org/onlined
 ### -s
 Since we are willing to play hard and fast with how perfectly, our code executes, We can try being more aggressive in stripping information from our binary.
 
-GNU Binutils includes the `strip` utility which its manpage tells us, Is used to discard symbols and other data from object files
+GNU Binutils includes the `strip` utility whose manpage tells us, Is used to discard symbols and other data from object files
 Seems like what we are looking for.
 
 Adding it via the compiler flag `-s`, We get a binary 26% smaller than the 76kb original, not bad.
 
-Following the saying, "Good artists create, Great artists steal",
-Consulting https://github.com/johnthagen/min-sized-rust , We find one thing of interest, Link Time Optimization (LTO)..
+Following the saying, "Good artists create, Great artists steal", Consulting https://github.com/johnthagen/min-sized-rust , We find one thing of interest, Link Time Optimization (LTO)..
 
 ### -flto
 Basically this tells the linker to apply optimizations during linking time. It's more complicated than that but I don't understand it.
@@ -101,6 +100,6 @@ I am very pleased with that..
 Of course, even this isn't anything compared to marvellous feats of engineering like [.kkreiger](https://en.wikipedia.org/wiki/.kkrieger), A entire 3d fps game demo in a extremely impressive 95kb,
 When code is *actually written* to be small, and optimized to the limit towards that purpose.
 More on why:
-https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/
-https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/
-https://www.youtube.com/watch?v=bD1wWY1YD-M
+- https://fgiesen.wordpress.com/2012/02/13/debris-opening-the-box/
+- https://fgiesen.wordpress.com/2012/04/08/metaprogramming-for-madmen/
+- https://www.youtube.com/watch?v=bD1wWY1YD-M

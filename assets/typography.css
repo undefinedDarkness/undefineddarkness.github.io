@@ -1,17 +1,20 @@
 @font-face {
 	font-family: "Work Sans";
 	src: url("./other/WorkSans.woff2");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: "PT Serif";
 	src: url("./other/PTSerif.woff");
+	font-display: swap;
 }
 
 @font-face {
 	font-family: "PT Serif";
 	src: url("./other/PTF75F-webfont.woff");
 	font-weight: bold;
+	font-display: swap;
 }
 
 :root {
@@ -40,7 +43,7 @@ kbd, pre, code {
 }
 
 summary{font-size: larger;}
-figcaption,var,.special{font-style: italic}
+figcaption,var,span.special{font-style: italic}
 
 h1,h2,h3,h4,h5,h6 {
 	font-family: "PT Serif";
@@ -56,8 +59,8 @@ h1,h2,h3 {
 }
 
 h1 {
-	margin-bottom: 0.1em;
-    font-size: calc(2.5 * var(--article-size));
+	margin-bottom: 0.4em;
+    font-size: calc(2.1 * var(--article-size));
 }
 
 

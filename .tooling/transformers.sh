@@ -51,6 +51,61 @@ verbatim () {
 # Create a table with
 # the columns defined by a tab seperated list
 # and the rows denoted by newlines
+
+# TODO: Eliminate script and use css only
+# https://css-tricks.com/css-only-carousel/
+# TODO: Allow multile carousels in one page
+carousel () {
+	script="const slideGallery = document.querySelector('.slides');
+const slides = slideGallery.querySelectorAll('div');
+const thumbnailContainer = document.querySelector('.thumbnails');
+const slideCount = slides.length;
+const slideWidth = slides[0].offsetWidth;
+
+const highlightThumbnail = () => {
+  thumbnailContainer
+    .querySelectorAll('div.highlighted')
+    .forEach(el => el.classList.remove('highlighted'));
+  const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+  thumbnailContainer
+    .querySelector('div[data-id=\"' + index + '\"]')
+    .classList.add('highlighted');
+};
+
+const scrollToElement = el => {
+  const index = parseInt(el.dataset.id, 10);
+  slideGallery.scrollTo(index * slideWidth, 0);
+};
+
+thumbnailContainer.innerHTML += [...slides]
+  .map((slide, i) => '<div data-id=\"' + i  + '\"></div>')
+  .join('');
+
+thumbnailContainer.querySelectorAll('div').forEach(el => {
+  el.addEventListener('click', () => scrollToElement(el));
+});
+
+slideGallery.addEventListener('scroll', e => highlightThumbnail());
+
+highlightThumbnail();"
+	content="$1"
+	printf '
+	<div class="gallery-container">
+	<div class="thumbnails"></div>
+		<div class="slides">\n'
+	while read -r line; do
+		printf '<div><img src="%s"></div>' "${line%'<br/>'}"
+	done <<< "$content"
+	printf '</div>
+	</div>
+	<script defer>%s</script>\n' "$script"
+}
+
+columns () {
+	content="$1"
+	printf '<div class="row>%s</div>' "$content"
+}
+
 table () {
 	content="$1"
 	shift
@@ -69,8 +124,8 @@ table () {
 
 	headings=""
 	classes=""
-	IFS=$TAB
-	for heading in $1; do
+	#IFS=$TAB
+	for heading in "$@"; do
 		case "$heading" in
 			'#TABLE')
 				;;
@@ -83,6 +138,7 @@ table () {
 				;;
 		esac
 	done
+	dbg "Found classes: '$classes' and headings: '$headings'"
 	echo "<table class=\"$classes\">"
 	if [ -n "${headings/ /}" ]; then
 		printf "<thead>"

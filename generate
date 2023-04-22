@@ -108,7 +108,7 @@ generate_index () {
             clean_markup title
             
             [ -z "${title/ /}" ] && continue
-            posts+="<li><a href='/$file'>$title</a></li>\n"
+            posts+="<li><a class='special' href='/$file'>$title</a></li>\n"
 			((count++))
 		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
         folder=${folder#*/}
@@ -124,6 +124,12 @@ liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
 # Default: Build All Files
 
 case "$1" in
+	"rm")
+		rm -r ./out/${2}.html
+		rm -r ./src/${2}.md
+		generate_index
+		exit
+		;;
     "serve")
         python3 -m http.server 5050
 		exit
