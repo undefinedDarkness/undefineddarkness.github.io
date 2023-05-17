@@ -1,0 +1,13 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadMaterial</span><span style="color:#000000">(</span>Material material<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// Unload material shader (avoid unloading default shader, managed by raylib)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>material<span style="color:#000000">.</span>shader<span style="color:#000000">.</span>id <span style="color:#000000">!=</span> <span style="color:#010181">rlGetShaderIdDefault</span><span style="color:#000000">())</span> <span style="color:#010181">UnloadShader</span><span style="color:#000000">(</span>material<span style="color:#000000">.</span>shader<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Unload loaded texture maps (avoid unloading default texture, managed by raylib)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>material<span style="color:#000000">.</span>maps <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> MAX_MATERIAL_MAPS<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>material<span style="color:#000000">.</span>maps<span style="color:#000000">[</span>i<span style="color:#000000">].</span>texture<span style="color:#000000">.</span>id <span style="color:#000000">!=</span> <span style="color:#010181">rlGetTextureIdDefault</span><span style="color:#000000">())</span> <span style="color:#010181">rlUnloadTexture</span><span style="color:#000000">(</span>material<span style="color:#000000">.</span>maps<span style="color:#000000">[</span>i<span style="color:#000000">].</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>material<span style="color:#000000">.</span>maps<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,7 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadTexture</span><span style="color:#000000">(</span>Texture2D texture<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">rlUnloadTexture</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;TEXTURE: [ID %i] Unloaded texture data from VRAM (GPU)&quot;</span><span style="color:#000000">,</span> texture<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

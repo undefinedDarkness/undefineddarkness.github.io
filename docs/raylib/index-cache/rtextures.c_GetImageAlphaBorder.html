@@ -1,0 +1,31 @@
+Rectangle <span style="color:#010181">GetImageAlphaBorder</span><span style="color:#000000">(</span>Image image<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> threshold<span style="color:#000000">){</span>
+    Rectangle crop <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Color <span style="color:#000000">*</span>pixels <span style="color:#000000">=</span> <span style="color:#010181">LoadImageColors</span><span style="color:#000000">(</span>image<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>pixels <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#0057ae">int</span> xMin <span style="color:#000000">=</span> <span style="color:#b07e00">65536</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Define a big enough number</span>
+        <span style="color:#0057ae">int</span> xMax <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> yMin <span style="color:#000000">=</span> <span style="color:#b07e00">65536</span><span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> yMax <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> y <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> y <span style="color:#000000">&lt;</span> image<span style="color:#000000">.</span>height<span style="color:#000000">;</span> y<span style="color:#000000">++)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> x <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> x <span style="color:#000000">&lt;</span> image<span style="color:#000000">.</span>width<span style="color:#000000">;</span> x<span style="color:#000000">++)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>pixels<span style="color:#000000">[</span>y<span style="color:#000000">*</span>image<span style="color:#000000">.</span>width <span style="color:#000000">+</span> x<span style="color:#000000">].</span>a <span style="color:#000000">&gt; (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)(</span>threshold<span style="color:#000000">*</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">))</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>x <span style="color:#000000">&lt;</span> xMin<span style="color:#000000">)</span> xMin <span style="color:#000000">=</span> x<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>x <span style="color:#000000">&gt;</span> xMax<span style="color:#000000">)</span> xMax <span style="color:#000000">=</span> x<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>y <span style="color:#000000">&lt;</span> yMin<span style="color:#000000">)</span> yMin <span style="color:#000000">=</span> y<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>y <span style="color:#000000">&gt;</span> yMax<span style="color:#000000">)</span> yMax <span style="color:#000000">=</span> y<span style="color:#000000">;</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#838183; font-style:italic">// Check for empty blank image</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>xMin <span style="color:#000000">!=</span> <span style="color:#b07e00">65536</span><span style="color:#000000">) &amp;&amp; (</span>xMax <span style="color:#000000">!=</span> <span style="color:#b07e00">65536</span><span style="color:#000000">))</span>
+        <span style="color:#000000">{</span>
+            crop <span style="color:#000000">= (</span>Rectangle<span style="color:#000000">){ (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>xMin<span style="color:#000000">, (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>yMin<span style="color:#000000">, (</span><span style="color:#0057ae">float</span><span style="color:#000000">)((</span>xMax <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">) -</span> xMin<span style="color:#000000">), (</span><span style="color:#0057ae">float</span><span style="color:#000000">)((</span>yMax <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">) -</span> yMin<span style="color:#000000">) };</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">UnloadImageColors</span><span style="color:#000000">(</span>pixels<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> crop<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

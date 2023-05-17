@@ -1,11 +1,13 @@
 # Memory for Idiots (like me)
-Just a collection of my notes from my time using C
+Just a collection of my notes from my time learning C
 
 ## Analogy
 ![](/assets/images/memory-analogy.svg)
 Essentially the CPU cache is like a tub of water you have at home (program), But since it's at home, its very fast to access it.
 The stack is like a outdoor water tank, still very fast to access but slower than the cache and you can access a lot more water at once too.
 The heap is like a village well, It takes time to get to it but once you're there, you can effectivley get as much water as you want.
+
+There technically, is a much more nuanced difference between the stack and the heap and they can be entirely just in one's head but it makes explaining stuff a lot simpler.
 
 ### Example Problem: Returning a string from a function
 Let's say we want to write a function in C to return a string time stamp, Very simple right?
@@ -83,7 +85,51 @@ Solution 3 could cause a memory leak if the caller forgets to free the memory.
 
 So it's important to pick the correct solution for the problem at hand, in this case, Solution 2 or 3 would be good.
 
-## Getting Memory
+## Pointers Primer
+Pointers are simply (64bit integer) **addresses to somewhere in memory**, They can either point to nothing (NULL) or a valid memory address.
+Pointers usually are associated with a certain type but since C doesn't have generics, It's commonplace to cast them to `void*` which can then be casted again to any type you wish.
+
+Whenever you want to give a function access to something without giving it a whole copy of it (Nothing wrong with this for small things), you use a pointer.
+
+You can obtain the address of local variables with the `&` operator.
+
+C arrays are contiguous in memory meaning that each element is directly after another so if you know the element size, You can loop through the array with only pointers,
+This can be useful if you don't know the size of the array but you know that it terminates in NULL
+```c
+void example(char** strArray) {
+    char* str=strArray;
+    while(str!=NULL) {
+        printf("%s\t",str);
+        str+=sizeof(char*);
+    }
+}
+```
+
+The biggest difference between a 32bit architecture and 64bit is that in 32bit, the pointers are only 32bits long (4bytes) which limits memory size to 4GB, on 64bit they are double the size so can access as much as 16 exabytes of memory. 
+
+[More on pointers](https://beej.us/blog/data/c-pointers/)
+
+<div class="row">
+#TABLE  Type		Bytes
+        int			4 
+        short		2
+        void*		8
+        float		4
+        double		8
+        char		1
+		long		8
+		llu			8
+		size_t		8
+		ptrdiff_t	8
+#END TABLE
+<p>
+**NOTE**: Size of integer types tends to vary according to platform
+If you need exactly sized integers use `stdint.h`
+[manpage](https://man7.org/linux/man-pages/man7/system_data_types.7.html)
+</p>
+</div>
+
+## Handling Memory
 Note: In case of encountering an error like insufficient memory, these functions will return NULL and set `errno`, See the manpage.
 <div class="row">
 <div>
@@ -99,6 +145,8 @@ Get zero initialized memory
 Get uninitialized memory aligned on a given boundry
 </div>
 </div>
+
+Whenever you wish to resize your given block of memory, `realloc` is used.
 [[man:malloc]]
 
 ### mmap
@@ -124,12 +172,17 @@ memcpy(buffer, str, strlen(str)+1);
 msync(buffer, strlen(str)+1, MS_SYNC);
 munmap(buffer, strlen(str)+1);
 ```
-Full example: https://kuafu1994.github.io/MoreOnMemory/shared-memory.html
+[Full example](https://kuafu1994.github.io/MoreOnMemory/shared-memory.html)
 [[man:mmap]]
+
+### alloca
+This is used to sort of pretend the stack works like the heap and can be used to allocate memory on the stack, The benefit is that it will automatically be freed and it's possible that the memory returned will be faster to access,
+But with alloca you can never know if the allocation failed or not since if the allocation causes stack overflow, behaviour is not defined.
+[[man:alloca]]
 
 ## Leaks
 Unfortunatley we aren't always forget and it is all too easy to forget to ever free a block of memory.
-This isn't too bad when the chunk is small but it's best to try to plug all the leaks you can since it can crash your application or slow it down a lot.
+This isn't bad when the chunk is small but it's best to try to plug all the **big** leaks you can since it can crash your application or slow it down a lot.
 
 ### -fsanitize=address
 These days any program compiled with AddressSanitizer (ASAN) should automatically any leaks in it even with line numbers.
@@ -161,10 +214,15 @@ An external tool called valgrind can also be used to find memory leaks
 It can even report other stuff like using uninitialized values etc.
 
 ```
-$ valgrind --memcheck=full ./e
+$ valgrind --leak-check=full ./e
 ...
 ==18045== 100 bytes in 1 blocks are definitely lost in loss record 1 of 1
 ==18045==    at 0x483877F: malloc (vg_replace_malloc.c:307)
 ==18045==    by 0x201171: main (e.c:3)
 ...
 ```
+
+## Other Documents
+Beej's Guide to C: https://beej.us/guide/bgc/html/split/
+Beej's Guide to the C stdlib: https://beej.us/guide/bgclr/html/split/
+https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator

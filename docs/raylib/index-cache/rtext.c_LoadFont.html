@@ -1,0 +1,40 @@
+Font <span style="color:#010181">LoadFont</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// Default values for ttf font generation</span>
+<span style="color:#008200">#ifndef FONT_TTF_DEFAULT_SIZE</span>
+    <span style="color:#008200">#define FONT_TTF_DEFAULT_SIZE           32</span>      <span style="color:#838183; font-style:italic">// TTF font generation default char size (char-height)</span>
+<span style="color:#008200"></span><span style="color:#008200">#endif</span>
+<span style="color:#008200">#ifndef FONT_TTF_DEFAULT_NUMCHARS</span>
+    <span style="color:#008200">#define FONT_TTF_DEFAULT_NUMCHARS       95</span>      <span style="color:#838183; font-style:italic">// TTF font generation default charset: 95 glyphs (ASCII 32..126)</span>
+<span style="color:#008200"></span><span style="color:#008200">#endif</span>
+<span style="color:#008200">#ifndef FONT_TTF_DEFAULT_FIRST_CHAR</span>
+    <span style="color:#008200">#define FONT_TTF_DEFAULT_FIRST_CHAR     32</span>      <span style="color:#838183; font-style:italic">// TTF font generation default first char for image sprite font (32-Space)</span>
+<span style="color:#008200"></span><span style="color:#008200">#endif</span>
+<span style="color:#008200">#ifndef FONT_TTF_DEFAULT_CHARS_PADDING</span>
+    <span style="color:#008200">#define FONT_TTF_DEFAULT_CHARS_PADDING   4</span>      <span style="color:#838183; font-style:italic">// TTF font generation default chars padding</span>
+<span style="color:#008200"></span><span style="color:#008200">#endif</span>
+    Font font <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_TTF)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.ttf&quot;</span><span style="color:#000000">) ||</span> <span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.otf&quot;</span><span style="color:#000000">))</span> font <span style="color:#000000">=</span> <span style="color:#010181">LoadFontEx</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> FONT_TTF_DEFAULT_SIZE<span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> FONT_TTF_DEFAULT_NUMCHARS<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_FNT)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.fnt&quot;</span><span style="color:#000000">))</span> font <span style="color:#000000">=</span> <span style="color:#010181">LoadBMFont</span><span style="color:#000000">(</span>fileName<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000">{</span>
+        Image image <span style="color:#000000">=</span> <span style="color:#010181">LoadImage</span><span style="color:#000000">(</span>fileName<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>image<span style="color:#000000">.</span>data <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> font <span style="color:#000000">=</span> <span style="color:#010181">LoadFontFromImage</span><span style="color:#000000">(</span>image<span style="color:#000000">,</span> MAGENTA<span style="color:#000000">,</span> FONT_TTF_DEFAULT_FIRST_CHAR<span style="color:#000000">);</span>
+        <span style="color:#010181">UnloadImage</span><span style="color:#000000">(</span>image<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>font<span style="color:#000000">.</span>texture<span style="color:#000000">.</span>id <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;FONT: [%s] Failed to load font texture -&gt; Using default font&quot;</span><span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+        font <span style="color:#000000">=</span> <span style="color:#010181">GetFontDefault</span><span style="color:#000000">();</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">SetTextureFilter</span><span style="color:#000000">(</span>font<span style="color:#000000">.</span>texture<span style="color:#000000">,</span> TEXTURE_FILTER_POINT<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// By default, we set point filter (the best performance)</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;FONT: Data loaded successfully (%i pixel size | %i glyphs)&quot;</span><span style="color:#000000">,</span> FONT_TTF_DEFAULT_SIZE<span style="color:#000000">,</span> FONT_TTF_DEFAULT_NUMCHARS<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> font<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

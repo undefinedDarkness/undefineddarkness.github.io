@@ -63,12 +63,12 @@ However in my experience this doesnt always happen, quite often the decrease is 
 You can find out what it does by starting from here, https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options
 
 ### -s
-Since we are willing to play hard and fast with how perfectly, our code executes, We can try being more aggressive in stripping information from our binary.
-
-GNU Binutils includes the `strip` utility whose manpage tells us, Is used to discard symbols and other data from object files
-Seems like what we are looking for.
+Despite adding `-Os`, the compiler still adds in a bunch of debug information that we don't really need, so if we ask we can `strip` it from the binary.
 
 Adding it via the compiler flag `-s`, We get a binary 26% smaller than the 76kb original, not bad.
+(Instead of the compiler flag, you can use `-s` on a compiled binary.)
+
+You can sort of see this with the `strings` utility, initially our binary contained 1363 strings, after stripping it contained 339.
 
 Following the saying, "Good artists create, Great artists steal", Consulting https://github.com/johnthagen/min-sized-rust , We find one thing of interest, Link Time Optimization (LTO)..
 

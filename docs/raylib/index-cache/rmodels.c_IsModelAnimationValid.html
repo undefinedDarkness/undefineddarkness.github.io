@@ -1,0 +1,12 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsModelAnimationValid</span><span style="color:#000000">(</span>Model model<span style="color:#000000">,</span> ModelAnimation anim<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>model<span style="color:#000000">.</span>boneCount <span style="color:#000000">!=</span> anim<span style="color:#000000">.</span>boneCount<span style="color:#000000">)</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> model<span style="color:#000000">.</span>boneCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>model<span style="color:#000000">.</span>bones<span style="color:#000000">[</span>i<span style="color:#000000">].</span>parent <span style="color:#000000">!=</span> anim<span style="color:#000000">.</span>bones<span style="color:#000000">[</span>i<span style="color:#000000">].</span>parent<span style="color:#000000">) {</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">; }</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,10 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetClipboardText</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>text<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#010181">glfwSetClipboardString</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> text<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_WEB)</span>
+    <span style="color:#838183; font-style:italic">// Security check to (partially) avoid malicious code</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">strchr</span><span style="color:#000000">(</span>text<span style="color:#000000">,</span> <span style="color:#bf0303">&apos;</span><span style="color:#ff00ff">\&apos;</span><span style="color:#bf0303">&apos;</span><span style="color:#000000">) !=</span> NULL<span style="color:#000000">)</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;SYSTEM: Provided Clipboard could be potentially malicious, avoid [</span><span style="color:#ff00ff">\&apos;</span><span style="color:#bf0303">] character&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">emscripten_run_script</span><span style="color:#000000">(</span><span style="color:#010181">TextFormat</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;navigator.clipboard.writeText(&apos;%s&apos;)&quot;</span><span style="color:#000000">,</span> text<span style="color:#000000">));</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

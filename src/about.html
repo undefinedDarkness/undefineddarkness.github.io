@@ -1,3 +1,4 @@
+<!-- vim: fdm=marker:-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/assets/other/about.css" />
 </head>
 
 <body class="halt-animation">
 
+	<section class="viewport hidden" id='intro'><!-- {{{ -->
     <div id="cursor"></div>
     <div>
         <div id="rectangle" class="box">
@@ -27,7 +30,7 @@
         </div>
     </div>
 
-    <div id="foldoutbutton">
+    <div id="foldoutbutton" data-popoutopen="true">
     </div>
 
     <div id="popout" class="box">
@@ -35,6 +38,28 @@
         <p>I'm a hobbyist <span class="special">programmer</span> in India,
         I have experience working with Linux, Web tech and Desktop Application Development.</p>
     </div>
+	</section><!-- }}} -->
+	
+	<section class='viewport' id='stack'>
+		<div class='tech-grid'>
+				<div class='quad'>
+			<a><i class="devicon-cplusplus-line"></i></a>
+			<a><i class="devicon-c-line"></i></a>
+			<a><i class="devicon-rust-plain"></i></a>
+			</div>
+
+				<div class='quad'>
+			<a><i class="devicon-bash-plain"></i></a>
+			<a><i class="devicon-linux-plain"></i></a>
+				</div>
+
+	<div class='quad'>
+				</div>
+			</div>
+		<div>
+			
+		</div>
+	</section>
 
     <script type="module">
         import '/assets/other/interaction.js'

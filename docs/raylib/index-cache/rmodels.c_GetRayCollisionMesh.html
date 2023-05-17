@@ -1,0 +1,36 @@
+RayCollision <span style="color:#010181">GetRayCollisionMesh</span><span style="color:#000000">(</span>Ray ray<span style="color:#000000">,</span> Mesh mesh<span style="color:#000000">,</span> Matrix transform<span style="color:#000000">){</span>
+    RayCollision collision <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#838183; font-style:italic">// Check if mesh vertex data on CPU for testing</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vertices <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#0057ae">int</span> triangleCount <span style="color:#000000">=</span> mesh<span style="color:#000000">.</span>triangleCount<span style="color:#000000">;</span>
+        <span style="color:#838183; font-style:italic">// Test against all triangles in mesh</span>
+        <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> triangleCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+        <span style="color:#000000">{</span>
+            Vector3 a<span style="color:#000000">,</span> b<span style="color:#000000">,</span> c<span style="color:#000000">;</span>
+            Vector3<span style="color:#000000">*</span> vertdata <span style="color:#000000">= (</span>Vector3<span style="color:#000000">*)</span>mesh<span style="color:#000000">.</span>vertices<span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>indices<span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                a <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>mesh<span style="color:#000000">.</span>indices<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">0</span><span style="color:#000000">]];</span>
+                b <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>mesh<span style="color:#000000">.</span>indices<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">]];</span>
+                c <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>mesh<span style="color:#000000">.</span>indices<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">2</span><span style="color:#000000">]];</span>
+            <span style="color:#000000">}</span>
+            <span style="color:#000000; font-weight:bold">else</span>
+            <span style="color:#000000">{</span>
+                a <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">0</span><span style="color:#000000">];</span>
+                b <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">];</span>
+                c <span style="color:#000000">=</span> vertdata<span style="color:#000000">[</span>i<span style="color:#000000">*</span><span style="color:#b07e00">3</span> <span style="color:#000000">+</span> <span style="color:#b07e00">2</span><span style="color:#000000">];</span>
+            <span style="color:#000000">}</span>
+            a <span style="color:#000000">=</span> <span style="color:#010181">Vector3Transform</span><span style="color:#000000">(</span>a<span style="color:#000000">,</span> transform<span style="color:#000000">);</span>
+            b <span style="color:#000000">=</span> <span style="color:#010181">Vector3Transform</span><span style="color:#000000">(</span>b<span style="color:#000000">,</span> transform<span style="color:#000000">);</span>
+            c <span style="color:#000000">=</span> <span style="color:#010181">Vector3Transform</span><span style="color:#000000">(</span>c<span style="color:#000000">,</span> transform<span style="color:#000000">);</span>
+            RayCollision triHitInfo <span style="color:#000000">=</span> <span style="color:#010181">GetRayCollisionTriangle</span><span style="color:#000000">(</span>ray<span style="color:#000000">,</span> a<span style="color:#000000">,</span> b<span style="color:#000000">,</span> c<span style="color:#000000">);</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>triHitInfo<span style="color:#000000">.</span>hit<span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// Save the closest hit triangle</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((!</span>collision<span style="color:#000000">.</span>hit<span style="color:#000000">) || (</span>collision<span style="color:#000000">.</span>distance <span style="color:#000000">&gt;</span> triHitInfo<span style="color:#000000">.</span>distance<span style="color:#000000">))</span> collision <span style="color:#000000">=</span> triHitInfo<span style="color:#000000">;</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

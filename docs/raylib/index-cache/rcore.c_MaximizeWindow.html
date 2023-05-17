@@ -1,0 +1,9 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">MaximizeWindow</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">glfwGetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_RESIZABLE<span style="color:#000000">) ==</span> GLFW_TRUE<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwMaximizeWindow</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">|=</span> FLAG_WINDOW_MAXIMIZED<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

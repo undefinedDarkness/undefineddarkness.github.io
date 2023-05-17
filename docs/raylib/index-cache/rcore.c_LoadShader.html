@@ -1,0 +1,11 @@
+Shader <span style="color:#010181">LoadShader</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>vsFileName<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fsFileName<span style="color:#000000">){</span>
+    Shader shader <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#0057ae">char</span> <span style="color:#000000">*</span>vShaderStr <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#0057ae">char</span> <span style="color:#000000">*</span>fShaderStr <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>vsFileName <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> vShaderStr <span style="color:#000000">=</span> <span style="color:#010181">LoadFileText</span><span style="color:#000000">(</span>vsFileName<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>fsFileName <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> fShaderStr <span style="color:#000000">=</span> <span style="color:#010181">LoadFileText</span><span style="color:#000000">(</span>fsFileName<span style="color:#000000">);</span>
+    shader <span style="color:#000000">=</span> <span style="color:#010181">LoadShaderFromMemory</span><span style="color:#000000">(</span>vShaderStr<span style="color:#000000">,</span> fShaderStr<span style="color:#000000">);</span>
+    <span style="color:#010181">UnloadFileText</span><span style="color:#000000">(</span>vShaderStr<span style="color:#000000">);</span>
+    <span style="color:#010181">UnloadFileText</span><span style="color:#000000">(</span>fShaderStr<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> shader<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

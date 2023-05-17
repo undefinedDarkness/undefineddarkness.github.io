@@ -1,0 +1,26 @@
+Image <span style="color:#010181">ImageCopy</span><span style="color:#000000">(</span>Image image<span style="color:#000000">){</span>
+    Image newImage <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#0057ae">int</span> width <span style="color:#000000">=</span> image<span style="color:#000000">.</span>width<span style="color:#000000">;</span>
+    <span style="color:#0057ae">int</span> height <span style="color:#000000">=</span> image<span style="color:#000000">.</span>height<span style="color:#000000">;</span>
+    <span style="color:#0057ae">int</span> size <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> image<span style="color:#000000">.</span>mipmaps<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+    <span style="color:#000000">{</span>
+        size <span style="color:#000000">+=</span> <span style="color:#010181">GetPixelDataSize</span><span style="color:#000000">(</span>width<span style="color:#000000">,</span> height<span style="color:#000000">,</span> image<span style="color:#000000">.</span>format<span style="color:#000000">);</span>
+        width <span style="color:#000000">/=</span> <span style="color:#b07e00">2</span><span style="color:#000000">;</span>
+        height <span style="color:#000000">/=</span> <span style="color:#b07e00">2</span><span style="color:#000000">;</span>
+        <span style="color:#838183; font-style:italic">// Security check for NPOT textures</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>width <span style="color:#000000">&lt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span> width <span style="color:#000000">=</span> <span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>height <span style="color:#000000">&lt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span> height <span style="color:#000000">=</span> <span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    newImage<span style="color:#000000">.</span>data <span style="color:#000000">=</span> <span style="color:#010181">RL_MALLOC</span><span style="color:#000000">(</span>size<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>newImage<span style="color:#000000">.</span>data <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// NOTE: Size must be provided in bytes</span>
+        <span style="color:#010181">memcpy</span><span style="color:#000000">(</span>newImage<span style="color:#000000">.</span>data<span style="color:#000000">,</span> image<span style="color:#000000">.</span>data<span style="color:#000000">,</span> size<span style="color:#000000">);</span>
+        newImage<span style="color:#000000">.</span>width <span style="color:#000000">=</span> image<span style="color:#000000">.</span>width<span style="color:#000000">;</span>
+        newImage<span style="color:#000000">.</span>height <span style="color:#000000">=</span> image<span style="color:#000000">.</span>height<span style="color:#000000">;</span>
+        newImage<span style="color:#000000">.</span>mipmaps <span style="color:#000000">=</span> image<span style="color:#000000">.</span>mipmaps<span style="color:#000000">;</span>
+        newImage<span style="color:#000000">.</span>format <span style="color:#000000">=</span> image<span style="color:#000000">.</span>format<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> newImage<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

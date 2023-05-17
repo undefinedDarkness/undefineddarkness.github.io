@@ -1,0 +1,167 @@
+Music <span style="color:#010181">LoadMusicStream</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    Music music <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#0057ae">bool</span> musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">) { }</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_WAV)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.wav&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        drwav <span style="color:#000000">*</span>ctxWav <span style="color:#000000">=</span> <span style="color:#010181">RL_CALLOC</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">,</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>drwav<span style="color:#000000">));</span>
+        <span style="color:#0057ae">bool</span> success <span style="color:#000000">=</span> <span style="color:#010181">drwav_init_file</span><span style="color:#000000">(</span>ctxWav<span style="color:#000000">,</span> fileName<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_AUDIO_WAV<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> ctxWav<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>success<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#0057ae">int</span> sampleSize <span style="color:#000000">=</span> ctxWav<span style="color:#000000">-&gt;</span>bitsPerSample<span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>ctxWav<span style="color:#000000">-&gt;</span>bitsPerSample <span style="color:#000000">==</span> <span style="color:#b07e00">24</span><span style="color:#000000">)</span> sampleSize <span style="color:#000000">=</span> <span style="color:#b07e00">16</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Forcing conversion to s16 on UpdateMusicStream()</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>ctxWav<span style="color:#000000">-&gt;</span>sampleRate<span style="color:#000000">,</span> sampleSize<span style="color:#000000">,</span> ctxWav<span style="color:#000000">-&gt;</span>channels<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span>ctxWav<span style="color:#000000">-&gt;</span>totalPCMFrameCount<span style="color:#000000">;</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_OGG)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.ogg&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Open ogg audio stream</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_AUDIO_OGG<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> <span style="color:#010181">stb_vorbis_open_filename</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            stb_vorbis_info info <span style="color:#000000">=</span> <span style="color:#010181">stb_vorbis_get_info</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>  <span style="color:#838183; font-style:italic">// Get Ogg file info</span>
+            <span style="color:#838183; font-style:italic">// OGG bit rate defaults to 16 bit, it&apos;s enough for compressed format</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>info<span style="color:#000000">.</span>sample_rate<span style="color:#000000">,</span> <span style="color:#b07e00">16</span><span style="color:#000000">,</span> info<span style="color:#000000">.</span>channels<span style="color:#000000">);</span>
+            <span style="color:#838183; font-style:italic">// WARNING: It seems this function returns length in frames, not samples, so we multiply by channels</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span><span style="color:#010181">stb_vorbis_stream_length_in_samples</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MP3)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.mp3&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        drmp3 <span style="color:#000000">*</span>ctxMp3 <span style="color:#000000">=</span> <span style="color:#010181">RL_CALLOC</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">,</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>drmp3<span style="color:#000000">));</span>
+        <span style="color:#0057ae">int</span> result <span style="color:#000000">=</span> <span style="color:#010181">drmp3_init_file</span><span style="color:#000000">(</span>ctxMp3<span style="color:#000000">,</span> fileName<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_AUDIO_MP3<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> ctxMp3<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>result <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>ctxMp3<span style="color:#000000">-&gt;</span>sampleRate<span style="color:#000000">,</span> <span style="color:#b07e00">32</span><span style="color:#000000">,</span> ctxMp3<span style="color:#000000">-&gt;</span>channels<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span><span style="color:#010181">drmp3_get_pcm_frame_count</span><span style="color:#000000">(</span>ctxMp3<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_QOA)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.qoa&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        qoaplay_desc <span style="color:#000000">*</span>ctxQoa <span style="color:#000000">=</span> <span style="color:#010181">qoaplay_open</span><span style="color:#000000">(</span>fileName<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_AUDIO_QOA<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> ctxQoa<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>ctxQoa<span style="color:#000000">-&gt;</span>file <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#838183; font-style:italic">// NOTE: We are loading samples are 32bit float normalized data, so,</span>
+            <span style="color:#838183; font-style:italic">// we configure the output audio stream to also use float 32bit</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>ctxQoa<span style="color:#000000">-&gt;</span>info<span style="color:#000000">.</span>samplerate<span style="color:#000000">,</span> <span style="color:#b07e00">32</span><span style="color:#000000">,</span> ctxQoa<span style="color:#000000">-&gt;</span>info<span style="color:#000000">.</span>channels<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">=</span> ctxQoa<span style="color:#000000">-&gt;</span>info<span style="color:#000000">.</span>samples<span style="color:#000000">;</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_FLAC)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.flac&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_AUDIO_FLAC<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> <span style="color:#010181">drflac_open_file</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            drflac <span style="color:#000000">*</span>ctxFlac <span style="color:#000000">= (</span>drflac <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">;</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>ctxFlac<span style="color:#000000">-&gt;</span>sampleRate<span style="color:#000000">,</span> ctxFlac<span style="color:#000000">-&gt;</span>bitsPerSample<span style="color:#000000">,</span> ctxFlac<span style="color:#000000">-&gt;</span>channels<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span>ctxFlac<span style="color:#000000">-&gt;</span>totalPCMFrameCount<span style="color:#000000">;</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_XM)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.xm&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        jar_xm_context_t <span style="color:#000000">*</span>ctxXm <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> result <span style="color:#000000">=</span> <span style="color:#010181">jar_xm_create_context_from_file</span><span style="color:#000000">(&amp;</span>ctxXm<span style="color:#000000">,</span> AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>device<span style="color:#000000">.</span>sampleRate<span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_MODULE_XM<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> ctxXm<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>result <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>    <span style="color:#838183; font-style:italic">// XM AUDIO.System.context created successfully</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">jar_xm_set_max_loop_count</span><span style="color:#000000">(</span>ctxXm<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// Set infinite number of loops</span>
+            <span style="color:#0057ae">unsigned int</span> bits <span style="color:#000000">=</span> <span style="color:#b07e00">32</span><span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>AUDIO_DEVICE_FORMAT <span style="color:#000000">==</span> ma_format_s16<span style="color:#000000">)</span> bits <span style="color:#000000">=</span> <span style="color:#b07e00">16</span><span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>AUDIO_DEVICE_FORMAT <span style="color:#000000">==</span> ma_format_u8<span style="color:#000000">)</span> bits <span style="color:#000000">=</span> <span style="color:#b07e00">8</span><span style="color:#000000">;</span>
+            <span style="color:#838183; font-style:italic">// NOTE: Only stereo is supported for XM</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>device<span style="color:#000000">.</span>sampleRate<span style="color:#000000">,</span> bits<span style="color:#000000">,</span> AUDIO_DEVICE_CHANNELS<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span><span style="color:#010181">jar_xm_get_remaining_samples</span><span style="color:#000000">(</span>ctxXm<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// NOTE: Always 2 channels (stereo)</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            <span style="color:#010181">jar_xm_reset</span><span style="color:#000000">(</span>ctxXm<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// make sure we start at the beginning of the song</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MOD)</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span><span style="color:#010181">IsFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;.mod&quot;</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        jar_mod_context_t <span style="color:#000000">*</span>ctxMod <span style="color:#000000">=</span> <span style="color:#010181">RL_CALLOC</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">,</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>jar_mod_context_t<span style="color:#000000">));</span>
+        <span style="color:#010181">jar_mod_init</span><span style="color:#000000">(</span>ctxMod<span style="color:#000000">);</span>
+        <span style="color:#0057ae">int</span> result <span style="color:#000000">=</span> <span style="color:#010181">jar_mod_load_file</span><span style="color:#000000">(</span>ctxMod<span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>ctxType <span style="color:#000000">=</span> MUSIC_MODULE_MOD<span style="color:#000000">;</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> ctxMod<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>result <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#838183; font-style:italic">// NOTE: Only stereo is supported for MOD</span>
+            music<span style="color:#000000">.</span>stream <span style="color:#000000">=</span> <span style="color:#010181">LoadAudioStream</span><span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>device<span style="color:#000000">.</span>sampleRate<span style="color:#000000">,</span> <span style="color:#b07e00">16</span><span style="color:#000000">,</span> AUDIO_DEVICE_CHANNELS<span style="color:#000000">);</span>
+            music<span style="color:#000000">.</span>frameCount <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span><span style="color:#010181">jar_mod_max_samples</span><span style="color:#000000">(</span>ctxMod<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// NOTE: Always 2 channels (stereo)</span>
+            music<span style="color:#000000">.</span>looping <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Looping enabled by default</span>
+            musicLoaded <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;STREAM: [%s] File format not supported&quot;</span><span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(!</span>musicLoaded<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">) { }</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_WAV)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_WAV<span style="color:#000000">)</span> <span style="color:#010181">drwav_uninit</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_OGG)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_OGG<span style="color:#000000">)</span> <span style="color:#010181">stb_vorbis_close</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MP3)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_MP3<span style="color:#000000">) {</span> <span style="color:#010181">drmp3_uninit</span><span style="color:#000000">((</span>drmp3 <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">); }</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_QOA)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_QOA<span style="color:#000000">)</span> <span style="color:#010181">qoaplay_close</span><span style="color:#000000">((</span>qoaplay_desc <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_FLAC)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_FLAC<span style="color:#000000">)</span> <span style="color:#010181">drflac_free</span><span style="color:#000000">((</span>drflac <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_XM)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_MODULE_XM<span style="color:#000000">)</span> <span style="color:#010181">jar_xm_free_context</span><span style="color:#000000">((</span>jar_xm_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MOD)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_MODULE_MOD<span style="color:#000000">) {</span> <span style="color:#010181">jar_mod_unload</span><span style="color:#000000">((</span>jar_mod_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">); }</span>
+    <span style="color:#008200">#endif</span>
+        music<span style="color:#000000">.</span>ctxData <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;FILEIO: [%s] Music file could not be opened&quot;</span><span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Show some music stream info</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;FILEIO: [%s] Music file loaded successfully&quot;</span><span style="color:#000000">,</span> fileName<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; Sample rate:   %i Hz&quot;</span><span style="color:#000000">,</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleRate<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; Sample size:   %i bits&quot;</span><span style="color:#000000">,</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleSize<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; Channels:      %i (%s)&quot;</span><span style="color:#000000">,</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels<span style="color:#000000">, (</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels <span style="color:#000000">==</span> <span style="color:#b07e00">1</span><span style="color:#000000">)?</span> <span style="color:#bf0303">&quot;Mono&quot;</span> <span style="color:#000000">: (</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels <span style="color:#000000">==</span> <span style="color:#b07e00">2</span><span style="color:#000000">)?</span> <span style="color:#bf0303">&quot;Stereo&quot;</span> <span style="color:#000000">:</span> <span style="color:#bf0303">&quot;Multi&quot;</span><span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; Total frames:  %i&quot;</span><span style="color:#000000">,</span> music<span style="color:#000000">.</span>frameCount<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> music<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,13 @@
+Texture2D <span style="color:#010181">LoadTextureFromImage</span><span style="color:#000000">(</span>Image image<span style="color:#000000">){</span>
+    Texture2D texture <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>image<span style="color:#000000">.</span>width <span style="color:#000000">!=</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; (</span>image<span style="color:#000000">.</span>height <span style="color:#000000">!=</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        texture<span style="color:#000000">.</span>id <span style="color:#000000">=</span> <span style="color:#010181">rlLoadTexture</span><span style="color:#000000">(</span>image<span style="color:#000000">.</span>data<span style="color:#000000">,</span> image<span style="color:#000000">.</span>width<span style="color:#000000">,</span> image<span style="color:#000000">.</span>height<span style="color:#000000">,</span> image<span style="color:#000000">.</span>format<span style="color:#000000">,</span> image<span style="color:#000000">.</span>mipmaps<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;IMAGE: Data is not valid to load texture&quot;</span><span style="color:#000000">);</span>
+    texture<span style="color:#000000">.</span>width <span style="color:#000000">=</span> image<span style="color:#000000">.</span>width<span style="color:#000000">;</span>
+    texture<span style="color:#000000">.</span>height <span style="color:#000000">=</span> image<span style="color:#000000">.</span>height<span style="color:#000000">;</span>
+    texture<span style="color:#000000">.</span>mipmaps <span style="color:#000000">=</span> image<span style="color:#000000">.</span>mipmaps<span style="color:#000000">;</span>
+    texture<span style="color:#000000">.</span>format <span style="color:#000000">=</span> image<span style="color:#000000">.</span>format<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> texture<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

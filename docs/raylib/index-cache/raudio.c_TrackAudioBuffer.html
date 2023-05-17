@@ -1,0 +1,13 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">TrackAudioBuffer</span><span style="color:#000000">(</span>AudioBuffer <span style="color:#000000">*</span>buffer<span style="color:#000000">){</span>
+    <span style="color:#010181">ma_mutex_lock</span><span style="color:#000000">(&amp;</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>lock<span style="color:#000000">);</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>Buffer<span style="color:#000000">.</span>first <span style="color:#000000">==</span> NULL<span style="color:#000000">)</span> AUDIO<span style="color:#000000">.</span>Buffer<span style="color:#000000">.</span>first <span style="color:#000000">=</span> buffer<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">else</span>
+        <span style="color:#000000">{</span>
+            AUDIO<span style="color:#000000">.</span>Buffer<span style="color:#000000">.</span>last<span style="color:#000000">-&gt;</span>next <span style="color:#000000">=</span> buffer<span style="color:#000000">;</span>
+            buffer<span style="color:#000000">-&gt;</span>prev <span style="color:#000000">=</span> AUDIO<span style="color:#000000">.</span>Buffer<span style="color:#000000">.</span>last<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        AUDIO<span style="color:#000000">.</span>Buffer<span style="color:#000000">.</span>last <span style="color:#000000">=</span> buffer<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#010181">ma_mutex_unlock</span><span style="color:#000000">(&amp;</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>lock<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,26 @@
+RayCollision <span style="color:#010181">GetRayCollisionSphere</span><span style="color:#000000">(</span>Ray ray<span style="color:#000000">,</span> Vector3 center<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> radius<span style="color:#000000">){</span>
+    RayCollision collision <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Vector3 raySpherePos <span style="color:#000000">=</span> <span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>center<span style="color:#000000">,</span> ray<span style="color:#000000">.</span>position<span style="color:#000000">);</span>
+    <span style="color:#0057ae">float</span> vector <span style="color:#000000">=</span> <span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span>raySpherePos<span style="color:#000000">,</span> ray<span style="color:#000000">.</span>direction<span style="color:#000000">);</span>
+    <span style="color:#0057ae">float</span> distance <span style="color:#000000">=</span> <span style="color:#010181">Vector3Length</span><span style="color:#000000">(</span>raySpherePos<span style="color:#000000">);</span>
+    <span style="color:#0057ae">float</span> d <span style="color:#000000">=</span> radius<span style="color:#000000">*</span>radius <span style="color:#000000">- (</span>distance<span style="color:#000000">*</span>distance <span style="color:#000000">-</span> vector<span style="color:#000000">*</span>vector<span style="color:#000000">);</span>
+    collision<span style="color:#000000">.</span>hit <span style="color:#000000">=</span> d <span style="color:#000000">&gt;=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Check if ray origin is inside the sphere to calculate the correct collision point</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>distance <span style="color:#000000">&lt;</span> radius<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        collision<span style="color:#000000">.</span>distance <span style="color:#000000">=</span> vector <span style="color:#000000">+</span> <span style="color:#010181">sqrtf</span><span style="color:#000000">(</span>d<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">// Calculate collision point</span>
+        collision<span style="color:#000000">.</span>point <span style="color:#000000">=</span> <span style="color:#010181">Vector3Add</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>position<span style="color:#000000">,</span> <span style="color:#010181">Vector3Scale</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>direction<span style="color:#000000">,</span> collision<span style="color:#000000">.</span>distance<span style="color:#000000">));</span>
+        <span style="color:#838183; font-style:italic">// Calculate collision normal (pointing outwards)</span>
+        collision<span style="color:#000000">.</span>normal <span style="color:#000000">=</span> <span style="color:#010181">Vector3Negate</span><span style="color:#000000">(</span><span style="color:#010181">Vector3Normalize</span><span style="color:#000000">(</span><span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>collision<span style="color:#000000">.</span>point<span style="color:#000000">,</span> center<span style="color:#000000">)));</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        collision<span style="color:#000000">.</span>distance <span style="color:#000000">=</span> vector <span style="color:#000000">-</span> <span style="color:#010181">sqrtf</span><span style="color:#000000">(</span>d<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">// Calculate collision point</span>
+        collision<span style="color:#000000">.</span>point <span style="color:#000000">=</span> <span style="color:#010181">Vector3Add</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>position<span style="color:#000000">,</span> <span style="color:#010181">Vector3Scale</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>direction<span style="color:#000000">,</span> collision<span style="color:#000000">.</span>distance<span style="color:#000000">));</span>
+        <span style="color:#838183; font-style:italic">// Calculate collision normal (pointing inwards)</span>
+        collision<span style="color:#000000">.</span>normal <span style="color:#000000">=</span> <span style="color:#010181">Vector3Normalize</span><span style="color:#000000">(</span><span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>collision<span style="color:#000000">.</span>point<span style="color:#000000">,</span> center<span style="color:#000000">));</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

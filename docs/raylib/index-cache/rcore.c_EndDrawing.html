@@ -1,0 +1,81 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">EndDrawing</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#010181">rlDrawRenderBatchActive</span><span style="color:#000000">();</span>      <span style="color:#838183; font-style:italic">// Update and draw internal render batch</span>
+<span style="color:#008200">#if defined(SUPPORT_GIF_RECORDING)</span>
+    <span style="color:#838183; font-style:italic">// Draw record indicator</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>gifRecording<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#008200">#define GIF_RECORD_FRAMERATE    10</span>
+        gifFrameCounter<span style="color:#000000">++;</span>
+        <span style="color:#838183; font-style:italic">// NOTE: We record one gif frame every 10 game frames</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>gifFrameCounter<span style="color:#000000">%</span>GIF_RECORD_FRAMERATE<span style="color:#000000">) ==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#838183; font-style:italic">// Get image data for the current frame (from backbuffer)</span>
+            <span style="color:#838183; font-style:italic">// NOTE: This process is quite slow... :(</span>
+            Vector2 scale <span style="color:#000000">=</span> <span style="color:#010181">GetWindowScaleDPI</span><span style="color:#000000">();</span>
+            <span style="color:#0057ae">unsigned char</span> <span style="color:#000000">*</span>screenData <span style="color:#000000">=</span> <span style="color:#010181">rlReadScreenPixels</span><span style="color:#000000">((</span><span style="color:#0057ae">int</span><span style="color:#000000">)((</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>render<span style="color:#000000">.</span>width<span style="color:#000000">*</span>scale<span style="color:#000000">.</span>x<span style="color:#000000">), (</span><span style="color:#0057ae">int</span><span style="color:#000000">)((</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>render<span style="color:#000000">.</span>height<span style="color:#000000">*</span>scale<span style="color:#000000">.</span>y<span style="color:#000000">));</span>
+            <span style="color:#010181">msf_gif_frame</span><span style="color:#000000">(&amp;</span>gifState<span style="color:#000000">,</span> screenData<span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> <span style="color:#b07e00">16</span><span style="color:#000000">, (</span><span style="color:#0057ae">int</span><span style="color:#000000">)((</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>render<span style="color:#000000">.</span>width<span style="color:#000000">*</span>scale<span style="color:#000000">.</span>x<span style="color:#000000">)*</span><span style="color:#b07e00">4</span><span style="color:#000000">);</span>
+            <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>screenData<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// Free image data</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#008200">#if defined(SUPPORT_MODULE_RSHAPES) &amp;&amp; defined(SUPPORT_MODULE_RTEXT)</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>gifFrameCounter<span style="color:#000000">/</span><span style="color:#b07e00">15</span><span style="color:#000000">)%</span><span style="color:#b07e00">2</span><span style="color:#000000">) ==</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">DrawCircle</span><span style="color:#000000">(</span><span style="color:#b07e00">30</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">20</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> MAROON<span style="color:#000000">);</span>                 <span style="color:#838183; font-style:italic">// WARNING: Module required: rshapes</span>
+            <span style="color:#010181">DrawText</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;GIF RECORDING&quot;</span><span style="color:#000000">,</span> <span style="color:#b07e00">50</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">25</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> RED<span style="color:#000000">);</span>     <span style="color:#838183; font-style:italic">// WARNING: Module required: rtext</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#008200">#endif</span>
+        <span style="color:#010181">rlDrawRenderBatchActive</span><span style="color:#000000">();</span>  <span style="color:#838183; font-style:italic">// Update and draw internal render batch</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_EVENTS_AUTOMATION)</span>
+    <span style="color:#838183; font-style:italic">// Draw record/play indicator</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>eventsRecording<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        gifFrameCounter<span style="color:#000000">++;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>gifFrameCounter<span style="color:#000000">/</span><span style="color:#b07e00">15</span><span style="color:#000000">)%</span><span style="color:#b07e00">2</span><span style="color:#000000">) ==</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">DrawCircle</span><span style="color:#000000">(</span><span style="color:#b07e00">30</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">20</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> MAROON<span style="color:#000000">);</span>
+            <span style="color:#010181">DrawText</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;EVENTS RECORDING&quot;</span><span style="color:#000000">,</span> <span style="color:#b07e00">50</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">25</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> RED<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">rlDrawRenderBatchActive</span><span style="color:#000000">();</span>  <span style="color:#838183; font-style:italic">// Update and draw internal render batch</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>eventsPlaying<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        gifFrameCounter<span style="color:#000000">++;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>gifFrameCounter<span style="color:#000000">/</span><span style="color:#b07e00">15</span><span style="color:#000000">)%</span><span style="color:#b07e00">2</span><span style="color:#000000">) ==</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">DrawCircle</span><span style="color:#000000">(</span><span style="color:#b07e00">30</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">20</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> LIME<span style="color:#000000">);</span>
+            <span style="color:#010181">DrawText</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;EVENTS PLAYING&quot;</span><span style="color:#000000">,</span> <span style="color:#b07e00">50</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">25</span><span style="color:#000000">,</span> <span style="color:#b07e00">10</span><span style="color:#000000">,</span> GREEN<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">rlDrawRenderBatchActive</span><span style="color:#000000">();</span>  <span style="color:#838183; font-style:italic">// Update and draw internal render batch</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if !defined(SUPPORT_CUSTOM_FRAME_CONTROL)</span>
+    <span style="color:#010181">SwapScreenBuffer</span><span style="color:#000000">();</span>                  <span style="color:#838183; font-style:italic">// Copy back buffer to front buffer (screen)</span>
+    <span style="color:#838183; font-style:italic">// Frame time control system</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current <span style="color:#000000">=</span> <span style="color:#010181">GetTime</span><span style="color:#000000">();</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>draw <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>previous<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>previous <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frame <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>update <span style="color:#000000">+</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>draw<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Wait for some milliseconds...</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frame <span style="color:#000000">&lt;</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>target<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">WaitTime</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>target <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frame<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current <span style="color:#000000">=</span> <span style="color:#010181">GetTime</span><span style="color:#000000">();</span>
+        <span style="color:#0057ae">double</span> waitTime <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>previous<span style="color:#000000">;</span>
+        CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>previous <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>current<span style="color:#000000">;</span>
+        CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frame <span style="color:#000000">+=</span> waitTime<span style="color:#000000">;</span>    <span style="color:#838183; font-style:italic">// Total frame time: update + draw + wait</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#010181">PollInputEvents</span><span style="color:#000000">();</span>      <span style="color:#838183; font-style:italic">// Poll user events (before next frame update)</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_EVENTS_AUTOMATION)</span>
+    <span style="color:#838183; font-style:italic">// Events recording and playing logic</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>eventsRecording<span style="color:#000000">)</span> <span style="color:#010181">RecordAutomationEvent</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frameCounter<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>eventsPlaying<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// TODO: When should we play? After/before/replace PollInputEvents()?</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frameCounter <span style="color:#000000">&gt;=</span> eventCount<span style="color:#000000">)</span> eventsPlaying <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+        <span style="color:#010181">PlayAutomationEvent</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frameCounter<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frameCounter<span style="color:#000000">++;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,11 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetMouseCursor</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> cursor<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Mouse<span style="color:#000000">.</span>cursor <span style="color:#000000">=</span> cursor<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>cursor <span style="color:#000000">==</span> MOUSE_CURSOR_DEFAULT<span style="color:#000000">)</span> <span style="color:#010181">glfwSetCursor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// NOTE: We are relating internal GLFW enum values to our MouseCursor enum values</span>
+        <span style="color:#010181">glfwSetCursor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> <span style="color:#010181">glfwCreateStandardCursor</span><span style="color:#000000">(</span><span style="color:#b07e00">0x00036000</span> <span style="color:#000000">+</span> cursor<span style="color:#000000">));</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

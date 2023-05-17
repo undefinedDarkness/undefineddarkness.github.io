@@ -1,0 +1,5 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetTouchPointId</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> index<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> id <span style="color:#000000">= -</span><span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>index <span style="color:#000000">&lt;</span> MAX_TOUCH_POINTS<span style="color:#000000">)</span> id <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Touch<span style="color:#000000">.</span>pointId<span style="color:#000000">[</span>index<span style="color:#000000">];</span>
+    <span style="color:#000000; font-weight:bold">return</span> id<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

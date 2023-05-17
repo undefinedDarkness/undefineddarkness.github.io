@@ -1,0 +1,15 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">CheckCollisionSpheres</span><span style="color:#000000">(</span>Vector3 center1<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> radius1<span style="color:#000000">,</span> Vector3 center2<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> radius2<span style="color:#000000">){</span>
+    <span style="color:#0057ae">bool</span> collision <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Simple way to check for collision, just checking distance between two points</span>
+    <span style="color:#838183; font-style:italic">// Unfortunately, sqrtf() is a costly operation, so we avoid it with following solution</span>
+    <span style="color:#838183; font-style:italic">/*</span>
+<span style="color:#838183; font-style:italic">    float dx = center1.x - center2.x;      // X distance between centers</span>
+<span style="color:#838183; font-style:italic">    float dy = center1.y - center2.y;      // Y distance between centers</span>
+<span style="color:#838183; font-style:italic">    float dz = center1.z - center2.z;      // Z distance between centers</span>
+<span style="color:#838183; font-style:italic">    float distance = sqrtf(dx*dx + dy*dy + dz*dz);  // Distance between centers</span>
+<span style="color:#838183; font-style:italic">    if (distance &lt;= (radius1 + radius2)) collision = true;</span>
+<span style="color:#838183; font-style:italic">    */</span>
+    <span style="color:#838183; font-style:italic">// Check for distances squared to avoid sqrtf()</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span><span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>center2<span style="color:#000000">,</span> center1<span style="color:#000000">),</span> <span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>center2<span style="color:#000000">,</span> center1<span style="color:#000000">)) &lt;= (</span>radius1 <span style="color:#000000">+</span> radius2<span style="color:#000000">)*(</span>radius1 <span style="color:#000000">+</span> radius2<span style="color:#000000">))</span> collision <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

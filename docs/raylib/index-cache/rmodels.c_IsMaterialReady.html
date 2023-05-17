@@ -1,0 +1,4 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsMaterialReady</span><span style="color:#000000">(</span>Material material<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">((</span>material<span style="color:#000000">.</span>maps <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp;</span>      <span style="color:#838183; font-style:italic">// Validate material contain some map</span>
+            <span style="color:#000000">(</span>material<span style="color:#000000">.</span>shader<span style="color:#000000">.</span>id <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">));</span>      <span style="color:#838183; font-style:italic">// Validate material shader is valid</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,9 @@
+<span style="color:#0057ae">long</span> <span style="color:#010181">GetFileModTime</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    <span style="color:#0057ae">struct</span> stat result <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">stat</span><span style="color:#000000">(</span>fileName<span style="color:#000000">, &amp;</span>result<span style="color:#000000">) ==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#0057ae">time_t</span> mod <span style="color:#000000">=</span> result<span style="color:#000000">.</span>st_mtime<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">(</span><span style="color:#0057ae">long</span><span style="color:#000000">)</span>mod<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,45 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetCurrentMonitor</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> index <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#0057ae">int</span> monitorCount<span style="color:#000000">;</span>
+    GLFWmonitor <span style="color:#000000">**</span>monitors <span style="color:#000000">=</span> <span style="color:#010181">glfwGetMonitors</span><span style="color:#000000">(&amp;</span>monitorCount<span style="color:#000000">);</span>
+    GLFWmonitor <span style="color:#000000">*</span>monitor <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>monitorCount <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">IsWindowFullscreen</span><span style="color:#000000">())</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#838183; font-style:italic">// Get the handle of the monitor that the specified window is in full screen on</span>
+            monitor <span style="color:#000000">=</span> <span style="color:#010181">glfwGetWindowMonitor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">);</span>
+            <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> monitorCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>monitors<span style="color:#000000">[</span>i<span style="color:#000000">] ==</span> monitor<span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    index <span style="color:#000000">=</span> i<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">else</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#0057ae">int</span> x <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+            <span style="color:#0057ae">int</span> y <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+            <span style="color:#010181">glfwGetWindowPos</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">, &amp;</span>x<span style="color:#000000">, &amp;</span>y<span style="color:#000000">);</span>
+            <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> monitorCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#0057ae">int</span> mx <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+                <span style="color:#0057ae">int</span> my <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+                <span style="color:#0057ae">int</span> width <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+                <span style="color:#0057ae">int</span> height <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+                monitor <span style="color:#000000">=</span> monitors<span style="color:#000000">[</span>i<span style="color:#000000">];</span>
+                <span style="color:#010181">glfwGetMonitorWorkarea</span><span style="color:#000000">(</span>monitor<span style="color:#000000">, &amp;</span>mx<span style="color:#000000">, &amp;</span>my<span style="color:#000000">, &amp;</span>width<span style="color:#000000">, &amp;</span>height<span style="color:#000000">);</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>x <span style="color:#000000">&gt;=</span> mx <span style="color:#000000">&amp;&amp;</span> x <span style="color:#000000">&lt;= (</span>mx <span style="color:#000000">+</span> width<span style="color:#000000">) &amp;&amp;</span> y <span style="color:#000000">&gt;=</span> my <span style="color:#000000">&amp;&amp;</span> y <span style="color:#000000">&lt;= (</span>my <span style="color:#000000">+</span> height<span style="color:#000000">))</span>
+                <span style="color:#000000">{</span>
+                    index <span style="color:#000000">=</span> i<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> index<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

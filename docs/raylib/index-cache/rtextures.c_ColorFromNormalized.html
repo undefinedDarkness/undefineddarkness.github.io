@@ -1,0 +1,8 @@
+Color <span style="color:#010181">ColorFromNormalized</span><span style="color:#000000">(</span>Vector4 normalized<span style="color:#000000">){</span>
+    Color result<span style="color:#000000">;</span>
+    result<span style="color:#000000">.</span>r <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)(</span>normalized<span style="color:#000000">.</span>x<span style="color:#000000">*</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">);</span>
+    result<span style="color:#000000">.</span>g <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)(</span>normalized<span style="color:#000000">.</span>y<span style="color:#000000">*</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">);</span>
+    result<span style="color:#000000">.</span>b <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)(</span>normalized<span style="color:#000000">.</span>z<span style="color:#000000">*</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">);</span>
+    result<span style="color:#000000">.</span>a <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)(</span>normalized<span style="color:#000000">.</span>w<span style="color:#000000">*</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

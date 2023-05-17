@@ -1,0 +1,22 @@
+Matrix <span style="color:#010181">GetCameraMatrix2D</span><span style="color:#000000">(</span>Camera2D camera<span style="color:#000000">){</span>
+    Matrix matTransform <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#838183; font-style:italic">// The camera in world-space is set by</span>
+    <span style="color:#838183; font-style:italic">//   1. Move it to target</span>
+    <span style="color:#838183; font-style:italic">//   2. Rotate by -rotation and scale by (1/zoom)</span>
+    <span style="color:#838183; font-style:italic">//      When setting higher scale, it&apos;s more intuitive for the world to become bigger (= camera become smaller),</span>
+    <span style="color:#838183; font-style:italic">//      not for the camera getting bigger, hence the invert. Same deal with rotation.</span>
+    <span style="color:#838183; font-style:italic">//   3. Move it by (-offset);</span>
+    <span style="color:#838183; font-style:italic">//      Offset defines target transform relative to screen, but since we&apos;re effectively &quot;moving&quot; screen (camera)</span>
+    <span style="color:#838183; font-style:italic">//      we need to do it into opposite direction (inverse transform)</span>
+    <span style="color:#838183; font-style:italic">// Having camera transform in world-space, inverse of it gives the modelview transform.</span>
+    <span style="color:#838183; font-style:italic">// Since (A*B*C)&apos; = C&apos;*B&apos;*A&apos;, the modelview is</span>
+    <span style="color:#838183; font-style:italic">//   1. Move to offset</span>
+    <span style="color:#838183; font-style:italic">//   2. Rotate and Scale</span>
+    <span style="color:#838183; font-style:italic">//   3. Move by -target</span>
+    Matrix matOrigin <span style="color:#000000">=</span> <span style="color:#010181">MatrixTranslate</span><span style="color:#000000">(-</span>camera<span style="color:#000000">.</span>target<span style="color:#000000">.</span>x<span style="color:#000000">, -</span>camera<span style="color:#000000">.</span>target<span style="color:#000000">.</span>y<span style="color:#000000">,</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">);</span>
+    Matrix matRotation <span style="color:#000000">=</span> <span style="color:#010181">MatrixRotate</span><span style="color:#000000">((</span>Vector3<span style="color:#000000">){</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f <span style="color:#000000">},</span> camera<span style="color:#000000">.</span>rotation<span style="color:#000000">*</span>DEG2RAD<span style="color:#000000">);</span>
+    Matrix matScale <span style="color:#000000">=</span> <span style="color:#010181">MatrixScale</span><span style="color:#000000">(</span>camera<span style="color:#000000">.</span>zoom<span style="color:#000000">,</span> camera<span style="color:#000000">.</span>zoom<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">);</span>
+    Matrix matTranslation <span style="color:#000000">=</span> <span style="color:#010181">MatrixTranslate</span><span style="color:#000000">(</span>camera<span style="color:#000000">.</span>offset<span style="color:#000000">.</span>x<span style="color:#000000">,</span> camera<span style="color:#000000">.</span>offset<span style="color:#000000">.</span>y<span style="color:#000000">,</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">);</span>
+    matTransform <span style="color:#000000">=</span> <span style="color:#010181">MatrixMultiply</span><span style="color:#000000">(</span><span style="color:#010181">MatrixMultiply</span><span style="color:#000000">(</span>matOrigin<span style="color:#000000">,</span> <span style="color:#010181">MatrixMultiply</span><span style="color:#000000">(</span>matScale<span style="color:#000000">,</span> matRotation<span style="color:#000000">)),</span> matTranslation<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> matTransform<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -114,6 +114,7 @@ td:not(:last-of-type) {
 }
 
 .row {
+	gap: 1em;
 	display: flex;
 }
 

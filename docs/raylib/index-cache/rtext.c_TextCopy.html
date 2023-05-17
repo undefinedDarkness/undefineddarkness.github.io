@@ -1,0 +1,15 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">TextCopy</span><span style="color:#000000">(</span><span style="color:#0057ae">char</span> <span style="color:#000000">*</span>dst<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>src<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> bytes <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>src <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp; (</span>dst <span style="color:#000000">!=</span> NULL<span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(*</span>src <span style="color:#000000">!=</span> <span style="color:#bf0303">&apos;\0&apos;</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000">*</span>dst <span style="color:#000000">= *</span>src<span style="color:#000000">;</span>
+            dst<span style="color:#000000">++;</span>
+            src<span style="color:#000000">++;</span>
+            bytes<span style="color:#000000">++;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000">*</span>dst <span style="color:#000000">=</span> <span style="color:#bf0303">&apos;\0&apos;</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> bytes<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

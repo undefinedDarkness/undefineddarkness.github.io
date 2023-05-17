@@ -1,0 +1,59 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetTextureFilter</span><span style="color:#000000">(</span>Texture2D texture<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> filter<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">switch</span> <span style="color:#000000">(</span>filter<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_POINT<span style="color:#000000">:</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>texture<span style="color:#000000">.</span>mipmaps <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_MIP_NEAREST - tex filter: POINT, mipmaps filter: POINT (sharp switching between mipmaps)</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_MIP_NEAREST<span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_NEAREST - tex filter: POINT (no filter), no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_NEAREST<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+            <span style="color:#000000; font-weight:bold">else</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_NEAREST - tex filter: POINT (no filter), no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_NEAREST<span style="color:#000000">);</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_NEAREST<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_BILINEAR<span style="color:#000000">:</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>texture<span style="color:#000000">.</span>mipmaps <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR_MIP_NEAREST - tex filter: BILINEAR, mipmaps filter: POINT (sharp switching between mipmaps)</span>
+                <span style="color:#838183; font-style:italic">// Alternative: RL_TEXTURE_FILTER_NEAREST_MIP_LINEAR - tex filter: POINT, mipmaps filter: BILINEAR (smooth transition between mipmaps)</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR_MIP_NEAREST<span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR - tex filter: BILINEAR, no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+            <span style="color:#000000; font-weight:bold">else</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR - tex filter: BILINEAR, no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_TRILINEAR<span style="color:#000000">:</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>texture<span style="color:#000000">.</span>mipmaps <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_MIP_LINEAR - tex filter: BILINEAR, mipmaps filter: BILINEAR (smooth transition between mipmaps)</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_MIP_LINEAR<span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR - tex filter: BILINEAR, no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+            <span style="color:#000000; font-weight:bold">else</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;TEXTURE: [ID %i] No mipmaps available for TRILINEAR texture filtering&quot;</span><span style="color:#000000">,</span> texture<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR - tex filter: BILINEAR, no mipmaps</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+                <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_ANISOTROPIC_4X<span style="color:#000000">:</span> <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_FILTER_ANISOTROPIC<span style="color:#000000">,</span> <span style="color:#b07e00">4</span><span style="color:#000000">);</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_ANISOTROPIC_8X<span style="color:#000000">:</span> <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_FILTER_ANISOTROPIC<span style="color:#000000">,</span> <span style="color:#b07e00">8</span><span style="color:#000000">);</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">case</span> TEXTURE_FILTER_ANISOTROPIC_16X<span style="color:#000000">:</span> <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_FILTER_ANISOTROPIC<span style="color:#000000">,</span> <span style="color:#b07e00">16</span><span style="color:#000000">);</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">default</span><span style="color:#000000">:</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

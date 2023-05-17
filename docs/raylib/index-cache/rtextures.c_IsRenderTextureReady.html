@@ -1,0 +1,5 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsRenderTextureReady</span><span style="color:#000000">(</span>RenderTexture2D target<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">((</span>target<span style="color:#000000">.</span>id <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp;</span>                  <span style="color:#838183; font-style:italic">// Validate OpenGL id</span>
+            <span style="color:#010181">IsTextureReady</span><span style="color:#000000">(</span>target<span style="color:#000000">.</span>depth<span style="color:#000000">) &amp;&amp;</span>     <span style="color:#838183; font-style:italic">// Validate FBO depth texture/renderbuffer</span>
+            <span style="color:#010181">IsTextureReady</span><span style="color:#000000">(</span>target<span style="color:#000000">.</span>texture<span style="color:#000000">));</span>    <span style="color:#838183; font-style:italic">// Validate FBO texture</span>
+<span style="color:#000000">}</span>

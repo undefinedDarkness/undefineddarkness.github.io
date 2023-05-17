@@ -109,7 +109,7 @@ columns () {
 table () {
 	content="$1"
 	shift
-	printf "<div class=\"ovr-x\">"
+	#printf "<div class=\"ovr-x\">"
 	print_row () {
 		columns=${1#\#TABLE}
 		IFS=$TAB
@@ -150,5 +150,5 @@ table () {
 	while read -r row; do
 		print_row "$row"
 	done <<< "$content"
-	echo "</tbody></table></div>"
+	echo "</tbody></table>"
 }

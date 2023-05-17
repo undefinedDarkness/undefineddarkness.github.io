@@ -1,0 +1,10 @@
+Wave <span style="color:#010181">LoadWave</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    Wave wave <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#838183; font-style:italic">// Loading file to memory</span>
+    <span style="color:#0057ae">unsigned int</span> fileSize <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">unsigned char</span> <span style="color:#000000">*</span>fileData <span style="color:#000000">=</span> <span style="color:#010181">LoadFileData</span><span style="color:#000000">(</span>fileName<span style="color:#000000">, &amp;</span>fileSize<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Loading wave from memory data</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>fileData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> wave <span style="color:#000000">=</span> <span style="color:#010181">LoadWaveFromMemory</span><span style="color:#000000">(</span><span style="color:#010181">GetFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">),</span> fileData<span style="color:#000000">,</span> fileSize<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>fileData<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> wave<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

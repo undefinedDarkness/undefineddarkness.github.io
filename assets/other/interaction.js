@@ -1,10 +1,16 @@
+// vim: fdm=marker:
 import interactjs from 'https://cdn.jsdelivr.net/npm/interactjs/+esm'
 
 const $ = _ => document.querySelector(_)
 const $set = (_, p, v) => (_ instanceof HTMLElement ? _ : $(_)).style.setProperty(p, v)
 const $get = (_, p) => window.getComputedStyle($(_)).getPropertyValue(p)
 
-interactjs('.box')
+$('#foldoutbutton').addEventListener('click', (e) => {
+	e.target.classList.toggle('flip');
+	$('#popout').classList.toggle('slide-out')
+})
+
+interactjs('.box')//{{{
 .draggable({
     listeners: {
         start (e) {
@@ -41,6 +47,8 @@ interactjs('.box')
     
             Object.assign(event.target.style, {
               width: `${event.rect.width}px`,
+				maxWidth: `${event.rect.width}px`,
+					maxHeight: `${event.rect.height}px`,
               height: `${event.rect.height}px`,
               transform: `translate(${x}px, ${y}px)`
             })
@@ -50,6 +58,4 @@ interactjs('.box')
     }
 })
 
-$('body').addEventListener('click', () => {
-    console.log('oi')
-})
+//}}}

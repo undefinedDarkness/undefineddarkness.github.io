@@ -1,0 +1,13 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">FileExists</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    <span style="color:#0057ae">bool</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+<span style="color:#008200">#if defined(_WIN32)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">_access</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">) != -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">access</span><span style="color:#000000">(</span>fileName<span style="color:#000000">,</span> F_OK<span style="color:#000000">) != -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#838183; font-style:italic">// NOTE: Alternatively, stat() can be used instead of access()</span>
+    <span style="color:#838183; font-style:italic">//#include &lt;sys/stat.h&gt;</span>
+    <span style="color:#838183; font-style:italic">//struct stat statbuf;</span>
+    <span style="color:#838183; font-style:italic">//if (stat(filename, &amp;statbuf) == 0) result = true;</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

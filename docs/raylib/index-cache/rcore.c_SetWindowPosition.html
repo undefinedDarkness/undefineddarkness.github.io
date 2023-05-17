@@ -1,0 +1,5 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetWindowPosition</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> x<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> y<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#010181">glfwSetWindowPos</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> x<span style="color:#000000">,</span> y<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

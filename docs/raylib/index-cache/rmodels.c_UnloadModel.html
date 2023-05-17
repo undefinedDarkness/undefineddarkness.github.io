@@ -1,0 +1,17 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadModel</span><span style="color:#000000">(</span>Model model<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// Unload meshes</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> model<span style="color:#000000">.</span>meshCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span> <span style="color:#010181">UnloadMesh</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>meshes<span style="color:#000000">[</span>i<span style="color:#000000">]);</span>
+    <span style="color:#838183; font-style:italic">// Unload materials maps</span>
+    <span style="color:#838183; font-style:italic">// NOTE: As the user could be sharing shaders and textures between models,</span>
+    <span style="color:#838183; font-style:italic">// we don&apos;t unload the material but just free its maps,</span>
+    <span style="color:#838183; font-style:italic">// the user is responsible for freeing models shaders and textures</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> model<span style="color:#000000">.</span>materialCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>materials<span style="color:#000000">[</span>i<span style="color:#000000">].</span>maps<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Unload arrays</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>meshes<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>materials<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>meshMaterial<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Unload animation data</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>bones<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>model<span style="color:#000000">.</span>bindPose<span style="color:#000000">);</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;MODEL: Unloaded model (and meshes) from RAM and VRAM&quot;</span><span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

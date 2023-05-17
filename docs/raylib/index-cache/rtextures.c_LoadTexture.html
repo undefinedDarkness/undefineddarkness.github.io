@@ -1,0 +1,10 @@
+Texture2D <span style="color:#010181">LoadTexture</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    Texture2D texture <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Image image <span style="color:#000000">=</span> <span style="color:#010181">LoadImage</span><span style="color:#000000">(</span>fileName<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>image<span style="color:#000000">.</span>data <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        texture <span style="color:#000000">=</span> <span style="color:#010181">LoadTextureFromImage</span><span style="color:#000000">(</span>image<span style="color:#000000">);</span>
+        <span style="color:#010181">UnloadImage</span><span style="color:#000000">(</span>image<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> texture<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

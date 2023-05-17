@@ -14,7 +14,7 @@
 <header>
 <h1>Memory for Idiots (like me)</h1>
 </header>
-Just a collection of my notes from my time using C<br/>
+Just a collection of my notes from my time learning C<br/>
 <br/>
 <h2 id="analogy">Analogy</h2>
 <p>
@@ -22,6 +22,8 @@ Just a collection of my notes from my time using C<br/>
 Essentially the CPU cache is like a tub of water you have at home (program), But since it's at home, its very fast to access it.<br/>
 The stack is like a outdoor water tank, still very fast to access but slower than the cache and you can access a lot more water at once too.<br/>
 The heap is like a village well, It takes time to get to it but once you're there, you can effectivley get as much water as you want.<br/>
+<br/>
+There technically, is a much more nuanced difference between the stack and the heap and they can be entirely just in one's head but it makes explaining stuff a lot simpler.<br/>
 <br/>
 </p>
 <h3 id="example-problem: returning a string from a function">Example Problem: Returning a string from a function</h3>
@@ -119,7 +121,88 @@ Solution 3 could cause a memory leak if the caller forgets to free the memory.<b
 So it's important to pick the correct solution for the problem at hand, in this case, Solution 2 or 3 would be good.<br/>
 <br/>
 </p>
-<h2 id="getting-memory">Getting Memory</h2>
+<h2 id="pointers-primer">Pointers Primer</h2>
+<p>
+Pointers are simply (64bit integer) <b>addresses to somewhere in memory</b>, They can either point to nothing (NULL) or a valid memory address.<br/>
+Pointers usually are associated with a certain type but since C doesn't have generics, It's commonplace to cast them to <code>void&ast;</code> which can then be casted again to any type you wish.<br/>
+<br/>
+Whenever you want to give a function access to something without giving it a whole copy of it (Nothing wrong with this for small things), you use a pointer.<br/>
+<br/>
+You can obtain the address of local variables with the <code>&</code> operator.<br/>
+<br/>
+C arrays are contiguous in memory meaning that each element is directly after another so if you know the element size, You can loop through the array with only pointers,<br/>
+This can be useful if you don't know the size of the array but you know that it terminates in NULL<br/>
+<pre>
+	<code><span style="color:#dfdfbf; font-weight:bold">void</span> <span style="color:#aabfe3">example</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;&ast;</span> strArray<span style="color:#dcdccc">) {</span>
+    <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> str<span style="color:#dcdccc">=</span>strArray<span style="color:#dcdccc">;</span>
+    <span style="color:#e3ceab">while</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">!=</span>NULL<span style="color:#dcdccc">) {</span>
+        <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\t</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>str<span style="color:#dcdccc">);</span>
+        str<span style="color:#dcdccc">+=</span><span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;);</span>
+    <span style="color:#dcdccc">}</span>
+<span style="color:#dcdccc">}</span>
+	</code>
+</pre>
+<br/>
+The biggest difference between a 32bit architecture and 64bit is that in 32bit, the pointers are only 32bits long (4bytes) which limits memory size to 4GB, on 64bit they are double the size so can access as much as 16 exabytes of memory. <br/>
+<br/>
+<a href="https://beej.us/blog/data/c-pointers/">More on pointers</a><br/>
+<br/>
+<div class="row">
+<table class="">
+<thead><tr>
+<th>Type</th>
+<th>Bytes</th>
+</tr>
+</thead><tbody><tr>
+<td>        int</td>
+<td>4 <br/></td>
+</tr>
+<tr>
+<td>        short</td>
+<td>2<br/></td>
+</tr>
+<tr>
+<td>        void*</td>
+<td>8<br/></td>
+</tr>
+<tr>
+<td>        float</td>
+<td>4<br/></td>
+</tr>
+<tr>
+<td>        double</td>
+<td>8<br/></td>
+</tr>
+<tr>
+<td>        char</td>
+<td>1<br/></td>
+</tr>
+<tr>
+<td>long</td>
+<td>8<br/></td>
+</tr>
+<tr>
+<td>llu</td>
+<td>8<br/></td>
+</tr>
+<tr>
+<td>size_t</td>
+<td>8<br/></td>
+</tr>
+<tr>
+<td>ptrdiff_t</td>
+<td>8<br/></td>
+</tr>
+</tbody></table>
+<p>
+<b>NOTE</b>: Size of integer types tends to vary according to platform
+If you need exactly sized integers use <code>stdint.h</code>
+<a href="https://man7.org/linux/man-pages/man7/system_data_types.7.html">manpage</a>
+</p>
+</div>
+<br/>
+</p>
+<h2 id="handling-memory">Handling Memory</h2>
 <p>
 Note: In case of encountering an error like insufficient memory, these functions will return NULL and set <code>errno</code>, See the manpage.<br/>
 <div class="row">
@@ -142,6 +225,8 @@ Get zero initialized memory
 Get uninitialized memory aligned on a given boundry
 </div>
 </div>
+<br/>
+Whenever you wish to resize your given block of memory, <code>realloc</code> is used.<br/>
 <a href="https://man.openbsd.org/malloc">manpage</a><br/>
 <br/>
 </p>
@@ -171,14 +256,21 @@ Writing to a file:<br/>
 <span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
 	</code>
 </pre>
-Full example: <a href="https://kuafu1994.github.io/MoreOnMemory/shared-memory.html">https://kuafu1994.github.io/MoreOnMemory/shared-memory.html</a><br/>
+<a href="https://kuafu1994.github.io/MoreOnMemory/shared-memory.html">Full example</a><br/>
 <a href="https://man.openbsd.org/mmap">manpage</a><br/>
+<br/>
+</p>
+<h3 id="alloca">alloca</h3>
+<p>
+This is used to sort of pretend the stack works like the heap and can be used to allocate memory on the stack, The benefit is that it will automatically be freed and it's possible that the memory returned will be faster to access,<br/>
+But with alloca you can never know if the allocation failed or not since if the allocation causes stack overflow, behaviour is not defined.<br/>
+<a href="https://man.openbsd.org/alloca">manpage</a><br/>
 <br/>
 </p>
 <h2 id="leaks">Leaks</h2>
 <p>
 Unfortunatley we aren't always forget and it is all too easy to forget to ever free a block of memory.<br/>
-This isn't too bad when the chunk is small but it's best to try to plug all the leaks you can since it can crash your application or slow it down a lot.<br/>
+This isn't bad when the chunk is small but it's best to try to plug all the <b>big</b> leaks you can since it can crash your application or slow it down a lot.<br/>
 <br/>
 </p>
 <h3 id="-fsanitize=address">-fsanitize=address</h3>
@@ -216,7 +308,7 @@ An external tool called valgrind can also be used to find memory leaks<br/>
 It can even report other stuff like using uninitialized values etc.<br/>
 <br/>
 <pre>
-	<code>$ valgrind --memcheck&equals;full ./e
+	<code>$ valgrind --leak-check&equals;full ./e
 ...
 &equals;&equals;18045&equals;&equals; 100 bytes in 1 blocks are definitely lost in loss record 1 of 1
 &equals;&equals;18045&equals;&equals;    at 0x483877F: malloc (vg_replace_malloc.c:307)
@@ -224,6 +316,13 @@ It can even report other stuff like using uninitialized values etc.<br/>
 ...
 </code>
 </pre>
+<br/>
+</p>
+<h2 id="other-documents">Other Documents</h2>
+<p>
+Beej's Guide to C: <a href="https://beej.us/guide/bgc/html/split/">https://beej.us/guide/bgc/html/split/</a><br/>
+Beej's Guide to the C stdlib: <a href="https://beej.us/guide/bgclr/html/split/">https://beej.us/guide/bgclr/html/split/</a><br/>
+<a href="https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator">https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator</a><br/>
 			<footer style="margin-bottom: 2em;">
 				<a class="special" href="/out/index.html">Return To Index</a>
 			</footer>

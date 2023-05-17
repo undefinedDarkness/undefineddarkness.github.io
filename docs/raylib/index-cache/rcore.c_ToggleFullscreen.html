@@ -1,0 +1,100 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">ToggleFullscreen</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(!</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Store previous window position (in case we exit fullscreen)</span>
+        <span style="color:#010181">glfwGetWindowPos</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">, &amp;</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>position<span style="color:#000000">.</span>x<span style="color:#000000">, &amp;</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>position<span style="color:#000000">.</span>y<span style="color:#000000">);</span>
+        <span style="color:#0057ae">int</span> monitorCount <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> monitorIndex <span style="color:#000000">=</span> <span style="color:#010181">GetCurrentMonitor</span><span style="color:#000000">();</span>
+        GLFWmonitor <span style="color:#000000">**</span>monitors <span style="color:#000000">=</span> <span style="color:#010181">glfwGetMonitors</span><span style="color:#000000">(&amp;</span>monitorCount<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">// Use current monitor, so we correctly get the display the window is on</span>
+        GLFWmonitor <span style="color:#000000">*</span>monitor <span style="color:#000000">= (</span>monitorIndex <span style="color:#000000">&lt;</span> monitorCount<span style="color:#000000">)?</span> monitors<span style="color:#000000">[</span>monitorIndex<span style="color:#000000">] :</span> NULL<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>monitor <span style="color:#000000">==</span> NULL<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;GLFW: Failed to get monitor&quot;</span><span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_FULLSCREEN_MODE<span style="color:#000000">;</span>
+            <span style="color:#010181">glfwSetWindowMonitor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>width<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height<span style="color:#000000">,</span> GLFW_DONT_CARE<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">else</span>
+        <span style="color:#000000">{</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">|=</span> FLAG_FULLSCREEN_MODE<span style="color:#000000">;</span>
+            <span style="color:#010181">glfwSetWindowMonitor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> monitor<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>width<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height<span style="color:#000000">,</span> GLFW_DONT_CARE<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_FULLSCREEN_MODE<span style="color:#000000">;</span>
+        <span style="color:#010181">glfwSetWindowMonitor</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>position<span style="color:#000000">.</span>x<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>position<span style="color:#000000">.</span>y<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>width<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height<span style="color:#000000">,</span> GLFW_DONT_CARE<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// Try to enable GPU V-Sync, so frames are limited to screen refresh rate (60Hz -&gt; 60 FPS)</span>
+    <span style="color:#838183; font-style:italic">// NOTE: V-Sync can be enabled by graphic driver configuration</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_VSYNC_HINT<span style="color:#000000">)</span> <span style="color:#010181">glfwSwapInterval</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_WEB)</span>
+<span style="color:#838183; font-style:italic">/*</span>
+<span style="color:#838183; font-style:italic">    EM_ASM</span>
+<span style="color:#838183; font-style:italic">    (</span>
+<span style="color:#838183; font-style:italic">        // This strategy works well while using raylib minimal web shell for emscripten,</span>
+<span style="color:#838183; font-style:italic">        // it re-scales the canvas to fullscreen using monitor resolution, for tools this</span>
+<span style="color:#838183; font-style:italic">        // is a good strategy but maybe games prefer to keep current canvas resolution and</span>
+<span style="color:#838183; font-style:italic">        // display it in fullscreen, adjusting monitor resolution if possible</span>
+<span style="color:#838183; font-style:italic">        if (document.fullscreenElement) document.exitFullscreen();</span>
+<span style="color:#838183; font-style:italic">        else Module.requestFullscreen(true, true); //false, true);</span>
+<span style="color:#838183; font-style:italic">    );</span>
+<span style="color:#838183; font-style:italic">*/</span>
+    <span style="color:#838183; font-style:italic">//EM_ASM(Module.requestFullscreen(false, false););</span>
+<span style="color:#838183; font-style:italic">/*</span>
+<span style="color:#838183; font-style:italic">    if (!CORE.Window.fullscreen)</span>
+<span style="color:#838183; font-style:italic">    {</span>
+<span style="color:#838183; font-style:italic">        // Option 1: Request fullscreen for the canvas element</span>
+<span style="color:#838183; font-style:italic">        // This option does not seem to work at all:</span>
+<span style="color:#838183; font-style:italic">        // emscripten_request_pointerlock() and emscripten_request_fullscreen() are affected by web security,</span>
+<span style="color:#838183; font-style:italic">        // the user must click once on the canvas to hide the pointer or transition to full screen</span>
+<span style="color:#838183; font-style:italic">        //emscripten_request_fullscreen(&quot;#canvas&quot;, false);</span>
+<span style="color:#838183; font-style:italic">        // Option 2: Request fullscreen for the canvas element with strategy</span>
+<span style="color:#838183; font-style:italic">        // This option does not seem to work at all</span>
+<span style="color:#838183; font-style:italic">        // Ref: https://github.com/emscripten-core/emscripten/issues/5124</span>
+<span style="color:#838183; font-style:italic">        // EmscriptenFullscreenStrategy strategy = {</span>
+<span style="color:#838183; font-style:italic">            // .scaleMode = EMSCRIPTEN_FULLSCREEN_SCALE_STRETCH, //EMSCRIPTEN_FULLSCREEN_SCALE_ASPECT,</span>
+<span style="color:#838183; font-style:italic">            // .canvasResolutionScaleMode = EMSCRIPTEN_FULLSCREEN_CANVAS_SCALE_STDDEF,</span>
+<span style="color:#838183; font-style:italic">            // .filteringMode = EMSCRIPTEN_FULLSCREEN_FILTERING_DEFAULT,</span>
+<span style="color:#838183; font-style:italic">            // .canvasResizedCallback = EmscriptenWindowResizedCallback,</span>
+<span style="color:#838183; font-style:italic">            // .canvasResizedCallbackUserData = NULL</span>
+<span style="color:#838183; font-style:italic">        // };</span>
+<span style="color:#838183; font-style:italic">        //emscripten_request_fullscreen_strategy(&quot;#canvas&quot;, EM_FALSE, &amp;strategy);</span>
+<span style="color:#838183; font-style:italic">        // Option 3: Request fullscreen for the canvas element with strategy</span>
+<span style="color:#838183; font-style:italic">        // It works as expected but only inside the browser (client area)</span>
+<span style="color:#838183; font-style:italic">        EmscriptenFullscreenStrategy strategy = {</span>
+<span style="color:#838183; font-style:italic">            .scaleMode = EMSCRIPTEN_FULLSCREEN_SCALE_ASPECT,</span>
+<span style="color:#838183; font-style:italic">            .canvasResolutionScaleMode = EMSCRIPTEN_FULLSCREEN_CANVAS_SCALE_STDDEF,</span>
+<span style="color:#838183; font-style:italic">            .filteringMode = EMSCRIPTEN_FULLSCREEN_FILTERING_DEFAULT,</span>
+<span style="color:#838183; font-style:italic">            .canvasResizedCallback = EmscriptenWindowResizedCallback,</span>
+<span style="color:#838183; font-style:italic">            .canvasResizedCallbackUserData = NULL</span>
+<span style="color:#838183; font-style:italic">        };</span>
+<span style="color:#838183; font-style:italic">        emscripten_enter_soft_fullscreen(&quot;#canvas&quot;, &amp;strategy);</span>
+<span style="color:#838183; font-style:italic">        int width, height;</span>
+<span style="color:#838183; font-style:italic">        emscripten_get_canvas_element_size(&quot;#canvas&quot;, &amp;width, &amp;height);</span>
+<span style="color:#838183; font-style:italic">        TRACELOG(LOG_WARNING, &quot;Emscripten: Enter fullscreen: Canvas size: %i x %i&quot;, width, height);</span>
+<span style="color:#838183; font-style:italic">        CORE.Window.fullscreen = true;          // Toggle fullscreen flag</span>
+<span style="color:#838183; font-style:italic">        CORE.Window.flags |= FLAG_FULLSCREEN_MODE;</span>
+<span style="color:#838183; font-style:italic">    }</span>
+<span style="color:#838183; font-style:italic">    else</span>
+<span style="color:#838183; font-style:italic">    {</span>
+<span style="color:#838183; font-style:italic">        //emscripten_exit_fullscreen();</span>
+<span style="color:#838183; font-style:italic">        //emscripten_exit_soft_fullscreen();</span>
+<span style="color:#838183; font-style:italic">        int width, height;</span>
+<span style="color:#838183; font-style:italic">        emscripten_get_canvas_element_size(&quot;#canvas&quot;, &amp;width, &amp;height);</span>
+<span style="color:#838183; font-style:italic">        TRACELOG(LOG_WARNING, &quot;Emscripten: Exit fullscreen: Canvas size: %i x %i&quot;, width, height);</span>
+<span style="color:#838183; font-style:italic">        CORE.Window.fullscreen = false;          // Toggle fullscreen flag</span>
+<span style="color:#838183; font-style:italic">        CORE.Window.flags &amp;= ~FLAG_FULLSCREEN_MODE;</span>
+<span style="color:#838183; font-style:italic">    }</span>
+<span style="color:#838183; font-style:italic">*/</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen <span style="color:#000000">= !</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fullscreen<span style="color:#000000">;</span>          <span style="color:#838183; font-style:italic">// Toggle fullscreen flag</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;SYSTEM: Failed to toggle to windowed mode&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

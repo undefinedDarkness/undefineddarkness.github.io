@@ -1,0 +1,10 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadFont</span><span style="color:#000000">(</span>Font font<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// NOTE: Make sure font is not default font (fallback)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>font<span style="color:#000000">.</span>texture<span style="color:#000000">.</span>id <span style="color:#000000">!=</span> <span style="color:#010181">GetFontDefault</span><span style="color:#000000">().</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">UnloadFontData</span><span style="color:#000000">(</span>font<span style="color:#000000">.</span>glyphs<span style="color:#000000">,</span> font<span style="color:#000000">.</span>glyphCount<span style="color:#000000">);</span>
+        <span style="color:#010181">UnloadTexture</span><span style="color:#000000">(</span>font<span style="color:#000000">.</span>texture<span style="color:#000000">);</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>font<span style="color:#000000">.</span>recs<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOGD</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;FONT: Unloaded font data from RAM and VRAM&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

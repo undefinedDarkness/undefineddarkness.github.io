@@ -1,0 +1,20 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetMonitorWidth</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> monitor<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#0057ae">int</span> monitorCount<span style="color:#000000">;</span>
+    GLFWmonitor <span style="color:#000000">**</span>monitors <span style="color:#000000">=</span> <span style="color:#010181">glfwGetMonitors</span><span style="color:#000000">(&amp;</span>monitorCount<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>monitor <span style="color:#000000">&gt;=</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; (</span>monitor <span style="color:#000000">&lt;</span> monitorCount<span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#0057ae">const</span> GLFWvidmode <span style="color:#000000">*</span>mode <span style="color:#000000">=</span> <span style="color:#010181">glfwGetVideoMode</span><span style="color:#000000">(</span>monitors<span style="color:#000000">[</span>monitor<span style="color:#000000">]);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>mode<span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">return</span> mode<span style="color:#000000">-&gt;</span>width<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;GLFW: Failed to find video mode for selected monitor&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;GLFW: Failed to find selected monitor&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>window <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">return</span> <span style="color:#010181">ANativeWindow_getWidth</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>window<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

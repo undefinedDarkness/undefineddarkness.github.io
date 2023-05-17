@@ -1,0 +1,6 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">TextFindIndex</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>text<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>find<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> position <span style="color:#000000">= -</span><span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">char</span> <span style="color:#000000">*</span>ptr <span style="color:#000000">=</span> <span style="color:#010181">strstr</span><span style="color:#000000">(</span>text<span style="color:#000000">,</span> find<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>ptr <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> position <span style="color:#000000">= (</span><span style="color:#0057ae">int</span><span style="color:#000000">)(</span>ptr <span style="color:#000000">-</span> text<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> position<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

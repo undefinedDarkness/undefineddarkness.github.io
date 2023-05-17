@@ -1,0 +1,5 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsPathFile</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>path<span style="color:#000000">){</span>
+    <span style="color:#0057ae">struct</span> stat pathStat <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#010181">stat</span><span style="color:#000000">(</span>path<span style="color:#000000">, &amp;</span>pathStat<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#010181">S_ISREG</span><span style="color:#000000">(</span>pathStat<span style="color:#000000">.</span>st_mode<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

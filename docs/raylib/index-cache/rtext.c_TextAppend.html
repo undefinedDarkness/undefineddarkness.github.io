@@ -1,0 +1,4 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">TextAppend</span><span style="color:#000000">(</span><span style="color:#0057ae">char</span> <span style="color:#000000">*</span>text<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>append<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> <span style="color:#000000">*</span>position<span style="color:#000000">){</span>
+    <span style="color:#010181">strcpy</span><span style="color:#000000">(</span>text <span style="color:#000000">+ *</span>position<span style="color:#000000">,</span> append<span style="color:#000000">);</span>
+    <span style="color:#000000">*</span>position <span style="color:#000000">+=</span> <span style="color:#010181">TextLength</span><span style="color:#000000">(</span>append<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

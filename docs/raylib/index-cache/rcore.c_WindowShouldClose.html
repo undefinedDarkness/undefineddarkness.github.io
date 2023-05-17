@@ -1,0 +1,27 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">WindowShouldClose</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_WEB)</span>
+    <span style="color:#838183; font-style:italic">// Emterpreter-Async required to run sync code</span>
+    <span style="color:#838183; font-style:italic">// https://github.com/emscripten-core/emscripten/wiki/Emterpreter#emterpreter-async-run-synchronous-code</span>
+    <span style="color:#838183; font-style:italic">// By default, this function is never called on a web-ready raylib example because we encapsulate</span>
+    <span style="color:#838183; font-style:italic">// frame code in a UpdateDrawFrame() function, to allow browser manage execution asynchronously</span>
+    <span style="color:#838183; font-style:italic">// but now emscripten allows sync code to be executed in an interpreted way, using emterpreter!</span>
+    <span style="color:#010181">emscripten_sleep</span><span style="color:#000000">(</span><span style="color:#b07e00">16</span><span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return false</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// While window minimized, stop loop execution</span>
+        <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#010181">IsWindowState</span><span style="color:#000000">(</span>FLAG_WINDOW_MINIMIZED<span style="color:#000000">) &amp;&amp; !</span><span style="color:#010181">IsWindowState</span><span style="color:#000000">(</span>FLAG_WINDOW_ALWAYS_RUN<span style="color:#000000">))</span> <span style="color:#010181">glfwWaitEvents</span><span style="color:#000000">();</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>shouldClose <span style="color:#000000">=</span> <span style="color:#010181">glfwWindowShouldClose</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">// Reset close status for next frame</span>
+        <span style="color:#010181">glfwSetWindowShouldClose</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_FALSE<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">return</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>shouldClose<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else return true</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready<span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">return</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>shouldClose<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else return true</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

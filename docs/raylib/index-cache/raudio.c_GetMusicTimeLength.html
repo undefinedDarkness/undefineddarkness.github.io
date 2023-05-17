@@ -1,0 +1,5 @@
+<span style="color:#0057ae">float</span> <span style="color:#010181">GetMusicTimeLength</span><span style="color:#000000">(</span>Music music<span style="color:#000000">){</span>
+    <span style="color:#0057ae">float</span> totalSeconds <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>
+    totalSeconds <span style="color:#000000">= (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>music<span style="color:#000000">.</span>frameCount<span style="color:#000000">/</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleRate<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> totalSeconds<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

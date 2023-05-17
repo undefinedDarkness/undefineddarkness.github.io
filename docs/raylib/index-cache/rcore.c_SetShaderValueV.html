@@ -1,0 +1,8 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetShaderValueV</span><span style="color:#000000">(</span>Shader shader<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> locIndex<span style="color:#000000">,</span> <span style="color:#0057ae">const void</span> <span style="color:#000000">*</span>value<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> uniformType<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> count<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>locIndex <span style="color:#000000">&gt; -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">rlEnableShader</span><span style="color:#000000">(</span>shader<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+        <span style="color:#010181">rlSetUniform</span><span style="color:#000000">(</span>locIndex<span style="color:#000000">,</span> value<span style="color:#000000">,</span> uniformType<span style="color:#000000">,</span> count<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">//rlDisableShader();      // Avoid resetting current shader program, in case other uniforms are set</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

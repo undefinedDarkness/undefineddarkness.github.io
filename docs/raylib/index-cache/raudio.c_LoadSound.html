@@ -1,0 +1,6 @@
+Sound <span style="color:#010181">LoadSound</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    Wave wave <span style="color:#000000">=</span> <span style="color:#010181">LoadWave</span><span style="color:#000000">(</span>fileName<span style="color:#000000">);</span>
+    Sound sound <span style="color:#000000">=</span> <span style="color:#010181">LoadSoundFromWave</span><span style="color:#000000">(</span>wave<span style="color:#000000">);</span>
+    <span style="color:#010181">UnloadWave</span><span style="color:#000000">(</span>wave<span style="color:#000000">);</span>       <span style="color:#838183; font-style:italic">// Sound is loaded, we can unload wave</span>
+    <span style="color:#000000; font-weight:bold">return</span> sound<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,23 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetFPS</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> fps <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#if !defined(SUPPORT_CUSTOM_FRAME_CONTROL)</span>
+    <span style="color:#008200">#define FPS_CAPTURE_FRAMES_COUNT    30</span>      <span style="color:#838183; font-style:italic">// 30 captures</span>
+<span style="color:#008200"></span>    <span style="color:#008200">#define FPS_AVERAGE_TIME_SECONDS   0.5f</span>     <span style="color:#838183; font-style:italic">// 500 millisecondes</span>
+<span style="color:#008200"></span>    <span style="color:#008200">#define FPS_STEP (FPS_AVERAGE_TIME_SECONDS/FPS_CAPTURE_FRAMES_COUNT)</span>
+    <span style="color:#0057ae">static int</span> index <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">static float</span> history<span style="color:#000000">[</span>FPS_CAPTURE_FRAMES_COUNT<span style="color:#000000">] = {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#0057ae">static float</span> average <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> last <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> fpsFrame <span style="color:#000000">=</span> <span style="color:#010181">GetFrameTime</span><span style="color:#000000">();</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>fpsFrame <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">return</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span><span style="color:#010181">GetTime</span><span style="color:#000000">() -</span> last<span style="color:#000000">) &gt;</span> FPS_STEP<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        last <span style="color:#000000">= (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span><span style="color:#010181">GetTime</span><span style="color:#000000">();</span>
+        index <span style="color:#000000">= (</span>index <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">)%</span>FPS_CAPTURE_FRAMES_COUNT<span style="color:#000000">;</span>
+        average <span style="color:#000000">-=</span> history<span style="color:#000000">[</span>index<span style="color:#000000">];</span>
+        history<span style="color:#000000">[</span>index<span style="color:#000000">] =</span> fpsFrame<span style="color:#000000">/</span>FPS_CAPTURE_FRAMES_COUNT<span style="color:#000000">;</span>
+        average <span style="color:#000000">+=</span> history<span style="color:#000000">[</span>index<span style="color:#000000">];</span>
+    <span style="color:#000000">}</span>
+    fps <span style="color:#000000">= (</span><span style="color:#0057ae">int</span><span style="color:#000000">)</span><span style="color:#010181">roundf</span><span style="color:#000000">(</span><span style="color:#b07e00">1.0</span>f<span style="color:#000000">/</span>average<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> fps<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

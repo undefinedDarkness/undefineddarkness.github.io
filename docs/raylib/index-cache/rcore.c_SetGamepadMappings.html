@@ -1,0 +1,7 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">SetGamepadMappings</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>mappings<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> result <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    result <span style="color:#000000">=</span> <span style="color:#010181">glfwUpdateGamepadMappings</span><span style="color:#000000">(</span>mappings<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

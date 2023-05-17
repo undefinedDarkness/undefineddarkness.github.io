@@ -1,0 +1,14 @@
+Font <span style="color:#010181">LoadFontEx</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> fontSize<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> <span style="color:#000000">*</span>fontChars<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> glyphCount<span style="color:#000000">){</span>
+    Font font <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#838183; font-style:italic">// Loading file to memory</span>
+    <span style="color:#0057ae">unsigned int</span> fileSize <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">unsigned char</span> <span style="color:#000000">*</span>fileData <span style="color:#000000">=</span> <span style="color:#010181">LoadFileData</span><span style="color:#000000">(</span>fileName<span style="color:#000000">, &amp;</span>fileSize<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>fileData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Loading font from memory data</span>
+        font <span style="color:#000000">=</span> <span style="color:#010181">LoadFontFromMemory</span><span style="color:#000000">(</span><span style="color:#010181">GetFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">),</span> fileData<span style="color:#000000">,</span> fileSize<span style="color:#000000">,</span> fontSize<span style="color:#000000">,</span> fontChars<span style="color:#000000">,</span> glyphCount<span style="color:#000000">);</span>
+        <span style="color:#010181">UnloadFileData</span><span style="color:#000000">(</span>fileData<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span> font <span style="color:#000000">=</span> <span style="color:#010181">GetFontDefault</span><span style="color:#000000">();</span>
+    <span style="color:#000000; font-weight:bold">return</span> font<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

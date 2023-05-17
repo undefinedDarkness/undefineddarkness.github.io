@@ -1,0 +1,8 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">TextIsEqual</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>text1<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>text2<span style="color:#000000">){</span>
+    <span style="color:#0057ae">bool</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>text1 <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp; (</span>text2 <span style="color:#000000">!=</span> NULL<span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">strcmp</span><span style="color:#000000">(</span>text1<span style="color:#000000">,</span> text2<span style="color:#000000">) ==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

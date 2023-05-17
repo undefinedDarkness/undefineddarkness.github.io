@@ -1,0 +1,7 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetTouchX</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_WEB)</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span><span style="color:#000000">)</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Touch<span style="color:#000000">.</span>position<span style="color:#000000">[</span><span style="color:#b07e00">0</span><span style="color:#000000">].</span>x<span style="color:#000000">;</span>
+<span style="color:#008200">#else</span>   <span style="color:#838183; font-style:italic">// PLATFORM_DESKTOP, PLATFORM_RPI, PLATFORM_DRM</span>
+<span style="color:#008200"></span>    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#010181">GetMouseX</span><span style="color:#000000">();</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>
