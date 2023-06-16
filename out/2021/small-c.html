@@ -14,16 +14,14 @@
 <header>
 <h1>Optimizing for size</h1>
 </header>
-<br/>
 I was wondering how small it was possible to make could get a non trivial program, without actually changing the code itself, ie: mostly compiler flags and such.<br/>
-<br/>
 I might be using "non trivial" wrongly here but I mean a program that can actually do something.<br/>
 <br/>
 Well, let us start with a non trivial program and go from there,<br/>
 For this I will make use of the wonderful <a href="https://github.com/erkkah/tigr">tigr graphics library</a><br/>
 <br/>
 <pre>
-	<code><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdlib.h&gt;</span>
+<code class="language-c"><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdlib.h&gt;</span>
 <span style="color:#ffcfaf; font-weight:bold">#include</span> <span style="color:#cc9393">&quot;tigr.h&quot;</span><span style="color:#ffcfaf; font-weight:bold"></span>
 <span style="color:#ffcfaf; font-weight:bold">#include &lt;time.h&gt;</span>
 <span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
@@ -61,8 +59,7 @@ For this I will make use of the wonderful <a href="https://github.com/erkkah/tig
   <span style="color:#aabfe3">free</span><span style="color:#dcdccc">(</span>fmt<span style="color:#dcdccc">);</span>
   <span style="color:#aabfe3">tigrFree</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">);</span>
   <span style="color:#e3ceab">return</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 Nothing flashy, it just opens a window, draws some text and some rain.<br/>
 Compiling with <code>cc app.c tigr.c -o app -lGl -lX11</code> gives us our executable, whose size is 76kb.<br/>

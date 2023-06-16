@@ -51,7 +51,7 @@ is a spice.<br/>
 </li>
 </ul><br/>Checking for Syntax Highlighting:<br/>
 <pre>
-	<code><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
+<code class="language-c"><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
 
 <span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#aabfe3">Q_rsqrt</span><span style="color:#dcdccc">(</span> <span style="color:#dfdfbf; font-weight:bold">float</span> number <span style="color:#dcdccc">)</span>
 <span style="color:#dcdccc">{</span>
@@ -72,8 +72,7 @@ is a spice.<br/>
 
 <span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span> <span style="color:#dcdccc">() {</span>
     <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Hello world</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">);</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 <!-- Folds can be created with the 'f'old transformer -->
 
@@ -94,8 +93,12 @@ What about tables?<br/>
 Rows are separated by lines<br/>
 Columns are seperated by any amount of spaces and at least 1 tab.<br/>
 --><br/>
-<div class="ovr-x"><table class="">
-<tbody><tr>
+<table class="">
+<thead><tr>
+<th>Fruits</th>
+<th>Vegetables</th>
+</tr>
+</thead><tbody><tr>
 <td>Apple</td>
 <td>Carrot<br/></td>
 </tr>
@@ -107,7 +110,7 @@ Columns are seperated by any amount of spaces and at least 1 tab.<br/>
 <td>Banana</td>
 <td>Eggplant<br/></td>
 </tr>
-</tbody></table></div>
+</tbody></table>
 <br/>
 Block Quotes & Captions:<br/>
 <!-- Pretty simple here too, the last line automatically becomes the caption -->
@@ -128,14 +131,13 @@ and some of the fonts were chosen with the help of cae<br/>
 <p>
 Inline in code sections:<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">export</span> __OPENGL__<span style="color:#dcdccc">=</span><span style="color:#dca3a3; font-weight:bold">1</span>
-<span style="color:#dfdfbf; font-weight:bold">printf</span> <span style="color:#cc9393">&apos;%d&apos;</span> $<span style="color:#dcdccc">((</span> <span style="color:#dca3a3; font-weight:bold">2</span> <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">5</span> <span style="color:#dcdccc">))</span>
-	</code>
+<code class="language-sh"><span style="color:#dfdfbf; font-weight:bold">export</span> __OPENGL__<span style="color:#dcdccc">=</span><span style="color:#dca3a3; font-weight:bold">1</span>
+<span style="color:#dfdfbf; font-weight:bold">printf</span> <span style="color:#cc9393">&apos;%d&apos;</span> $<span style="color:#dcdccc">((</span> <span style="color:#dca3a3; font-weight:bold">2</span> <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">5</span> <span style="color:#dcdccc">))</span>	</code>
 </pre>
 <br/>
 Tables & Transformers in code sections:<br/>
 <pre>
-	<code>&#35;TABLE	A	B
+<code class="language-plaintext">&#35;TABLE	A	B
 		C	D
 &#35;END TABLE
 

@@ -97,10 +97,10 @@ C arrays are contiguous in memory meaning that each element is directly after an
 This can be useful if you don't know the size of the array but you know that it terminates in NULL
 ```c
 void example(char** strArray) {
-    char* str=strArray;
-    while(str!=NULL) {
+    char* str = strArray;
+    while(str != NULL) {
         printf("%s\t",str);
-        str+=sizeof(char*);
+        str += sizeof(char*);
     }
 }
 ```

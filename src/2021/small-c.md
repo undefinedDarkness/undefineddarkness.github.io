@@ -1,7 +1,5 @@
 # Optimizing for size
-
 I was wondering how small it was possible to make could get a non trivial program, without actually changing the code itself, ie: mostly compiler flags and such.
-
 I might be using "non trivial" wrongly here but I mean a program that can actually do something.
 
 Well, let us start with a non trivial program and go from there,

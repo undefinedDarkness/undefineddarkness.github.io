@@ -13,57 +13,57 @@ template_post_content=
 # Helpers:
 
 fin () {
-    [ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
+	[ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
 }
 
 clean_markup () {
-    local -n ptr=${1}
-    ptr=${ptr//'<span class="reset">'/}
-    ptr=${ptr//'</span>'/}
-    ptr=${ptr#*'<h1'*'>'}
-    ptr=${ptr%'</h1>'*}
-    ptr=${ptr//'}'/}
-    ptr=${ptr//'{'/}
-    ptr=${ptr//'<img'*'>'/}
+	local -n ptr=${1}
+	ptr=${ptr//'<span class="reset">'/}
+	ptr=${ptr//'</span>'/}
+	ptr=${ptr#*'<h1'*'>'}
+	ptr=${ptr%'</h1>'*}
+	ptr=${ptr//'}'/}
+	ptr=${ptr//'{'/}
+	ptr=${ptr//'<img'*'>'/}
 }
 
 format_doc_heading () {
-    doc_path=${1#'./src/'}
-    doc_path=${doc_path%'.'*}
+	doc_path=${1#'./src/'}
+	doc_path=${doc_path%'.'*}
 
-    [[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
-    doc_title=${BASH_REMATCH[1]}
-    clean_markup doc_title
-    
-    doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
-    doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
+	[[ "$markup" =~ \<h1\>(.*)\<\/h1\> ]] # uses variable from parent here
+	doc_title=${BASH_REMATCH[1]}
+	clean_markup doc_title
+
+	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
+	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
 }
 
 # Tasks:
 build_md () {
-    out=${1/src/out}
-    out=${out/.md/.html}
-    markup=$(quiet=true bash ./.tooling/pond.sh "$1")
-    format_doc_heading "$out"
-    mkdir -p "$(dirname "$out")"
-    printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
-    fin "$1"
+	out=${1/src/out}
+	out=${out/.md/.html}
+	markup=$(quiet=true bash ./.tooling/pond.sh "$1")
+	format_doc_heading "$out"
+	mkdir -p "$(dirname "$out")"
+	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
+	fin "$1"
 }
 
 build_html () {
-    out=${1/src/out}
-    cp "$1" "$out"
-    fin "$1"
+	out=${1/src/out}
+	cp "$1" "$out"
+	fin "$1"
 }
 
 emacs_arguments=('--batch' '-l' "$XDG_CONFIG_HOME/emacs/init.el" "-l" "org" "-l" "ox-html")
 
 build_org () {
-    out=${1/src/out}
-    out=${out/.org/.html}
-    out=$(realpath "$out")
-    emacs_arguments+=('--file' "$1" '-f' 'org-html-export-to-html' '--eval' "(rename-file \"$(realpath "${1/.org/.html}")\" \"$out\" t)")
-    fin "$1"
+	out=${1/src/out}
+	out=${out/.org/.html}
+	out=$(realpath "$out")
+	emacs_arguments+=('--file' "$1" '-f' 'org-html-export-to-html' '--eval' "(rename-file \"$(realpath "${1/.org/.html}")\" \"$out\" t)")
+	fin "$1"
 }
 
 #=======================
@@ -71,57 +71,70 @@ build_org () {
 #=======================
 
 build () {
-    file=$1
-    case "${file##*.}" in
-        'org')
-            build_org "$file" 
-            ;;
-        'html')
-            build_html "$file" &
-            ;;
-        'md')
-            build_md "$file" &
-            ;;
-        *)
-            return
-            ;;
-    esac
+	file=$1
+	case "${file##*.}" in
+		'org')
+			build_org "$file" 
+			;;
+		'html')
+			build_html "$file" &
+			;;
+		'md')
+			build_md "$file" &
+			;;
+		*)
+			return
+			;;
+	esac
 }
 
 generate_org_full () {
-    emacs "${emacs_arguments[@]}" >/dev/null 2>&1
+	emacs "${emacs_arguments[@]}" >/dev/null 2>&1
 }
 
 count=0
 generate_index () {
-    cp ./src/index.html ./out/index.html 2> /dev/null
-    find out/ \
+	cp ./src/index.html ./out/index.html 2> /dev/null
+	find out/ \
 		-maxdepth 1 \
 		-type d \
 		-not -path 'out/'\
 		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2  | while read -r folder; do
-        local posts=""
-        while read -r match; do
-            file=${match%%:*}
-            title=${match#*:}
+			local posts=""
+			while read -r match; do
+				file=${match%%:*}
+				title=${match#*:}
 
-            clean_markup title
-            
-            [ -z "${title/ /}" ] && continue
-            posts+="<li><a class='special' href='/$file'>$title</a></li>\n"
-			((count++))
-		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
-        folder=${folder#*/}
-        sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
-    done
+				clean_markup title
 
-    printf "\r\e[33m\e[1mBUILT\e[0m %d files." "$count"
-    cp ./out/index.html ./index.html 
-}
+				[ -z "${title/ /}" ] && continue
+				posts+="<li><a class='special' href='/$file'>$title</a></li>\n"
+				((count++))
+			done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
+			folder=${folder#*/}
+			sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
+		done
 
-liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
+		printf "\r\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
+		cp ./out/index.html ./index.html 
+	}
+
+	liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
 
 # Default: Build All Files
+
+intermediate=
+IFS="
+"
+while read -r line; do
+	if [[ "$line" == *"!CONTENT!" ]]; then
+		template_pre_content=$intermediate
+		intermediate=
+		continue
+	fi
+	intermediate+=$line$IFS
+done < ./template.html
+template_post_content=$intermediate
 
 case "$1" in
 	"rm")
@@ -130,57 +143,51 @@ case "$1" in
 		generate_index
 		exit
 		;;
-    "serve")
-        python3 -m http.server 5050
+	"serve")
+		python3 -m http.server 5050
 		exit
-        ;;
-    "live")
+		;;
+	"live")
 		echo -e "$liveStartMessage"
 		python3 ./.tooling/hs.py &
 		serverPid=$!
 		sleep 1
-		find src \
-			-name '*.html' \
-			-or \
-			-name '*.md' \
-			-or \
-			-name '*.org' \
-			-not \
-			-name '.#*' | entr -p "$0" /_ 
-	
-		kill $serverPid
-		exit
-        ;;
+		count=0
+		IFS=$'\n'
+		skip_next=
+		python3 ./.tooling/fsw.py | while read -r modified_file; do
+		if [ -n "$skip_next" ]; then
+			skip_next=
+			continue
+		fi
+		count=$(( count + 1 ))
+		printf "\r%s was rebuilt [%d]" "$modified_file" "$(( count ))"
+		build "$modified_file"
+		skip_next=1
+	done # < <(python3 ./.tooling/fsw.py)
+	printf '\nKilled Server\n'
+	kill $serverPid
+	exit
+	;;
 esac
 
 
-intermediate=
-IFS="
-"
-while read -r line; do
-    if [[ "$line" == *"!CONTENT!" ]]; then
-        template_pre_content=$intermediate
-        intermediate=
-        continue
-    fi
-    intermediate+=$line$IFS
-done < ./template.html
-template_post_content=$intermediate
+
 
 files_to_build="$*"
 if [ -z "${files_to_build/ /}" ]; then
-		files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)
+	files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)
 fi
 oifs=$IFS
 IFS=" "
 for file in ${files_to_build}; do
-    build "$file"
-    count=$(( count + 1 ))
+	build "$file"
+	count=$(( count + 1 ))
 done
 IFS=$oifs
 
 for job in $(jobs -p); do
-    wait "$job"
+	wait "$job"
 done
 
 # POST BUILD TASKS

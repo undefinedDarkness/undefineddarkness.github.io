@@ -11,7 +11,15 @@
 	<body>
 	  <article>
 
-<header>
+
+		<!-- KATEX LOADING -->
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="
+			renderMathInElement(document.body, {
+				output: 'mathml'
+			});
+		"></script>
+		<header>
 <h1>Approximating sin(x)</h1>
 </header>
 We all know calculating \(\sin(x)\) for anything other than simple multiples of \(\pi\) is a pain in the neck.<br/>
@@ -98,7 +106,7 @@ Exactly how its obtained via the Remez Algorithm, is something I haven't really 
 <br/>
 An implementation in C is given here:<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">static double</span> <span style="color:#aabfe3">minimaxsin</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">double</span> x<span style="color:#dcdccc">)</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">static double</span> <span style="color:#aabfe3">minimaxsin</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">double</span> x<span style="color:#dcdccc">)</span>
 <span style="color:#dcdccc">{</span>
     <span style="color:#dfdfbf; font-weight:bold">static const</span>
     <span style="color:#dfdfbf; font-weight:bold">double</span> a0 <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">1.0</span><span style="color:#dcdccc">,</span>
@@ -114,8 +122,7 @@ An implementation in C is given here:<br/>
 <span style="color:#7f9f7f; font-style:italic">    &ast;/</span>
     <span style="color:#e3ceab">return</span> x <span style="color:#dcdccc">&ast; (</span>a0 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a1 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a2 <span style="color:#dcdccc">+</span> x2
              <span style="color:#dcdccc">&ast; (</span>a3 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a4 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a5 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast;</span> a6<span style="color:#dcdccc">))))));</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 <br/>
 It functions very similarly to the taylor polynomial, except the constants have been replaced to achieve greather accuracy,<br/>
@@ -132,7 +139,7 @@ Which it does, achieving some 10^4 times smaller error in comparison (for 7 term
 	<p>
 		Looking at the implementation of sin in musl, We get:<br/>
 <pre>
-	<code>
+<code class="language-c">
 <span style="color:#7f9f7f; font-style:italic">/&ast;</span>
 <span style="color:#7f9f7f; font-style:italic"> &ast;      3. sin(x) is approximated by a polynomial of degree 13 on</span>
 <span style="color:#7f9f7f; font-style:italic"> &ast;         [0,pi/4]</span>
@@ -175,8 +182,7 @@ S6  <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weigh
 	<span style="color:#e3ceab">else</span>
         
 		<span style="color:#e3ceab">return</span> x <span style="color:#dcdccc">- ((</span>x2<span style="color:#dcdccc">&ast;(</span><span style="color:#dca3a3; font-weight:bold">0.5</span><span style="color:#dcdccc">&ast;</span>dx <span style="color:#dcdccc">-</span> x3<span style="color:#dcdccc">&ast;</span>r<span style="color:#dcdccc">) -</span> dx<span style="color:#dcdccc">) -</span> x3<span style="color:#dcdccc">&ast;</span>S1<span style="color:#dcdccc">);</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 <br/>
 Although I am not sure what is happening in the 2nd if branch, It seems to use a polynomial approximation of degree 13 to get results for x in the range \([-\pi/4, +\pi/4]\), Which is obtained in the parent sin(x) function with argument reduction (dividing by \(\pi/2\) and getting the remainder), And the final result from said sin(x) is obtained with a combination of __sin(x) and similarly __cos(x) depending on the quadrant of the function (there is also a case for sin x ~= x for small x).<br/>
@@ -200,15 +206,6 @@ I also added the SIMD AVX sin function from libmvec for fun too :)<br/>
 <a href="https://www.youtube.com/watch?v=yV52TMdGkng">https://www.youtube.com/watch?v=yV52TMdGkng</a><br/>
 <a href="https://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/">https://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/</a><br/>
 <a href="http://users.ece.utexas.edu/~adnan/comm/fast-trigonometric-functions-using.pdf">http://users.ece.utexas.edu/~adnan/comm/fast-trigonometric-functions-using.pdf</a><br/>
-
-		<!-- KATEX LOADING -->
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="
-			renderMathInElement(document.body, {
-				output: 'mathml'
-			});
-		"></script>
-		
 			<footer style="margin-bottom: 2em;">
 				<a class="special" href="/out/index.html">Return To Index</a>
 			</footer>

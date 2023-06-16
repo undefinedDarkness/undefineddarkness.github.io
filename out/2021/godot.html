@@ -260,19 +260,17 @@ editor which would probably error it out and maybe even crash it or slow<br/>
 it down a lot is to do<br/>
 <br/>
 <pre>
-	<code>if Engine.editor_hint:
+<code class="language- gdscript">if Engine.editor_hint:
     print(&quot;Running in editor&quot;)
-   return
-	</code>
+   return	</code>
 </pre>
 <br/>
 which is just ugly in a word, I'd rather a way alongside the if check<br/>
 somewhat like this<br/>
 <br/>
 <pre>
-	<code>editor func only_in_editor():
-    print(&quot;I only run in the editor&quot;)
-	</code>
+<code class="language- gdscript">editor func only_in_editor():
+    print(&quot;I only run in the editor&quot;)	</code>
 </pre>
 <br/>
 Definitely a nitpick, but true private functions would be nice to go<br/>
@@ -284,25 +282,21 @@ other script files (This is very basic stuff) is to have 2 scripts like<br/>
 this:<br/>
 <br/>
 <pre>
-	<code><span style="color:#e3ceab">extends</span> Node
+<code class="language-gdscript"><span style="color:#e3ceab">extends</span> Node
 
 <span style="color:#e3ceab">func</span> <span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span>name<span style="color:#dcdccc">:</span> String<span style="color:#dcdccc">) -&gt;</span> String<span style="color:#dcdccc">:</span>
-  <span style="color:#e3ceab">return</span> <span style="color:#cc9393">&quot;Hello there, &quot;</span> <span style="color:#dcdccc">+</span> name
-
-	</code>
+  <span style="color:#e3ceab">return</span> <span style="color:#cc9393">&quot;Hello there, &quot;</span> <span style="color:#dcdccc">+</span> name	</code>
 </pre>
 <br/>
 &<br/>
 <br/>
 <pre>
-	<code><span style="color:#e3ceab">extends</span> Node
+<code class="language-gdscript"><span style="color:#e3ceab">extends</span> Node
 
 <span style="color:#e3ceab">var</span> hello <span style="color:#dcdccc">=</span> <span style="color:#e3ceab">preload</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;res://hello.gd&quot;</span><span style="color:#dcdccc">).</span><span style="color:#aae3b2">new</span><span style="color:#dcdccc">()</span>
 
 <span style="color:#e3ceab">func</span> <span style="color:#aae3b2">_ready</span><span style="color:#dcdccc">() -&gt;</span> void<span style="color:#dcdccc">:</span>
-    <span style="color:#e3ceab">print</span><span style="color:#dcdccc">(</span>hello<span style="color:#dcdccc">.</span><span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Jeffery&quot;</span><span style="color:#dcdccc">))</span>
-
-	</code>
+    <span style="color:#e3ceab">print</span><span style="color:#dcdccc">(</span>hello<span style="color:#dcdccc">.</span><span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Jeffery&quot;</span><span style="color:#dcdccc">))</span>	</code>
 </pre>
 <br/>
 This might be fine, but I just don't like it :| A proper import / export<br/>

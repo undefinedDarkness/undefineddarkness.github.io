@@ -26,7 +26,7 @@ The heap is like a village well, It takes time to get to it but once you're ther
 There technically, is a much more nuanced difference between the stack and the heap and they can be entirely just in one's head but it makes explaining stuff a lot simpler.<br/>
 <br/>
 </p>
-<h3 id="example-problem: returning a string from a function">Example Problem: Returning a string from a function</h3>
+<h3 id="example-problem:-returning-a-string-from-a-function">Example Problem: Returning a string from a function</h3>
 <p>
 Let's say we want to write a function in C to return a string time stamp, Very simple right?<br/>
 <br/>
@@ -34,16 +34,15 @@ Let's say we want to write a function in C to return a string time stamp, Very s
 <h4 id="initial-attempt:">Initial Attempt:</h4>
 <p>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
     <span style="color:#dfdfbf; font-weight:bold">char</span> timestamp<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">];</span>
     <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">,</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">),</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
     <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 But this won't work, The compiler even gives us a warning<br/>
 <pre>
-	<code>e.c:6:12: warning: function returns address of local variable &lsqb;-Wreturn-local-addr&rsqb;
+<code class="language-plaintext">e.c:6:12: warning: function returns address of local variable &lsqb;-Wreturn-local-addr&rsqb;
     6 |     return timestamp;
       |            ^<strike>~</strike>~~~
 </code>
@@ -52,29 +51,27 @@ Okay but why doesn't this work? It's because our <code>timestamp</code> variable
 There's three ways we can fix it, By marking our memory static, By taking a char buffer as a argument or by <i>allocating</i> our memory so that it won't disapper once our function is complete.<br/>
 <br/>
 </p>
-<h4 id="solution-1: static">Solution 1: static</h4>
+<h4 id="solution-1:-static">Solution 1: static</h4>
 <p>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
     <span style="color:#dfdfbf; font-weight:bold">static char</span> timestamp<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">];</span>
     <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">,</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">),</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">);</span>
     <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 This works, because now <code>timestamp</code> is static so it will exist for the lifetime of the program, But the problem is if the function is called again, timestamp gets overwritten!<br/>
 Example:<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span>a <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">();</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span>a <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">();</span>
 <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>a<span style="color:#dcdccc">);</span>
 <span style="color:#aabfe3">sleep</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">5</span><span style="color:#dcdccc">);</span>
 <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span>b <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">();</span>
-<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s, %s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>a<span style="color:#dcdccc">,</span>b<span style="color:#dcdccc">);</span>
-	</code>
+<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s, %s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>a<span style="color:#dcdccc">,</span>b<span style="color:#dcdccc">);</span>	</code>
 </pre>
 gives<br/>
 <pre>
-	<code>1682173737
+<code class="language-plaintext">1682173737
 1682173742, 1682173742
 </code>
 </pre>
@@ -83,29 +80,27 @@ so the memory <code>a</code> is pointing to changes when <code>getTimestamp()</c
 <b>NOTE</b>: static memory is only initialized once<br/>
 <br/>
 </p>
-<h3 id="solution-2: taking a pointer">Solution 2: taking a pointer</h3>
+<h3 id="solution-2:-taking-a-pointer">Solution 2: taking a pointer</h3>
 <p>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> buf<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">size_t</span> bufSize<span style="color:#dcdccc">) {</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> buf<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">size_t</span> bufSize<span style="color:#dcdccc">) {</span>
     <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>buf<span style="color:#dcdccc">,</span> bufSize<span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
     <span style="color:#e3ceab">return</span> buf<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 In this version, we ignore memory entirely, We simply take in a pointer to some memory (stack or heap, doesn't matter) and write to it.<br/>
 But if we didn't take in a size for the buffer there's a chance we could overflow the buffer. So there is added risk with this, but it allows for better memory reusability, since the caller can call it with the same memory.<br/>
 <br/>
 </p>
-<h3 id="solution-3: allocating on the heap">Solution 3: allocating on the heap</h3>
+<h3 id="solution-3:-allocating-on-the-heap">Solution 3: allocating on the heap</h3>
 <p>
 <pre>
-	<code><span style="color:#7f9f7f; font-style:italic">// Caller must free() the given memory</span>
+<code class="language-c"><span style="color:#7f9f7f; font-style:italic">// Caller must free() the given memory</span>
 <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
     <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> timestamp <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
     <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>buf<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
     <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>   
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 In this case, each time our function is called, we allocate a tiny buffer and write to it, This isn't the best solution for this particular problem since allocating such a small chunk wastes time, But if we are dealing with bigger chunks, It's a good solution<br/>
 <br/>
@@ -133,14 +128,13 @@ You can obtain the address of local variables with the <code>&</code> operator.<
 C arrays are contiguous in memory meaning that each element is directly after another so if you know the element size, You can loop through the array with only pointers,<br/>
 This can be useful if you don't know the size of the array but you know that it terminates in NULL<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">void</span> <span style="color:#aabfe3">example</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;&ast;</span> strArray<span style="color:#dcdccc">) {</span>
-    <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> str<span style="color:#dcdccc">=</span>strArray<span style="color:#dcdccc">;</span>
-    <span style="color:#e3ceab">while</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">!=</span>NULL<span style="color:#dcdccc">) {</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">void</span> <span style="color:#aabfe3">example</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;&ast;</span> strArray<span style="color:#dcdccc">) {</span>
+    <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> str <span style="color:#dcdccc">=</span> strArray<span style="color:#dcdccc">;</span>
+    <span style="color:#e3ceab">while</span><span style="color:#dcdccc">(</span>str <span style="color:#dcdccc">!=</span> NULL<span style="color:#dcdccc">) {</span>
         <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\t</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>str<span style="color:#dcdccc">);</span>
-        str<span style="color:#dcdccc">+=</span><span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;);</span>
+        str <span style="color:#dcdccc">+=</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;);</span>
     <span style="color:#dcdccc">}</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 <br/>
 The biggest difference between a 32bit architecture and 64bit is that in 32bit, the pointers are only 32bits long (4bytes) which limits memory size to 4GB, on 64bit they are double the size so can access as much as 16 exabytes of memory. <br/>
@@ -235,26 +229,24 @@ Whenever you wish to resize your given block of memory, <code>realloc</code> is 
 This is a linux syscall for mapping pages of memory but it can be useful for certain things like,<br/>
 Loading a entire file into memory:<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">int</span> fd <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">open</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;passwd&quot;</span><span style="color:#dcdccc">,</span> O_RDONLY<span style="color:#dcdccc">);</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">int</span> fd <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">open</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;passwd&quot;</span><span style="color:#dcdccc">,</span> O_RDONLY<span style="color:#dcdccc">);</span>
 <span style="color:#dfdfbf; font-weight:bold">struct</span> stat s<span style="color:#dcdccc">;</span>
 <span style="color:#aabfe3">fstat</span><span style="color:#dcdccc">(</span>fd<span style="color:#dcdccc">, &amp;</span>s<span style="color:#dcdccc">);</span>
 <span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>buffer <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">mmap</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">,</span> PROT_READ <span style="color:#dcdccc">|</span> PROT_WRITE<span style="color:#dcdccc">,</span> MAP_PRIVATE<span style="color:#dcdccc">,</span> fd<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
 buffer<span style="color:#dcdccc">[</span>s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">-</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">] =</span> <span style="color:#cc9393">&apos;\0&apos;</span><span style="color:#dcdccc">;</span>
 <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s&quot;</span><span style="color:#dcdccc">,</span>buffer<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">);</span>
-	</code>
+<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">);</span>	</code>
 </pre>
 <br/>
 Writing to a file:<br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>str <span style="color:#dcdccc">=</span> <span style="color:#cc9393">&quot;Hello World&quot;</span><span style="color:#dcdccc">;</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>str <span style="color:#dcdccc">=</span> <span style="color:#cc9393">&quot;Hello World&quot;</span><span style="color:#dcdccc">;</span>
 <span style="color:#dfdfbf; font-weight:bold">int</span> fd <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">open</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;test&quot;</span><span style="color:#dcdccc">,</span> O_RDWR <span style="color:#dcdccc">|</span> O_CREAT<span style="color:#dcdccc">);</span>
 <span style="color:#aabfe3">ftruncate</span><span style="color:#dcdccc">(</span>fd<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
 <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> buffer <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">mmap</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">,</span> PROT_READ <span style="color:#dcdccc">|</span> PROT_WRITE<span style="color:#dcdccc">,</span> MAP_SHARED<span style="color:#dcdccc">,</span> fd<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
 <span style="color:#aabfe3">memcpy</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> str<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
 <span style="color:#aabfe3">msync</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">,</span> MS_SYNC<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
-	</code>
+<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>	</code>
 </pre>
 <a href="https://kuafu1994.github.io/MoreOnMemory/shared-memory.html">Full example</a><br/>
 <a href="https://man.openbsd.org/mmap">manpage</a><br/>
@@ -278,17 +270,16 @@ This isn't bad when the chunk is small but it's best to try to plug all the <b>b
 These days any program compiled with AddressSanitizer (ASAN) should automatically any leaks in it even with line numbers.<br/>
 <br/>
 <pre>
-	<code><span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">void</span><span style="color:#dcdccc">) {</span>
+<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">void</span><span style="color:#dcdccc">) {</span>
 	<span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> rand <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
 	rand<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">99</span><span style="color:#dcdccc">] =</span> <span style="color:#cc9393">&apos;\0&apos;</span><span style="color:#dcdccc">;</span>
 	<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span> rand<span style="color:#dcdccc">);</span>
 	<span style="color:#7f9f7f; font-style:italic">// No free: free(rand);</span>
-<span style="color:#dcdccc">}</span>
-	</code>
+<span style="color:#dcdccc">}</span>	</code>
 </pre>
 when compiled with asan (& debug info) will give<br/>
 <pre>
-	<code>&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;
+<code class="language-plaintext">&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;
 &equals;&equals;16713&equals;&equals;ERROR: LeakSanitizer: detected memory leaks
 
 Direct leak of 100 byte(s) in 1 object(s) allocated from:
@@ -308,7 +299,7 @@ An external tool called valgrind can also be used to find memory leaks<br/>
 It can even report other stuff like using uninitialized values etc.<br/>
 <br/>
 <pre>
-	<code>$ valgrind --leak-check&equals;full ./e
+<code class="language-plaintext">$ valgrind --leak-check&equals;full ./e
 ...
 &equals;&equals;18045&equals;&equals; 100 bytes in 1 blocks are definitely lost in loss record 1 of 1
 &equals;&equals;18045&equals;&equals;    at 0x483877F: malloc (vg_replace_malloc.c:307)

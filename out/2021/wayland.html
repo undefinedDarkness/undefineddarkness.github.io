@@ -13,7 +13,7 @@
 
 <header>
 <pre>
-	<code>                  ,____
+<code class="language-plaintext">                  ,____
                    |---.\
            ___     |    `
           / .-\  ./&equals;)
@@ -38,7 +38,7 @@ This is intended to chronicle my adventures using Wayland<br/>
 The primary reason being terrible performance in X11 but that was later resolved. :)<br/>
 The journey continues tho 📔<br/>
 <br/>
-<h2 id="window-manager (compositor) ">Window Manager (Compositor) </h2>
+<h2 id="window-manager-(compositor)-">Window Manager (Compositor) </h2>
 <p>
 <i>I know its called a compositer but I am going to call it a window manager >:(</i>To fulfill this purpose I chose <a href="https://swaywm.org/">sway</a> as its the one I felt I could most get used to<br/>
 since I had used its Xorg brother (i3) for a long while<br/>
@@ -61,7 +61,7 @@ but its not that bad. I had to use <a href="https://github.com/emersion/grim">gr
 Nothing particularly difficult but not as cohesive as id like :/<br/>
 <br/>
 </p>
-<h2 id="moving-from xorg ">Moving from Xorg </h2>
+<h2 id="moving-from-xorg-">Moving from Xorg </h2>
 <p>
 This is a bit of a generic header but oh well<br/>
 <br/>
@@ -73,17 +73,16 @@ Although most of them required tweaking in some form or another<br/>
 <br/>
 <b>ROFI:</b> This does use a fork
 <pre>
-	<code>git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
+<code class="language-sh">git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
 <span style="color:#dfdfbf; font-weight:bold">cd</span> rofi
 meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
 ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
-ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>
-	</code>
+ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>	</code>
 </pre>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
 <pre>
-	<code>MOZ_ENABLE_WAYLAND&equals;1 firefox
+<code class="language-plaintext">MOZ_ENABLE_WAYLAND&equals;1 firefox
 </code>
 </pre>
 ** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea

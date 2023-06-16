@@ -46,7 +46,7 @@ And of course since I like bringing pain onto myself, I decided to forgo <a href
 If you are starting out with Emacs, I recommend starting with DOOM,<br/>
 It's a good & fast configuration, You will have a much easier time.<br/>
 <br/>
-<h2 id="getting-used to it">Getting used to it</h2>
+<h2 id="getting-used-to-it">Getting used to it</h2>
 <p>
 <br/>
 Getting used to Emacs wasn't really hard once I installed<br/>
@@ -68,7 +68,7 @@ Using Emacs's bookmark system with _Consult_ has helped with moving<br/>
 around a lot however.<br/>
 <br/>
 </p>
-<h3 id="compiling-emacs for great good">Compiling Emacs for great good</h3>
+<h3 id="compiling-emacs-for-great-good">Compiling Emacs for great good</h3>
 <p>
 <br/>
 Another reason I decided to try Emacs now of all times was that there<br/>
@@ -97,8 +97,7 @@ emacs, It's not perfect, it still scrolls by lines instead of actual<br/>
 pixels but it is quite smooth and I don't hate using it.<br/>
 <br/>
 <pre>
-	<code>(pixel-scroll-precision-mode)
-	</code>
+<code class="language-commonlisp">(pixel-scroll-precision-mode)	</code>
 </pre>
 <br/>
 All 3 of these required me to build Emacs 29 from source (At the time of<br/>
@@ -108,19 +107,18 @@ to compile anything as [prebuilt<br/>
 binaries](<a href="http://emacs.secretsauce.net/">http://emacs.secretsauce.net/</a>) are available for you, Just do<br/>
 <br/>
 <pre>
-	<code># Uncomment the deb-src lines in /etc/apt/sources.list
+<code class="language-shell"># Uncomment the deb-src lines in /etc/apt/sources.list
 sudo apt-get build-dep emacs
 sudo apt install libgccjit-10-dev
 git clone <a href="https://git.savannah.gnu.org/git/emacs.git">https://git.savannah.gnu.org/git/emacs.git</a> --depth 1 -b master
 cd emacs
 ./autogen.sh
 ./configure.sh --with-native-compilation --with-pgtk --with-sqlite3
-sudo make install -j$(nproc)
-	</code>
+sudo make install -j$(nproc)	</code>
 </pre>
 <br/>
 </p>
-<h2 id="getting-comfortable in it">Getting comfortable in it</h2>
+<h2 id="getting-comfortable-in-it">Getting comfortable in it</h2>
 <p>
 </p>
 <h3 id="lsp-completion">LSP Completion</h3>
@@ -303,7 +301,7 @@ seems to be pretty ugly hacks in my opinion, I'll have to try and see<br/>
 which one isn't broken yet. <code>M-x</code> doctor - Hey I got it to work :)<br/>
 <br/>
 </p>
-<h3 id="making-org mode pretty">Making Org Mode Pretty</h3>
+<h3 id="making-org-mode-pretty">Making Org Mode Pretty</h3>
 <p>
 <br/>
     Before you delve any deeper, This is the end result in my Emacs<br/>

@@ -125,9 +125,12 @@ table () {
 	headings=""
 	classes=""
 	#IFS=$TAB
+	# shift
 	for heading in "$@"; do
+		# dbg ">>> ~ $heading"
 		case "$heading" in
 			'#TABLE')
+				continue
 				;;
 			.*)
 				classes="$classes ${heading#.}"

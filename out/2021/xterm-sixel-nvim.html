@@ -19,7 +19,8 @@ One day while fine tweaking my colourscheme, I noticed that my neovim wasn't dis
 like I had specified in it. After double checking that everything was fine from my configuration side, I resolved it to be<br/>
 something between neovim and the terminal.<br/>
 <br/>
-An hour of googling and trying a bunch of different fixes ensue, But most nothing happens till I try running neovim through the <code>env</code> program, forcibly o<br/>
+An hour of googling and trying a bunch of different fixes ensue, But most nothing happens till I try running neovim through the <code>env</code> program, forcibly overriding the <code>XTERM_VERSION</code> variable to be empty, This finally gave the correct behaviour.<br/>
+Seems like some kind of bug?, Maybe its because my xterm is run in vt340 mode to allow sixel support (Yes, xterm has sixel!!!)<br/>
 			<footer style="margin-bottom: 2em;">
 				<a class="special" href="/out/index.html">Return To Index</a>
 			</footer>
