@@ -1,9 +1,7 @@
 from aiohttp import web, WSMsgType
 from mimetypes import guess_type as guess_mime_type
 from pathlib import Path
-from watchfiles import awatch, Change as FSE
-import signal
-import os
+from watchfiles import awatch
 import asyncio
 
 # A terribly simple little hot server
@@ -38,7 +36,7 @@ injectionScript = """
 
 def injectHTML(path):
 
-    fp = open(path, "r")
+    fp = open(path, "r", encoding="utf8")
     content = fp.read()
     fp.close()
 

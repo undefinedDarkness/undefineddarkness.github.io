@@ -562,10 +562,12 @@ const openDetails = (to) => {
 }
 
 const ensureLoaded = (elem) => {
-	console.log(elem)
+	// console.log(elem)
+    const loc = window.location.pathname;
+    const dir = loc.substring(0, loc.lastIndexOf('/'));
 	if (elem.dataset.loaded == 'false') {
-		console.log('Trying to load: index-cache/' + elem.id)
-		fetch('index-cache/' + elem.id).then(r => r.text()).then(resp => {
+		// console.log('Trying to load: index-cache/' + elem.id)
+		fetch(dir + '/index-cache/' + elem.id + '.html').then(r => r.text()).then(resp => {
 			elem.parentElement.innerHTML += '<pre><code>' + resp + '</code></pre>'
 			document.getElementById(elem.id).dataset.loaded = 'true'
 		})

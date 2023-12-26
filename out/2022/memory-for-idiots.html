@@ -34,11 +34,11 @@ Let's say we want to write a function in C to return a string time stamp, Very s
 <h4 id="initial-attempt:">Initial Attempt:</h4>
 <p>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
-    <span style="color:#dfdfbf; font-weight:bold">char</span> timestamp<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">];</span>
-    <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">,</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">),</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
-    <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">char *getTimestamp() {
+    char timestamp[100];
+    snprintf(timestamp, sizeof(timestamp), "%llu", time(NULL));
+    return timestamp;
+}	</code>
 </pre>
 But this won't work, The compiler even gives us a warning<br/>
 <pre>
@@ -54,20 +54,20 @@ There's three ways we can fix it, By marking our memory static, By taking a char
 <h4 id="solution-1:-static">Solution 1: static</h4>
 <p>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
-    <span style="color:#dfdfbf; font-weight:bold">static char</span> timestamp<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">];</span>
-    <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">,</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span>timestamp<span style="color:#dcdccc">),</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">);</span>
-    <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">char *getTimestamp() {
+    static char timestamp[100];
+    snprintf(timestamp, sizeof(timestamp), "%llu");
+    return timestamp;
+}	</code>
 </pre>
 This works, because now <code>timestamp</code> is static so it will exist for the lifetime of the program, But the problem is if the function is called again, timestamp gets overwritten!<br/>
 Example:<br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span>a <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">();</span>
-<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>a<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">sleep</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">5</span><span style="color:#dcdccc">);</span>
-<span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span>b <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">();</span>
-<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s, %s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>a<span style="color:#dcdccc">,</span>b<span style="color:#dcdccc">);</span>	</code>
+<code class="language-c">char*a = getTimestamp();
+printf("%s\n",a);
+sleep(5);
+char*b = getTimestamp();
+printf("%s, %s\n",a,b);	</code>
 </pre>
 gives<br/>
 <pre>
@@ -83,10 +83,10 @@ so the memory <code>a</code> is pointing to changes when <code>getTimestamp()</c
 <h3 id="solution-2:-taking-a-pointer">Solution 2: taking a pointer</h3>
 <p>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span><span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> buf<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">size_t</span> bufSize<span style="color:#dcdccc">) {</span>
-    <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>buf<span style="color:#dcdccc">,</span> bufSize<span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
-    <span style="color:#e3ceab">return</span> buf<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">char <i>getTimestamp(char</i> buf, size_t bufSize) {
+    snprintf(buf, bufSize, "%llu", time(NULL));
+    return buf;
+}	</code>
 </pre>
 In this version, we ignore memory entirely, We simply take in a pointer to some memory (stack or heap, doesn't matter) and write to it.<br/>
 But if we didn't take in a size for the buffer there's a chance we could overflow the buffer. So there is added risk with this, but it allows for better memory reusability, since the caller can call it with the same memory.<br/>
@@ -95,12 +95,12 @@ But if we didn't take in a size for the buffer there's a chance we could overflo
 <h3 id="solution-3:-allocating-on-the-heap">Solution 3: allocating on the heap</h3>
 <p>
 <pre>
-<code class="language-c"><span style="color:#7f9f7f; font-style:italic">// Caller must free() the given memory</span>
-<span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> <span style="color:#aabfe3">getTimestamp</span><span style="color:#dcdccc">() {</span>
-    <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> timestamp <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
-    <span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>buf<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%llu&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
-    <span style="color:#e3ceab">return</span> timestamp<span style="color:#dcdccc">;</span>   
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">// Caller must free() the given memory
+char* getTimestamp() {
+    char* timestamp = malloc(100);
+    snprintf(buf, 100, "%llu", time(NULL));
+    return timestamp;   
+}	</code>
 </pre>
 In this case, each time our function is called, we allocate a tiny buffer and write to it, This isn't the best solution for this particular problem since allocating such a small chunk wastes time, But if we are dealing with bigger chunks, It's a good solution<br/>
 <br/>
@@ -128,13 +128,13 @@ You can obtain the address of local variables with the <code>&</code> operator.<
 C arrays are contiguous in memory meaning that each element is directly after another so if you know the element size, You can loop through the array with only pointers,<br/>
 This can be useful if you don't know the size of the array but you know that it terminates in NULL<br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">void</span> <span style="color:#aabfe3">example</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;&ast;</span> strArray<span style="color:#dcdccc">) {</span>
-    <span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> str <span style="color:#dcdccc">=</span> strArray<span style="color:#dcdccc">;</span>
-    <span style="color:#e3ceab">while</span><span style="color:#dcdccc">(</span>str <span style="color:#dcdccc">!=</span> NULL<span style="color:#dcdccc">) {</span>
-        <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\t</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span>str<span style="color:#dcdccc">);</span>
-        str <span style="color:#dcdccc">+=</span> <span style="color:#e3ceab">sizeof</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;);</span>
-    <span style="color:#dcdccc">}</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">void example(char** strArray) {
+    char* str = strArray;
+    while(str != NULL) {
+        printf("%s\t",str);
+        str += sizeof(char*);
+    }
+}	</code>
 </pre>
 <br/>
 The biggest difference between a 32bit architecture and 64bit is that in 32bit, the pointers are only 32bits long (4bytes) which limits memory size to 4GB, on 64bit they are double the size so can access as much as 16 exabytes of memory. <br/>
@@ -229,24 +229,24 @@ Whenever you wish to resize your given block of memory, <code>realloc</code> is 
 This is a linux syscall for mapping pages of memory but it can be useful for certain things like,<br/>
 Loading a entire file into memory:<br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">int</span> fd <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">open</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;passwd&quot;</span><span style="color:#dcdccc">,</span> O_RDONLY<span style="color:#dcdccc">);</span>
-<span style="color:#dfdfbf; font-weight:bold">struct</span> stat s<span style="color:#dcdccc">;</span>
-<span style="color:#aabfe3">fstat</span><span style="color:#dcdccc">(</span>fd<span style="color:#dcdccc">, &amp;</span>s<span style="color:#dcdccc">);</span>
-<span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>buffer <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">mmap</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">,</span> PROT_READ <span style="color:#dcdccc">|</span> PROT_WRITE<span style="color:#dcdccc">,</span> MAP_PRIVATE<span style="color:#dcdccc">,</span> fd<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
-buffer<span style="color:#dcdccc">[</span>s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">-</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">] =</span> <span style="color:#cc9393">&apos;\0&apos;</span><span style="color:#dcdccc">;</span>
-<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s&quot;</span><span style="color:#dcdccc">,</span>buffer<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> s<span style="color:#dcdccc">.</span>st_size<span style="color:#dcdccc">);</span>	</code>
+<code class="language-c">int fd = open("passwd", O_RDONLY);
+struct stat s;
+fstat(fd, &s);
+char *buffer = mmap(0, s.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+buffer[s.st_size-1] = '\0';
+printf("%s",buffer);
+munmap(buffer, s.st_size);	</code>
 </pre>
 <br/>
 Writing to a file:<br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>str <span style="color:#dcdccc">=</span> <span style="color:#cc9393">&quot;Hello World&quot;</span><span style="color:#dcdccc">;</span>
-<span style="color:#dfdfbf; font-weight:bold">int</span> fd <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">open</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;test&quot;</span><span style="color:#dcdccc">,</span> O_RDWR <span style="color:#dcdccc">|</span> O_CREAT<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">ftruncate</span><span style="color:#dcdccc">(</span>fd<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
-<span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> buffer <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">mmap</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">,</span> PROT_READ <span style="color:#dcdccc">|</span> PROT_WRITE<span style="color:#dcdccc">,</span> MAP_SHARED<span style="color:#dcdccc">,</span> fd<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">memcpy</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> str<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">msync</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">,</span> MS_SYNC<span style="color:#dcdccc">);</span>
-<span style="color:#aabfe3">munmap</span><span style="color:#dcdccc">(</span>buffer<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">strlen</span><span style="color:#dcdccc">(</span>str<span style="color:#dcdccc">)+</span><span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>	</code>
+<code class="language-c">char *str = "Hello World";
+int fd = open("test", O_RDWR | O_CREAT);
+ftruncate(fd, strlen(str)+1);
+char* buffer = mmap(0, strlen(str)+1, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+memcpy(buffer, str, strlen(str)+1);
+msync(buffer, strlen(str)+1, MS_SYNC);
+munmap(buffer, strlen(str)+1);	</code>
 </pre>
 <a href="https://kuafu1994.github.io/MoreOnMemory/shared-memory.html">Full example</a><br/>
 <a href="https://man.openbsd.org/mmap">manpage</a><br/>
@@ -270,12 +270,12 @@ This isn't bad when the chunk is small but it's best to try to plug all the <b>b
 These days any program compiled with AddressSanitizer (ASAN) should automatically any leaks in it even with line numbers.<br/>
 <br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">void</span><span style="color:#dcdccc">) {</span>
-	<span style="color:#dfdfbf; font-weight:bold">char</span><span style="color:#dcdccc">&ast;</span> rand <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
-	rand<span style="color:#dcdccc">[</span><span style="color:#dca3a3; font-weight:bold">99</span><span style="color:#dcdccc">] =</span> <span style="color:#cc9393">&apos;\0&apos;</span><span style="color:#dcdccc">;</span>
-	<span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;%s</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">,</span> rand<span style="color:#dcdccc">);</span>
-	<span style="color:#7f9f7f; font-style:italic">// No free: free(rand);</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">int main(void) {
+	char* rand = malloc(100);
+	rand[99] = '\0';
+	printf("%s\n", rand);
+	// No free: free(rand);
+}	</code>
 </pre>
 when compiled with asan (& debug info) will give<br/>
 <pre>

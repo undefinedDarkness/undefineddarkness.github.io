@@ -1,8 +1,4 @@
-@font-face {
-	font-family: "Work Sans";
-	src: url("./other/WorkSans.woff2");
-	font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 @font-face {
 	font-family: "PT Serif";
@@ -30,7 +26,7 @@ body {
 }
 
 body {
-	font-family: "Work Sans";
+	font-family: "Inter";
 }
 
 i {

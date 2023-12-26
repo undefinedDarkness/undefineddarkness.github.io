@@ -82,28 +82,28 @@ This is nothing new, but the neat part is that its done entirely in the markdown
 So no javascript library is required later.<br/>
 <br/>
 <pre>
-<code class="language-c"><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
+<code class="language-c">#include <stdio.h>
 
-<span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#aabfe3">Q_rsqrt</span><span style="color:#dcdccc">(</span> <span style="color:#dfdfbf; font-weight:bold">float</span> number <span style="color:#dcdccc">)</span>
-<span style="color:#dcdccc">{</span>
-    <span style="color:#dfdfbf; font-weight:bold">long</span> i<span style="color:#dcdccc">;</span>
-    <span style="color:#dfdfbf; font-weight:bold">float</span> x2<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">;</span>
-    <span style="color:#dfdfbf; font-weight:bold">const float</span> threehalfs <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">1.5</span>F<span style="color:#dcdccc">;</span>
+float Q_rsqrt( float number )
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5F;
 
-    x2 <span style="color:#dcdccc">=</span> number <span style="color:#dcdccc">&ast;</span> <span style="color:#dca3a3; font-weight:bold">0.5</span>F<span style="color:#dcdccc">;</span>
-    y  <span style="color:#dcdccc">=</span> number<span style="color:#dcdccc">;</span>
-    i  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">long</span> <span style="color:#dcdccc">&ast; ) &amp;</span>y<span style="color:#dcdccc">;</span>                       <span style="color:#7f9f7f; font-style:italic">// evil floating point bit level hacking</span>
-    i  <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0x5f3759df</span> <span style="color:#dcdccc">- (</span> i <span style="color:#dcdccc">&gt;&gt;</span> <span style="color:#dca3a3; font-weight:bold">1</span> <span style="color:#dcdccc">);</span>               <span style="color:#7f9f7f; font-style:italic">// what the fuck? </span>
-    y  <span style="color:#dcdccc">= &ast; (</span> <span style="color:#dfdfbf; font-weight:bold">float</span> <span style="color:#dcdccc">&ast; ) &amp;</span>i<span style="color:#dcdccc">;</span>
-    y  <span style="color:#dcdccc">=</span> y <span style="color:#dcdccc">&ast; (</span> threehalfs <span style="color:#dcdccc">- (</span> x2 <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">&ast;</span> y <span style="color:#dcdccc">) );</span>   <span style="color:#7f9f7f; font-style:italic">// 1st iteration</span>
-<span style="color:#7f9f7f; font-style:italic">//  y  = y &ast; ( threehalfs - ( x2 &ast; y &ast; y ) );   // 2nd iteration, this can be removed</span>
+    x2 = number * 0.5F;
+    y  = number;
+    i  = <i> ( long </i> ) &y;                       // evil floating point bit level hacking
+    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
+    y  = <i> ( float </i> ) &i;
+    y  = y <i> ( threehalfs - ( x2 </i> y * y ) );   // 1st iteration
+//  y  = y <i> ( threehalfs - ( x2 </i> y * y ) );   // 2nd iteration, this can be removed
 
-    <span style="color:#e3ceab">return</span> y<span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>
+    return y;
+}
 
-<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span> <span style="color:#dcdccc">() {</span>
-    <span style="color:#aabfe3">printf</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Hello world</span><span style="color:#dca3a3; font-weight:bold">\n</span><span style="color:#cc9393">&quot;</span><span style="color:#dcdccc">);</span>
-<span style="color:#dcdccc">}</span>	</code>
+int main () {
+    printf("Hello world\n");
+}	</code>
 </pre>
 <br/>
 </p>
@@ -154,7 +154,7 @@ where columns are seperated by exactly 1 tab and any amount of spaces (for align
 This syntax pretty much breaks the moment you want something really long though, but at that point, I think just using HTML Tables directly is the best idea.<br/>
 <br/>
 </p>
-<h3 id="verbatim-transformer-ğŸ‘¨â€ğŸ¦¼">Verbatim Transformer ğŸ‘¨â€ğŸ¦¼</h3>
+<h3 id="verbatim-transformer-Ÿ‘¨â€Ÿ¦¼">Verbatim Transformer ğŸ‘¨â€ğŸ¦¼</h3>
 <p>
 A crutch to deal with nesdown not having any idea of what its doing when transforming markdown syntax, Just spits out the input its given and ~sort of~ guarrentes that it wont be changed in any way.<br/>
 <br/>

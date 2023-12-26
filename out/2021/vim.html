@@ -90,10 +90,10 @@ From <a href="https://shapeshed.com/vim-netrw/">this post</a><br/>
 tldr:<br/>
 <br/>
 <pre>
-<code class="language-vim"><span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_banner <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0</span> <span style="color:#7f9f7f; font-style:italic">&quot; Hide the banner</span>
-<span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_browse_split <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Open in new tab</span>
-<span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_winsize <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">25</span> <span style="color:#7f9f7f; font-style:italic">&quot; Size</span>
-<span style="color:#e3ceab">let</span> g<span style="color:#dcdccc">:</span>netrw_liststyle <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">3</span> <span style="color:#7f9f7f; font-style:italic">&quot; Show files in tree form</span>	</code>
+<code class="language-vim">let g:netrw_banner = 0 " Hide the banner
+let g:netrw_browse_split = 3 " Open in new tab
+let g:netrw_winsize = 25 " Size
+let g:netrw_liststyle = 3 " Show files in tree form	</code>
 </pre>
 <br/>
 See what each option does with <code>:help netrw-browser-settings</code><br/>
@@ -111,16 +111,16 @@ See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab
 final snippet:<br/>
 <br/>
 <pre>
-<code class="language-vim">function<span style="color:#dcdccc">!</span> Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">...)</span>
-	return system<span style="color:#dcdccc">(</span><span style="color:#aabfe3">join([&amp;grepprg] + [expandcmd(join(a:000, &apos; &apos;))], &apos; &apos;))</span>
+<code class="language-vim">function! Grep(...)
+	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
-command<span style="color:#dcdccc">! -</span>nargs<span style="color:#dcdccc">=+ -</span>complete<span style="color:#dcdccc">=</span>file_in_path <span style="color:#dcdccc">-</span>bar Grep  cgetexpr Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&lt;f-args&gt;)</span>
-command<span style="color:#dcdccc">! -</span>nargs<span style="color:#dcdccc">=+ -</span>complete<span style="color:#dcdccc">=</span>file_in_path <span style="color:#dcdccc">-</span>bar LGrep lgetexpr Grep<span style="color:#dcdccc">(</span><span style="color:#aabfe3">&lt;f-args&gt;)</span>
-<span style="color:#e3ceab">augroup</span> quickfix
-	<span style="color:#e3ceab">autocmd</span><span style="color:#dcdccc">!</span>
-	<span style="color:#e3ceab">autocmd</span> QuickFixCmdPost cgetexpr cwindow
-	<span style="color:#e3ceab">autocmd</span> QuickFixCmdPost lgetexpr lwindow
-<span style="color:#e3ceab">augroup END</span>	</code>
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+augroup quickfix
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+	autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END	</code>
 </pre>
 <br/>
 	</p>
@@ -149,16 +149,16 @@ syntax highlighted goodness,<br/>
 And you can script it! Like so:<br/>
 <br/>
 <pre>
-<code class="language-sh">lang<span style="color:#dcdccc">=</span><span style="color:#cc9393">&quot;</span><span style="color:#c07abe">$2</span><span style="color:#cc9393">&quot;</span>
-f<span style="color:#dcdccc">=</span>$<span style="color:#dcdccc">(</span>mktemp<span style="color:#dcdccc">)</span>
-<span style="color:#dfdfbf; font-weight:bold">echo</span> <span style="color:#cc9393">&quot;</span><span style="color:#c07abe">$0</span><span style="color:#cc9393">&quot;</span> | <span style="color:#aae3b2">head</span> <span style="color:#dfdfbf; font-weight:bold">-n -1</span> | nvim <span style="color:#dfdfbf; font-weight:bold">-n --headless</span> \
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_no_progress = 0&quot;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;let g:html_ignore_folding = 0&quot;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&apos;let g:html_prevent_copy = &quot;fn&quot;&apos;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;set ft=</span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;runtime! syntax/2html.vim&quot;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;wq!</span> <span style="color:#c07abe">$f</span><span style="color:#cc9393">&quot;</span>\
-	<span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;q!&quot;</span> <span style="color:#dcdccc">-</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">&gt; /</span>dev<span style="color:#dcdccc">/</span>null	</code>
+<code class="language-sh">lang="$2"
+f=$(mktemp)
+echo "$0" | head -n -1 | nvim -n --headless \
+	+"let g:html_no_progress = 0"\
+	+"let g:html_ignore_folding = 0"\
+	+'let g:html_prevent_copy = "fn"'\
+	+"set ft=$1"\
+	+"runtime! syntax/2html.vim"\
+	+"wq! $f"\
+	+"q!" - 1> /dev/null	</code>
 </pre>
 <br/>
 You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,<br/>
@@ -189,9 +189,9 @@ There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki
 the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:<br/>
 <br/>
 <pre>
-<code class="language-sh">man <span style="color:#dcdccc">() {</span>
-	nvim <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;Man</span> <span style="color:#c07abe">$2</span> <span style="color:#cc9393"></span><span style="color:#c07abe">$1</span><span style="color:#cc9393">&quot;</span> <span style="color:#dcdccc">+</span><span style="color:#cc9393">&quot;only&quot;</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-sh">man () {
+	nvim +"Man $2 $1" +"only"
+}	</code>
 </pre>
 <br/>
 If you use vim, remember to add this to your vimrc:<br/>
@@ -252,27 +252,27 @@ But basically:<br/>
 You might need to rewrite it in vim script for vim...<br/>
 <br/>
 <pre>
-<code class="language-lua"><span style="color:#e3ceab">local</span> spell_complete <span style="color:#dcdccc">=</span> vim<span style="color:#dcdccc">.</span>api<span style="color:#dcdccc">.</span><span style="color:#aabfe3">nvim_replace_termcodes</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&apos;&lt;C-x&gt;&lt;C-k&gt;&apos;</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">,</span> <span style="color:#e3ceab">true</span><span style="color:#dcdccc">)</span>
-<span style="color:#e3ceab">local</span> M <span style="color:#dcdccc">= {}</span>
-<span style="color:#e3ceab">function</span> M<span style="color:#dcdccc">.</span><span style="color:#aabfe3">spell</span><span style="color:#dcdccc">()</span>
-	<span style="color:#e3ceab">if</span> vim<span style="color:#dcdccc">.</span>opt<span style="color:#dcdccc">.</span>spell
-	<span style="color:#e3ceab">and</span> <span style="color:#dcdccc">(</span>vim<span style="color:#dcdccc">.</span>fn<span style="color:#dcdccc">.</span><span style="color:#aabfe3">pumvisible</span><span style="color:#dcdccc">() ==</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">)</span>
-	<span style="color:#e3ceab">and</span> <span style="color:#dcdccc">((</span>vim<span style="color:#dcdccc">.</span>v<span style="color:#dcdccc">.</span>char <span style="color:#dcdccc">&gt;=</span> <span style="color:#cc9393">&apos;a&apos;</span> <span style="color:#e3ceab">and</span> vim<span style="color:#dcdccc">.</span>v<span style="color:#dcdccc">.</span>char <span style="color:#dcdccc">&lt;=</span> <span style="color:#cc9393">&apos;z&apos;</span><span style="color:#dcdccc">)</span>
-	<span style="color:#e3ceab">or</span> <span style="color:#dcdccc">(</span>vim<span style="color:#dcdccc">.</span>v<span style="color:#dcdccc">.</span>char <span style="color:#dcdccc">&gt;=</span> <span style="color:#cc9393">&apos;A&apos;</span> <span style="color:#e3ceab">and</span> vim<span style="color:#dcdccc">.</span>v<span style="color:#dcdccc">.</span>char <span style="color:#dcdccc">&lt;=</span> <span style="color:#cc9393">&apos;Z&apos;</span><span style="color:#dcdccc">))</span> <span style="color:#e3ceab">then</span>
-		vim<span style="color:#dcdccc">.</span>fn<span style="color:#dcdccc">.</span><span style="color:#aabfe3">feedkeys</span><span style="color:#dcdccc">(</span>spell_complete<span style="color:#dcdccc">,</span> <span style="color:#cc9393">&apos;n&apos;</span><span style="color:#dcdccc">)</span>
-	<span style="color:#e3ceab">end</span>
-<span style="color:#e3ceab">end</span>
-<span style="color:#e3ceab">function</span> M<span style="color:#dcdccc">.</span><span style="color:#aabfe3">setup_spell</span><span style="color:#dcdccc">()</span>
-	vim<span style="color:#dcdccc">.</span>opt<span style="color:#dcdccc">.</span>spell <span style="color:#dcdccc">=</span> <span style="color:#e3ceab">true</span>
-	vim<span style="color:#dcdccc">.</span>cmd <span style="color:#cc9393">[[</span>
-<span style="color:#cc9393">	autocmd InsertCharPre &ast; lua require(&apos;auto&apos;).spell() &quot; You&apos;ll need to change this</span>
-<span style="color:#cc9393">	]]</span>
-<span style="color:#e3ceab">end</span>
+<code class="language-lua">local spell_complete = vim.api.nvim_replace_termcodes('<C-x><C-k>', true, true, true)
+local M = {}
+function M.spell()
+	if vim.opt.spell
+	and (vim.fn.pumvisible() == 0)
+	and ((vim.v.char >= 'a' and vim.v.char <= 'z')
+	or (vim.v.char >= 'A' and vim.v.char <= 'Z')) then
+		vim.fn.feedkeys(spell_complete, 'n')
+	end
+end
+function M.setup_spell()
+	vim.opt.spell = true
+	vim.cmd [[
+	autocmd InsertCharPre * lua require('auto').spell() " You'll need to change this
+	]]
+end
 
-<span style="color:#7f9f7f; font-style:italic">-- And this too:</span>
-vim<span style="color:#dcdccc">.</span>cmd <span style="color:#cc9393">[[ au FileType markdown,html lua require(&apos;auto&apos;).setup_spell() ]]</span>
+-- And this too:
+vim.cmd [[ au FileType markdown,html lua require('auto').setup_spell() ]]
 
-<span style="color:#e3ceab">return</span> M	</code>
+return M	</code>
 </pre>
 <br/>
 It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...<br/>

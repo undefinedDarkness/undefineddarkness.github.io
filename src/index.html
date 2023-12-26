@@ -8,9 +8,10 @@
   <title>Full Index</title>
   <link rel="stylesheet" href="/assets/styles.css" />
   <style>
-	main.ov {padding: 0 16vw; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr}
+	main.ov {padding: 0 16vw; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: masonry;}
     main ul {
       margin-top: 2em !important;
+      list-style-type: none;
     }
 
     ul li:not(:first-child) {
@@ -25,23 +26,29 @@
 
 <body>
   <main class='page  ov'>
-    <ul style='list-style-type: none; grid-row-start: span 1;'>
+    <ul>
       <li>
         <h1>2022</h1>
       </li>
       !POSTS-2022!
     </ul>
-    <ul style='list-style-type: none; grid-row-start: span 2;'>
+    <ul>
       <li>
         <h1>2021</h1>
       </li>
       !POSTS-2021!
     </ul>
-    <ul style='list-style-type: none; grid-row-start: span 1;'>
+    <ul>
       <li>
         <h1>Random</h1>
       </li>
       !POSTS-RANDOM!
+    </ul>
+    <ul>
+      <li>
+        <h1>Miscellaneous</h1>
+      </li>
+      <li><a href="/docs/raylib/index.html">Raylib Documentation (Outdated)</a></li>
     </ul>
   </main>
 </body>

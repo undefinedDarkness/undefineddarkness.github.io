@@ -21,45 +21,45 @@ Well, let us start with a non trivial program and go from there,<br/>
 For this I will make use of the wonderful <a href="https://github.com/erkkah/tigr">tigr graphics library</a><br/>
 <br/>
 <pre>
-<code class="language-c"><span style="color:#ffcfaf; font-weight:bold">#include &lt;stdlib.h&gt;</span>
-<span style="color:#ffcfaf; font-weight:bold">#include</span> <span style="color:#cc9393">&quot;tigr.h&quot;</span><span style="color:#ffcfaf; font-weight:bold"></span>
-<span style="color:#ffcfaf; font-weight:bold">#include &lt;time.h&gt;</span>
-<span style="color:#ffcfaf; font-weight:bold">#include &lt;stdio.h&gt;</span>
+<code class="language-c">#include <stdlib.h>
+#include "tigr.h"
+#include <time.h>
+#include <stdio.h>
 
-<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">int</span> min<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">int</span> max<span style="color:#dcdccc">) {</span>
-  <span style="color:#e3ceab">return</span> min <span style="color:#dcdccc">+</span> <span style="color:#aabfe3">rand</span><span style="color:#dcdccc">() / (</span>RAND_MAX <span style="color:#dcdccc">/ (</span>max <span style="color:#dcdccc">-</span> min <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">) +</span> <span style="color:#dca3a3; font-weight:bold">1</span><span style="color:#dcdccc">);</span>
-<span style="color:#dcdccc">}</span>
+int randomNo(int min, int max) {
+  return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+}
 
-<span style="color:#dfdfbf; font-weight:bold">int</span> <span style="color:#aabfe3">main</span><span style="color:#dcdccc">() {</span>
+int main() {
 
-  <span style="color:#aabfe3">srand</span><span style="color:#dcdccc">(</span><span style="color:#aabfe3">time</span><span style="color:#dcdccc">(</span>NULL<span style="color:#dcdccc">));</span>
+  srand(time(NULL));
 
-  Tigr <span style="color:#dcdccc">&ast;</span>screen <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">tigrWindow</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">320</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">240</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;Hello&quot;</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">);</span>
-  <span style="color:#dfdfbf; font-weight:bold">int</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">;</span>
-  <span style="color:#dfdfbf; font-weight:bold">char</span> <span style="color:#dcdccc">&ast;</span>fmt <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">malloc</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">);</span>
-  <span style="color:#e3ceab">while</span> <span style="color:#dcdccc">(!</span><span style="color:#aabfe3">tigrClosed</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">)) {</span>
-    <span style="color:#aabfe3">tigrClear</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x11</span><span style="color:#dcdccc">));</span>
+  Tigr *screen = tigrWindow(320, 240, "Hello", 0);
+  int x, y;
+  char *fmt = malloc(100);
+  while (!tigrClosed(screen)) {
+    tigrClear(screen, tigrRGB(0x11, 0x11, 0x11));
 
-    <span style="color:#aabfe3">tigrPrint</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> tfont<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">120</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">110</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">),</span>
-              <span style="color:#cc9393">&quot;Hello, world.&quot;</span><span style="color:#dcdccc">);</span>
-	<span style="color:#aabfe3">snprintf</span><span style="color:#dcdccc">(</span>fmt<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">,</span> <span style="color:#cc9393">&quot;%d, %d&quot;</span><span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">);</span>
-	<span style="color:#aabfe3">tigrPrint</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> tfont<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">120</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">110</span> <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">16</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xf0</span><span style="color:#dcdccc">),</span> fmt<span style="color:#dcdccc">);</span>
+    tigrPrint(screen, tfont, 120, 110, tigrRGB(0xf0, 0xf0, 0xf0),
+              "Hello, world.");
+	snprintf(fmt, 100, "%d, %d", x, y);
+	tigrPrint(screen, tfont, 120, 110 + 16, tigrRGB(0xf0, 0xf0, 0xf0), fmt);
 
-    <span style="color:#aabfe3">tigrMouse</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">, &amp;</span>x<span style="color:#dcdccc">, &amp;</span>y<span style="color:#dcdccc">,</span> NULL<span style="color:#dcdccc">);</span>
-    <span style="color:#aabfe3">tigrFillCircle</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">8</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0xff</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">));</span>
+    tigrMouse(screen, &x, &y, NULL);
+    tigrFillCircle(screen, x, y, 8, tigrRGB(0xff, 0x00, 0x00));
 
-    <span style="color:#e3ceab">for</span> <span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">int</span> i <span style="color:#dcdccc">=</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">;</span> i <span style="color:#dcdccc">&lt;</span> <span style="color:#dca3a3; font-weight:bold">100</span><span style="color:#dcdccc">;</span> i<span style="color:#dcdccc">++) {</span>
-      <span style="color:#dfdfbf; font-weight:bold">int</span> x <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">320</span><span style="color:#dcdccc">);</span>
-      <span style="color:#dfdfbf; font-weight:bold">int</span> y <span style="color:#dcdccc">=</span> <span style="color:#aabfe3">randomNo</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">240</span><span style="color:#dcdccc">);</span>
-      <span style="color:#aabfe3">tigrLine</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y<span style="color:#dcdccc">,</span> x<span style="color:#dcdccc">,</span> y <span style="color:#dcdccc">+</span> <span style="color:#dca3a3; font-weight:bold">10</span><span style="color:#dcdccc">,</span> <span style="color:#aabfe3">tigrRGB</span><span style="color:#dcdccc">(</span><span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0x00</span><span style="color:#dcdccc">,</span> <span style="color:#dca3a3; font-weight:bold">0xff</span><span style="color:#dcdccc">));</span>
-    <span style="color:#dcdccc">}</span>
+    for (int i = 0; i < 100; i++) {
+      int x = randomNo(0, 320);
+      int y = randomNo(0, 240);
+      tigrLine(screen, x, y, x, y + 10, tigrRGB(0x00, 0x00, 0xff));
+    }
 
-    <span style="color:#aabfe3">tigrUpdate</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">);</span>
-  <span style="color:#dcdccc">}</span>
-  <span style="color:#aabfe3">free</span><span style="color:#dcdccc">(</span>fmt<span style="color:#dcdccc">);</span>
-  <span style="color:#aabfe3">tigrFree</span><span style="color:#dcdccc">(</span>screen<span style="color:#dcdccc">);</span>
-  <span style="color:#e3ceab">return</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">;</span>
-<span style="color:#dcdccc">}</span>	</code>
+    tigrUpdate(screen);
+  }
+  free(fmt);
+  tigrFree(screen);
+  return 0;
+}	</code>
 </pre>
 Nothing flashy, it just opens a window, draws some text and some rain.<br/>
 Compiling with <code>cc app.c tigr.c -o app -lGl -lX11</code> gives us our executable, whose size is 76kb.<br/>

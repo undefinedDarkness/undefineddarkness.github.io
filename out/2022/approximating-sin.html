@@ -106,23 +106,23 @@ Exactly how its obtained via the Remez Algorithm, is something I haven't really 
 <br/>
 An implementation in C is given here:<br/>
 <pre>
-<code class="language-c"><span style="color:#dfdfbf; font-weight:bold">static double</span> <span style="color:#aabfe3">minimaxsin</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">double</span> x<span style="color:#dcdccc">)</span>
-<span style="color:#dcdccc">{</span>
-    <span style="color:#dfdfbf; font-weight:bold">static const</span>
-    <span style="color:#dfdfbf; font-weight:bold">double</span> a0 <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">1.0</span><span style="color:#dcdccc">,</span>
-           a1 <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">1.666666666640169148537065260055e-1</span><span style="color:#dcdccc">,</span>
-           a2 <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">8.333333316490113523036717102793e-3</span><span style="color:#dcdccc">,</span>
-           a3 <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">1.984126600659171392655484413285e-4</span><span style="color:#dcdccc">,</span>
-           a4 <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">2.755690114917374804474016589137e-6</span><span style="color:#dcdccc">,</span>
-           a5 <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">2.502845227292692953118686710787e-8</span><span style="color:#dcdccc">,</span>
-           a6 <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">1.538730635926417598443354215485e-10</span><span style="color:#dcdccc">;</span>
-    <span style="color:#dfdfbf; font-weight:bold">double</span> x2 <span style="color:#dcdccc">=</span> x <span style="color:#dcdccc">&ast;</span> x<span style="color:#dcdccc">;</span>
-    <span style="color:#7f9f7f; font-style:italic">/&ast;</span>
-<span style="color:#7f9f7f; font-style:italic">        a0x + a1x^3 + a2x^5 + a3x^7...</span>
-<span style="color:#7f9f7f; font-style:italic">    &ast;/</span>
-    <span style="color:#e3ceab">return</span> x <span style="color:#dcdccc">&ast; (</span>a0 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a1 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a2 <span style="color:#dcdccc">+</span> x2
-             <span style="color:#dcdccc">&ast; (</span>a3 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a4 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast; (</span>a5 <span style="color:#dcdccc">+</span> x2 <span style="color:#dcdccc">&ast;</span> a6<span style="color:#dcdccc">))))));</span>
-<span style="color:#dcdccc">}</span>	</code>
+<code class="language-c">static double minimaxsin(double x)
+{
+    static const
+    double a0 =  1.0,
+           a1 = -1.666666666640169148537065260055e-1,
+           a2 =  8.333333316490113523036717102793e-3,
+           a3 = -1.984126600659171392655484413285e-4,
+           a4 =  2.755690114917374804474016589137e-6,
+           a5 = -2.502845227292692953118686710787e-8,
+           a6 =  1.538730635926417598443354215485e-10;
+    double x2 = x * x;
+    /*
+        a0x + a1x^3 + a2x^5 + a3x^7...
+    */
+    return x <i> (a0 + x2 </i> (a1 + x2 * (a2 + x2
+             <i> (a3 + x2 </i> (a4 + x2 <i> (a5 + x2 </i> a6))))));
+}	</code>
 </pre>
 <br/>
 It functions very similarly to the taylor polynomial, except the constants have been replaced to achieve greather accuracy,<br/>
@@ -140,49 +140,49 @@ Which it does, achieving some 10^4 times smaller error in comparison (for 7 term
 		Looking at the implementation of sin in musl, We get:<br/>
 <pre>
 <code class="language-c">
-<span style="color:#7f9f7f; font-style:italic">/&ast;</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;      3. sin(x) is approximated by a polynomial of degree 13 on</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;         [0,pi/4]</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;                               3            13</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;              sin(x) ~ x + S1&ast;x + ... + S6&ast;x</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;         where</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;      |sin(x)         2     4     6     8     10     12  |     -58</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;      |----- - (1+S1&ast;x +S2&ast;x +S3&ast;x +S4&ast;x +S5&ast;x  +S6&ast;x   )| &lt;= 2</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;      |  x                                               |</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;      4. sin(x+y) = sin(x) + sin&apos;(x&apos;)&ast;y</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;                  ~ sin(x) + (1-x&ast;x/2)&ast;y</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;         For better accuracy, let</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;                   3      2      2      2      2</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;              r = x &ast;(S2+x &ast;(S3+x &ast;(S4+x &ast;(S5+x &ast;S6))))</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;         then                   3    2</span>
-<span style="color:#7f9f7f; font-style:italic"> &ast;              sin(x) = x + (S1&ast;x + (x &ast;(r-y/2)+y))</span>
-<span style="color:#7f9f7f; font-style:italic">&ast;/</span>
+/*
+ *      3. sin(x) is approximated by a polynomial of degree 13 on
+ *         [0,pi/4]
+ *                               3            13
+ <i>              sin(x) ~ x + S1</i>x + ... + S6*x
+ *         where
+ *
+ *      |sin(x)         2     4     6     8     10     12  |     -58
+ <i>      |----- - (1+S1</i>x +S2<i>x +S3</i>x +S4<i>x +S5</i>x  +S6*x   )| <= 2
+ *      |  x                                               |
+ *
+ <i>      4. sin(x+y) = sin(x) + sin'(x')</i>y
+ <i>                  ~ sin(x) + (1-x</i>x/2)*y
+ *         For better accuracy, let
+ *                   3      2      2      2      2
+ <i>              r = x </i>(S2+x <i>(S3+x </i>(S4+x <i>(S5+x </i>S6))))
+ *         then                   3    2
+ <i>              sin(x) = x + (S1</i>x + (x *(r-y/2)+y))
+*/
 
-<span style="color:#dfdfbf; font-weight:bold">static const double</span>
-S1  <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">1.66666666666666324348e-01</span><span style="color:#dcdccc">,</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0xBFC55555, 0x55555549 &ast;/</span>
-S2  <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">8.33333333332248946124e-03</span><span style="color:#dcdccc">,</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0x3F811111, 0x1110F8A6 &ast;/</span>
-S3  <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">1.98412698298579493134e-04</span><span style="color:#dcdccc">,</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0xBF2A01A0, 0x19C161D5 &ast;/</span>
-S4  <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">2.75573137070700676789e-06</span><span style="color:#dcdccc">,</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0x3EC71DE3, 0x57B1FE7D &ast;/</span>
-S5  <span style="color:#dcdccc">= -</span><span style="color:#dca3a3; font-weight:bold">2.50507602534068634195e-08</span><span style="color:#dcdccc">,</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0xBE5AE5E6, 0x8A2B9CEB &ast;/</span>
-S6  <span style="color:#dcdccc">=</span>  <span style="color:#dca3a3; font-weight:bold">1.58969099521155010221e-10</span><span style="color:#dcdccc">;</span> <span style="color:#7f9f7f; font-style:italic">/&ast; 0x3DE5D93A, 0x5ACFD57C &ast;/</span>
+static const double
+S1  = -1.66666666666666324348e-01, /<i> 0xBFC55555, 0x55555549 </i>/
+S2  =  8.33333333332248946124e-03, /<i> 0x3F811111, 0x1110F8A6 </i>/
+S3  = -1.98412698298579493134e-04, /<i> 0xBF2A01A0, 0x19C161D5 </i>/
+S4  =  2.75573137070700676789e-06, /<i> 0x3EC71DE3, 0x57B1FE7D </i>/
+S5  = -2.50507602534068634195e-08, /<i> 0xBE5AE5E6, 0x8A2B9CEB </i>/
+S6  =  1.58969099521155010221e-10; /<i> 0x3DE5D93A, 0x5ACFD57C </i>/
 
-<span style="color:#dfdfbf; font-weight:bold">double</span> <span style="color:#aabfe3">__sin</span><span style="color:#dcdccc">(</span><span style="color:#dfdfbf; font-weight:bold">double</span> x<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">double</span> dx<span style="color:#dcdccc">,</span> <span style="color:#dfdfbf; font-weight:bold">int</span> is_dx_not_zero<span style="color:#dcdccc">)</span>
-<span style="color:#dcdccc">{</span>
-	double_t x2<span style="color:#dcdccc">,</span>x3<span style="color:#dcdccc">,</span>x4<span style="color:#dcdccc">,</span>r<span style="color:#dcdccc">;</span>
+double __sin(double x, double dx, int is_dx_not_zero)
+{
+	double_t x2,x3,x4,r;
 
-	x2 <span style="color:#dcdccc">=</span> x<span style="color:#dcdccc">&ast;</span>x<span style="color:#dcdccc">;</span>
-	x4 <span style="color:#dcdccc">=</span> x2<span style="color:#dcdccc">&ast;</span>x2<span style="color:#dcdccc">;</span>
-	r <span style="color:#dcdccc">=</span> S2 <span style="color:#dcdccc">+</span> x2<span style="color:#dcdccc">&ast;(</span>S3 <span style="color:#dcdccc">+</span> x2<span style="color:#dcdccc">&ast;</span>S4<span style="color:#dcdccc">) +</span> x2<span style="color:#dcdccc">&ast;</span>x4<span style="color:#dcdccc">&ast;(</span>S5 <span style="color:#dcdccc">+</span> x2<span style="color:#dcdccc">&ast;</span>S6<span style="color:#dcdccc">);</span>
-	x3 <span style="color:#dcdccc">=</span> x2<span style="color:#dcdccc">&ast;</span>x<span style="color:#dcdccc">;</span>
-	<span style="color:#e3ceab">if</span> <span style="color:#dcdccc">(</span>is_dx_not_zero <span style="color:#dcdccc">==</span> <span style="color:#dca3a3; font-weight:bold">0</span><span style="color:#dcdccc">)</span>
-        <span style="color:#7f9f7f; font-style:italic">// This unwraps to a taylor expansion of 6 terms</span>
-		<span style="color:#e3ceab">return</span> x <span style="color:#dcdccc">+</span> x3<span style="color:#dcdccc">&ast;(</span>S1 <span style="color:#dcdccc">+</span> x2<span style="color:#dcdccc">&ast;</span>r<span style="color:#dcdccc">);</span>
-	<span style="color:#e3ceab">else</span>
+	x2 = x*x;
+	x4 = x2*x2;
+	r = S2 + x2<i>(S3 + x2</i>S4) + x2<i>x4</i>(S5 + x2*S6);
+	x3 = x2*x;
+	if (is_dx_not_zero == 0)
+        // This unwraps to a taylor expansion of 6 terms
+		return x + x3<i>(S1 + x2</i>r);
+	else
         
-		<span style="color:#e3ceab">return</span> x <span style="color:#dcdccc">- ((</span>x2<span style="color:#dcdccc">&ast;(</span><span style="color:#dca3a3; font-weight:bold">0.5</span><span style="color:#dcdccc">&ast;</span>dx <span style="color:#dcdccc">-</span> x3<span style="color:#dcdccc">&ast;</span>r<span style="color:#dcdccc">) -</span> dx<span style="color:#dcdccc">) -</span> x3<span style="color:#dcdccc">&ast;</span>S1<span style="color:#dcdccc">);</span>
-<span style="color:#dcdccc">}</span>	</code>
+		return x - ((x2<i>(0.5</i>dx - x3<i>r) - dx) - x3</i>S1);
+}	</code>
 </pre>
 <br/>
 Although I am not sure what is happening in the 2nd if branch, It seems to use a polynomial approximation of degree 13 to get results for x in the range \([-\pi/4, +\pi/4]\), Which is obtained in the parent sin(x) function with argument reduction (dividing by \(\pi/2\) and getting the remainder), And the final result from said sin(x) is obtained with a combination of __sin(x) and similarly __cos(x) depending on the quadrant of the function (there is also a case for sin x ~= x for small x).<br/>

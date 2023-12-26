@@ -56,15 +56,6 @@ build_html () {
 	fin "$1"
 }
 
-emacs_arguments=('--batch' '-l' "$XDG_CONFIG_HOME/emacs/init.el" "-l" "org" "-l" "ox-html")
-
-build_org () {
-	out=${1/src/out}
-	out=${out/.org/.html}
-	out=$(realpath "$out")
-	emacs_arguments+=('--file' "$1" '-f' 'org-html-export-to-html' '--eval' "(rename-file \"$(realpath "${1/.org/.html}")\" \"$out\" t)")
-	fin "$1"
-}
 
 #=======================
 # Generic Build Function 
@@ -133,7 +124,7 @@ while read -r line; do
 		continue
 	fi
 	intermediate+=$line$IFS
-done < ./template.html
+done < <( dos2unix -O -q ./template.html )
 template_post_content=$intermediate
 
 case "$1" in

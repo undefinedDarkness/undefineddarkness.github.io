@@ -261,7 +261,7 @@ it down a lot is to do<br/>
 <br/>
 <pre>
 <code class="language- gdscript">if Engine.editor_hint:
-    print(&quot;Running in editor&quot;)
+    print("Running in editor")
    return	</code>
 </pre>
 <br/>
@@ -270,7 +270,7 @@ somewhat like this<br/>
 <br/>
 <pre>
 <code class="language- gdscript">editor func only_in_editor():
-    print(&quot;I only run in the editor&quot;)	</code>
+    print("I only run in the editor")	</code>
 </pre>
 <br/>
 Definitely a nitpick, but true private functions would be nice to go<br/>
@@ -282,21 +282,21 @@ other script files (This is very basic stuff) is to have 2 scripts like<br/>
 this:<br/>
 <br/>
 <pre>
-<code class="language-gdscript"><span style="color:#e3ceab">extends</span> Node
+<code class="language-gdscript">extends Node
 
-<span style="color:#e3ceab">func</span> <span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span>name<span style="color:#dcdccc">:</span> String<span style="color:#dcdccc">) -&gt;</span> String<span style="color:#dcdccc">:</span>
-  <span style="color:#e3ceab">return</span> <span style="color:#cc9393">&quot;Hello there, &quot;</span> <span style="color:#dcdccc">+</span> name	</code>
+func greet(name: String) -> String:
+  return "Hello there, " + name	</code>
 </pre>
 <br/>
 &<br/>
 <br/>
 <pre>
-<code class="language-gdscript"><span style="color:#e3ceab">extends</span> Node
+<code class="language-gdscript">extends Node
 
-<span style="color:#e3ceab">var</span> hello <span style="color:#dcdccc">=</span> <span style="color:#e3ceab">preload</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;res://hello.gd&quot;</span><span style="color:#dcdccc">).</span><span style="color:#aae3b2">new</span><span style="color:#dcdccc">()</span>
+var hello = preload("res://hello.gd").new()
 
-<span style="color:#e3ceab">func</span> <span style="color:#aae3b2">_ready</span><span style="color:#dcdccc">() -&gt;</span> void<span style="color:#dcdccc">:</span>
-    <span style="color:#e3ceab">print</span><span style="color:#dcdccc">(</span>hello<span style="color:#dcdccc">.</span><span style="color:#aae3b2">greet</span><span style="color:#dcdccc">(</span><span style="color:#cc9393">&quot;Jeffery&quot;</span><span style="color:#dcdccc">))</span>	</code>
+func _ready() -> void:
+    print(hello.greet("Jeffery"))	</code>
 </pre>
 <br/>
 This might be fine, but I just don't like it :| A proper import / export<br/>

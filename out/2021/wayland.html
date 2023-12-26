@@ -73,11 +73,11 @@ Although most of them required tweaking in some form or another<br/>
 <br/>
 <b>ROFI:</b> This does use a fork
 <pre>
-<code class="language-sh">git clone <span style="color:#dfdfbf; font-weight:bold">--recurse-submodules</span> https<span style="color:#dcdccc">://</span>github.com<span style="color:#dcdccc">/</span>lbonn<span style="color:#dcdccc">/</span>rofi
-<span style="color:#dfdfbf; font-weight:bold">cd</span> rofi
-meson setup build <span style="color:#dfdfbf; font-weight:bold">-Dwayland</span><span style="color:#dcdccc">=</span>enabled <span style="color:#dfdfbf; font-weight:bold">--prefix</span><span style="color:#dcdccc">=/</span>usr<span style="color:#dcdccc">/</span><span style="color:#dfdfbf; font-weight:bold">local</span>
-ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build
-ninja <span style="color:#dfdfbf; font-weight:bold">-C</span> build <span style="color:#aae3b2">install</span>	</code>
+<code class="language-sh">git clone --recurse-submodules <a href="https://github.com/lbonn/rofi">https://github.com/lbonn/rofi</a>
+cd rofi
+meson setup build -Dwayland=enabled --prefix=/usr/local
+ninja -C build
+ninja -C build install	</code>
 </pre>
 <p></p>
 <b>FIREFOX:</b> Might need to modify some desktop files to get it to work right

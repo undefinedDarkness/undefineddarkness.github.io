@@ -65,19 +65,19 @@ so that they will point to modern vector fonts.<br/>
 My current alias file: <br/>
 <pre>
 <code class="language-xml"></fontconfig>
-<span style="color:#e3ceab">&lt;?xml</span> <span style="color:#dfdfbf; font-weight:bold">version</span>=<span style="color:#cc9393">&quot;1.0&quot;</span><span style="color:#e3ceab">?&gt;</span>
-<span style="color:#e3ceab">&lt;!DOCTYPE</span> fontconfig SYSTEM <span style="color:#cc9393">&quot;fonts.dtd&quot;</span><span style="color:#e3ceab">&gt;</span>
-<span style="color:#e3ceab">&lt;fontconfig&gt;</span>
-  <span style="color:#e3ceab">&lt;description&gt;</span>
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <description>
   	Alias common font names to vectors, to avoid bitmaps messing it up
-  <span style="color:#e3ceab">&lt;/description&gt;</span>
+  </description>
 
-  <span style="color:#e3ceab">&lt;alias</span> <span style="color:#dfdfbf; font-weight:bold">binding</span>=<span style="color:#cc9393">&quot;same&quot;</span><span style="color:#e3ceab">&gt;</span>
-    <span style="color:#e3ceab">&lt;family&gt;</span>Helvetica<span style="color:#e3ceab">&lt;/family&gt;</span>
-    <span style="color:#e3ceab">&lt;prefer&gt;</span>
-      <span style="color:#e3ceab">&lt;family&gt;</span>Liberation Sans<span style="color:#e3ceab">&lt;/family&gt;</span>
-    <span style="color:#e3ceab">&lt;/prefer&gt;</span>
-  <span style="color:#e3ceab">&lt;/alias&gt;</span>	</code>
+  <alias binding="same">
+    <family>Helvetica</family>
+    <prefer>
+      <family>Liberation Sans</family>
+    </prefer>
+  </alias>	</code>
 </pre>
 <br/>
 hopefully its workings are visible to you, this file can be placed as <code>~/.config/fontconfig/conf.d/01-alias.conf</code> or in one of the other places font config will look.<br/>
