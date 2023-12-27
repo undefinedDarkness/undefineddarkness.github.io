@@ -147,15 +147,15 @@ case "$1" in
 		IFS=$'\n'
 		skip_next=
 		python3 ./.tooling/fsw.py | while read -r modified_file; do
-		if [ -n "$skip_next" ]; then
-			skip_next=
-			continue
-		fi
-		count=$(( count + 1 ))
-		printf "\r%s was rebuilt [%d]" "$modified_file" "$(( count ))"
-		build "$modified_file"
-		skip_next=1
-	done # < <(python3 ./.tooling/fsw.py)
+			modified_file=${modified_file//$'\r'/}
+			if [ -n "$skip_next" ]; then
+				skip_next=
+				continue
+			fi
+			printf "GEN: %s was rebuilt\n" "$modified_file" 
+			build "$modified_file"
+			skip_next=1
+		done # < <(python3 ./.tooling/fsw.py)
 	printf '\nKilled Server\n'
 	kill $serverPid
 	exit
