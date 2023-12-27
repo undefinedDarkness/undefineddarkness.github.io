@@ -23,6 +23,20 @@ __syntax_hl_highlight () {
 		--no-version-info | sed 's/*/\&ast;/g;'
 }
 
+escape_code_block () {
+	local -n retptr=${1}
+	ptr=$retptr
+	ptr=${ptr//'#'/'&#35;'}
+	ptr=${ptr//'<'/'&lt;'}
+	ptr=${ptr//'>'/'&gt;'}
+	ptr=${ptr//'['/'&lsqb;'}
+	ptr=${ptr//']'/'&rsqb;'}
+	ptr=${ptr//'='/'&equals;'}
+	ptr=${ptr//'*'/'&#42;'}
+	retptr=$ptr
+}
+
+# Check if highlight is installed, if so use it else use the other thing
 syntax_hl_backend="__syntax_hl_dummy"
 if command -v highlight &> /dev/null; then
 	syntax_hl_backend="__syntax_hl_highlight"
@@ -76,20 +90,26 @@ initial_transformer () {
 				(( inside_code_block == 0 )) && output_ptr+="$line"
 			;;
 
+			# HTML Block over multiple lines
 			'<'*'>'*)
 				if (( inside_code_block == 0 )); then
 					inside_transformer_block='verbatim'
 					output_ptr+="$line"
 				fi
 			;;
+
+			# Primary Article Heading
 			'# '*)
 				if ! (( inside_code_block )); then
 					output_ptr+="<header>$NEWL<h1>${line#'# '}</h1>$NEWL</header>$NEWL" #${line#'# '}"
 					continue
 				fi
 				;;
+
+			# Other heading levels
 			'## '* | '### '* | '#### '* | '##### '* | '###### '*)
 
+				# End previous paragraph if opened
 				if (( inside_paragraph )); then
 					inside_paragraph=0
 					output_ptr+="</p>$NEWL"
@@ -107,6 +127,8 @@ initial_transformer () {
 					continue
 				fi
 				;;
+
+			# Horizontal Line
 			'---' | '___' | '***' )
 				(( inside_code_block == 0 )) && output_ptr+="<hr />$NEWL" && continue # printf '<hr />$NEWL' && continue
 				;;
@@ -138,32 +160,29 @@ initial_transformer () {
 					dbg "--- END CODE BLOCK ---"
 
 					if [ "$language" = "mermaid" ]; then
-						output_ptr+="<div class=\"mermaid\">$buffer</div>" # "$buffer"
+						output_ptr+="<div class=\"mermaid\">$ptr</div>" # "$ptr"
 						loaded_mermaid=1
 					elif [ "$language" = "math" ]; then
-						output_ptr+="\[$NEWL$buffer$NEWL\]" # "$buffer"
+						output_ptr+="\[$NEWL$ptr$NEWL\]" # "$ptr"
 						loaded_mathjax=1
 					elif [ -z "$language" ]; then
-						buffer=${buffer//'#'/'&#35;'}
-						buffer=${buffer//'<'/'&lt;'}
-						buffer=${buffer//'>'/'&gt;'}
-						buffer=${buffer//'['/'&lsqb;'}
-						buffer=${buffer//']'/'&rsqb;'}
-						buffer=${buffer//'='/'&equals;'}
-						output_ptr+="${buffer}</code>$NEWL</pre>$NEWL"	
-						# printf '%s</code>$NEWL</pre>$NEWL' "${buffer}"
+						# Escape charachters that get caught by `final_transformer` later on
+						# TODO: Convert to single sed call
+						escape_code_block ptr
+						output_ptr+="${ptr}</code>$NEWL</pre>$NEWL"
 					else 
-						output_ptr+=$($syntax_hl_backend "$language" <<< "$buffer")
-						output_ptr+="$TAB</code>$NEWL</pre>$NEWL"	
+						ptr=$($syntax_hl_backend "$language" <<< "$ptr")
+						escape_code_block ptr
+						output_ptr+="${ptr}$TAB</code>$NEWL</pre>$NEWL"	
 						# printf '$TAB</code>$NEWL</pre>$NEWL'
 					fi
 					
-					unset buffer
+					unset ptr
 					unset language
 					inside_code_block=0
 					continue
 				else
-					local buffer=''
+					local ptr=''
 					local language=${line#'```'}
 					inside_code_block=1
 					if [[ "$language" != "mermaid" &&  "$language" != "math" ]]; then 
@@ -209,7 +228,7 @@ initial_transformer () {
 		esac
 		
 		if (( inside_code_block == 1 )); then
-			buffer+=$line$NEWL
+			ptr+=$line$NEWL
 			dbg "++ $line"
 		else
 			if (( skip_forced_newline == 1)) || [ "$inside_transformer_block" == "math" ] || [[ "$inside_transformer_block" == 'verbatim' ]]; then
