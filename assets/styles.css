@@ -34,6 +34,18 @@ pre {
 
 /* -- DOCUMENT -- */
 
+body::-webkit-scrollbar {
+    width: 0.5em;
+  }
+   
+  body::-webkit-scrollbar-track {
+    background-color: var(--white);
+  }
+   
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--black);
+  }
+  
 html,
 body {
     height: 100%;
@@ -41,6 +53,8 @@ body {
 
 body {
     tab-size: 4;
+    scrollbar-color: var(--white) var(--black);
+    scrollbar-width: 0.5em;
     overflow-x: hidden;
     margin: 0;
     background-color:var(--white);
