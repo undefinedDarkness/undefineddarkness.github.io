@@ -128,6 +128,10 @@ done < <( dos2unix -O -q ./template.html )
 template_post_content=$intermediate
 
 case "$1" in
+	"dbg")
+		quiet=true pond_debug=true bash ./.tooling/pond.sh "$2" 1> /dev/null
+		exit
+		;;
 	"rm")
 		rm -r ./out/${2}.html
 		rm -r ./src/${2}.md

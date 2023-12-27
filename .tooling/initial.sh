@@ -229,7 +229,7 @@ initial_transformer () {
 		
 		if (( inside_code_block == 1 )); then
 			ptr+=$line$NEWL
-			dbg "++ $line"
+			dbg "$TAB++ $line"
 		else
 			if (( skip_forced_newline == 1)) || [ "$inside_transformer_block" == "math" ] || [[ "$inside_transformer_block" == 'verbatim' ]]; then
 				output_ptr+="$NEWL"; 

@@ -113,7 +113,7 @@ if contains "$transformers" "initial_transformer"; then
 	timer start
 	file=""
 	prefix=""
-	initial_transformer prefix file < <(dos2unix -q -l -O "${__infile}") 2> /dev/stderr
+	initial_transformer prefix file < <(dos2unix -q -O "${__infile}") 2> /dev/stderr
 		
 	# file=$(initial_transformer < "${__infile}" 2> /dev/stderr)
 	timer end
