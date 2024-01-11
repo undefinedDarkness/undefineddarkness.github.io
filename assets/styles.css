@@ -7,6 +7,7 @@
 * {
     box-sizing: border-box;
     position: relative;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -115,7 +116,8 @@ figure {
 
 article, main {
     width: 100%;
-    padding: 0 16vw;
+    padding-right: 23vw;
+    padding-left: 12vw;
     line-height: 1.5;
 }
 main ul,
@@ -263,7 +265,45 @@ li .in-margin {
     left: -3em;
 }
 
+nav.toc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    max-width: 20vw;
+    font-size: 0.8em;
+    text-overflow: ellipsis;
+    margin: 2em;
+    z-index: 999;
+}
+
+nav.toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+nav.toc ul .toc-subheading::before {
+    border-left: 2px solid gray;
+    content: "";
+    padding-left: 0.8em;
+}
+
+nav.toc a {
+    color: var(--black);
+}
+
+/* nav.toc ul li { */
+    /* display: inline-block; */
+/* } */
+
+nav.toc ul .toc-subheading {
+    margin-left: 0.6em;
+}
+
 @media only screen and (max-width: 600px) {
+    /*-- Mobile Styles --*/
     article {
         padding-left: 8vw;
     }

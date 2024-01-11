@@ -27,6 +27,10 @@ clean_markup () {
 	ptr=${ptr//'<img'*'>'/}
 }
 
+slugify () {
+    echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
+}
+
 format_doc_heading () {
 	doc_path=${1#'./src/'}
 	doc_path=${doc_path%'.'*}
@@ -37,6 +41,26 @@ format_doc_heading () {
 
 	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
 	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
+
+	toc="<ul>"
+	while read -r heading; do
+		local level=${heading%% *}
+		local without_heading=${heading#$level }
+		local slug=$(slugify "${without_heading}")
+		case "$heading" in
+			'## '*)
+				toc+="<li><a href='#${slug}'>${without_heading}</a></li>"
+				;;
+			'### '*)
+				toc+="<li class='toc-subheading'><a href='#${slug}'>${without_heading}</a></li>"
+				;;
+			'#### '*)
+				toc+="<li class='toc-subsubheading'><a href='#${slug}'>${without_heading}</a></li>"
+				;;
+		esac
+	done < <( grep -P "##+" $2 )
+	toc+='</ul>'
+	doc_heading=${doc_heading/'!TABLEOFCONTENT!'/"$toc"}
 }
 
 # Tasks:
@@ -44,7 +68,7 @@ build_md () {
 	out=${1/src/out}
 	out=${out/.md/.html}
 	markup=$(quiet=true bash ./.tooling/pond.sh "$1")
-	format_doc_heading "$out"
+	format_doc_heading "$out" "$1"
 	mkdir -p "$(dirname "$out")"
 	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
 	fin "$1"
@@ -93,6 +117,7 @@ generate_index () {
 		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2  | while read -r folder; do
 			local posts=""
 			while read -r match; do
+				# printf "FOUND: %s\n" $match
 				file=${match%%:*}
 				title=${match#*:}
 
@@ -124,7 +149,7 @@ while read -r line; do
 		continue
 	fi
 	intermediate+=$line$IFS
-done < <( dos2unix -O -q ./template.html )
+done < ./template.html
 template_post_content=$intermediate
 
 case "$1" in

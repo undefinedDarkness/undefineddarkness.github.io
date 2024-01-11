@@ -42,6 +42,10 @@ if command -v highlight &> /dev/null; then
 	syntax_hl_backend="__syntax_hl_highlight"
 fi
 
+slugify () {
+    echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
+}
+
 # This will be called before any *tranforming* has taken place
 # It is useful for defining custom syntax as well as 
 # following the markdown syntax.
@@ -117,9 +121,7 @@ initial_transformer () {
 				
 				if ! (( inside_code_block )); then
 					local level=${line%% *}
-                    local id=${line#"$level "}
-					id=${id,,}
-                    id=${id//' '/'-'}
+                    local id=$(slugify "${line#$level }")
 					output_ptr+="<h${#level} id=\"${id}\">${line#"$level "}</h${#level}>$NEWL" # "${#level}" "$id" "${line#"$level "}" "${#level}"
 					inside_paragraph=1
 					output_ptr+="<p>$NEWL"	
