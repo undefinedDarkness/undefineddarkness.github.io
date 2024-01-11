@@ -29,6 +29,8 @@ e.c:6:12: warning: function returns address of local variable [-Wreturn-local-ad
 Okay but why doesn't this work? It's because our `timestamp` variable doesnt exist anymore once timestamp returns, So the pointer we return is pointing to garbage.
 There's three ways we can fix it, By marking our memory static, By taking a char buffer as a argument or by *allocating* our memory so that it won't disapper once our function is complete.
 
+==📜 Plain old data types can be simply passed around without any memory shenanigans, This is most efficient for smaller structures==
+
 #### Solution 1: static
 ```c
 char *getTimestamp() {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Dummy fallback
-loaded_hljs=0
+loaded_hljs=1
 __syntax_hl_dummy () {
 	loaded_hljs=1
 	cat
@@ -248,7 +248,7 @@ initial_transformer () {
 	if (( loaded_mermaid )); then 
 		prefix_ptr+='
 		<!-- MERMAID LOADING -->
-		<script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" onload="mermaid.initialize({startOnLoad:true})"></script>
 		<script>document.addEventListener("DOMContentLoaded", () => mermaid.initialize({startOnLoad:true}))</script>'
 	fi
 
@@ -267,8 +267,8 @@ initial_transformer () {
 	if (( loaded_hljs )); then
 		prefix_ptr+='
 		<!-- HIGHLIGHTJS LOADING -->
-		<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css">
-		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
 		'
 	fi
 }

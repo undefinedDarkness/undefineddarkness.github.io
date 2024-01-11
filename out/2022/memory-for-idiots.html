@@ -14,7 +14,11 @@
 		</nav>
 	  <article>
 
-<header>
+
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
 <h1>Memory for Idiots (like me)</h1>
 </header>
 Just a collection of my notes from my time learning C<br/>
@@ -52,6 +56,8 @@ But this won't work, The compiler even gives us a warning<br/>
 </pre>
 Okay but why doesn't this work? It's because our <code>timestamp</code> variable doesnt exist anymore once timestamp returns, So the pointer we return is pointing to garbage.<br/>
 There's three ways we can fix it, By marking our memory static, By taking a char buffer as a argument or by <i>allocating</i> our memory so that it won't disapper once our function is complete.<br/>
+<br/>
+<mark>📜 Plain old data types can be simply passed around without any memory shenanigans, This is most efficient for smaller structures</mark><br/>
 <br/>
 </p>
 <h4 id="solution-1-static">Solution 1: static</h4>
