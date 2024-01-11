@@ -1,7 +1,7 @@
 <header>
 <img src="https://imgs.xkcd.com/comics/standards.png" />
 
-# 🍝 My custom markdown flavour
+# My custom markdown flavour
 </header>
 
 Markdown is nearly ubquitious now-a-days. Anytime you need a simple text format for documentation or formatting,
@@ -107,7 +107,7 @@ becomes
 where columns are seperated by exactly 1 tab and any amount of spaces (for alignment)
 This syntax pretty much breaks the moment you want something really long though, but at that point, I think just using HTML Tables directly is the best idea.
 
-### Verbatim Transformer 👨‍🦼
+### Verbatim Transformer 
 A crutch to deal with nesdown not having any idea of what its doing when transforming markdown syntax, Just spits out the input its given and ~sort of~ guarrentes that it wont be changed in any way.
 
 ### (f) Fold Transformer

@@ -10,3 +10,5 @@ Granted my GPU doesn't have the copius amounts of VRAM necessary to have a good 
 
 ## Installation
 Getting it running was a pretty simple task,
+
+==🚧 WIP: This article is incomplete 🚧==

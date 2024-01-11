@@ -1,29 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>A day of fixing neovim terminal behaviour</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-	  <article>
 
-<header>
-<h1>A day of fixing neovim terminal behaviour</h1>
-</header>
-<br/>
-One day while fine tweaking my colourscheme, I noticed that my neovim wasn't displaying any italics<br/>
-like I had specified in it. After double checking that everything was fine from my configuration side, I resolved it to be<br/>
-something between neovim and the terminal.<br/>
-<br/>
-An hour of googling and trying a bunch of different fixes ensue, But most nothing happens till I try running neovim through the <code>env</code> program, forcibly overriding the <code>XTERM_VERSION</code> variable to be empty, This finally gave the correct behaviour.<br/>
-Seems like some kind of bug?, Maybe its because my xterm is run in vt340 mode to allow sixel support (Yes, xterm has sixel!!!)<br/>
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+
+Usage: dos2unix [options] [file ...] [-n infile outfile ...]
+ --allow-chown         allow file ownership change
+ -ascii                convert only line breaks (default)
+ -iso                  conversion between DOS and ISO-8859-1 character set
+   -1252               use Windows code page 1252 (Western European)
+   -437                use DOS code page 437 (US) (default)
+   -850                use DOS code page 850 (Western European)
+   -860                use DOS code page 860 (Portuguese)
+   -863                use DOS code page 863 (French Canadian)
+   -865                use DOS code page 865 (Nordic)
+ -7                    convert 8 bit characters to 7 bit space
+ -b, --keep-bom        keep Byte Order Mark
+ -c, --convmode        conversion mode
+   convmode            ascii, 7bit, iso, mac, default to ascii
+ -f, --force           force conversion of binary files
+ -h, --help            display this help text
+ -i, --info[=FLAGS]    display file information
+   file ...            files to analyze
+ -k, --keepdate        keep output file date
+ -L, --license         display software license
+ -l, --newline         add additional newline
+ -m, --add-bom         add Byte Order Mark (default UTF-8)
+ -n, --newfile         write to new file
+   infile              original file in new-file mode
+   outfile             output file in new-file mode
+ --no-allow-chown      don't allow file ownership change (default)
+ -o, --oldfile         write to old file (default)
+   file ...            files to convert in old-file mode
+ -q, --quiet           quiet mode, suppress all warnings
+ -r, --remove-bom      remove Byte Order Mark (default)
+ -s, --safe            skip binary files (default)
+ -u,  --keep-utf16     keep UTF-16 encoding
+ -ul, --assume-utf16le assume that the input format is UTF-16LE
+ -ub, --assume-utf16be assume that the input format is UTF-16BE
+ -v,  --verbose        verbose operation
+ -F, --follow-symlink  follow symbolic links and convert the targets
+ -R, --replace-symlink replace symbolic links with converted files
+                         (original target files remain unchanged)
+ -S, --skip-symlink    keep symbolic links and targets unchanged (default)
+ -V, --version         display version number

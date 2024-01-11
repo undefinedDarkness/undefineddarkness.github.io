@@ -1,159 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>Lorem Ipsum: Test Page</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-	  <article>
 
-<header>
-<header>
-<h1>Lorem Ipsum: Test Page</h1>
-</header>
-</header>
-<br/>
-<!-- You can use markdown in HTML blocks, no problem  -->
-<div class='txt-c'><a href="/src/lorem.md">View Page Source</a></div><br/>
-<!-- These are as you'd expect -->
-Testing Inlines: <br/>
-Normal text - <i>italic text</i> - <b>bold text</b><br/>
-I am a <a href="https://example.com">link</a><br/>
-<br/>
-<mark>Pay attention to me</mark><br/>
-<br/>
-<code>1 &ast; 2 &ast; 3 = 3!</code><br/>
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> - Link is automatically generated<br/>
-<q>A quote</q><br/>
-Newlines should intuitively<br/>
-be preserved...<br/>
-<br/>
-<hr />
-<br/>
-Testing list<br/>
-<ul>
-<li>Pumpkin<br/>
-</li>
-<li>Milk<br/>
-</li>
-<li>Eggs<br/>
-</li>
-<li>Flowers<br/>
-</li>
-<li>Carrots<br/>
-</li>
-<li><a href="https://en.wikipedia.org/wiki/Coriander">Coriander</a><br/>
-is a spice.<br/>
-</li>
-</ul><br/>Checking for Syntax Highlighting:<br/>
-<pre>
-<code class="language-c">#include <stdio.h>
 
-float Q_rsqrt( float number )
-{
-    long i;
-    float x2, y;
-    const float threehalfs = 1.5F;
-
-    x2 = number * 0.5F;
-    y  = number;
-    i  = <i> ( long </i> ) &y;                       // evil floating point bit level hacking
-    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
-    y  = <i> ( float </i> ) &i;
-    y  = y <i> ( threehalfs - ( x2 </i> y * y ) );   // 1st iteration
-//    y  = y <i> ( threehalfs - ( x2 </i> y * y ) );   // 2nd iteration, this can be removed
-
-    return y;
-}
-
-int main () {
-    printf("Hello world\n");
-}	</code>
-</pre>
-<!-- Folds can be created with the 'f'old transformer -->
-
-<details>
-	<summary>
-		<h4>Do folds work?</h4>
-	</summary>
-	<p>
-		I guess they do :)<br/>
-	</p>
-</details>
-<br/>
-<!-- IM:... will add <code>...</code> to the article margin -->
-I should be next to a percent sign IM:%<br/>
-<br/>
-What about tables?<br/>
-<!-- My own table syntax:<br/>
-Rows are separated by lines<br/>
-Columns are seperated by any amount of spaces and at least 1 tab.<br/>
---><br/>
-<table class="">
-<thead><tr>
-<th>Fruits</th>
-<th>Vegetables</th>
-</tr>
-</thead><tbody><tr>
-<td>Apple</td>
-<td>Carrot<br/></td>
-</tr>
-<tr>
-<td>Orange</td>
-<td>Tomato<br/></td>
-</tr>
-<tr>
-<td>Banana</td>
-<td>Eggplant<br/></td>
-</tr>
-</tbody></table>
-<br/>
-Block Quotes & Captions:<br/>
-<!-- Pretty simple here too, the last line automatically becomes the caption -->
-<figure>
-<blockquote>
-John wore clothing made of camel’s hair, with a leather belt around his waist,<br/>
-and he ate locusts and wild honey. <br/>
-And this was his message: “After me comes the one more powerful than I, the straps of whose sandals I am not worthy to stoop down and untie.  I baptize you with water, but he will baptize you with the Holy Spirit.”<br/>
-</blockquote>
-<figcaption>Mark 1:6-8</figcaption>
-</figure>
-<br/>
-<br/>
-The design of the site was havily inspired by: <a href="https://www.kunisch.info/">https://www.kunisch.info/</a><br/>
-and some of the fonts were chosen with the help of cae<br/>
-<br/>
-<h2 id="edge-cases">Edge Cases</h2>
-<p>
-Inline in code sections:<br/>
-<pre>
-<code class="language-sh">export __OPENGL__=1
-printf '%d' $(( 2 <i> 3 </i> 5 ))	</code>
-</pre>
-<br/>
-Tables & Transformers in code sections:<br/>
-<pre>
-<code class="language-plaintext">&#35;TABLE	A	B
-		C	D
-&#35;END TABLE
-
-&gt;quotes shouldnt work either
-
-___
-
-hr shouldnt work either
-</code>
-</pre>
-<br/>
-Inline in code inline:<br/>
-<code>Hello &ast;&ast;world&ast;&ast; - I hope I dont trigger any edge &ast;cases&ast;</code><br/>
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+Usage: dos2unix [options] [file ...] [-n infile outfile ...]
+ --allow-chown         allow file ownership change
+ -ascii                convert only line breaks (default)
+ -iso                  conversion between DOS and ISO-8859-1 character set
+   -1252               use Windows code page 1252 (Western European)
+   -437                use DOS code page 437 (US) (default)
+   -850                use DOS code page 850 (Western European)
+   -860                use DOS code page 860 (Portuguese)
+   -863                use DOS code page 863 (French Canadian)
+   -865                use DOS code page 865 (Nordic)
+ -7                    convert 8 bit characters to 7 bit space
+ -b, --keep-bom        keep Byte Order Mark
+ -c, --convmode        conversion mode
+   convmode            ascii, 7bit, iso, mac, default to ascii
+ -f, --force           force conversion of binary files
+ -h, --help            display this help text
+ -i, --info[=FLAGS]    display file information
+   file ...            files to analyze
+ -k, --keepdate        keep output file date
+ -L, --license         display software license
+ -l, --newline         add additional newline
+ -m, --add-bom         add Byte Order Mark (default UTF-8)
+ -n, --newfile         write to new file
+   infile              original file in new-file mode
+   outfile             output file in new-file mode
+ --no-allow-chown      don't allow file ownership change (default)
+ -o, --oldfile         write to old file (default)
+   file ...            files to convert in old-file mode
+ -q, --quiet           quiet mode, suppress all warnings
+ -r, --remove-bom      remove Byte Order Mark (default)
+ -s, --safe            skip binary files (default)
+ -u,  --keep-utf16     keep UTF-16 encoding
+ -ul, --assume-utf16le assume that the input format is UTF-16LE
+ -ub, --assume-utf16be assume that the input format is UTF-16BE
+ -v,  --verbose        verbose operation
+ -F, --follow-symlink  follow symbolic links and convert the targets
+ -R, --replace-symlink replace symbolic links with converted files
+                         (original target files remain unchanged)
+ -S, --skip-symlink    keep symbolic links and targets unchanged (default)
+ -V, --version         display version number

@@ -51,6 +51,7 @@ body {
 }
 
 .viewport {
+    max-height: 100vh;
     /* Grid Background */
     background-image:
         linear-gradient(to right, #222  1px, transparent 1px),
@@ -119,7 +120,7 @@ body,
 html,
 .viewport {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .viewport {
@@ -443,8 +444,97 @@ p {
 
 /* VIEW 2 */
 
-#box-row {
-    display: grid;
-    grid-column: repeat(1fr, 3);
-    gap: 4em;
+.card-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5em;
+    padding: 3em 5em;
+    perspective: 1000px;
+}
+
+.card {
+    border-radius: 25px;
+    flex: 1;
+    color: transparent;
+    aspect-ratio: 9/16;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+}
+
+.card > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+.card > *:last-child {
+    transform: rotateY(180deg);
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    padding: 1em 1em;
+    font-size: 1em;
+}
+
+.card > *:last-child h3 {
+    margin: 0;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.card > *:last-child {
+    background-position: left;
+    background-size: cover;
+
+    background:  linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url('https://images.unsplash.com/photo-1700685188583-bbd552984349?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+} 
+
+.card-bg {
+    border-radius: 25px;
+    box-shadow: 0 0 0 10px #f0f0f0;
+    background-color:#556;
+    background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+    background-size:80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+#ani-card-group {
+    display: flex;
+    position: absolute;
+    top: calc(-0.5 * (16/9 * 15vw));
+    left: 50%;
+}
+
+
+#ani-card-group > * {
+    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15vw;
+    aspect-ratio: 9/16;
+}
+
+#ani-card-3 {
+    rotate: 30deg;
+}
+#ani-card-2 {
+    rotate: 15deg;
 }

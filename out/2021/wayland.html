@@ -1,117 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>My experience with wayland</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-	  <article>
 
-<header>
-<pre>
-<code class="language-plaintext">                  ,____
-                   |---.\
-           ___     |    `
-          / .-\  ./&equals;)
-         |  |"|_/\/|
-         ;  |-;| /_|
-        / \_| |/ \ |
-       /      \/\( |
-       |   /  |` ) |
-       /   \ _/    |
-      /--._/  \    |
-      `/|)    |    /
-        /     |   |
-      .'      |   |
-     /         \  |
-    (_.-.__.__./  /
-</code>
-</pre>
-Got a display server to kill
-<h1>My experience with wayland</h1>
-</header>
-This is intended to chronicle my adventures using Wayland<br/>
-The primary reason being terrible performance in X11 but that was later resolved. :)<br/>
-The journey continues tho 📔<br/>
-<br/>
-<h2 id="window-manager-(compositor)-">Window Manager (Compositor) </h2>
-<p>
-<i>I know its called a compositer but I am going to call it a window manager >:(</i>To fulfill this purpose I chose <a href="https://swaywm.org/">sway</a> as its the one I felt I could most get used to<br/>
-since I had used its Xorg brother (i3) for a long while<br/>
-<br/>
-And..<br/>
-It works really well! It's performance is very impressive compared to what I am used to<br/>
-I have a few scruples with its configuration format and its refusal to add features i3 lacks but oh well..,<br/>
-not like I'm gonna be writing my own compositor any time soon<br/>
-<br/>
-Coming from awesomewm, I would have liked to find something similar <br/>
-and that sort of exists in the form of <a href="https://taiwins.org/index.html">Taiwins</a> but its very different from what I am used to <br/>
-and I am not keen on using it as it is rather unstable and documentation is lacking<br/>
-<br/>
-</p>
-<h3 id="screenshots">Screenshots</h3>
-<p>
-What is the point of making a epic rice if there is no way to showcase it!<br/>
-Wayland seems a bit more fiddly compared to the centralized xorg in terms of recording <br/>
-but its not that bad. I had to use <a href="https://github.com/emersion/grim">grim</a> along with this <a href="https://github.com/swaywm/sway/blob/master/contrib/grimshot">script</a> from sway to get<br/>
-Nothing particularly difficult but not as cohesive as id like :/<br/>
-<br/>
-</p>
-<h2 id="moving-from-xorg-">Moving from Xorg </h2>
-<p>
-This is a bit of a generic header but oh well<br/>
-<br/>
-Much to my surprise this wasnt as bad as I thought it would be,<br/>
-rofi, wezterm, firefox & dunst - all programs I am used to from Xorg could work <br/>
-natively (without Xwayland) on wayland<br/>
-<br/>
-Although most of them required tweaking in some form or another<br/>
-<br/>
-<b>ROFI:</b> This does use a fork
-<pre>
-<code class="language-sh">git clone --recurse-submodules <a href="https://github.com/lbonn/rofi">https://github.com/lbonn/rofi</a>
-cd rofi
-meson setup build -Dwayland=enabled --prefix=/usr/local
-ninja -C build
-ninja -C build install	</code>
-</pre>
-<p></p>
-<b>FIREFOX:</b> Might need to modify some desktop files to get it to work right
-<pre>
-<code class="language-plaintext">MOZ_ENABLE_WAYLAND&equals;1 firefox
-</code>
-</pre>
-** Wezterm has issues with the wayland clipboard. I think using <a href="https://codeberg.org/dnkl/foot">foot</a> would be a better idea
-** Firefox crashed more often for me in wayland but that may or may not happen to you
 
-</p>
-<h3 id="bars">Bars</h3>
-<p>
-Compared to the choice on X11, bars in wayland are a bit ehhhh ig
-There are only 2 that I found:
-
-<ul>
-<li>Yambar:
-	<a href="https://codeberg.org/dnkl/yambar">https://codeberg.org/dnkl/yambar</a>
-</li>
-<li>Waybar:
-	<a href="https://github.com/Alexays/Waybar">https://github.com/Alexays/Waybar</a>
-</li>
-</ul><br/>Since I couldn't compile yambar even tho it seems pretty nice :/ I was forced to use waybar
-Both of them take after polybar very much which I personally am not much a fan off
-but ig it makes sense, If I were to revisit the topic of bars I will definitely look into using
-The one and only <a href="https://github.com/elkowar/eww/">eww</a> for this purpose.
-
-<hr />
-🚧 This has been archived since I have not had the time to give a proper look at wayland, I do plan on looking at it again at some point,
-since whether I like it or not, it seems to be the future of Linux Desktop
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+Usage: dos2unix [options] [file ...] [-n infile outfile ...]
+ --allow-chown         allow file ownership change
+ -ascii                convert only line breaks (default)
+ -iso                  conversion between DOS and ISO-8859-1 character set
+   -1252               use Windows code page 1252 (Western European)
+   -437                use DOS code page 437 (US) (default)
+   -850                use DOS code page 850 (Western European)
+   -860                use DOS code page 860 (Portuguese)
+   -863                use DOS code page 863 (French Canadian)
+   -865                use DOS code page 865 (Nordic)
+ -7                    convert 8 bit characters to 7 bit space
+ -b, --keep-bom        keep Byte Order Mark
+ -c, --convmode        conversion mode
+   convmode            ascii, 7bit, iso, mac, default to ascii
+ -f, --force           force conversion of binary files
+ -h, --help            display this help text
+ -i, --info[=FLAGS]    display file information
+   file ...            files to analyze
+ -k, --keepdate        keep output file date
+ -L, --license         display software license
+ -l, --newline         add additional newline
+ -m, --add-bom         add Byte Order Mark (default UTF-8)
+ -n, --newfile         write to new file
+   infile              original file in new-file mode
+   outfile             output file in new-file mode
+ --no-allow-chown      don't allow file ownership change (default)
+ -o, --oldfile         write to old file (default)
+   file ...            files to convert in old-file mode
+ -q, --quiet           quiet mode, suppress all warnings
+ -r, --remove-bom      remove Byte Order Mark (default)
+ -s, --safe            skip binary files (default)
+ -u,  --keep-utf16     keep UTF-16 encoding
+ -ul, --assume-utf16le assume that the input format is UTF-16LE
+ -ub, --assume-utf16be assume that the input format is UTF-16BE
+ -v,  --verbose        verbose operation
+ -F, --follow-symlink  follow symbolic links and convert the targets
+ -R, --replace-symlink replace symbolic links with converted files
+                         (original target files remain unchanged)
+ -S, --skip-symlink    keep symbolic links and targets unchanged (default)
+ -V, --version         display version number

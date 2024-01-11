@@ -1,214 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>Approximating sin(x)</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-	  <article>
 
 
-		<!-- KATEX LOADING -->
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="
-			renderMathInElement(document.body, {
-				output: 'mathml'
-			});
-		"></script>
-		<header>
-<h1>Approximating sin(x)</h1>
-</header>
-We all know calculating \(\sin(x)\) for anything other than simple multiples of \(\pi\) is a pain in the neck.<br/>
-Even for something like \(\sin(\pi/12)\),<br/>
-<br/>
-<br/>
-\[
-\begin{aligned}
-\tan(\frac{\pi}{6}) = \frac{1}{\sqrt{3}} = \frac{2\tan(\theta)}{1+\tan^2(\theta)} \\
-1 + \tan^2(\theta) - 2\sqrt{3}\tan(\theta) = 0 \\
-\tan(\theta) = \frac{1 + \sqrt{3}}{1 - \sqrt{3}}
-\end{aligned}
-
-\]<br/>
-Fortunatley, many brilliant mathematicians have come with approximations for these functions, Some which we humans can use and some which we cant.<br/>
-  <br/>
-<div class="split">
-<img src="/assets/images/taylor.svg" alt="" title="" loading="lazy" />
-<img src="/assets/images/taylor-error.svg" alt="" title="" loading="lazy" />
-</div>
-<h2 id="taylor-series">Taylor Series</h2>
-<p>
-Probably the one most are familiar with, This is a really understandable way of expressing sin(x) in terms of a polynomial<br/>
-\[
-\sin(x) = \frac{x}{1!} - \frac{x^3}{3!} + \frac{x^5}{5!} \cdots
-
-\]In the above graph, you can visually compare the accuracy of the approximation with the sine function for increasing number of terms.<br/>
-<br/>
-It shows that even for 4 or 3 terms, you can get a very viable approximation for \(x \in [-\pi/2,\pi/2]\)<br/>
-<br/>
-In the way I understand it, The polynomial aims to match the nth derivative of the function with its own derivative, at a <b>certain point</b><br/>
-From its error graph, we can also see that its error sharply increases at the ends<br/>
-This nature of the graph remains even when the interval is cut to \([-\pi/8,\pi/8]\)<br/>
-<br/>
-Taking the general form of the polynomial to be \(P(x) = C_0x^0 + C_1x^1 + C_2x^2 \cdots \)<br/>
-<br/>
-<div class="split">
-<div>
-\[
-\begin{gathered}
-\sin(x) = 0 \\
-\frac{d\sin(x)}{dx} = \cos(x) = 1 \\
-\frac{d^2\sin(x)}{dx^2} = -\sin(x) = 0 \\
-\frac{d^3\sin(x)}{dx^2} = -\cos(x) = -1
-\end{gathered}
-\]
-</div>
-<div>
-\[
-\begin{gathered}
-P(0) = C_0 = 0 \\
-\frac{dP}{dx} = C_1 = 1 \\
-\frac{d^2P}{dx^2} = C_2 = 0 \\
-\frac{d^3P}{dx^3} = C_3 = -1
-\end{gathered}
-\]
-</div>
-</div>
-<br/>
-While taylor series are extremely useful and a variant is used to calculate sin(x) even in the C standard library.<br/>
-<br/>
-There is a wonderful video by 3blue1brown, visually demonstrating this: <a href="https://youtu.be/3d6DsjIBzJ4">https://youtu.be/3d6DsjIBzJ4</a><br/>
-<br/>
-<img src="/assets/images/error-baskara.svg" alt="" title="" loading="lazy" /><br/>
-</p>
-<h2 id="bhaskara's-approximation">Bhaskara's Approximation</h2>
-<p>
-This is a formula for calculating sin(x) discovered by 7th centuary Indian mathematician Baskara,<br/>
-$$\sin(\theta) \approx \frac{16x(\pi-x)}{5\pi^2-4x(\pi-x)}$$ And it's so accurate in the range [0,pi] that its graph is <i>coincident</i> with sin(x).<br/>
-<br/>
-The plot above is of the <b>error</b> of this function w/ sin(x), which as you can infer is pretty low<br/>
-<br/>
-And it should be faster than calculating using Taylor's series<br/>
-<br/>
-<a href="https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=1313&context=tme">A derivation for the function</a><br/>
-<a href="https://en.wikipedia.org/wiki/Bhaskara_I%27s_sine_approximation_formula">Wikipedia Article</a><br/>
-<br/>
-</p>
-<h2 id="minmax-polynomial">Minmax Polynomial</h2>
-<p>
-A minmax polynomail gives a approximation of a function while minimizing the maximum error as much as possible.<br/>
-<br/>
-Exactly how its obtained via the Remez Algorithm, is something I haven't really understood yet so I can't say anything more<br/>
-<br/>
-An implementation in C is given here:<br/>
-<pre>
-<code class="language-c">static double minimaxsin(double x)
-{
-    static const
-    double a0 =  1.0,
-           a1 = -1.666666666640169148537065260055e-1,
-           a2 =  8.333333316490113523036717102793e-3,
-           a3 = -1.984126600659171392655484413285e-4,
-           a4 =  2.755690114917374804474016589137e-6,
-           a5 = -2.502845227292692953118686710787e-8,
-           a6 =  1.538730635926417598443354215485e-10;
-    double x2 = x * x;
-    /*
-        a0x + a1x^3 + a2x^5 + a3x^7...
-    */
-    return x <i> (a0 + x2 </i> (a1 + x2 * (a2 + x2
-             <i> (a3 + x2 </i> (a4 + x2 <i> (a5 + x2 </i> a6))))));
-}	</code>
-</pre>
-<br/>
-It functions very similarly to the taylor polynomial, except the constants have been replaced to achieve greather accuracy,<br/>
-Which it does, achieving some 10^4 times smaller error in comparison (for 7 terms each)<br/>
-<br/>
-<a href="https://en.wikipedia.org/wiki/Minimax_approximation_algorithm">Wikipedia Article</a><br/>
-<a href="http://lolengine.net/blog/2011/12/21/better-function-approximations">Original Source</a><br/>
-<br/>
-
-<details>
-	<summary>
-		<h4>Standard sin(x) - How does it work</h4>
-	</summary>
-	<p>
-		Looking at the implementation of sin in musl, We get:<br/>
-<pre>
-<code class="language-c">
-/*
- *      3. sin(x) is approximated by a polynomial of degree 13 on
- *         [0,pi/4]
- *                               3            13
- <i>              sin(x) ~ x + S1</i>x + ... + S6*x
- *         where
- *
- *      |sin(x)         2     4     6     8     10     12  |     -58
- <i>      |----- - (1+S1</i>x +S2<i>x +S3</i>x +S4<i>x +S5</i>x  +S6*x   )| <= 2
- *      |  x                                               |
- *
- <i>      4. sin(x+y) = sin(x) + sin'(x')</i>y
- <i>                  ~ sin(x) + (1-x</i>x/2)*y
- *         For better accuracy, let
- *                   3      2      2      2      2
- <i>              r = x </i>(S2+x <i>(S3+x </i>(S4+x <i>(S5+x </i>S6))))
- *         then                   3    2
- <i>              sin(x) = x + (S1</i>x + (x *(r-y/2)+y))
-*/
-
-static const double
-S1  = -1.66666666666666324348e-01, /<i> 0xBFC55555, 0x55555549 </i>/
-S2  =  8.33333333332248946124e-03, /<i> 0x3F811111, 0x1110F8A6 </i>/
-S3  = -1.98412698298579493134e-04, /<i> 0xBF2A01A0, 0x19C161D5 </i>/
-S4  =  2.75573137070700676789e-06, /<i> 0x3EC71DE3, 0x57B1FE7D </i>/
-S5  = -2.50507602534068634195e-08, /<i> 0xBE5AE5E6, 0x8A2B9CEB </i>/
-S6  =  1.58969099521155010221e-10; /<i> 0x3DE5D93A, 0x5ACFD57C </i>/
-
-double __sin(double x, double dx, int is_dx_not_zero)
-{
-	double_t x2,x3,x4,r;
-
-	x2 = x*x;
-	x4 = x2*x2;
-	r = S2 + x2<i>(S3 + x2</i>S4) + x2<i>x4</i>(S5 + x2*S6);
-	x3 = x2*x;
-	if (is_dx_not_zero == 0)
-        // This unwraps to a taylor expansion of 6 terms
-		return x + x3<i>(S1 + x2</i>r);
-	else
-        
-		return x - ((x2<i>(0.5</i>dx - x3<i>r) - dx) - x3</i>S1);
-}	</code>
-</pre>
-<br/>
-Although I am not sure what is happening in the 2nd if branch, It seems to use a polynomial approximation of degree 13 to get results for x in the range \([-\pi/4, +\pi/4]\), Which is obtained in the parent sin(x) function with argument reduction (dividing by \(\pi/2\) and getting the remainder), And the final result from said sin(x) is obtained with a combination of __sin(x) and similarly __cos(x) depending on the quadrant of the function (there is also a case for sin x ~= x for small x).<br/>
-<br/>
-Source for __sin(x): <a href="https://git.musl-libc.org/cgit/musl/tree/src/math/__sin.c">https://git.musl-libc.org/cgit/musl/tree/src/math/__sin.c</a><br/>
-Source for   sin(x): <a href="https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c">https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c</a><br/>
-<br/>
-<b>NOTE:</b> If you couldn't tell, this code really confuses me and I cant fully tell whats happening, The glibc source is even more confounded.<br/>
-<br/>
-	</p>
-</details>
-<br/>
-</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>
-The results from my very naive implementation are as follows, This is without any effort made to optimize the code and most is copied from here and there so the comparison isn't entirely fair,<br/>
-I also added the SIMD AVX sin function from libmvec for fun too :)<br/>
-<br/>
-<hr />
-<a href="https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c">https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c</a> - sin(x) implementation in musl std c lib<br/>
-<a href="https://www.youtube.com/watch?v=yV52TMdGkng">https://www.youtube.com/watch?v=yV52TMdGkng</a><br/>
-<a href="https://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/">https://allenchou.net/2014/02/game-math-faster-sine-cosine-with-polynomial-curves/</a><br/>
-<a href="http://users.ece.utexas.edu/~adnan/comm/fast-trigonometric-functions-using.pdf">http://users.ece.utexas.edu/~adnan/comm/fast-trigonometric-functions-using.pdf</a><br/>
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+Usage: dos2unix [options] [file ...] [-n infile outfile ...]
+ --allow-chown         allow file ownership change
+ -ascii                convert only line breaks (default)
+ -iso                  conversion between DOS and ISO-8859-1 character set
+   -1252               use Windows code page 1252 (Western European)
+   -437                use DOS code page 437 (US) (default)
+   -850                use DOS code page 850 (Western European)
+   -860                use DOS code page 860 (Portuguese)
+   -863                use DOS code page 863 (French Canadian)
+   -865                use DOS code page 865 (Nordic)
+ -7                    convert 8 bit characters to 7 bit space
+ -b, --keep-bom        keep Byte Order Mark
+ -c, --convmode        conversion mode
+   convmode            ascii, 7bit, iso, mac, default to ascii
+ -f, --force           force conversion of binary files
+ -h, --help            display this help text
+ -i, --info[=FLAGS]    display file information
+   file ...            files to analyze
+ -k, --keepdate        keep output file date
+ -L, --license         display software license
+ -l, --newline         add additional newline
+ -m, --add-bom         add Byte Order Mark (default UTF-8)
+ -n, --newfile         write to new file
+   infile              original file in new-file mode
+   outfile             output file in new-file mode
+ --no-allow-chown      don't allow file ownership change (default)
+ -o, --oldfile         write to old file (default)
+   file ...            files to convert in old-file mode
+ -q, --quiet           quiet mode, suppress all warnings
+ -r, --remove-bom      remove Byte Order Mark (default)
+ -s, --safe            skip binary files (default)
+ -u,  --keep-utf16     keep UTF-16 encoding
+ -ul, --assume-utf16le assume that the input format is UTF-16LE
+ -ub, --assume-utf16be assume that the input format is UTF-16BE
+ -v,  --verbose        verbose operation
+ -F, --follow-symlink  follow symbolic links and convert the targets
+ -R, --replace-symlink replace symbolic links with converted files
+                         (original target files remain unchanged)
+ -S, --skip-symlink    keep symbolic links and targets unchanged (default)
+ -V, --version         display version number

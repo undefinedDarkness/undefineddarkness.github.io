@@ -1,5 +1,8 @@
 # Personal Site
 
+> [!WARNING]
+> Beware using emoji as it can mess up the python live server for some reason
+
 ## Installation & Running
 - **live server**: Requires `python` & python packages:
     - watchfiles
@@ -21,4 +24,4 @@ Begins live rebuild and preview of site
     - `**/*.html`           - Document Output
 
 ## Markup
-Refer to [out/2021/lorem.html](https://nes.is-a.dev/out/2021/lorem.html)
+Refer to [out/2021/lorem.html](https://nes.is-a.dev/out/2021/lorem.html) & [out/2022/nesdown.html](https://nes.is-a.dev/out/2022/nesdown.html)

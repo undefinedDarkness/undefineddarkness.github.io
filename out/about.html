@@ -7,59 +7,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print"
+        onload="this.media = 'all'">
     <link rel="stylesheet" href="/assets/other/about.css" />
 </head>
 
-<body class="halt-animation">
+<body class="">
 
-	<section class="viewport hidden" id='intro'><!-- {{{ -->
-    <div id="cursor"></div>
-    <div>
-        <div id="rectangle" class="box">
-            <p id="textbox">HI, I'm NES</p>
+    <nav class="view-scroller">
+        <button id="prev-view-btn"><i class="fa-solid fa-arrow-up"></i></button>
+        <button id="next-view-btn"><i class="fa-solid fa-arrow-down"></i></button>
+    </nav>
+
+    <section class="viewport " id='intro'><!-- {{{ -->
+        <div id="cursor"></div>
+        <div>
+            <div id="rectangle" class="box">
+                <p id="textbox">HI, I'm NES</p>
+            </div>
+            <ul id="options-menu">
+                <li>Image</li>
+                <li>Text Box</li>
+            </ul>
         </div>
-        <ul id="options-menu">
-            <li>Image</li>
-            <li>Text Box</li>
-        </ul>
-    </div>
-    <div id="imagebox">
-        <div class="box">
-            <img src="/assets/images/pfp.png" />
+        <div id="imagebox">
+            <div class="box">
+                <img src="/assets/images/pfp.png" />
+            </div>
         </div>
-    </div>
 
-    <div id="foldoutbutton" data-popoutopen="true">
-    </div>
+        <div id="foldoutbutton" data-popoutopen="true">
+        </div>
 
-    <div id="popout" class="box">
-        <h2>About Me</h2>
-        <p>I'm a hobbyist <span class="special">programmer</span> in India,
-        I have experience working with Linux, Web tech and Desktop Application Development.</p>
-    </div>
-	</section><!-- }}} -->
-	
-	<section class='viewport' id='stack'>
-		<div class='tech-grid'>
-				<div class='quad'>
-			<a><i class="devicon-cplusplus-line"></i></a>
-			<a><i class="devicon-c-line"></i></a>
-			<a><i class="devicon-rust-plain"></i></a>
-			</div>
+        <div id="popout" class="box">
+            <h2>About Me</h2>
+            <p>I'm a hobbyist programmer in India,
+                I have experience working with Linux, Web tech and Desktop Application Development.</p>
+        </div>
+    </section><!-- }}} -->
 
-				<div class='quad'>
-			<a><i class="devicon-bash-plain"></i></a>
-			<a><i class="devicon-linux-plain"></i></a>
-				</div>
+    <section class='viewport hidden' id='stack' i-on-visible="this.animateCards()">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-bg hidden full"></div>
+                <div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-bg hidden full"></div>
+                <div>
+                   
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-bg hidden full"></div>
+                <div>
+                   
+                </div>
+            </div>
+        </div>
 
-	<div class='quad'>
-				</div>
-			</div>
-		<div>
-			
-		</div>
-	</section>
+        <div id="ani-card-group">
+            <div class="card-bg" id="ani-card-1"></div>
+            <div class="card-bg" id="ani-card-2"></div>
+            <div class="card-bg" id="ani-card-3"></div>
+        </div>
+    </section>
 
     <script type="module">
         import '/assets/other/interaction.js'

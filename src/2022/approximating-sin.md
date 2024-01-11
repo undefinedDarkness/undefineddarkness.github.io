@@ -164,6 +164,19 @@ Source for   sin(x): https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c
 ## Conclusion
 The results from my very naive implementation are as follows, This is without any effort made to optimize the code and most is copied from here and there so the comparison isn't entirely fair,
 I also added the SIMD AVX sin function from libmvec for fun too :)
+```
+Standard Library:
+        took 3266 ms
+Taylor Series (7T):
+        took 1212 ms
+Bhaskara Formula:
+        took 1127 ms
+Minmax Polynomial (7T):
+        took 1210 ms
+Libmvec (4xD):
+        took 565 ms
+```
+
 
 ---
 https://git.musl-libc.org/cgit/musl/tree/src/math/sin.c - sin(x) implementation in musl std c lib

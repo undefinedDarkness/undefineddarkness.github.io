@@ -1,322 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>Memory for Idiots (like me)</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-	  <article>
 
-<header>
-<h1>Memory for Idiots (like me)</h1>
-</header>
-Just a collection of my notes from my time learning C<br/>
-<br/>
-<h2 id="analogy">Analogy</h2>
-<p>
-<img src="/assets/images/memory-analogy.svg" alt="" title="" loading="lazy" /><br/>
-Essentially the CPU cache is like a tub of water you have at home (program), But since it's at home, its very fast to access it.<br/>
-The stack is like a outdoor water tank, still very fast to access but slower than the cache and you can access a lot more water at once too.<br/>
-The heap is like a village well, It takes time to get to it but once you're there, you can effectivley get as much water as you want.<br/>
-<br/>
-There technically, is a much more nuanced difference between the stack and the heap and they can be entirely just in one's head but it makes explaining stuff a lot simpler.<br/>
-<br/>
-</p>
-<h3 id="example-problem:-returning-a-string-from-a-function">Example Problem: Returning a string from a function</h3>
-<p>
-Let's say we want to write a function in C to return a string time stamp, Very simple right?<br/>
-<br/>
-</p>
-<h4 id="initial-attempt:">Initial Attempt:</h4>
-<p>
-<pre>
-<code class="language-c">char *getTimestamp() {
-    char timestamp[100];
-    snprintf(timestamp, sizeof(timestamp), "%llu", time(NULL));
-    return timestamp;
-}	</code>
-</pre>
-But this won't work, The compiler even gives us a warning<br/>
-<pre>
-<code class="language-plaintext">e.c:6:12: warning: function returns address of local variable &lsqb;-Wreturn-local-addr&rsqb;
-    6 |     return timestamp;
-      |            ^<strike>~</strike>~~~
-</code>
-</pre>
-Okay but why doesn't this work? It's because our <code>timestamp</code> variable doesnt exist anymore once timestamp returns, So the pointer we return is pointing to garbage.<br/>
-There's three ways we can fix it, By marking our memory static, By taking a char buffer as a argument or by <i>allocating</i> our memory so that it won't disapper once our function is complete.<br/>
-<br/>
-</p>
-<h4 id="solution-1:-static">Solution 1: static</h4>
-<p>
-<pre>
-<code class="language-c">char *getTimestamp() {
-    static char timestamp[100];
-    snprintf(timestamp, sizeof(timestamp), "%llu");
-    return timestamp;
-}	</code>
-</pre>
-This works, because now <code>timestamp</code> is static so it will exist for the lifetime of the program, But the problem is if the function is called again, timestamp gets overwritten!<br/>
-Example:<br/>
-<pre>
-<code class="language-c">char*a = getTimestamp();
-printf("%s\n",a);
-sleep(5);
-char*b = getTimestamp();
-printf("%s, %s\n",a,b);	</code>
-</pre>
-gives<br/>
-<pre>
-<code class="language-plaintext">1682173737
-1682173742, 1682173742
-</code>
-</pre>
-so the memory <code>a</code> is pointing to changes when <code>getTimestamp()</code> is called again.<br/>
-<br/>
-<b>NOTE</b>: static memory is only initialized once<br/>
-<br/>
-</p>
-<h3 id="solution-2:-taking-a-pointer">Solution 2: taking a pointer</h3>
-<p>
-<pre>
-<code class="language-c">char <i>getTimestamp(char</i> buf, size_t bufSize) {
-    snprintf(buf, bufSize, "%llu", time(NULL));
-    return buf;
-}	</code>
-</pre>
-In this version, we ignore memory entirely, We simply take in a pointer to some memory (stack or heap, doesn't matter) and write to it.<br/>
-But if we didn't take in a size for the buffer there's a chance we could overflow the buffer. So there is added risk with this, but it allows for better memory reusability, since the caller can call it with the same memory.<br/>
-<br/>
-</p>
-<h3 id="solution-3:-allocating-on-the-heap">Solution 3: allocating on the heap</h3>
-<p>
-<pre>
-<code class="language-c">// Caller must free() the given memory
-char* getTimestamp() {
-    char* timestamp = malloc(100);
-    snprintf(buf, 100, "%llu", time(NULL));
-    return timestamp;   
-}	</code>
-</pre>
-In this case, each time our function is called, we allocate a tiny buffer and write to it, This isn't the best solution for this particular problem since allocating such a small chunk wastes time, But if we are dealing with bigger chunks, It's a good solution<br/>
-<br/>
-</p>
-<h3 id="conclusion">Conclusion</h3>
-<p>
-Solution 1 has the chance of corruption so it's kind of impractical but if you know you won't need the previous result again then it is fine.<br/>
-Solution 2 & 3 both offload some work on the callee, namely allocating / freeing memory.<br/>
-<br/>
-Solution 2 might also need a sanity check for bufSize being sufficient and the pointer not being NULL.<br/>
-Solution 3 could cause a memory leak if the caller forgets to free the memory.<br/>
-<br/>
-So it's important to pick the correct solution for the problem at hand, in this case, Solution 2 or 3 would be good.<br/>
-<br/>
-</p>
-<h2 id="pointers-primer">Pointers Primer</h2>
-<p>
-Pointers are simply (64bit integer) <b>addresses to somewhere in memory</b>, They can either point to nothing (NULL) or a valid memory address.<br/>
-Pointers usually are associated with a certain type but since C doesn't have generics, It's commonplace to cast them to <code>void&ast;</code> which can then be casted again to any type you wish.<br/>
-<br/>
-Whenever you want to give a function access to something without giving it a whole copy of it (Nothing wrong with this for small things), you use a pointer.<br/>
-<br/>
-You can obtain the address of local variables with the <code>&</code> operator.<br/>
-<br/>
-C arrays are contiguous in memory meaning that each element is directly after another so if you know the element size, You can loop through the array with only pointers,<br/>
-This can be useful if you don't know the size of the array but you know that it terminates in NULL<br/>
-<pre>
-<code class="language-c">void example(char** strArray) {
-    char* str = strArray;
-    while(str != NULL) {
-        printf("%s\t",str);
-        str += sizeof(char*);
-    }
-}	</code>
-</pre>
-<br/>
-The biggest difference between a 32bit architecture and 64bit is that in 32bit, the pointers are only 32bits long (4bytes) which limits memory size to 4GB, on 64bit they are double the size so can access as much as 16 exabytes of memory. <br/>
-<br/>
-<a href="https://beej.us/blog/data/c-pointers/">More on pointers</a><br/>
-<br/>
-<div class="row">
-<table class="">
-<thead><tr>
-<th>Type</th>
-<th>Bytes</th>
-</tr>
-</thead><tbody><tr>
-<td>        int</td>
-<td>4 <br/></td>
-</tr>
-<tr>
-<td>        short</td>
-<td>2<br/></td>
-</tr>
-<tr>
-<td>        void*</td>
-<td>8<br/></td>
-</tr>
-<tr>
-<td>        float</td>
-<td>4<br/></td>
-</tr>
-<tr>
-<td>        double</td>
-<td>8<br/></td>
-</tr>
-<tr>
-<td>        char</td>
-<td>1<br/></td>
-</tr>
-<tr>
-<td>long</td>
-<td>8<br/></td>
-</tr>
-<tr>
-<td>llu</td>
-<td>8<br/></td>
-</tr>
-<tr>
-<td>size_t</td>
-<td>8<br/></td>
-</tr>
-<tr>
-<td>ptrdiff_t</td>
-<td>8<br/></td>
-</tr>
-</tbody></table>
-<p>
-<b>NOTE</b>: Size of integer types tends to vary according to platform
-If you need exactly sized integers use <code>stdint.h</code>
-<a href="https://man7.org/linux/man-pages/man7/system_data_types.7.html">manpage</a>
-</p>
-</div>
-<br/>
-</p>
-<h2 id="handling-memory">Handling Memory</h2>
-<p>
-Note: In case of encountering an error like insufficient memory, these functions will return NULL and set <code>errno</code>, See the manpage.<br/>
-<div class="row">
-<div>
-</p>
-<h4 id="malloc">malloc</h4>
-<p>
-Get unitialized memory 
-</div>
-<div>
-</p>
-<h4 id="calloc">calloc</h4>
-<p>
-Get zero initialized memory 
-</div>
-<div>
-</p>
-<h4 id="aligned_alloc">aligned_alloc</h4>
-<p>
-Get uninitialized memory aligned on a given boundry
-</div>
-</div>
-<br/>
-Whenever you wish to resize your given block of memory, <code>realloc</code> is used.<br/>
-<a href="https://man.openbsd.org/malloc">manpage</a><br/>
-<br/>
-</p>
-<h3 id="mmap">mmap</h3>
-<p>
-This is a linux syscall for mapping pages of memory but it can be useful for certain things like,<br/>
-Loading a entire file into memory:<br/>
-<pre>
-<code class="language-c">int fd = open("passwd", O_RDONLY);
-struct stat s;
-fstat(fd, &s);
-char *buffer = mmap(0, s.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
-buffer[s.st_size-1] = '\0';
-printf("%s",buffer);
-munmap(buffer, s.st_size);	</code>
-</pre>
-<br/>
-Writing to a file:<br/>
-<pre>
-<code class="language-c">char *str = "Hello World";
-int fd = open("test", O_RDWR | O_CREAT);
-ftruncate(fd, strlen(str)+1);
-char* buffer = mmap(0, strlen(str)+1, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-memcpy(buffer, str, strlen(str)+1);
-msync(buffer, strlen(str)+1, MS_SYNC);
-munmap(buffer, strlen(str)+1);	</code>
-</pre>
-<a href="https://kuafu1994.github.io/MoreOnMemory/shared-memory.html">Full example</a><br/>
-<a href="https://man.openbsd.org/mmap">manpage</a><br/>
-<br/>
-</p>
-<h3 id="alloca">alloca</h3>
-<p>
-This is used to sort of pretend the stack works like the heap and can be used to allocate memory on the stack, The benefit is that it will automatically be freed and it's possible that the memory returned will be faster to access,<br/>
-But with alloca you can never know if the allocation failed or not since if the allocation causes stack overflow, behaviour is not defined.<br/>
-<a href="https://man.openbsd.org/alloca">manpage</a><br/>
-<br/>
-</p>
-<h2 id="leaks">Leaks</h2>
-<p>
-Unfortunatley we aren't always forget and it is all too easy to forget to ever free a block of memory.<br/>
-This isn't bad when the chunk is small but it's best to try to plug all the <b>big</b> leaks you can since it can crash your application or slow it down a lot.<br/>
-<br/>
-</p>
-<h3 id="-fsanitize=address">-fsanitize=address</h3>
-<p>
-These days any program compiled with AddressSanitizer (ASAN) should automatically any leaks in it even with line numbers.<br/>
-<br/>
-<pre>
-<code class="language-c">int main(void) {
-	char* rand = malloc(100);
-	rand[99] = '\0';
-	printf("%s\n", rand);
-	// No free: free(rand);
-}	</code>
-</pre>
-when compiled with asan (& debug info) will give<br/>
-<pre>
-<code class="language-plaintext">&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;&equals;
-&equals;&equals;16713&equals;&equals;ERROR: LeakSanitizer: detected memory leaks
 
-Direct leak of 100 byte(s) in 1 object(s) allocated from:
-    &#35;0 0x29a2cd in malloc (/tmp/e+0x29a2cd)
-    &#35;1 0x2c9f21 in main /tmp/e.c:3:15
-    &#35;2 0x7fe53f6ead09 in __libc_start_main csu/../csu/libc-start.c:308:16
-
-SUMMARY: AddressSanitizer: 100 byte(s) leaked in 1 allocation(s).
-</code>
-</pre>
-<br/>
-</p>
-<h3 id="valgrind">Valgrind</h3>
-<p>
-An external tool called valgrind can also be used to find memory leaks<br/>
-<b>NOTE</b>: Asan and valgrind aren't compatible with each other<br/>
-It can even report other stuff like using uninitialized values etc.<br/>
-<br/>
-<pre>
-<code class="language-plaintext">$ valgrind --leak-check&equals;full ./e
-...
-&equals;&equals;18045&equals;&equals; 100 bytes in 1 blocks are definitely lost in loss record 1 of 1
-&equals;&equals;18045&equals;&equals;    at 0x483877F: malloc (vg_replace_malloc.c:307)
-&equals;&equals;18045&equals;&equals;    by 0x201171: main (e.c:3)
-...
-</code>
-</pre>
-<br/>
-</p>
-<h2 id="other-documents">Other Documents</h2>
-<p>
-Beej's Guide to C: <a href="https://beej.us/guide/bgc/html/split/">https://beej.us/guide/bgc/html/split/</a><br/>
-Beej's Guide to the C stdlib: <a href="https://beej.us/guide/bgclr/html/split/">https://beej.us/guide/bgclr/html/split/</a><br/>
-<a href="https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator">https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator</a><br/>
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+Usage: dos2unix [options] [file ...] [-n infile outfile ...]
+ --allow-chown         allow file ownership change
+ -ascii                convert only line breaks (default)
+ -iso                  conversion between DOS and ISO-8859-1 character set
+   -1252               use Windows code page 1252 (Western European)
+   -437                use DOS code page 437 (US) (default)
+   -850                use DOS code page 850 (Western European)
+   -860                use DOS code page 860 (Portuguese)
+   -863                use DOS code page 863 (French Canadian)
+   -865                use DOS code page 865 (Nordic)
+ -7                    convert 8 bit characters to 7 bit space
+ -b, --keep-bom        keep Byte Order Mark
+ -c, --convmode        conversion mode
+   convmode            ascii, 7bit, iso, mac, default to ascii
+ -f, --force           force conversion of binary files
+ -h, --help            display this help text
+ -i, --info[=FLAGS]    display file information
+   file ...            files to analyze
+ -k, --keepdate        keep output file date
+ -L, --license         display software license
+ -l, --newline         add additional newline
+ -m, --add-bom         add Byte Order Mark (default UTF-8)
+ -n, --newfile         write to new file
+   infile              original file in new-file mode
+   outfile             output file in new-file mode
+ --no-allow-chown      don't allow file ownership change (default)
+ -o, --oldfile         write to old file (default)
+   file ...            files to convert in old-file mode
+ -q, --quiet           quiet mode, suppress all warnings
+ -r, --remove-bom      remove Byte Order Mark (default)
+ -s, --safe            skip binary files (default)
+ -u,  --keep-utf16     keep UTF-16 encoding
+ -ul, --assume-utf16le assume that the input format is UTF-16LE
+ -ub, --assume-utf16be assume that the input format is UTF-16BE
+ -v,  --verbose        verbose operation
+ -F, --follow-symlink  follow symbolic links and convert the targets
+ -R, --replace-symlink replace symbolic links with converted files
+                         (original target files remain unchanged)
+ -S, --skip-symlink    keep symbolic links and targets unchanged (default)
+ -V, --version         display version number
