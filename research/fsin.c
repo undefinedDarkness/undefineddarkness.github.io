@@ -62,32 +62,33 @@ void benchmarkSimd(const char* label, double errorStart, double errorEnd) {
     for (int i = 0; i < 1000000; i += 1)
     {
         double s = 0;
-        for (double i = 0; i < M_PI; i += 0.04)
+        for (double j = 0; j < M_PI; j += 0.04)
         {
-			__m256d a = {i,i+0.01,i+0.02,i+0.03};	
+			__m256d a = {j,j+0.01,j+0.02,j+0.03};	
 			/* __m256d b = {i+0.04,i+0.05,i+0.06,i+0.07}; */	
         	 /* _ZGVdN4v_sin(a); */
-			 _ZGVdN4v_sin(a);
+			 __m256d v = _ZGVdN4v_sin(a);
+             __asm__ volatile ("" : "+g" (i), "+g" (j), "+g" (v) : :);
 		}
     }
     clock_t end = clock();
 	
-	printf("took %lu ms\n", ((end-start)*1000)/CLOCKS_PER_SEC);
+	printf("\ttook %lu ms\n", ((end-start)*1000)/CLOCKS_PER_SEC);
 
     // == ACCURACY TEST ==
-	/*
-    double maxError = 0;
-    for (double i = errorStart; i < errorEnd; i += 0.01) {
-        double error = fabs(sin(i) - sin(i));
-        if (error > maxError)
-            maxError = error;
-    }
-	printf("Highest Error: %f\n\n", maxError);
-	*/
+	
+    // double maxError = 0;
+    // for (double i = errorStart; i < errorEnd; i += 0.01) {
+    //     double error = fabs(sin_f(i) - sin(i));
+    //     if (error > maxError)
+    //         maxError = error;
+    // }
+	// printf("\thighest Error: %f\n", maxError);
+	
 }
 
 void benchmark(const char* label, double (*sin_f)(double), double errorStart, double errorEnd) {
-	printf("%s:\n",label);
+	printf("%s\n",label);
 
 
     // == SPEED TEST ==
@@ -102,16 +103,16 @@ void benchmark(const char* label, double (*sin_f)(double), double errorStart, do
     }
     clock_t end = clock();
 
-	printf("took %lu ms\n", ((end-start)*1000)/CLOCKS_PER_SEC);
+	printf("\ttook %lu ms\n", ((end-start)*1000)/CLOCKS_PER_SEC);
 
     // == ACCURACY TEST ==
-    /* double maxError = 0;
-    for (double i = errorStart; i < errorEnd; i += 0.01) {
-        double error = fabs(sin(i) - sin_f(i));
-        if (error > maxError)
-            maxError = error;
-    }
-	printf("Highest Error: %f\n\n", maxError); */
+    // double maxError = 0;
+    // for (double i = errorStart; i < errorEnd; i += 0.01) {
+    //     double error = fabs(sin(i) - sin_f(i));
+    //     if (error > maxError)
+    //         maxError = error;
+    // }
+	// printf("\tHighest Error: %f\n", maxError); 
     //std::cout << "Highest Error: " << maxError << "\n\n";
 
 }
@@ -120,8 +121,8 @@ int main(int argc, char **argv)
 {
     benchmark("Standard Library:", sin, -M_PI_2, +M_PI_2);
     benchmark("Taylor Series (7T):", taylorsin, -M_PI_2, +M_PI_2);
-    benchmark("Bhaskara Formula:", bhaskara, 0, M_PI);
+    benchmark("Bhaskara Formula:", bhaskara, -M_PI_2, M_PI_2);
     benchmark("Minmax Polynomial (7T):", minimaxsin, -M_PI_2, +M_PI_2);
-    benchmark("x87 Hardware Sin (FLOAT):", hwSin, 0, +M_PI_2);
-	benchmarkSimd("Libmvec (8xD)", -M_PI_2, M_PI_2);
+    // benchmark("x87 Hardware Sin (FLOAT):", hwSin, -M_PI_2, +M_PI_2);
+	benchmarkSimd("Libmvec (4xD)", -M_PI_2, M_PI_2);
 }
