@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="author" content="nes" />
-		<title>Memory for Idiots (like me)</title>
-		<link rel="stylesheet" href="/assets/styles.css" />
-	</head>
-	<body>
-		<nav class="toc">
-			<ul><li><a href='#analogy'>Analogy</a></li><li class='toc-subheading'><a href='#example-problem-returning-a-string-from-a-function'>Example Problem: Returning a string from a function</a></li><li class='toc-subsubheading'><a href='#initial-attempt'>Initial Attempt:</a></li><li class='toc-subsubheading'><a href='#solution-1-static'>Solution 1: static</a></li><li class='toc-subheading'><a href='#solution-2-taking-a-pointer'>Solution 2: taking a pointer</a></li><li class='toc-subheading'><a href='#solution-3-allocating-on-the-heap'>Solution 3: allocating on the heap</a></li><li class='toc-subheading'><a href='#conclusion'>Conclusion</a></li><li><a href='#pointers-primer'>Pointers Primer</a></li><li><a href='#handling-memory'>Handling Memory</a></li><li class='toc-subsubheading'><a href='#malloc'>malloc</a></li><li class='toc-subsubheading'><a href='#calloc'>calloc</a></li><li class='toc-subsubheading'><a href='#aligned-alloc'>aligned_alloc</a></li><li class='toc-subheading'><a href='#mmap'>mmap</a></li><li class='toc-subheading'><a href='#alloca'>alloca</a></li><li><a href='#leaks'>Leaks</a></li><li class='toc-subheading'><a href='#fsanitize-address'>-fsanitize=address</a></li><li class='toc-subheading'><a href='#valgrind'>Valgrind</a></li><li><a href='#other-documents'>Other Documents</a></li></ul>
-		</nav>
-	  <article>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>Memory for Idiots (like me)</title>
+	<meta property="og:title" content="Memory for Idiots (like me)" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/.output/2022/memory-for-idiots.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul><li><a href='#analogy'>Analogy</a></li><li class='toc-subheading'><a href='#example-problem-returning-a-string-from-a-function'>Example Problem: Returning a string from a function</a></li><li class='toc-subheading'><a href='#solution-2-taking-a-pointer'>Solution 2: taking a pointer</a></li><li class='toc-subheading'><a href='#solution-3-allocating-on-the-heap'>Solution 3: allocating on the heap</a></li><li class='toc-subheading'><a href='#conclusion'>Conclusion</a></li><li><a href='#pointers-primer'>Pointers Primer</a></li><li><a href='#handling-memory'>Handling Memory</a></li><li class='toc-subheading'><a href='#mmap'>mmap</a></li><li class='toc-subheading'><a href='#alloca'>alloca</a></li><li><a href='#leaks'>Leaks</a></li><li class='toc-subheading'><a href='#fsanitize-address'>-fsanitize=address</a></li><li class='toc-subheading'><a href='#valgrind'>Valgrind</a></li><li><a href='#other-documents'>Other Documents</a></li></ul>
+	</nav>
+	<article>
 
 
 		<!-- HIGHLIGHTJS LOADING -->
@@ -323,9 +329,9 @@ It can even report other stuff like using uninitialized values etc.<br/>
 Beej's Guide to C: <a href="https://beej.us/guide/bgc/html/split/">https://beej.us/guide/bgc/html/split/</a><br/>
 Beej's Guide to the C stdlib: <a href="https://beej.us/guide/bgclr/html/split/">https://beej.us/guide/bgclr/html/split/</a><br/>
 <a href="https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator">https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator</a><br/>
-			<footer style="margin-bottom: 2em;">
-				<a class="special" href="/out/index.html">Return To Index</a>
-			</footer>
-	  </article>
-	</body>
-</html>
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/.output/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+

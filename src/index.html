@@ -8,14 +8,21 @@
   <title>Full Index</title>
   <link rel="stylesheet" href="/assets/styles.css" />
   <style>
-	main.ov {padding: 0 16vw; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: masonry;}
+	main.ov {padding: 0 16vw;display: grid; grid-template-columns: repeat(3, 1fr);}
+  h1 {
+    margin-top: 0;
+  }
     main ul {
       margin-top: 2em !important;
+      margin-bottom: 0;
+      min-width: fit-content;
       list-style-type: none;
+      padding: 0;
     }
 
     ul li:not(:first-child) {
       margin: 0.5em !important;
+      margin-left: 0.8em;
     }
 
     ul li a {
@@ -25,19 +32,25 @@
 </head>
 
 <body>
+  <header style="text-align: center; font-size: 2em; width: 100%; margin: 0.5em 0; color: coral;">
+    Ж
+  </header>
   <main class='page  ov'>
-    <ul>
-      <li>
-        <h1>2022</h1>
-      </li>
-      !POSTS-2022!
-    </ul>
+
     <ul>
       <li>
         <h1>2021</h1>
       </li>
       !POSTS-2021!
     </ul>
+    
+    <ul>
+      <li>
+        <h1>2022</h1>
+      </li>
+      !POSTS-2022!
+    </ul>
+
     <ul>
       <li>
         <h1>2023</h1>

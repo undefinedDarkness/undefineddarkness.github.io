@@ -9,6 +9,7 @@ shopt -s nullglob
 # SSG Options
 template_pre_content=
 template_post_content=
+output_dir=".output"
 
 # Helpers:
 
@@ -31,6 +32,8 @@ slugify () {
     echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
 }
 
+
+base_url="https://nes.is-a.dev/.output/"
 format_doc_heading () {
 	doc_path=${1#'./src/'}
 	doc_path=${doc_path%'.'*}
@@ -39,8 +42,12 @@ format_doc_heading () {
 	doc_title=${BASH_REMATCH[1]}
 	clean_markup doc_title
 
+	doc_url=$1
+	doc_url=${doc_url/'./.output/'/"$base_url"}
+
 	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
-	doc_heading=${doc_heading/'!TITLE!'/"$doc_title"}
+	doc_heading=${doc_heading//'!TITLE!'/"$doc_title"}
+	doc_heading=${doc_heading//'!URL!'/"${doc_url}"}
 
 	toc="<ul>"
 	while read -r heading; do
@@ -54,9 +61,6 @@ format_doc_heading () {
 			'### '*)
 				toc+="<li class='toc-subheading'><a href='#${slug}'>${without_heading}</a></li>"
 				;;
-			'#### '*)
-				toc+="<li class='toc-subsubheading'><a href='#${slug}'>${without_heading}</a></li>"
-				;;
 		esac
 	done < <( grep -P "##+" $2 )
 	toc+='</ul>'
@@ -65,7 +69,7 @@ format_doc_heading () {
 
 # Tasks:
 build_md () {
-	out=${1/src/out}
+	out=${1/src/"$output_dir"}
 	out=${out/.md/.html}
 	markup=$(quiet=true bash ./.tooling/pond.sh "$1")
 	format_doc_heading "$out" "$1"
@@ -75,7 +79,7 @@ build_md () {
 }
 
 build_html () {
-	out=${1/src/out}
+	out=${1/src/"$output_dir"}
 	cp "$1" "$out"
 	fin "$1"
 }
@@ -109,11 +113,11 @@ generate_org_full () {
 
 count=0
 generate_index () {
-	cp ./src/index.html ./out/index.html 2> /dev/null
-	find out/ \
+	cp ./src/index.html ./$output_dir/index.html 2> /dev/null
+	find $output_dir/ \
 		-maxdepth 1 \
 		-type d \
-		-not -path 'out/'\
+		-not -path "$output_dir/"\
 		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2  | while read -r folder; do
 			local posts=""
 			while read -r match; do
@@ -128,11 +132,11 @@ generate_index () {
 				((count++))
 			done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
 			folder=${folder#*/}
-			sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./out/index.html"
+			sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./$output_dir/index.html"
 		done
 
 		printf "\r\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
-		cp ./out/index.html ./index.html 
+		cp ./$output_dir/index.html ./index.html 
 	}
 
 	liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
@@ -158,8 +162,8 @@ case "$1" in
 		exit
 		;;
 	"rm")
-		rm -r ./out/${2}.html
-		rm -r ./src/${2}.md
+		rm -r ./$output_dir/${2}.html
+		rm -r ./$output_dir/${2}.md
 		generate_index
 		exit
 		;;
@@ -181,8 +185,11 @@ case "$1" in
 				skip_next=
 				continue
 			fi
-			printf "GEN: %s was rebuilt\n" "$modified_file" 
+			printf "GEN: %s was rebuilt\n" "$(basename $modified_file)"
 			build "$modified_file"
+			if [ "$(basename $modified_file)" = "index.html" ]; then
+				generate_index
+			fi
 			skip_next=1
 		done # < <(python3 ./.tooling/fsw.py)
 	printf '\nKilled Server\n'
@@ -193,7 +200,7 @@ esac
 
 
 
-
+mkdir -p $output_dir
 files_to_build="$*"
 if [ -z "${files_to_build/ /}" ]; then
 	files_to_build=$(echo ./src/**/*.html ./src/*.html ./src/*.md ./src/**/*.md ./src/**/*.org ./src/*.org)

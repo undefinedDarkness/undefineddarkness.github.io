@@ -1,17 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap');
 
-@font-face {
-	font-family: "PT Serif";
-	src: url("./other/PTSerif.woff");
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PT Serif";
-	src: url("./other/PTF75F-webfont.woff");
-	font-weight: bold;
-	font-display: swap;
-}
 
 :root {
 	--article-size: 1em
@@ -42,7 +31,7 @@ summary{font-size: larger;}
 figcaption,var,span.special{font-style: italic}
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: "PT Serif";
+	font-family: "Shantell Sans";
 }
 
 h4,h5,h6 {
