@@ -9,7 +9,7 @@ shopt -s nullglob
 # SSG Options
 template_pre_content=
 template_post_content=
-output_dir=".output"
+output_dir="out"
 
 # Helpers:
 
@@ -33,7 +33,7 @@ slugify () {
 }
 
 
-base_url="https://nes.is-a.dev/.output/"
+base_url="https://nes.is-a.dev/${output_dir}/"
 format_doc_heading () {
 	doc_path=${1#'./src/'}
 	doc_path=${doc_path%'.'*}
@@ -43,7 +43,7 @@ format_doc_heading () {
 	clean_markup doc_title
 
 	doc_url=$1
-	doc_url=${doc_url/'./.output/'/"$base_url"}
+	doc_url=${doc_url/"./${output_dir}/"/"$base_url"}
 
 	doc_heading=${template_pre_content/'!DOCUMENT-PATH!'/"$doc_path"}
 	doc_heading=${doc_heading//'!TITLE!'/"$doc_title"}
