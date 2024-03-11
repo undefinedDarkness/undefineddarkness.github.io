@@ -53,7 +53,7 @@ get-line-number-of () {
 			return
 		fi
 		lineno=$(( lineno + 1 ))
-	done < <(tail +"$2" <<< "$1")
+	done < <(tail -n +"$2" <<< "$1")
 }
 
 # Get everything between 2 line numbers

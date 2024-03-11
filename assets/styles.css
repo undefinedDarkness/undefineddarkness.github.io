@@ -102,7 +102,7 @@ pre {
     overflow-x: auto;
     text-align: left;
     margin: 0;
-    /* padding: 1em; */
+    padding: 1em;
     white-space: normal;
     border-radius: 5px;
 }
