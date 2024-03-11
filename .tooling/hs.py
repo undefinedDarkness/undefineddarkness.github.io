@@ -91,7 +91,7 @@ app.add_routes([
 
 async def watch():
     # paths = list(Path('./out').glob('**/*.html'))
-    async for changes in awatch(".output"):
+    async for changes in awatch("out"):
         for change in changes:
             fp = Path(change[1])
             fn = fp.name
