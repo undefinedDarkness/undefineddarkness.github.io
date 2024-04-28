@@ -167,6 +167,10 @@ case "$1" in
 		generate_index
 		exit
 		;;
+	"winfix")
+		find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix 
+		exit
+		;;
 	"serve")
 		python3 -m http.server 5050
 		exit
@@ -197,8 +201,6 @@ case "$1" in
 	exit
 	;;
 esac
-
-
 
 mkdir -p $output_dir
 files_to_build="$*"
