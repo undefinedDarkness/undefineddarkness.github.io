@@ -8,12 +8,23 @@
   <title>Full Index</title>
   <link rel="stylesheet" href="/assets/styles.css" />
   <style>
-	main.ov {padding: 0 16vw;display: grid; grid-template-columns: repeat(3, 1fr);}
-  h1 {
-    margin-top: 0;
-  }
+
+body {
+  padding: 0 16vw;
+}
+
+    main.ov {
+      display: grid;
+      padding: 0;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
     main ul {
-      margin-top: 2em !important;
+      /* margin-top: 2em !important; */
       margin-bottom: 0;
       min-width: fit-content;
       list-style-type: none;
@@ -28,18 +39,34 @@
     ul li a {
       text-decoration: none;
     }
+
+    header::before {
+      content: '';
+      width: 50%;
+      background: snow;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 
-<body>
+<body >
   <header style="text-align: center; font-size: 2em; width: 100%; margin: 0.5em 0; color: coral;">
-    Ж
+    🞺
   </header>
-  <main class='page  ov'>
+  <p class="txt-c whitespace-pre human">ʕっ•ᴥ•ʔっ
+    Hi!, I'm David, a hobbyist programmer from India, Welcome to my tiny corner of the internet
+  </p>
+<!-- 
+  <h1>Projects</h1> -->
 
+  <h1>Blog</h1>
+  <main class='page  ov' style="padding-bottom: 3em;">
     <ul>
       <li>
-        <h1>2021</h1>
+        <h2>2021</h1>
       </li>
       <li><a class='special' href='/out/2021/bmps.html'>A day of fixing bitmap fonts on Linux/X11</a></li>
 <li><a class='special' href='/out/2021/emacs.html'>My experience with Emacs</a></li>
@@ -51,10 +78,10 @@
 <li><a class='special' href='/out/2021/xterm-sixel-nvim.html'>A day of fixing neovim terminal behaviour</a></li>
 
     </ul>
-    
+
     <ul>
       <li>
-        <h1>2022</h1>
+        <h2>2022</h1>
       </li>
       <li><a class='special' href='/out/2022/approximating-sin.html'>Approximating sin(x)</a></li>
 <li><a class='special' href='/out/2022/memory-for-idiots.html'>Memory for Idiots (like me)</a></li>
@@ -65,21 +92,21 @@
 
     <ul>
       <li>
-        <h1>2023</h1>
+        <h2>2023</h1>
       </li>
       <li><a class='special' href='/out/2023/sd.html'>Playing around with Stable Diffusion</a></li>
 
     </ul>
     <ul>
       <li>
-        <h1>Random</h1>
+        <h2>Random</h1>
       </li>
       <li><a class='special' href='/out/random/gsenjounomaou.html'>G-Senjou No Maou (Devil on G String)</a></li>
 
     </ul>
     <ul>
       <li>
-        <h1>Miscellaneous</h1>
+        <h2>Miscellaneous</h1>
       </li>
       <li><a href="/docs/raylib/index.html">Raylib Documentation (Outdated)</a></li>
     </ul>

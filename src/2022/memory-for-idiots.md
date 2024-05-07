@@ -1,5 +1,6 @@
 # Memory for Idiots (like me)
-Just a collection of my notes from my time learning C
+Just a collection of my notes from my time learning C,
+I'd tried learning C a couple of times but it took a while for it to really click in my head
 
 ## Analogy
 ![](/assets/images/memory-analogy.svg)
