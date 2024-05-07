@@ -5,6 +5,13 @@ const $$ = _ => document.querySelectorAll(_)
 const $ = (_, p = document) => p.querySelector(_)
 const $set = (_, p, v) => (_ instanceof HTMLElement ? _ : $(_)).style.setProperty(p, v)
 const $get = (_, p) => window.getComputedStyle($(_)).getPropertyValue(p)
+const afterAnimation = (e, nm, f) => e.addEventListener('animationend', e => {
+    if (e.animationName == nm) {
+        f(e)
+    }
+})
+
+
 
 $('#foldoutbutton').addEventListener('click', (e) => {
     e.target.classList.toggle('flip');
@@ -79,7 +86,7 @@ _this.animateCards = () => {
     const ani_cards = $$('#ani-card-group > *')
     const ani_group = $('#ani-card-group')
     const ani_group_coords = ani_group.getBoundingClientRect()
-    const card_size = [ cards[0].offsetWidth, cards[1].offsetHeight ]
+    const card_size = [cards[0].offsetWidth, cards[1].offsetHeight]
 
     // $('#ani-card-group').animate({
     //     left: ['50%', '0'],
@@ -92,19 +99,20 @@ _this.animateCards = () => {
 
     ani_cards.forEach((ani_card, idx) => {
         const card = cards[idx]
-        
+
         // Initial Animation
         const card_coords = card.getBoundingClientRect()
         ani_card.style.width = `${card_coords.width}px`;
         ani_card.style.height = `${card_coords.height}px`
 
         const left_i = `-${ani_group_coords.left}px`
-        const top_i = `${ card_coords.top - ani_group_coords.bottom }px`
+        const top_i = `${card_coords.top - ani_group_coords.bottom}px`
 
+        // CARD MOVING
         ani_card.animate(
             {
                 left: ["0", `calc(${left_i} + ${card_coords.x}px)`],
-                top: ["0", top_i],
+                top: ["0", top_i]
                 // rotate: [ani_card.style.rotate, '0deg'],
             },
             {
@@ -115,40 +123,40 @@ _this.animateCards = () => {
         )
 
         ani_card.animate({
-            rotate: [ani_card.style.rotate, '0deg']
+            rotate: [ani_card.style.rotate, '0deg'],
         }, {
-            duration:100,fill:'forwards',delay:idx*500 + 1000
+            duration: 100, fill: 'forwards', delay: idx * 500 + 1000
         })
 
-    //     ani_card.animate(
-    //         {
-    //             left: [left_i, `${card_coords.x}px`],
-    //             top: [top_i, `${card_coords.y}px`],
-    //             width: [`${ani_card.offsetWidth}px`, `${card.offsetWidth}px`],
-    //             height: [`${ani_card.offsetHeight}px`, `${card.offsetHeight}px`]
-    //         },
-    //         {
-    //             duration: 0.4 * 1000,
-    //             fill: 'forwards',
-    //             delay: 1 * 1000,
-    //         }
-    //     )
+        //     ani_card.animate(
+        //         {
+        //             left: [left_i, `${card_coords.x}px`],
+        //             top: [top_i, `${card_coords.y}px`],
+        //             width: [`${ani_card.offsetWidth}px`, `${card.offsetWidth}px`],
+        //             height: [`${ani_card.offsetHeight}px`, `${card.offsetHeight}px`]
+        //         },
+        //         {
+        //             duration: 0.4 * 1000,
+        //             fill: 'forwards',
+        //             delay: 1 * 1000,
+        //         }
+        //     )
 
-       setTimeout(() => { 
-                $('.card-bg', card).classList.remove('hidden')
-                // card.addEventListener('click', () => {
-                
-                card.animate({
-                    transform: ['rotateY(0deg)', 'rotateY(180deg)']
-                }, {
-                    duration: 300,
-                    fill: 'forwards'
-                })
-                
-                // })
-                ani_card.remove()
-                console.log(`finished`)
-            }, idx*500 + 500 + 200 + 500)
+        setTimeout(() => {
+            $('.card-bg', card).classList.remove('hidden')
+            // card.addEventListener('click', () => {
+
+            card.animate({
+                rotate: ['y 0deg', 'y 180deg']
+            }, {
+                duration: 300,
+                fill: 'forwards'
+            })
+
+            // })
+            ani_card.remove()
+            console.log(`finished`)
+        }, idx * 500 + 500 + 200 + 500)
     })
 }
 
