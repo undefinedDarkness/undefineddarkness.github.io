@@ -18,7 +18,7 @@ body,.normal-font {
 	font-variation-settings: 'wght' 400, 'MONO' 0;
 }
 
-i {
+i,figcaption,var,span.special {
 	font-variation-settings: 'slnt' -12;
 	font-style: normal;
 }
@@ -29,8 +29,7 @@ kbd, pre, code {
 	font-variation-settings: 'MONO' 1;
 }
 
-summary{font-size: larger;}
-figcaption,var,span.special{font-style: italic}
+summary{font-size: calc(1.2 * var(--article-size));}
 
 h1,h2,h3,h4,h5,h6,.human {
 	font-family: "Recursive", 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
