@@ -3,6 +3,7 @@ from mimetypes import guess_type as guess_mime_type
 from pathlib import Path
 from watchfiles import awatch
 import asyncio
+import magic
 import io
 
 # A terribly simple little hot server
@@ -59,7 +60,7 @@ async def generichandle(req):
     content = fp.read()
     fp.close()
 
-    mimetype = guess_mime_type(path)[0] or "text/plain"
+    mimetype = guess_mime_type(str(path))[0] or "text/plain"
 
     return web.Response(body=content, content_type=mimetype)
 

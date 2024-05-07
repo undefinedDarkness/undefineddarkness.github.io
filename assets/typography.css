@@ -31,7 +31,7 @@ kbd, pre, code {
 
 summary{font-size: calc(1.2 * var(--article-size));}
 
-h1,h2,h3,h4,h5,h6,.human {
+h1,h2,h3,h4,h5,h6,.human,a {
 	font-family: "Recursive", 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	font-variation-settings: var(--human-style);
 }
