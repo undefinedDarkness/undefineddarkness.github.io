@@ -9,14 +9,14 @@
 	<title>My custom markdown flavour</title>
 	<meta property="og:title" content="My custom markdown flavour" />
 	<meta property="og:type" content="article" />
-	<meta property="og:url" content="https://nes.is-a.dev/out/2022/nesdown.html" />
+	<meta property="og:url" content="C:/Users/david/Projects/undefinedDarkness.github.io/out/2022/nesdown.html" />
 	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
 	<link rel="stylesheet" href="/assets/styles.css" />
 </head>
 
 <body>
 	<nav class="toc">
-		<ul><li class='toc-subheading'><a href='#markdown-in-html-blocks'>Markdown in HTML blocks</a></li><li class='toc-subheading'><a href='#block-quotes'>Block Quotes</a></li><li class='toc-subheading'><a href='#inlines'>Inlines</a></li><li class='toc-subheading'><a href='#syntax-highlighting'>Syntax Highlighting</a></li><li><a href='#transformers'>Transformers</a></li><li class='toc-subheading'><a href='#table-transformer'>Table Transformer</a></li><li class='toc-subheading'><a href='#verbatim-transformer'>Verbatim Transformer</a></li><li class='toc-subheading'><a href='#f-fold-transformer'>(f) Fold Transformer</a></li><li><a href='#problems'>Problems</a></li></ul>
+		<ul><li class='toc-subheading'><a href='#markdown-in-html-blocks'>Markdown in HTML blocks</a></li><li class='toc-subheading'><a href='#block-quotes'>Block Quotes</a></li><li class='toc-subheading'><a href='#inlines'>Inlines</a></li><li class='toc-subheading'><a href='#syntax-highlighting'>Syntax Highlighting</a></li><li><a href='#transformers'>Transformers</a></li><li class='toc-subheading'><a href='#table-transformer'>Table Transformer</a></li><li class='toc-subheading'><a href='#verbatim-transformer'>Verbatim Transformer </a></li><li class='toc-subheading'><a href='#f-fold-transformer'>(f) Fold Transformer</a></li><li><a href='#problems'>Problems</a></li></ul>
 	</nav>
 	<article>
 
@@ -92,7 +92,7 @@ Because I could, I barely use these...<br/>
 <h3 id="syntax-highlighting">Syntax Highlighting</h3>
 <p>
 This is nothing new, but the neat part is that its done entirely in the markdown generation step.<br/>
-So no javascript library is required later.<br/>
+So no javascript library is required later, EDIT: Actually I lied, I've shifted to using highlight js because getting source-highlight working on windows is a PITA and I want my site to be able to be developed no matter what software I'm using at the time, I might look into a Python based solution later, will have to see.<br/>
 <br/>
 <pre>
 <code class="language-c">&#35;include &lt;stdio.h&gt;
@@ -126,6 +126,8 @@ I built it initially around the idea of these, but essentially they're like func
 The raw text can really be anything, which is where I find them really useful.<br/>
 <br/>
 And making a transformer is as simply as creating a new bash function.<br/>
+<br/>
+EDIT: If I knew TCL existed before I would have simply used TCL 😢 but now I have to live with this mostrosity<br/>
 <br/>
 </p>
 <h3 id="table-transformer">Table Transformer</h3>
@@ -200,7 +202,7 @@ Currently to make new lines break like I want, A lot of <code>&lt;br&gt;</code>s
 <br/>
 Besides that, the output is really quite ugly, I know its not meant for a person to read but still...<br/>
 <br/>
-Performance isn't a problem since it is plenty fast for my mediocre needs.<br/>
+EDIT: The poor browser has to choke down my trashy HTML but such is it's poor fate<br/>
 <br/>
 <hr />
 <br/>

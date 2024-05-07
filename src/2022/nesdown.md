@@ -51,7 +51,7 @@ Because I could, I barely use these...
 
 ### Syntax Highlighting
 This is nothing new, but the neat part is that its done entirely in the markdown generation step.
-So no javascript library is required later.
+So no javascript library is required later, EDIT: Actually I lied, I've shifted to using highlight js because getting source-highlight working on windows is a PITA and I want my site to be able to be developed no matter what software I'm using at the time, I might look into a Python based solution later, will have to see.
 
 ```c
 #include <stdio.h>
@@ -83,6 +83,8 @@ I built it initially around the idea of these, but essentially they're like func
 The raw text can really be anything, which is where I find them really useful.
 
 And making a transformer is as simply as creating a new bash function.
+
+EDIT: If I knew TCL existed before I would have simply used TCL 😢 but now I have to live with this mostrosity
 
 ### Table Transformer
 Markdown table syntax is just painful. Sure, it's readable in text form but thats only if you don't have a mess of differently sized columns and data values. (which is really easy) And if you do, its painful to edit manually,
@@ -128,7 +130,7 @@ Currently to make new lines break like I want, A lot of `<br>`s are scattered th
 
 Besides that, the output is really quite ugly, I know its not meant for a person to read but still...
 
-Performance isn't a problem since it is plenty fast for my mediocre needs.
+EDIT: The poor browser has to choke down my trashy HTML but such is it's poor fate
 
 ---
 
