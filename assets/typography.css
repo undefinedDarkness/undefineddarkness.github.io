@@ -33,7 +33,7 @@ summary{font-size: larger;}
 figcaption,var,span.special{font-style: italic}
 
 h1,h2,h3,h4,h5,h6,.human {
-	font-family: "Recursive", Georgia, 'Times New Roman', Times, serif;
+	font-family: "Recursive", 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	font-variation-settings: var(--human-style);
 }
 
@@ -62,12 +62,12 @@ h3 {
 }
 
 h4 {
-	font-size: calc(1.3 * var(--article-size));
+	font-size: calc(1 * var(--article-size));
 }
 
 h5 {
-    font-size: calc(1.2 * var(--article-size));
+    font-size: calc(0.9 * var(--article-size));
 }
 h6 {
-    font-size: calc(1.1 * var(--article-size));
+    font-size: calc(0.8 * var(--article-size));
 }
