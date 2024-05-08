@@ -13,6 +13,11 @@ output_dir="out"
 
 # Helpers:
 
+is_in_ricing_guide=0
+if [ "${PWD##*/}" = "ricing-guide" ]; then
+	is_in_ricing_guide=1
+fi
+
 fin () {
 	[ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
 }
@@ -189,7 +194,7 @@ case "$1" in
 				skip_next=
 				continue
 			fi
-			printf "GEN: %s was rebuilt\n" "$(basename $modified_file)"
+			printf "\033[47m  GEN  \033[0m %s was rebuilt\n" "$(basename $modified_file)"
 			build "$modified_file"
 			if [ "$(basename $modified_file)" = "index.html" ]; then
 				generate_index

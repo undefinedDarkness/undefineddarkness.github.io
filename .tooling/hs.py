@@ -6,6 +6,8 @@ import asyncio
 import magic
 import io
 
+prefix="\033[41m  🔥  \033[0m  " 
+
 # A terribly simple little hot server
 
 fileNotFoundDoc = """
@@ -75,7 +77,7 @@ async def wshandle(req):
             words = msg.data.split(" ")
             if words[0] == "REGISTER":
                 sockets.append((words[1], ws))
-                print("HS: Registered %s" % words[1])
+                print(prefix + "Registered %s" % words[1])
         else:
             print("Unexpected WS message of type:", msg.type)
 
@@ -108,7 +110,7 @@ async def main():
     await runner.setup()
     site = web.TCPSite(runner, "localhost", 5000)
     await site.start()
-    print("HS: Server Started @ \u001b[31mlocalhost:5000\u001b[0m")
+    print(prefix + "Server Started @ \u001b[31mlocalhost:5000\u001b[0m")
 
     # Initialize File Watcher
     await watch()
