@@ -79,7 +79,7 @@ build_md () {
 	out=${1/src/"$output_dir"}
 	out=${out/.md/.html}
 	markup=""
-	if [ is_in_ricing_guide ]; then 
+	if [ "$is_in_ricing_guide" -eq 1 ]; then 
 		markup="$(python3 ./.tooling/gfm.py "$1")"
 	else
 		markup=$(quiet=true bash ./.tooling/pond.sh "$1")
@@ -188,30 +188,9 @@ case "$1" in
 		exit
 		;;
 	"live")
-		echo -e "$liveStartMessage"
-		python3 ./.tooling/hs.py &
-		serverPid=$!
-		sleep 1
-		count=0
-		IFS=$'\n'
-		skip_next=
-		python3 ./.tooling/fsw.py | while read -r modified_file; do
-			modified_file=${modified_file//$'\r'/}
-			if [ -n "$skip_next" ]; then
-				skip_next=
-				continue
-			fi
-			build "$modified_file"
-			printf "\033[47m  GEN  \033[0m %s was rebuilt\n" "$(basename $modified_file)"
-			if [ "$(basename $modified_file)" = "index.html" ]; then
-				generate_index
-			fi
-			skip_next=1
-		done # < <(python3 ./.tooling/fsw.py)
-	printf '\nKilled Server\n'
-	kill $serverPid
-	exit
-	;;
+		python3 ./.tooling/hs.py
+		exit
+		;;
 esac
 
 mkdir -p $output_dir

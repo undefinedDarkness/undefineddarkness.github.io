@@ -3,8 +3,8 @@ from mimetypes import guess_type as guess_mime_type
 from pathlib import Path
 from watchfiles import awatch
 import asyncio
-import magic
-import io
+import subprocess
+import platform
 
 prefix="\033[41m  🔥  \033[0m  " 
 
@@ -76,12 +76,13 @@ async def wshandle(req):
         if msg.type == WSMsgType.TEXT:
             words = msg.data.split(" ")
             if words[0] == "REGISTER":
-                sockets.append((words[1], ws))
-                print(prefix + "Registered %s" % words[1])
+                filename = Path(words[1])
+                sockets.append((filename.stem, ws))
+                print(prefix + f"Registered {filename.stem}")
         else:
             print("Unexpected WS message of type:", msg.type)
 
-    sockets = [conn for conn in sockets if conn[1] != ws]
+    # sockets = [conn for conn in sockets if conn[1] != ws]
 
     return ws
 
@@ -92,16 +93,30 @@ app.add_routes([
     web.get(r'/{name:.*}', generichandle)
 ])
 
+script_path = Path(__file__).resolve()
+generate_script = script_path.parent / 'generate.sh'
+
+# if in windows, get path to git bash
+if platform.system() == 'Windows':
+    import winreg
+    key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\\GitForWindows')
+    git_path, _ = winreg.QueryValueEx(key, 'InstallPath')
+    bash_path = Path(git_path) / 'bin' / 'bash.exe'
+else:
+    bash_path = Path('/bin/bash')
+
+script_dir = Path.cwd()
+
+
 async def watch():
-    # paths = list(Path('./out').glob('**/*.html'))
-    # print(paths)
-    async for changes in awatch('./out'):
+    async for changes in awatch('./src'):
         for change in changes:
             fp = Path(change[1])
-            fn = fp.name
-            print(prefix + f" Updating {fn}")
-            # print("Updating all listening for %s" % fn)
-            applicable = [conn for conn in sockets if conn[0] == fn] 
+            print(prefix + f" Rebuilding {fp.stem} ({str(fp)})")
+            process = subprocess.run([ bash_path, "./generate", fp.relative_to(script_dir) ], stdout=subprocess.PIPE)
+            print(process.stdout.decode('utf8').strip())
+            # print(process.stderr)
+            applicable = [conn for conn in sockets if conn[0] == fp.stem] 
             for socket in applicable:
                 await socket[1].send_str("UPDATE")
 
@@ -119,4 +134,8 @@ async def main():
 
     await asyncio.Event().wait()
 
-asyncio.run(main())
+try:
+    asyncio.run(main())
+except KeyboardInterrupt:
+    print(prefix + "Goodbye!")
+    pass
