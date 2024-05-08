@@ -94,10 +94,12 @@ app.add_routes([
 
 async def watch():
     # paths = list(Path('./out').glob('**/*.html'))
-    async for changes in awatch("out"):
+    # print(paths)
+    async for changes in awatch('./out'):
         for change in changes:
             fp = Path(change[1])
             fn = fp.name
+            print(prefix + f" Updating {fn}")
             # print("Updating all listening for %s" % fn)
             applicable = [conn for conn in sockets if conn[0] == fn] 
             for socket in applicable:

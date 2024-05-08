@@ -2,3 +2,4 @@
 node_modules
 *.tsbuildinfo
 package-lock.jsonreseach/fsin
+./research/fsin

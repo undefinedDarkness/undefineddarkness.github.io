@@ -10,11 +10,13 @@ shopt -s nullglob
 template_pre_content=
 template_post_content=
 output_dir="out"
+export PYTHONUTF8=1
 
 # Helpers:
 
 is_in_ricing_guide=0
 if [ "${PWD##*/}" = "ricing-guide" ]; then
+	printf "Running in ricing-guide\n"
 	is_in_ricing_guide=1
 fi
 
@@ -76,7 +78,12 @@ format_doc_heading () {
 build_md () {
 	out=${1/src/"$output_dir"}
 	out=${out/.md/.html}
-	markup=$(quiet=true bash ./.tooling/pond.sh "$1")
+	markup=""
+	if [ is_in_ricing_guide ]; then 
+		markup="$(python3 ./.tooling/gfm.py "$1")"
+	else
+		markup=$(quiet=true bash ./.tooling/pond.sh "$1")
+	fi
 	format_doc_heading "$out" "$1"
 	mkdir -p "$(dirname "$out")"
 	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
@@ -194,8 +201,8 @@ case "$1" in
 				skip_next=
 				continue
 			fi
-			printf "\033[47m  GEN  \033[0m %s was rebuilt\n" "$(basename $modified_file)"
 			build "$modified_file"
+			printf "\033[47m  GEN  \033[0m %s was rebuilt\n" "$(basename $modified_file)"
 			if [ "$(basename $modified_file)" = "index.html" ]; then
 				generate_index
 			fi
