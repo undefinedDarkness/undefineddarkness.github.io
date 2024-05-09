@@ -102,6 +102,7 @@ if platform.system() == 'Windows':
     key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\\GitForWindows')
     git_path, _ = winreg.QueryValueEx(key, 'InstallPath')
     bash_path = Path(git_path) / 'bin' / 'bash.exe'
+    winreg.CloseKey(key)
 else:
     bash_path = Path('/bin/bash')
 
