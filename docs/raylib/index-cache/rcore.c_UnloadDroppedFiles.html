@@ -1,0 +1,10 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadDroppedFiles</span><span style="color:#000000">(</span>FilePathList files<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// WARNING: files pointers are the same as internal ones</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>files<span style="color:#000000">.</span>count <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">unsigned int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> files<span style="color:#000000">.</span>count<span style="color:#000000">;</span> i<span style="color:#000000">++)</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>files<span style="color:#000000">.</span>paths<span style="color:#000000">[</span>i<span style="color:#000000">]);</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>files<span style="color:#000000">.</span>paths<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>dropFileCount <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>dropFilepaths <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

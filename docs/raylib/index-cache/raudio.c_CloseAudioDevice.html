@@ -1,0 +1,14 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">CloseAudioDevice</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>isReady<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">ma_mutex_uninit</span><span style="color:#000000">(&amp;</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>lock<span style="color:#000000">);</span>
+        <span style="color:#010181">ma_device_uninit</span><span style="color:#000000">(&amp;</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>device<span style="color:#000000">);</span>
+        <span style="color:#010181">ma_context_uninit</span><span style="color:#000000">(&amp;</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>context<span style="color:#000000">);</span>
+        AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>isReady <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">);</span>
+        AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+        AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBufferSize <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;AUDIO: Device closed successfully&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;AUDIO: Device could not be closed, not currently initialized&quot;</span><span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

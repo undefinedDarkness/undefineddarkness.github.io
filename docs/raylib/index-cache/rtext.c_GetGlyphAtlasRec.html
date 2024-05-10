@@ -1,0 +1,5 @@
+Rectangle <span style="color:#010181">GetGlyphAtlasRec</span><span style="color:#000000">(</span>Font font<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> codepoint<span style="color:#000000">){</span>
+    Rectangle rec <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    rec <span style="color:#000000">=</span> font<span style="color:#000000">.</span>recs<span style="color:#000000">[</span><span style="color:#010181">GetGlyphIndex</span><span style="color:#000000">(</span>font<span style="color:#000000">,</span> codepoint<span style="color:#000000">)];</span>
+    <span style="color:#000000; font-weight:bold">return</span> rec<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

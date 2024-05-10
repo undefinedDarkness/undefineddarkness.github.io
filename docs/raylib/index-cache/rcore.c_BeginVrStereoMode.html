@@ -1,0 +1,6 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">BeginVrStereoMode</span><span style="color:#000000">(</span>VrStereoConfig config<span style="color:#000000">){</span>
+    <span style="color:#010181">rlEnableStereoRender</span><span style="color:#000000">();</span>
+    <span style="color:#838183; font-style:italic">// Set stereo render matrices</span>
+    <span style="color:#010181">rlSetMatrixProjectionStereo</span><span style="color:#000000">(</span>config<span style="color:#000000">.</span>projection<span style="color:#000000">[</span><span style="color:#b07e00">0</span><span style="color:#000000">],</span> config<span style="color:#000000">.</span>projection<span style="color:#000000">[</span><span style="color:#b07e00">1</span><span style="color:#000000">]);</span>
+    <span style="color:#010181">rlSetMatrixViewOffsetStereo</span><span style="color:#000000">(</span>config<span style="color:#000000">.</span>viewOffset<span style="color:#000000">[</span><span style="color:#b07e00">0</span><span style="color:#000000">],</span> config<span style="color:#000000">.</span>viewOffset<span style="color:#000000">[</span><span style="color:#b07e00">1</span><span style="color:#000000">]);</span>
+<span style="color:#000000">}</span>

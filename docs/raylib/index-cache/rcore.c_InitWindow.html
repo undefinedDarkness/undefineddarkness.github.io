@@ -1,0 +1,170 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">InitWindow</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> width<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> height<span style="color:#000000">,</span> <span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>title<span style="color:#000000">){</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;Initializing raylib %s&quot;</span><span style="color:#000000">,</span> RAYLIB_VERSION<span style="color:#000000">);</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;Supported raylib modules:&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rcore:..... loaded (mandatory)&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rlgl:...... loaded (mandatory)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RSHAPES)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rshapes:... loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rshapes:... not loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RTEXTURES)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rtextures:. loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rtextures:. not loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RTEXT)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rtext:..... loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rtext:..... not loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RMODELS)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rmodels:... loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; rmodels:... not loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RAUDIO)</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; raudio:.... loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;    &gt; raudio:.... not loaded (optional)&quot;</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>title <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp; (</span>title<span style="color:#000000">[</span><span style="color:#b07e00">0</span><span style="color:#000000">] !=</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>title <span style="color:#000000">=</span> title<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Initialize global input state</span>
+    <span style="color:#010181">memset</span><span style="color:#000000">(&amp;</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">,</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">));</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Keyboard<span style="color:#000000">.</span>exitKey <span style="color:#000000">=</span> KEY_ESCAPE<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Mouse<span style="color:#000000">.</span>scale <span style="color:#000000">= (</span>Vector2<span style="color:#000000">){</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f <span style="color:#000000">};</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Mouse<span style="color:#000000">.</span>cursor <span style="color:#000000">=</span> MOUSE_CURSOR_ARROW<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>lastButtonPressed <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>       <span style="color:#838183; font-style:italic">// GAMEPAD_BUTTON_UNKNOWN</span>
+<span style="color:#008200">#if defined(SUPPORT_EVENTS_WAITING)</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>eventWaiting <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID)</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>width <span style="color:#000000">=</span> width<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height <span style="color:#000000">=</span> height<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>currentFbo<span style="color:#000000">.</span>width <span style="color:#000000">=</span> width<span style="color:#000000">;</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>currentFbo<span style="color:#000000">.</span>height <span style="color:#000000">=</span> height<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Set desired windows flags before initializing anything</span>
+    <span style="color:#010181">ANativeActivity_setWindowFlags</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>activity<span style="color:#000000">,</span> AWINDOW_FLAG_FULLSCREEN<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">);</span>  <span style="color:#838183; font-style:italic">//AWINDOW_FLAG_SCALED, AWINDOW_FLAG_DITHER</span>
+    <span style="color:#0057ae">int</span> orientation <span style="color:#000000">=</span> <span style="color:#010181">AConfiguration_getOrientation</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>config<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>orientation <span style="color:#000000">==</span> ACONFIGURATION_ORIENTATION_PORT<span style="color:#000000">)</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;ANDROID: Window orientation set as portrait&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>orientation <span style="color:#000000">==</span> ACONFIGURATION_ORIENTATION_LAND<span style="color:#000000">)</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;ANDROID: Window orientation set as landscape&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// TODO: Automatic orientation doesn&apos;t seem to work</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>width <span style="color:#000000">&lt;=</span> height<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">AConfiguration_setOrientation</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>config<span style="color:#000000">,</span> ACONFIGURATION_ORIENTATION_PORT<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;ANDROID: Window orientation changed to portrait&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">AConfiguration_setOrientation</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>config<span style="color:#000000">,</span> ACONFIGURATION_ORIENTATION_LAND<span style="color:#000000">);</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;ANDROID: Window orientation changed to landscape&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">//AConfiguration_getDensity(CORE.Android.app-&gt;config);</span>
+    <span style="color:#838183; font-style:italic">//AConfiguration_getKeyboard(CORE.Android.app-&gt;config);</span>
+    <span style="color:#838183; font-style:italic">//AConfiguration_getScreenSize(CORE.Android.app-&gt;config);</span>
+    <span style="color:#838183; font-style:italic">//AConfiguration_getScreenLong(CORE.Android.app-&gt;config);</span>
+    <span style="color:#838183; font-style:italic">// Initialize App command system</span>
+    <span style="color:#838183; font-style:italic">// NOTE: On APP_CMD_INIT_WINDOW -&gt; InitGraphicsDevice(), InitTimer(), LoadFontDefault()...</span>
+    CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>onAppCmd <span style="color:#000000">=</span> AndroidCommandCallback<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Initialize input events system</span>
+    CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>onInputEvent <span style="color:#000000">=</span> AndroidInputCallback<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Initialize assets manager</span>
+    <span style="color:#010181">InitAssetManager</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>activity<span style="color:#000000">-&gt;</span>assetManager<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>activity<span style="color:#000000">-&gt;</span>internalDataPath<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Initialize base path for storage</span>
+    CORE<span style="color:#000000">.</span>Storage<span style="color:#000000">.</span>basePath <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">-&gt;</span>activity<span style="color:#000000">-&gt;</span>internalDataPath<span style="color:#000000">;</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;ANDROID: App initialized successfully&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Android ALooper_pollAll() variables</span>
+    <span style="color:#0057ae">int</span> pollResult <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">int</span> pollEvents <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Wait for window to be initialized (display and context)</span>
+    <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(!</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Process events loop</span>
+        <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">((</span>pollResult <span style="color:#000000">=</span> <span style="color:#010181">ALooper_pollAll</span><span style="color:#000000">(</span><span style="color:#b07e00">0</span><span style="color:#000000">,</span> NULL<span style="color:#000000">, &amp;</span>pollEvents<span style="color:#000000">, (</span><span style="color:#0057ae">void</span><span style="color:#000000">**)&amp;</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>source<span style="color:#000000">)) &gt;=</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#838183; font-style:italic">// Process this event</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>source <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>source<span style="color:#000000">-&gt;</span><span style="color:#010181">process</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>app<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Android<span style="color:#000000">.</span>source<span style="color:#000000">);</span>
+            <span style="color:#838183; font-style:italic">// NOTE: Never close window, native activity is controlled by the system!</span>
+            <span style="color:#838183; font-style:italic">//if (CORE.Android.app-&gt;destroyRequested != 0) CORE.Window.shouldClose = true;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB) || defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#838183; font-style:italic">// Initialize graphics device (display device and OpenGL context)</span>
+    <span style="color:#838183; font-style:italic">// NOTE: returns true if window and graphic device has been initialized successfully</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready <span style="color:#000000">=</span> <span style="color:#010181">InitGraphicsDevice</span><span style="color:#000000">(</span>width<span style="color:#000000">,</span> height<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// If graphic device is no properly initialized, we end program</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(!</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_FATAL<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;Failed to initialize Graphic Device&quot;</span><span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">return</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">SetWindowPosition</span><span style="color:#000000">(</span><span style="color:#010181">GetMonitorWidth</span><span style="color:#000000">(</span><span style="color:#010181">GetCurrentMonitor</span><span style="color:#000000">())/</span><span style="color:#b07e00">2</span> <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>width<span style="color:#000000">/</span><span style="color:#b07e00">2</span><span style="color:#000000">,</span> <span style="color:#010181">GetMonitorHeight</span><span style="color:#000000">(</span><span style="color:#010181">GetCurrentMonitor</span><span style="color:#000000">())/</span><span style="color:#b07e00">2</span> <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screen<span style="color:#000000">.</span>height<span style="color:#000000">/</span><span style="color:#b07e00">2</span><span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Initialize hi-res timer</span>
+    <span style="color:#010181">InitTimer</span><span style="color:#000000">();</span>
+    <span style="color:#838183; font-style:italic">// Initialize random seed</span>
+    <span style="color:#010181">srand</span><span style="color:#000000">((</span><span style="color:#0057ae">unsigned int</span><span style="color:#000000">)</span><span style="color:#010181">time</span><span style="color:#000000">(</span>NULL<span style="color:#000000">));</span>
+    <span style="color:#838183; font-style:italic">// Initialize base path for storage</span>
+    CORE<span style="color:#000000">.</span>Storage<span style="color:#000000">.</span>basePath <span style="color:#000000">=</span> <span style="color:#010181">GetWorkingDirectory</span><span style="color:#000000">();</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RTEXT) &amp;&amp; defined(SUPPORT_DEFAULT_FONT)</span>
+    <span style="color:#838183; font-style:italic">// Load default font</span>
+    <span style="color:#838183; font-style:italic">// WARNING: External function: Module required: rtext</span>
+    <span style="color:#010181">LoadFontDefault</span><span style="color:#000000">();</span>
+    <span style="color:#008200">#if defined(SUPPORT_MODULE_RSHAPES)</span>
+    Rectangle rec <span style="color:#000000">=</span> <span style="color:#010181">GetFontDefault</span><span style="color:#000000">().</span>recs<span style="color:#000000">[</span><span style="color:#b07e00">95</span><span style="color:#000000">];</span>
+    <span style="color:#838183; font-style:italic">// NOTE: We set up a 1px padding on char rectangle to avoid pixel bleeding on MSAA filtering</span>
+    <span style="color:#010181">SetShapesTexture</span><span style="color:#000000">(</span><span style="color:#010181">GetFontDefault</span><span style="color:#000000">().</span>texture<span style="color:#000000">, (</span>Rectangle<span style="color:#000000">){</span> rec<span style="color:#000000">.</span>x <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> rec<span style="color:#000000">.</span>y <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> rec<span style="color:#000000">.</span>width <span style="color:#000000">-</span> <span style="color:#b07e00">2</span><span style="color:#000000">,</span> rec<span style="color:#000000">.</span>height <span style="color:#000000">-</span> <span style="color:#b07e00">2</span> <span style="color:#000000">});</span> <span style="color:#838183; font-style:italic">// WARNING: Module required: rshapes</span>
+    <span style="color:#008200">#endif</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#008200">#if defined(SUPPORT_MODULE_RSHAPES)</span>
+    <span style="color:#838183; font-style:italic">// Set default texture and rectangle to be used for shapes drawing</span>
+    <span style="color:#838183; font-style:italic">// NOTE: rlgl default texture is a 1x1 pixel UNCOMPRESSED_R8G8B8A8</span>
+    Texture2D texture <span style="color:#000000">= {</span> <span style="color:#010181">rlGetTextureIdDefault</span><span style="color:#000000">(),</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 <span style="color:#000000">};</span>
+    <span style="color:#010181">SetShapesTexture</span><span style="color:#000000">(</span>texture<span style="color:#000000">, (</span>Rectangle<span style="color:#000000">){</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f <span style="color:#000000">});</span>    <span style="color:#838183; font-style:italic">// WARNING: Module required: rshapes</span>
+    <span style="color:#008200">#endif</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RTEXT) &amp;&amp; defined(SUPPORT_DEFAULT_FONT)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_HIGHDPI<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Set default font texture filter for HighDPI (blurry)</span>
+        <span style="color:#838183; font-style:italic">// RL_TEXTURE_FILTER_LINEAR - tex filter: BILINEAR, no mipmaps</span>
+        <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span><span style="color:#010181">GetFontDefault</span><span style="color:#000000">().</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MIN_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+        <span style="color:#010181">rlTextureParameters</span><span style="color:#000000">(</span><span style="color:#010181">GetFontDefault</span><span style="color:#000000">().</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">,</span> RL_TEXTURE_MAG_FILTER<span style="color:#000000">,</span> RL_TEXTURE_FILTER_LINEAR<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#838183; font-style:italic">// Initialize raw input system</span>
+    <span style="color:#010181">InitEvdevInput</span><span style="color:#000000">();</span>   <span style="color:#838183; font-style:italic">// Evdev inputs initialization</span>
+    <span style="color:#010181">InitGamepad</span><span style="color:#000000">();</span>      <span style="color:#838183; font-style:italic">// Gamepad init</span>
+    <span style="color:#010181">InitKeyboard</span><span style="color:#000000">();</span>     <span style="color:#838183; font-style:italic">// Keyboard init (stdin)</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_WEB)</span>
+    <span style="color:#838183; font-style:italic">// Setup callback funtions for the DOM events</span>
+    <span style="color:#010181">emscripten_set_fullscreenchange_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenFullscreenChangeCallback<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// WARNING: Below resize code was breaking fullscreen mode for sample games and examples, it needs review</span>
+    <span style="color:#838183; font-style:italic">// Check fullscreen change events(note this is done on the window since most browsers don&apos;t support this on #canvas)</span>
+    <span style="color:#838183; font-style:italic">//emscripten_set_fullscreenchange_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, NULL, 1, EmscriptenResizeCallback);</span>
+    <span style="color:#838183; font-style:italic">// Check Resize event (note this is done on the window since most browsers don&apos;t support this on #canvas)</span>
+    <span style="color:#838183; font-style:italic">//emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, NULL, 1, EmscriptenResizeCallback);</span>
+    <span style="color:#838183; font-style:italic">// Trigger this once to get initial window sizing</span>
+    <span style="color:#838183; font-style:italic">//EmscriptenResizeCallback(EMSCRIPTEN_EVENT_RESIZE, NULL, NULL);</span>
+    <span style="color:#838183; font-style:italic">// Support keyboard events -&gt; Not used, GLFW.JS takes care of that</span>
+    <span style="color:#838183; font-style:italic">//emscripten_set_keypress_callback(&quot;#canvas&quot;, NULL, 1, EmscriptenKeyboardCallback);</span>
+    <span style="color:#838183; font-style:italic">//emscripten_set_keydown_callback(&quot;#canvas&quot;, NULL, 1, EmscriptenKeyboardCallback);</span>
+    <span style="color:#838183; font-style:italic">// Support mouse events</span>
+    <span style="color:#010181">emscripten_set_click_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenMouseCallback<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Support touch events</span>
+    <span style="color:#010181">emscripten_set_touchstart_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenTouchCallback<span style="color:#000000">);</span>
+    <span style="color:#010181">emscripten_set_touchend_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenTouchCallback<span style="color:#000000">);</span>
+    <span style="color:#010181">emscripten_set_touchmove_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenTouchCallback<span style="color:#000000">);</span>
+    <span style="color:#010181">emscripten_set_touchcancel_callback</span><span style="color:#000000">(</span><span style="color:#bf0303">&quot;#canvas&quot;</span><span style="color:#000000">,</span> NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenTouchCallback<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Support gamepad events (not provided by GLFW3 on emscripten)</span>
+    <span style="color:#010181">emscripten_set_gamepadconnected_callback</span><span style="color:#000000">(</span>NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenGamepadCallback<span style="color:#000000">);</span>
+    <span style="color:#010181">emscripten_set_gamepaddisconnected_callback</span><span style="color:#000000">(</span>NULL<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> EmscriptenGamepadCallback<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_EVENTS_AUTOMATION)</span>
+    events <span style="color:#000000">= (</span>AutomationEvent <span style="color:#000000">*)</span><span style="color:#010181">RL_CALLOC</span><span style="color:#000000">(</span>MAX_CODE_AUTOMATION_EVENTS<span style="color:#000000">,</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>AutomationEvent<span style="color:#000000">));</span>
+    CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>frameCounter <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#endif</span>        <span style="color:#838183; font-style:italic">// PLATFORM_DESKTOP || PLATFORM_WEB || PLATFORM_RPI || PLATFORM_DRM</span>
+<span style="color:#008200"></span><span style="color:#000000">}</span>

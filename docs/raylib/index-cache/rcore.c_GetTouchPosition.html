@@ -1,0 +1,14 @@
+Vector2 <span style="color:#010181">GetTouchPosition</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> index<span style="color:#000000">){</span>
+    Vector2 position <span style="color:#000000">= { -</span><span style="color:#b07e00">1.0</span>f<span style="color:#000000">, -</span><span style="color:#b07e00">1.0</span>f <span style="color:#000000">};</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#838183; font-style:italic">// TODO: GLFW does not support multi-touch input just yet</span>
+    <span style="color:#838183; font-style:italic">// https://www.codeproject.com/Articles/668404/Programming-for-Multi-Touch</span>
+    <span style="color:#838183; font-style:italic">// https://docs.microsoft.com/en-us/windows/win32/wintouch/getting-started-with-multi-touch-messages</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>index <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> position <span style="color:#000000">=</span> <span style="color:#010181">GetMousePosition</span><span style="color:#000000">();</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_WEB) || defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>index <span style="color:#000000">&lt;</span> MAX_TOUCH_POINTS<span style="color:#000000">)</span> position <span style="color:#000000">=</span> CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Touch<span style="color:#000000">.</span>position<span style="color:#000000">[</span>index<span style="color:#000000">];</span>
+    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;INPUT: Required touch point out of range (Max touch points: %i)&quot;</span><span style="color:#000000">,</span> MAX_TOUCH_POINTS<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> position<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

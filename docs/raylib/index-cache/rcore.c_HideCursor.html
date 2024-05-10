@@ -1,0 +1,6 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">HideCursor</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#010181">glfwSetInputMode</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_CURSOR<span style="color:#000000">,</span> GLFW_CURSOR_HIDDEN<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Mouse<span style="color:#000000">.</span>cursorHidden <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

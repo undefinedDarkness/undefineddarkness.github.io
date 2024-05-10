@@ -1,0 +1,143 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UpdateMusicStream</span><span style="color:#000000">(</span>Music music<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer <span style="color:#000000">==</span> NULL<span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">return</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">unsigned int</span> subBufferSizeInFrames <span style="color:#000000">=</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>sizeInFrames<span style="color:#000000">/</span><span style="color:#b07e00">2</span><span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// On first call of this function we lazily pre-allocated a temp buffer to read audio files/memory data in</span>
+    <span style="color:#0057ae">int</span> frameSize <span style="color:#000000">=</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels<span style="color:#000000">*</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleSize<span style="color:#000000">/</span><span style="color:#b07e00">8</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">unsigned int</span> pcmSize <span style="color:#000000">=</span> subBufferSizeInFrames<span style="color:#000000">*</span>frameSize<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBufferSize <span style="color:#000000">&lt;</span> pcmSize<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">);</span>
+        AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">=</span> <span style="color:#010181">RL_CALLOC</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">,</span> pcmSize<span style="color:#000000">);</span>
+        AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBufferSize <span style="color:#000000">=</span> pcmSize<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// Check both sub-buffers to check if they require refilling</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> <span style="color:#b07e00">2</span><span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp; !</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>isSubBufferProcessed<span style="color:#000000">[</span>i<span style="color:#000000">])</span> <span style="color:#000000; font-weight:bold">continue</span><span style="color:#000000">;</span> <span style="color:#838183; font-style:italic">// No refilling required, move to next sub-buffer</span>
+        <span style="color:#0057ae">unsigned int</span> framesLeft <span style="color:#000000">=</span> music<span style="color:#000000">.</span>frameCount <span style="color:#000000">-</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>framesProcessed<span style="color:#000000">;</span>  <span style="color:#838183; font-style:italic">// Frames left to be processed</span>
+        <span style="color:#0057ae">unsigned int</span> framesToStream <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>                 <span style="color:#838183; font-style:italic">// Total frames to be streamed</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>framesLeft <span style="color:#000000">&gt;=</span> subBufferSizeInFrames<span style="color:#000000">) ||</span> music<span style="color:#000000">.</span>looping<span style="color:#000000">)</span> framesToStream <span style="color:#000000">=</span> subBufferSizeInFrames<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">else</span> framesToStream <span style="color:#000000">=</span> framesLeft<span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> frameCountStillNeeded <span style="color:#000000">=</span> framesToStream<span style="color:#000000">;</span>
+        <span style="color:#0057ae">int</span> frameCountReadTotal <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">switch</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_WAV)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_AUDIO_WAV<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleSize <span style="color:#000000">==</span> <span style="color:#b07e00">16</span><span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">)</span>
+                    <span style="color:#000000">{</span>
+                        <span style="color:#0057ae">int</span> frameCountRead <span style="color:#000000">= (</span><span style="color:#0057ae">int</span><span style="color:#000000">)</span><span style="color:#010181">drwav_read_pcm_frames_s16</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> frameCountStillNeeded<span style="color:#000000">, (</span><span style="color:#0057ae">short</span> <span style="color:#000000">*)((</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">+</span> frameCountReadTotal<span style="color:#000000">*</span>frameSize<span style="color:#000000">));</span>
+                        frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                        frameCountStillNeeded <span style="color:#000000">-=</span> frameCountRead<span style="color:#000000">;</span>
+                        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>frameCountStillNeeded <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                        <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">drwav_seek_to_first_pcm_frame</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+                    <span style="color:#000000">}</span>
+                <span style="color:#000000">}</span>
+                <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>sampleSize <span style="color:#000000">==</span> <span style="color:#b07e00">32</span><span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">)</span>
+                    <span style="color:#000000">{</span>
+                        <span style="color:#0057ae">int</span> frameCountRead <span style="color:#000000">= (</span><span style="color:#0057ae">int</span><span style="color:#000000">)</span><span style="color:#010181">drwav_read_pcm_frames_f32</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> frameCountStillNeeded<span style="color:#000000">, (</span><span style="color:#0057ae">float</span> <span style="color:#000000">*)((</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">+</span> frameCountReadTotal<span style="color:#000000">*</span>frameSize<span style="color:#000000">));</span>
+                        frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                        frameCountStillNeeded <span style="color:#000000">-=</span> frameCountRead<span style="color:#000000">;</span>
+                        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>frameCountStillNeeded <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                        <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">drwav_seek_to_first_pcm_frame</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+                    <span style="color:#000000">}</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_OGG)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_AUDIO_OGG<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#0057ae">int</span> frameCountRead <span style="color:#000000">=</span> <span style="color:#010181">stb_vorbis_get_samples_short_interleaved</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels<span style="color:#000000">, (</span><span style="color:#0057ae">short</span> <span style="color:#000000">*)((</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">+</span> frameCountReadTotal<span style="color:#000000">*</span>frameSize<span style="color:#000000">),</span> frameCountStillNeeded<span style="color:#000000">*</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>channels<span style="color:#000000">);</span>
+                    frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                    frameCountStillNeeded <span style="color:#000000">-=</span> frameCountRead<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>frameCountStillNeeded <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">stb_vorbis_seek_start</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MP3)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_AUDIO_MP3<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#0057ae">int</span> frameCountRead <span style="color:#000000">= (</span><span style="color:#0057ae">int</span><span style="color:#000000">)</span><span style="color:#010181">drmp3_read_pcm_frames_f32</span><span style="color:#000000">((</span>drmp3 <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> frameCountStillNeeded<span style="color:#000000">, (</span><span style="color:#0057ae">float</span> <span style="color:#000000">*)((</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">+</span> frameCountReadTotal<span style="color:#000000">*</span>frameSize<span style="color:#000000">));</span>
+                    frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                    frameCountStillNeeded <span style="color:#000000">-=</span> frameCountRead<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>frameCountStillNeeded <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">drmp3_seek_to_start_of_stream</span><span style="color:#000000">((</span>drmp3 <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_QOA)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_AUDIO_QOA<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#0057ae">unsigned int</span> frameCountRead <span style="color:#000000">=</span> <span style="color:#010181">qoaplay_decode</span><span style="color:#000000">((</span>qoaplay_desc <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">, (</span><span style="color:#0057ae">float</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">);</span>
+                frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                <span style="color:#838183; font-style:italic">/*</span>
+<span style="color:#838183; font-style:italic">                while (true)</span>
+<span style="color:#838183; font-style:italic">                {</span>
+<span style="color:#838183; font-style:italic">                    int frameCountRead = (int)qoaplay_decode((qoaplay_desc *)music.ctxData, (float *)((char *)AUDIO.System.pcmBuffer + frameCountReadTotal*frameSize),  frameCountStillNeeded);</span>
+<span style="color:#838183; font-style:italic">                    frameCountReadTotal += frameCountRead;</span>
+<span style="color:#838183; font-style:italic">                    frameCountStillNeeded -= frameCountRead;</span>
+<span style="color:#838183; font-style:italic">                    if (frameCountStillNeeded == 0) break;</span>
+<span style="color:#838183; font-style:italic">                    else qoaplay_rewind((qoaplay_desc *)music.ctxData);</span>
+<span style="color:#838183; font-style:italic">                }</span>
+<span style="color:#838183; font-style:italic">                */</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_FLAC)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_AUDIO_FLAC<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">)</span>
+                <span style="color:#000000">{</span>
+                    <span style="color:#0057ae">int</span> frameCountRead <span style="color:#000000">=</span> <span style="color:#010181">drflac_read_pcm_frames_s16</span><span style="color:#000000">((</span>drflac <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> frameCountStillNeeded<span style="color:#000000">, (</span><span style="color:#0057ae">short</span> <span style="color:#000000">*)((</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer <span style="color:#000000">+</span> frameCountReadTotal<span style="color:#000000">*</span>frameSize<span style="color:#000000">));</span>
+                    frameCountReadTotal <span style="color:#000000">+=</span> frameCountRead<span style="color:#000000">;</span>
+                    frameCountStillNeeded <span style="color:#000000">-=</span> frameCountRead<span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>frameCountStillNeeded <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+                    <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">drflac__seek_to_first_frame</span><span style="color:#000000">((</span>drflac <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+                <span style="color:#000000">}</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_XM)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_MODULE_XM<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// NOTE: Internally we consider 2 channels generation, so sampleCount/2</span>
+                <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>AUDIO_DEVICE_FORMAT <span style="color:#000000">==</span> ma_format_f32<span style="color:#000000">)</span> <span style="color:#010181">jar_xm_generate_samples</span><span style="color:#000000">((</span>jar_xm_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">, (</span><span style="color:#0057ae">float</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">);</span>
+                <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>AUDIO_DEVICE_FORMAT <span style="color:#000000">==</span> ma_format_s16<span style="color:#000000">)</span> <span style="color:#010181">jar_xm_generate_samples_16bit</span><span style="color:#000000">((</span>jar_xm_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">, (</span><span style="color:#0057ae">short</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">);</span>
+                <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>AUDIO_DEVICE_FORMAT <span style="color:#000000">==</span> ma_format_u8<span style="color:#000000">)</span> <span style="color:#010181">jar_xm_generate_samples_8bit</span><span style="color:#000000">((</span>jar_xm_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">, (</span><span style="color:#0057ae">char</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">//jar_xm_reset((jar_xm_context_t *)music.ctxData);</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+        <span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MOD)</span>
+            <span style="color:#000000; font-weight:bold">case</span> MUSIC_MODULE_MOD<span style="color:#000000">:</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// NOTE: 3rd parameter (nbsample) specify the number of stereo 16bits samples you want, so sampleCount/2</span>
+                <span style="color:#010181">jar_mod_fillbuffer</span><span style="color:#000000">((</span>jar_mod_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">, (</span><span style="color:#0057ae">short</span> <span style="color:#000000">*)</span>AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">,</span> <span style="color:#b07e00">0</span><span style="color:#000000">);</span>
+                <span style="color:#838183; font-style:italic">//jar_mod_seek_start((jar_mod_context_t *)music.ctxData);</span>
+            <span style="color:#000000">}</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#008200">#endif</span>
+            <span style="color:#000000; font-weight:bold">default</span><span style="color:#000000">:</span> <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">UpdateAudioStream</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">,</span> AUDIO<span style="color:#000000">.</span>System<span style="color:#000000">.</span>pcmBuffer<span style="color:#000000">,</span> framesToStream<span style="color:#000000">);</span>
+        music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>framesProcessed <span style="color:#000000">=</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>framesProcessed<span style="color:#000000">%</span>music<span style="color:#000000">.</span>frameCount<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>framesLeft <span style="color:#000000">&lt;=</span> subBufferSizeInFrames<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(!</span>music<span style="color:#000000">.</span>looping<span style="color:#000000">)</span>
+            <span style="color:#000000">{</span>
+                <span style="color:#838183; font-style:italic">// Streaming is ending, we filled latest frames from input</span>
+                <span style="color:#010181">StopMusicStream</span><span style="color:#000000">(</span>music<span style="color:#000000">);</span>
+                <span style="color:#000000; font-weight:bold">return</span><span style="color:#000000">;</span>
+            <span style="color:#000000">}</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// NOTE: In case window is minimized, music stream is stopped,</span>
+    <span style="color:#838183; font-style:italic">// just make sure to play again on window restore</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#010181">IsMusicStreamPlaying</span><span style="color:#000000">(</span>music<span style="color:#000000">))</span> <span style="color:#010181">PlayMusicStream</span><span style="color:#000000">(</span>music<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

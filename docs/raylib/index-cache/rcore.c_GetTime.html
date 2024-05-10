@@ -1,0 +1,13 @@
+<span style="color:#0057ae">double</span> <span style="color:#010181">GetTime</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#0057ae">double</span> time <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB)</span>
+    time <span style="color:#000000">=</span> <span style="color:#010181">glfwGetTime</span><span style="color:#000000">();</span>   <span style="color:#838183; font-style:italic">// Elapsed time since glfwInit()</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#0057ae">struct</span> timespec ts <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    <span style="color:#010181">clock_gettime</span><span style="color:#000000">(</span>CLOCK_MONOTONIC<span style="color:#000000">, &amp;</span>ts<span style="color:#000000">);</span>
+    <span style="color:#0057ae">unsigned long long int</span> nanoSeconds <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned long long int</span><span style="color:#000000">)</span>ts<span style="color:#000000">.</span>tv_sec<span style="color:#000000">*</span><span style="color:#b07e00">1000000000LLU</span> <span style="color:#000000">+ (</span><span style="color:#0057ae">unsigned long long int</span><span style="color:#000000">)</span>ts<span style="color:#000000">.</span>tv_nsec<span style="color:#000000">;</span>
+    time <span style="color:#000000">= (</span><span style="color:#0057ae">double</span><span style="color:#000000">)(</span>nanoSeconds <span style="color:#000000">-</span> CORE<span style="color:#000000">.</span>Time<span style="color:#000000">.</span>base<span style="color:#000000">)*</span><span style="color:#b07e00">1e-9</span><span style="color:#000000">;</span>  <span style="color:#838183; font-style:italic">// Elapsed time since InitTimer()</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> time<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,10 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">DirectoryExists</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>dirPath<span style="color:#000000">){</span>
+    <span style="color:#0057ae">bool</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">DIR</span> <span style="color:#000000">*</span>dir <span style="color:#000000">=</span> <span style="color:#010181">opendir</span><span style="color:#000000">(</span>dirPath<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>dir <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        <span style="color:#010181">closedir</span><span style="color:#000000">(</span>dir<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

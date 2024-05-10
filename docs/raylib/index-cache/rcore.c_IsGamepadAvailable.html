@@ -1,0 +1,5 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsGamepadAvailable</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> gamepad<span style="color:#000000">){</span>
+    <span style="color:#0057ae">bool</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>gamepad <span style="color:#000000">&lt;</span> MAX_GAMEPADS<span style="color:#000000">) &amp;&amp;</span> CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>ready<span style="color:#000000">[</span>gamepad<span style="color:#000000">])</span> result <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

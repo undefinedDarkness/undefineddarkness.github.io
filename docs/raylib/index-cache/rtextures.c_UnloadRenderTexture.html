@@ -1,0 +1,10 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadRenderTexture</span><span style="color:#000000">(</span>RenderTexture2D target<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>target<span style="color:#000000">.</span>id <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Color texture attached to FBO is deleted</span>
+        <span style="color:#010181">rlUnloadTexture</span><span style="color:#000000">(</span>target<span style="color:#000000">.</span>texture<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+        <span style="color:#838183; font-style:italic">// NOTE: Depth texture/renderbuffer is automatically</span>
+        <span style="color:#838183; font-style:italic">// queried and deleted before deleting framebuffer</span>
+        <span style="color:#010181">rlUnloadFramebuffer</span><span style="color:#000000">(</span>target<span style="color:#000000">.</span>id<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

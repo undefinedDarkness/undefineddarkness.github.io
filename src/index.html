@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <title>Full Index</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+
+body {
+  padding: 0 16vw;
+}
+
+    main.ov {
+      display: grid;
+      padding: 0;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    ul h2 {
+      margin-top: 0.5em;
+    }
+
+    main ul {
+      /* margin-top: 2em !important; */
+      margin-bottom: 0;
+      min-width: fit-content;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li:not(:first-child) {
+      margin: 0.5em !important;
+      margin-left: 0.8em;
+    }
+
+    ul li a {
+      text-decoration: none;
+    }
+
+    header::before {
+      content: '';
+      width: 50%;
+      background: snow;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body >
+  <header style="text-align: center; font-size: 2em; width: 100%; margin: 0.5em 0; color: coral;">
+    🞺
+  </header>
+  <p class="txt-c whitespace-pre human">ʕっ•ᴥ•ʔっ
+    Hi!, I'm David, a hobbyist techie from India, Welcome to my tiny slice of the internet
+  </p>
+
+  <h1>Projects</h1>
+  <div class="split">
+    <div>
+      <a href="https://github.com/undefinedDarkness/mkr">mkr</a>
+      <p>A fast extensible app runner for the Linux Desktop</p>
+    </div>
+
+    <div>
+      <!-- <img src="https://i.imgur.com/QudIqH1.png" alt=""> -->
+      <a href="https://github.com/undefinedDarkness/colr">colr</a>
+      <p>A beautiful colour picker inspired by the MS Powertoys colour picker</p>
+    </div>
+
+    <div>
+      <a href="https://github.com/undefinedDarkness/dither-experiments">dither-experiments</a>
+      <p>An experiment in optimizing image processing on the CPU and the GPU</p>
+    </div>
+
+    <div>
+      <a href="https://github.com/undefinedDarkness/gbz">gbz</a>
+      <p>A work-in-progress GameBoy emulator written in C#</p>
+    </div>
+  </div>
+
+  <h1>Blog</h1>
+  <main class='page  ov' style="padding-bottom: 3em;">
+    <ul>
+      <li>
+        <h2>2021</h1>
+      </li>
+      !POSTS-2021!
+    </ul>
+
+    <ul>
+      <li>
+        <h2>2022</h1>
+      </li>
+      !POSTS-2022!
+    </ul>
+
+    <ul>
+      <li>
+        <h2>2023</h1>
+      </li>
+      !POSTS-2023!
+    </ul>
+    <ul>
+      <li>
+        <h2>Random</h1>
+      </li>
+      !POSTS-RANDOM!
+    </ul>
+    <ul>
+      <li>
+        <h2>Miscellaneous</h1>
+      </li>
+      <li><a href="/docs/raylib/index.html">Raylib Documentation (Outdated)</a></li>
+    </ul>
+  </main>
+</body>
+
+</html>

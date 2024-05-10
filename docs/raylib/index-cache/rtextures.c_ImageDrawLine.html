@@ -1,0 +1,75 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">ImageDrawLine</span><span style="color:#000000">(</span>Image <span style="color:#000000">*</span>dst<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> startPosX<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> startPosY<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> endPosX<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> endPosY<span style="color:#000000">,</span> Color color<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// Using Bresenham&apos;s algorithm as described in</span>
+    <span style="color:#838183; font-style:italic">// Drawing Lines with Pixels - Joshua Scott - March 2012</span>
+    <span style="color:#838183; font-style:italic">// https://classic.csunplugged.org/wp-content/uploads/2014/12/Lines.pdf</span>
+    <span style="color:#0057ae">int</span> changeInX <span style="color:#000000">= (</span>endPosX <span style="color:#000000">-</span> startPosX<span style="color:#000000">);</span>
+    <span style="color:#0057ae">int</span> absChangeInX <span style="color:#000000">= (</span>changeInX <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)? -</span>changeInX <span style="color:#000000">:</span> changeInX<span style="color:#000000">;</span>
+    <span style="color:#0057ae">int</span> changeInY <span style="color:#000000">= (</span>endPosY <span style="color:#000000">-</span> startPosY<span style="color:#000000">);</span>
+    <span style="color:#0057ae">int</span> absChangeInY <span style="color:#000000">= (</span>changeInY <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)? -</span>changeInY <span style="color:#000000">:</span> changeInY<span style="color:#000000">;</span>
+    <span style="color:#0057ae">int</span> startU<span style="color:#000000">,</span> startV<span style="color:#000000">,</span> endU<span style="color:#000000">,</span> stepV<span style="color:#000000">;</span> <span style="color:#838183; font-style:italic">// Substitutions, either U = X, V = Y or vice versa. See loop at end of function</span>
+    <span style="color:#838183; font-style:italic">//int endV;     // Not needed but left for better understanding, check code below</span>
+    <span style="color:#0057ae">int</span> A<span style="color:#000000">,</span> B<span style="color:#000000">,</span> P<span style="color:#000000">;</span>    <span style="color:#838183; font-style:italic">// See linked paper above, explained down in the main loop</span>
+    <span style="color:#0057ae">int</span> reversedXY <span style="color:#000000">= (</span>absChangeInY <span style="color:#000000">&lt;</span> absChangeInX<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>reversedXY<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        A <span style="color:#000000">=</span> <span style="color:#b07e00">2</span><span style="color:#000000">*</span>absChangeInY<span style="color:#000000">;</span>
+        B <span style="color:#000000">=</span> A <span style="color:#000000">-</span> <span style="color:#b07e00">2</span><span style="color:#000000">*</span>absChangeInX<span style="color:#000000">;</span>
+        P <span style="color:#000000">=</span> A <span style="color:#000000">-</span> absChangeInX<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>changeInX <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            startU <span style="color:#000000">=</span> startPosX<span style="color:#000000">;</span>
+            startV <span style="color:#000000">=</span> startPosY<span style="color:#000000">;</span>
+            endU <span style="color:#000000">=</span> endPosX<span style="color:#000000">;</span>
+            <span style="color:#838183; font-style:italic">//endV = endPosY;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">else</span>
+        <span style="color:#000000">{</span>
+            startU <span style="color:#000000">=</span> endPosX<span style="color:#000000">;</span>
+            startV <span style="color:#000000">=</span> endPosY<span style="color:#000000">;</span>
+            endU <span style="color:#000000">=</span> startPosX<span style="color:#000000">;</span>
+            <span style="color:#838183; font-style:italic">//endV = startPosY;</span>
+            <span style="color:#838183; font-style:italic">// Since start and end are reversed</span>
+            changeInX <span style="color:#000000">= -</span>changeInX<span style="color:#000000">;</span>
+            changeInY <span style="color:#000000">= -</span>changeInY<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        stepV <span style="color:#000000">= (</span>changeInY <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)? -</span><span style="color:#b07e00">1</span> <span style="color:#000000">:</span> <span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+        <span style="color:#010181">ImageDrawPixel</span><span style="color:#000000">(</span>dst<span style="color:#000000">,</span> startU<span style="color:#000000">,</span> startV<span style="color:#000000">,</span> color<span style="color:#000000">);</span>     <span style="color:#838183; font-style:italic">// At this point they are correctly ordered...</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        A <span style="color:#000000">=</span> <span style="color:#b07e00">2</span><span style="color:#000000">*</span>absChangeInX<span style="color:#000000">;</span>
+        B <span style="color:#000000">=</span> A <span style="color:#000000">-</span> <span style="color:#b07e00">2</span><span style="color:#000000">*</span>absChangeInY<span style="color:#000000">;</span>
+        P <span style="color:#000000">=</span> A <span style="color:#000000">-</span> absChangeInY<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>changeInY <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            startU <span style="color:#000000">=</span> startPosY<span style="color:#000000">;</span>
+            startV <span style="color:#000000">=</span> startPosX<span style="color:#000000">;</span>
+            endU <span style="color:#000000">=</span> endPosY<span style="color:#000000">;</span>
+            <span style="color:#838183; font-style:italic">//endV = endPosX;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">else</span>
+        <span style="color:#000000">{</span>
+            startU <span style="color:#000000">=</span> endPosY<span style="color:#000000">;</span>
+            startV <span style="color:#000000">=</span> endPosX<span style="color:#000000">;</span>
+            endU <span style="color:#000000">=</span> startPosY<span style="color:#000000">;</span>
+            <span style="color:#838183; font-style:italic">//endV = startPosX;</span>
+            <span style="color:#838183; font-style:italic">// Since start and end are reversed</span>
+            changeInX <span style="color:#000000">= -</span>changeInX<span style="color:#000000">;</span>
+            changeInY <span style="color:#000000">= -</span>changeInY<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        stepV <span style="color:#000000">= (</span>changeInX <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)? -</span><span style="color:#b07e00">1</span> <span style="color:#000000">:</span> <span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+        <span style="color:#010181">ImageDrawPixel</span><span style="color:#000000">(</span>dst<span style="color:#000000">,</span> startV<span style="color:#000000">,</span> startU<span style="color:#000000">,</span> color<span style="color:#000000">);</span>     <span style="color:#838183; font-style:italic">// ... but need to be reversed here. Repeated in the main loop below</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// We already drew the start point. If we started at startU + 0, the line would be crooked and too short</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> u <span style="color:#000000">=</span> startU <span style="color:#000000">+</span> <span style="color:#b07e00">1</span><span style="color:#000000">,</span> v <span style="color:#000000">=</span> startV<span style="color:#000000">;</span> u <span style="color:#000000">&lt;=</span> endU<span style="color:#000000">;</span> u<span style="color:#000000">++)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>P <span style="color:#000000">&gt;=</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            v <span style="color:#000000">+=</span> stepV<span style="color:#000000">;</span>     <span style="color:#838183; font-style:italic">// Adjusts whenever we stray too far from the direct line. Details in the linked paper above</span>
+            P <span style="color:#000000">+=</span> B<span style="color:#000000">;</span>         <span style="color:#838183; font-style:italic">// Remembers that we corrected our path</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">else</span> P <span style="color:#000000">+=</span> A<span style="color:#000000">;</span>        <span style="color:#838183; font-style:italic">// Remembers how far we are from the direct line</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>reversedXY<span style="color:#000000">)</span> <span style="color:#010181">ImageDrawPixel</span><span style="color:#000000">(</span>dst<span style="color:#000000">,</span> u<span style="color:#000000">,</span> v<span style="color:#000000">,</span> color<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">else</span> <span style="color:#010181">ImageDrawPixel</span><span style="color:#000000">(</span>dst<span style="color:#000000">,</span> v<span style="color:#000000">,</span> u<span style="color:#000000">,</span> color<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

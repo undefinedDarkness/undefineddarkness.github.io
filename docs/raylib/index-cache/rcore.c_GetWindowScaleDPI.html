@@ -1,0 +1,25 @@
+Vector2 <span style="color:#010181">GetWindowScaleDPI</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    Vector2 scale <span style="color:#000000">= {</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">,</span> <span style="color:#b07e00">1.0</span>f <span style="color:#000000">};</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#0057ae">float</span> xdpi <span style="color:#000000">=</span> <span style="color:#b07e00">1.0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> ydpi <span style="color:#000000">=</span> <span style="color:#b07e00">1.0</span><span style="color:#000000">;</span>
+    Vector2 windowPos <span style="color:#000000">=</span> <span style="color:#010181">GetWindowPosition</span><span style="color:#000000">();</span>
+    <span style="color:#0057ae">int</span> monitorCount <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    GLFWmonitor <span style="color:#000000">**</span>monitors <span style="color:#000000">=</span> <span style="color:#010181">glfwGetMonitors</span><span style="color:#000000">(&amp;</span>monitorCount<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Check window monitor</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> monitorCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwGetMonitorContentScale</span><span style="color:#000000">(</span>monitors<span style="color:#000000">[</span>i<span style="color:#000000">], &amp;</span>xdpi<span style="color:#000000">, &amp;</span>ydpi<span style="color:#000000">);</span>
+        <span style="color:#0057ae">int</span> xpos<span style="color:#000000">,</span> ypos<span style="color:#000000">,</span> width<span style="color:#000000">,</span> height<span style="color:#000000">;</span>
+        <span style="color:#010181">glfwGetMonitorWorkarea</span><span style="color:#000000">(</span>monitors<span style="color:#000000">[</span>i<span style="color:#000000">], &amp;</span>xpos<span style="color:#000000">, &amp;</span>ypos<span style="color:#000000">, &amp;</span>width<span style="color:#000000">, &amp;</span>height<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>windowPos<span style="color:#000000">.</span>x <span style="color:#000000">&gt;=</span> xpos<span style="color:#000000">) &amp;&amp; (</span>windowPos<span style="color:#000000">.</span>x <span style="color:#000000">&lt;</span> xpos <span style="color:#000000">+</span> width<span style="color:#000000">) &amp;&amp;</span>
+            <span style="color:#000000">(</span>windowPos<span style="color:#000000">.</span>y <span style="color:#000000">&gt;=</span> ypos<span style="color:#000000">) &amp;&amp; (</span>windowPos<span style="color:#000000">.</span>y <span style="color:#000000">&lt;</span> ypos <span style="color:#000000">+</span> height<span style="color:#000000">))</span>
+        <span style="color:#000000">{</span>
+            scale<span style="color:#000000">.</span>x <span style="color:#000000">=</span> xdpi<span style="color:#000000">;</span>
+            scale<span style="color:#000000">.</span>y <span style="color:#000000">=</span> ydpi<span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> scale<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>A day of fixing neovim terminal behaviour</title>
+	<meta property="og:title" content="A day of fixing neovim terminal behaviour" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/out/2021/xterm-sixel-nvim.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul></ul>
+	</nav>
+	<article>
+
+
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
+<h1>A day of fixing neovim terminal behaviour</h1>
+</header>
+<br/>
+One day while fine tweaking my colourscheme, I noticed that my neovim wasn't displaying any italics<br/>
+like I had specified in it. After double checking that everything was fine from my configuration side, I resolved it to be<br/>
+something between neovim and the terminal.<br/>
+<br/>
+An hour of googling and trying a bunch of different fixes ensue, But most nothing happens till I try running neovim through the <code>env</code> program, forcibly overriding the <code>XTERM_VERSION</code> variable to be empty, This finally gave the correct behaviour.<br/>
+Seems like some kind of bug?, Maybe its because my xterm is run in vt340 mode to allow sixel support (Yes, xterm has sixel!!!)<br/>
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+

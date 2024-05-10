@@ -1,0 +1,40 @@
+RayCollision <span style="color:#010181">GetRayCollisionTriangle</span><span style="color:#000000">(</span>Ray ray<span style="color:#000000">,</span> Vector3 p1<span style="color:#000000">,</span> Vector3 p2<span style="color:#000000">,</span> Vector3 p3<span style="color:#000000">){</span>
+    <span style="color:#008200">#define EPSILON 0.000001f</span>        <span style="color:#838183; font-style:italic">// A small number</span>
+<span style="color:#008200"></span>    RayCollision collision <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Vector3 edge1 <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Vector3 edge2 <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Vector3 p<span style="color:#000000">,</span> q<span style="color:#000000">,</span> tv<span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> det<span style="color:#000000">,</span> invDet<span style="color:#000000">,</span> u<span style="color:#000000">,</span> v<span style="color:#000000">,</span> t<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Find vectors for two edges sharing V1</span>
+    edge1 <span style="color:#000000">=</span> <span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>p2<span style="color:#000000">,</span> p1<span style="color:#000000">);</span>
+    edge2 <span style="color:#000000">=</span> <span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>p3<span style="color:#000000">,</span> p1<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Begin calculating determinant - also used to calculate u parameter</span>
+    p <span style="color:#000000">=</span> <span style="color:#010181">Vector3CrossProduct</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>direction<span style="color:#000000">,</span> edge2<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// If determinant is near zero, ray lies in plane of triangle or ray is parallel to plane of triangle</span>
+    det <span style="color:#000000">=</span> <span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span>edge1<span style="color:#000000">,</span> p<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Avoid culling!</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>det <span style="color:#000000">&gt; -</span>EPSILON<span style="color:#000000">) &amp;&amp; (</span>det <span style="color:#000000">&lt;</span> EPSILON<span style="color:#000000">))</span> <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+    invDet <span style="color:#000000">=</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">/</span>det<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Calculate distance from V1 to ray origin</span>
+    tv <span style="color:#000000">=</span> <span style="color:#010181">Vector3Subtract</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>position<span style="color:#000000">,</span> p1<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Calculate u parameter and test bound</span>
+    u <span style="color:#000000">=</span> <span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span>tv<span style="color:#000000">,</span> p<span style="color:#000000">)*</span>invDet<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// The intersection lies outside the triangle</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>u <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">) || (</span>u <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">))</span> <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// Prepare to test v parameter</span>
+    q <span style="color:#000000">=</span> <span style="color:#010181">Vector3CrossProduct</span><span style="color:#000000">(</span>tv<span style="color:#000000">,</span> edge1<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Calculate V parameter and test bound</span>
+    v <span style="color:#000000">=</span> <span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>direction<span style="color:#000000">,</span> q<span style="color:#000000">)*</span>invDet<span style="color:#000000">;</span>
+    <span style="color:#838183; font-style:italic">// The intersection lies outside the triangle</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>v <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">) || ((</span>u <span style="color:#000000">+</span> v<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">))</span> <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+    t <span style="color:#000000">=</span> <span style="color:#010181">Vector3DotProduct</span><span style="color:#000000">(</span>edge2<span style="color:#000000">,</span> q<span style="color:#000000">)*</span>invDet<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>t <span style="color:#000000">&gt;</span> EPSILON<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Ray hit, get hit point and normal</span>
+        collision<span style="color:#000000">.</span>hit <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>
+        collision<span style="color:#000000">.</span>distance <span style="color:#000000">=</span> t<span style="color:#000000">;</span>
+        collision<span style="color:#000000">.</span>normal <span style="color:#000000">=</span> <span style="color:#010181">Vector3Normalize</span><span style="color:#000000">(</span><span style="color:#010181">Vector3CrossProduct</span><span style="color:#000000">(</span>edge1<span style="color:#000000">,</span> edge2<span style="color:#000000">));</span>
+        collision<span style="color:#000000">.</span>point <span style="color:#000000">=</span> <span style="color:#010181">Vector3Add</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>position<span style="color:#000000">,</span> <span style="color:#010181">Vector3Scale</span><span style="color:#000000">(</span>ray<span style="color:#000000">.</span>direction<span style="color:#000000">,</span> t<span style="color:#000000">));</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> collision<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

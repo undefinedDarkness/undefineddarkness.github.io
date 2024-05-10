@@ -1,0 +1,21 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetGlyphIndex</span><span style="color:#000000">(</span>Font font<span style="color:#000000">,</span> <span style="color:#0057ae">int</span> codepoint<span style="color:#000000">){</span>
+    <span style="color:#0057ae">int</span> index <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+<span style="color:#008200">#define SUPPORT_UNORDERED_CHARSET</span>
+<span style="color:#008200">#if defined(SUPPORT_UNORDERED_CHARSET)</span>
+    <span style="color:#0057ae">int</span> fallbackIndex <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>      <span style="color:#838183; font-style:italic">// Get index of fallback glyph &apos;?&apos;</span>
+    <span style="color:#838183; font-style:italic">// Look for character index in the unordered charset</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> font<span style="color:#000000">.</span>glyphCount<span style="color:#000000">;</span> i<span style="color:#000000">++)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>font<span style="color:#000000">.</span>glyphs<span style="color:#000000">[</span>i<span style="color:#000000">].</span>value <span style="color:#000000">==</span> <span style="color:#b07e00">63</span><span style="color:#000000">)</span> fallbackIndex <span style="color:#000000">=</span> i<span style="color:#000000">;</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>font<span style="color:#000000">.</span>glyphs<span style="color:#000000">[</span>i<span style="color:#000000">].</span>value <span style="color:#000000">==</span> codepoint<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            index <span style="color:#000000">=</span> i<span style="color:#000000">;</span>
+            <span style="color:#000000; font-weight:bold">break</span><span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>index <span style="color:#000000">==</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; (</span>font<span style="color:#000000">.</span>glyphs<span style="color:#000000">[</span><span style="color:#b07e00">0</span><span style="color:#000000">].</span>value <span style="color:#000000">!=</span> codepoint<span style="color:#000000">))</span> index <span style="color:#000000">=</span> fallbackIndex<span style="color:#000000">;</span>
+<span style="color:#008200">#else</span>
+    index <span style="color:#000000">=</span> codepoint <span style="color:#000000">-</span> <span style="color:#b07e00">32</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> index<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

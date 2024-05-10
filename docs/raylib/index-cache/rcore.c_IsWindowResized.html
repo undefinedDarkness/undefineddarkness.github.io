@@ -1,0 +1,7 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsWindowResized</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB)</span>
+    <span style="color:#000000; font-weight:bold">return</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>resizedLastFrame<span style="color:#000000">;</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#000000; font-weight:bold">return false</span><span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

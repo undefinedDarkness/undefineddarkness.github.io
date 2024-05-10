@@ -1,0 +1,12 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetAudioBufferPitch</span><span style="color:#000000">(</span>AudioBuffer <span style="color:#000000">*</span>buffer<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> pitch<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">((</span>buffer <span style="color:#000000">!=</span> NULL<span style="color:#000000">) &amp;&amp; (</span>pitch <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// Pitching is just an adjustment of the sample rate.</span>
+        <span style="color:#838183; font-style:italic">// Note that this changes the duration of the sound:</span>
+        <span style="color:#838183; font-style:italic">//  - higher pitches will make the sound faster</span>
+        <span style="color:#838183; font-style:italic">//  - lower pitches make it slower</span>
+        ma_uint32 outputSampleRate <span style="color:#000000">= (</span>ma_uint32<span style="color:#000000">)((</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>buffer<span style="color:#000000">-&gt;</span>converter<span style="color:#000000">.</span>sampleRateOut<span style="color:#000000">/</span>pitch<span style="color:#000000">);</span>
+        <span style="color:#010181">ma_data_converter_set_rate</span><span style="color:#000000">(&amp;</span>buffer<span style="color:#000000">-&gt;</span>converter<span style="color:#000000">,</span> buffer<span style="color:#000000">-&gt;</span>converter<span style="color:#000000">.</span>sampleRateIn<span style="color:#000000">,</span> outputSampleRate<span style="color:#000000">);</span>
+        buffer<span style="color:#000000">-&gt;</span>pitch <span style="color:#000000">=</span> pitch<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

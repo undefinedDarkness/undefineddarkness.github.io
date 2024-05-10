@@ -1,0 +1,9 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadAudioBuffer</span><span style="color:#000000">(</span>AudioBuffer <span style="color:#000000">*</span>buffer<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>buffer <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">ma_data_converter_uninit</span><span style="color:#000000">(&amp;</span>buffer<span style="color:#000000">-&gt;</span>converter<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        <span style="color:#010181">UntrackAudioBuffer</span><span style="color:#000000">(</span>buffer<span style="color:#000000">);</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>buffer<span style="color:#000000">-&gt;</span>data<span style="color:#000000">);</span>
+        <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>buffer<span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

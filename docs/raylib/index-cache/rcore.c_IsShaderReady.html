@@ -1,0 +1,25 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsShaderReady</span><span style="color:#000000">(</span>Shader shader<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">((</span>shader<span style="color:#000000">.</span>id <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp;</span>          <span style="color:#838183; font-style:italic">// Validate shader id (loaded successfully)</span>
+            <span style="color:#000000">(</span>shader<span style="color:#000000">.</span>locs <span style="color:#000000">!=</span> NULL<span style="color:#000000">));</span>     <span style="color:#838183; font-style:italic">// Validate memory has been allocated for default shader locations</span>
+    <span style="color:#838183; font-style:italic">// The following locations are tried to be set automatically (locs[i] &gt;= 0),</span>
+    <span style="color:#838183; font-style:italic">// any of them can be checked for validation but the only mandatory one is, afaik, SHADER_LOC_VERTEX_POSITION</span>
+    <span style="color:#838183; font-style:italic">// NOTE: Users can also setup manually their own attributes/uniforms and do not used the default raylib ones</span>
+    <span style="color:#838183; font-style:italic">// Vertex shader attribute locations (default)</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_POSITION]      // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_TEXCOORD01]    // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_TEXCOORD02]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_NORMAL]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_TANGENT]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_VERTEX_COLOR]         // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// Vertex shader uniform locations (default)</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MATRIX_MVP]           // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MATRIX_VIEW]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MATRIX_PROJECTION]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MATRIX_MODEL]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MATRIX_NORMAL]</span>
+    <span style="color:#838183; font-style:italic">// Fragment shader uniform locations (default)</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_COLOR_DIFFUSE]        // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MAP_DIFFUSE]          // Set by default internal shader</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MAP_SPECULAR]</span>
+    <span style="color:#838183; font-style:italic">// shader.locs[SHADER_LOC_MAP_NORMAL]</span>
+<span style="color:#000000">}</span>

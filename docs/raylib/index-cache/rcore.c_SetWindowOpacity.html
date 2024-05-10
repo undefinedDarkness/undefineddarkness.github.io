@@ -1,0 +1,7 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">SetWindowOpacity</span><span style="color:#000000">(</span><span style="color:#0057ae">float</span> opacity<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>opacity <span style="color:#000000">&gt;=</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">)</span> opacity <span style="color:#000000">=</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>opacity <span style="color:#000000">&lt;=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">)</span> opacity <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>
+    <span style="color:#010181">glfwSetWindowOpacity</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> opacity<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

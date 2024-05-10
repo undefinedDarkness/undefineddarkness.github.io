@@ -1,0 +1,6 @@
+<span style="color:#0057ae">bool</span> <span style="color:#010181">IsWindowMaximized</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#000000; font-weight:bold">return</span> <span style="color:#000000">((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MAXIMIZED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return false</span><span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,89 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">ClearWindowState</span><span style="color:#000000">(</span><span style="color:#0057ae">unsigned int</span> flags<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP)</span>
+    <span style="color:#838183; font-style:italic">// Check previous state and requested state to apply required changes</span>
+    <span style="color:#838183; font-style:italic">// NOTE: In most cases the functions already change the flags internally</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_VSYNC_HINT</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_VSYNC_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_VSYNC_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSwapInterval</span><span style="color:#000000">(</span><span style="color:#b07e00">0</span><span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_VSYNC_HINT<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_FULLSCREEN_MODE</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_FULLSCREEN_MODE<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_FULLSCREEN_MODE<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">ToggleFullscreen</span><span style="color:#000000">();</span>     <span style="color:#838183; font-style:italic">// NOTE: Window state flag updated inside function</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_RESIZABLE</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_RESIZABLE<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_RESIZABLE<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_RESIZABLE<span style="color:#000000">,</span> GLFW_FALSE<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_RESIZABLE<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_UNDECORATED</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_UNDECORATED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_UNDECORATED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_DECORATED<span style="color:#000000">,</span> GLFW_TRUE<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_UNDECORATED<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_HIDDEN</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_HIDDEN<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_HIDDEN<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwShowWindow</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_HIDDEN<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_MINIMIZED</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MINIMIZED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MINIMIZED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">RestoreWindow</span><span style="color:#000000">();</span>       <span style="color:#838183; font-style:italic">// NOTE: Window state flag updated inside function</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_MAXIMIZED</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MAXIMIZED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MAXIMIZED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">RestoreWindow</span><span style="color:#000000">();</span>       <span style="color:#838183; font-style:italic">// NOTE: Window state flag updated inside function</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_UNFOCUSED</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_UNFOCUSED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_UNFOCUSED<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_FOCUS_ON_SHOW<span style="color:#000000">,</span> GLFW_TRUE<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_UNFOCUSED<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_TOPMOST</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_TOPMOST<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_TOPMOST<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_FLOATING<span style="color:#000000">,</span> GLFW_FALSE<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_TOPMOST<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_ALWAYS_RUN</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_ALWAYS_RUN<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_ALWAYS_RUN<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_ALWAYS_RUN<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// The following states can not be changed after window creation</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_TRANSPARENT</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_TRANSPARENT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_TRANSPARENT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;WINDOW: Framebuffer transparency can only be configured before window initialization&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_HIGHDPI</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_HIGHDPI<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_HIGHDPI<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;WINDOW: High DPI can only be configured before window initialization&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_WINDOW_MOUSE_PASSTHROUGH</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MOUSE_PASSTHROUGH<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_WINDOW_MOUSE_PASSTHROUGH<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">glfwSetWindowAttrib</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">,</span> GLFW_MOUSE_PASSTHROUGH<span style="color:#000000">,</span> GLFW_FALSE<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;= ~</span>FLAG_WINDOW_MOUSE_PASSTHROUGH<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_MSAA_4X_HINT</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_MSAA_4X_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_MSAA_4X_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;WINDOW: MSAA can only be configured before window initialization&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// State change: FLAG_INTERLACED_HINT</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(((</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>flags <span style="color:#000000">&amp;</span> FLAG_INTERLACED_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">) &amp;&amp; ((</span>flags <span style="color:#000000">&amp;</span> FLAG_INTERLACED_HINT<span style="color:#000000">) &gt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">))</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_WARNING<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;RPI: Interlaced mode can only be configured before window initialization&quot;</span><span style="color:#000000">);</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

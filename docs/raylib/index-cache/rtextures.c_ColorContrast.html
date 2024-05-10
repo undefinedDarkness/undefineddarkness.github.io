@@ -1,0 +1,32 @@
+Color <span style="color:#010181">ColorContrast</span><span style="color:#000000">(</span>Color color<span style="color:#000000">,</span> <span style="color:#0057ae">float</span> contrast<span style="color:#000000">){</span>
+    Color result <span style="color:#000000">=</span> color<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>contrast <span style="color:#000000">&lt; -</span><span style="color:#b07e00">1.0</span>f<span style="color:#000000">)</span> contrast <span style="color:#000000">= -</span><span style="color:#b07e00">1.0</span>f<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>contrast <span style="color:#000000">&gt;</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">)</span> contrast <span style="color:#000000">=</span> <span style="color:#b07e00">1.0</span>f<span style="color:#000000">;</span>
+    contrast <span style="color:#000000">= (</span><span style="color:#b07e00">1.0</span>f <span style="color:#000000">+</span> contrast<span style="color:#000000">);</span>
+    contrast <span style="color:#000000">*=</span> contrast<span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> pR <span style="color:#000000">= (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>r<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">;</span>
+    pR <span style="color:#000000">-=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pR <span style="color:#000000">*=</span> contrast<span style="color:#000000">;</span>
+    pR <span style="color:#000000">+=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pR <span style="color:#000000">*=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>pR <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> pR <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>pR <span style="color:#000000">&gt;</span> <span style="color:#b07e00">255</span><span style="color:#000000">)</span> pR <span style="color:#000000">=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> pG <span style="color:#000000">= (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>g<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">;</span>
+    pG <span style="color:#000000">-=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pG <span style="color:#000000">*=</span> contrast<span style="color:#000000">;</span>
+    pG <span style="color:#000000">+=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pG <span style="color:#000000">*=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>pG <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> pG <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>pG <span style="color:#000000">&gt;</span> <span style="color:#b07e00">255</span><span style="color:#000000">)</span> pG <span style="color:#000000">=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">float</span> pB <span style="color:#000000">= (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>b<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">;</span>
+    pB <span style="color:#000000">-=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pB <span style="color:#000000">*=</span> contrast<span style="color:#000000">;</span>
+    pB <span style="color:#000000">+=</span> <span style="color:#b07e00">0.5</span>f<span style="color:#000000">;</span>
+    pB <span style="color:#000000">*=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>pB <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0</span><span style="color:#000000">)</span> pB <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>pB <span style="color:#000000">&gt;</span> <span style="color:#b07e00">255</span><span style="color:#000000">)</span> pB <span style="color:#000000">=</span> <span style="color:#b07e00">255</span><span style="color:#000000">;</span>
+    result<span style="color:#000000">.</span>r <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)</span>pR<span style="color:#000000">;</span>
+    result<span style="color:#000000">.</span>g <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)</span>pG<span style="color:#000000">;</span>
+    result<span style="color:#000000">.</span>b <span style="color:#000000">= (</span><span style="color:#0057ae">unsigned char</span><span style="color:#000000">)</span>pB<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> result<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

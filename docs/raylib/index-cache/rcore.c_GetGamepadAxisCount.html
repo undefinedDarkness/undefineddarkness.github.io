@@ -1,0 +1,8 @@
+<span style="color:#0057ae">int</span> <span style="color:#010181">GetGamepadAxisCount</span><span style="color:#000000">(</span><span style="color:#0057ae">int</span> gamepad<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#0057ae">int</span> axisCount <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>ready<span style="color:#000000">[</span>gamepad<span style="color:#000000">])</span> <span style="color:#010181">ioctl</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>streamId<span style="color:#000000">[</span>gamepad<span style="color:#000000">],</span> JSIOCGAXES<span style="color:#000000">, &amp;</span>axisCount<span style="color:#000000">);</span>
+    CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>axisCount <span style="color:#000000">=</span> axisCount<span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000; font-weight:bold">return</span> CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>axisCount<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

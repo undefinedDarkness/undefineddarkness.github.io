@@ -1,0 +1,5 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">GenTextureMipmaps</span><span style="color:#000000">(</span>Texture2D <span style="color:#000000">*</span>texture<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// NOTE: NPOT textures support check inside function</span>
+    <span style="color:#838183; font-style:italic">// On WebGL (OpenGL ES 2.0) NPOT textures support is limited</span>
+    <span style="color:#010181">rlGenTextureMipmaps</span><span style="color:#000000">(</span>texture<span style="color:#000000">-&gt;</span>id<span style="color:#000000">,</span> texture<span style="color:#000000">-&gt;</span>width<span style="color:#000000">,</span> texture<span style="color:#000000">-&gt;</span>height<span style="color:#000000">,</span> texture<span style="color:#000000">-&gt;</span>format<span style="color:#000000">, &amp;</span>texture<span style="color:#000000">-&gt;</span>mipmaps<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

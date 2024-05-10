@@ -1,0 +1,39 @@
+Vector3 <span style="color:#010181">ColorToHSV</span><span style="color:#000000">(</span>Color color<span style="color:#000000">){</span>
+    Vector3 hsv <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    Vector3 rgb <span style="color:#000000">= { (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>r<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">, (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>g<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f<span style="color:#000000">, (</span><span style="color:#0057ae">float</span><span style="color:#000000">)</span>color<span style="color:#000000">.</span>b<span style="color:#000000">/</span><span style="color:#b07e00">255.0</span>f <span style="color:#000000">};</span>
+    <span style="color:#0057ae">float</span> min<span style="color:#000000">,</span> max<span style="color:#000000">,</span> delta<span style="color:#000000">;</span>
+    min <span style="color:#000000">=</span> rgb<span style="color:#000000">.</span>x <span style="color:#000000">&lt;</span> rgb<span style="color:#000000">.</span>y<span style="color:#000000">?</span> rgb<span style="color:#000000">.</span>x <span style="color:#000000">:</span> rgb<span style="color:#000000">.</span>y<span style="color:#000000">;</span>
+    min <span style="color:#000000">=</span> min  <span style="color:#000000">&lt;</span> rgb<span style="color:#000000">.</span>z<span style="color:#000000">?</span> min  <span style="color:#000000">:</span> rgb<span style="color:#000000">.</span>z<span style="color:#000000">;</span>
+    max <span style="color:#000000">=</span> rgb<span style="color:#000000">.</span>x <span style="color:#000000">&gt;</span> rgb<span style="color:#000000">.</span>y<span style="color:#000000">?</span> rgb<span style="color:#000000">.</span>x <span style="color:#000000">:</span> rgb<span style="color:#000000">.</span>y<span style="color:#000000">;</span>
+    max <span style="color:#000000">=</span> max  <span style="color:#000000">&gt;</span> rgb<span style="color:#000000">.</span>z<span style="color:#000000">?</span> max  <span style="color:#000000">:</span> rgb<span style="color:#000000">.</span>z<span style="color:#000000">;</span>
+    hsv<span style="color:#000000">.</span>z <span style="color:#000000">=</span> max<span style="color:#000000">;</span>            <span style="color:#838183; font-style:italic">// Value</span>
+    delta <span style="color:#000000">=</span> max <span style="color:#000000">-</span> min<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>delta <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0.00001</span>f<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        hsv<span style="color:#000000">.</span>y <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>
+        hsv<span style="color:#000000">.</span>x <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>       <span style="color:#838183; font-style:italic">// Undefined, maybe NAN?</span>
+        <span style="color:#000000; font-weight:bold">return</span> hsv<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>max <span style="color:#000000">&gt;</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// NOTE: If max is 0, this divide would cause a crash</span>
+        hsv<span style="color:#000000">.</span>y <span style="color:#000000">= (</span>delta<span style="color:#000000">/</span>max<span style="color:#000000">);</span>    <span style="color:#838183; font-style:italic">// Saturation</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// NOTE: If max is 0, then r = g = b = 0, s = 0, h is undefined</span>
+        hsv<span style="color:#000000">.</span>y <span style="color:#000000">=</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">;</span>
+        hsv<span style="color:#000000">.</span>x <span style="color:#000000">=</span> NAN<span style="color:#000000">;</span>        <span style="color:#838183; font-style:italic">// Undefined</span>
+        <span style="color:#000000; font-weight:bold">return</span> hsv<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// NOTE: Comparing float values could not work properly</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>rgb<span style="color:#000000">.</span>x <span style="color:#000000">&gt;=</span> max<span style="color:#000000">)</span> hsv<span style="color:#000000">.</span>x <span style="color:#000000">= (</span>rgb<span style="color:#000000">.</span>y <span style="color:#000000">-</span> rgb<span style="color:#000000">.</span>z<span style="color:#000000">)/</span>delta<span style="color:#000000">;</span>    <span style="color:#838183; font-style:italic">// Between yellow &amp; magenta</span>
+    <span style="color:#000000; font-weight:bold">else</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>rgb<span style="color:#000000">.</span>y <span style="color:#000000">&gt;=</span> max<span style="color:#000000">)</span> hsv<span style="color:#000000">.</span>x <span style="color:#000000">=</span> <span style="color:#b07e00">2.0</span>f <span style="color:#000000">+ (</span>rgb<span style="color:#000000">.</span>z <span style="color:#000000">-</span> rgb<span style="color:#000000">.</span>x<span style="color:#000000">)/</span>delta<span style="color:#000000">;</span>  <span style="color:#838183; font-style:italic">// Between cyan &amp; yellow</span>
+        <span style="color:#000000; font-weight:bold">else</span> hsv<span style="color:#000000">.</span>x <span style="color:#000000">=</span> <span style="color:#b07e00">4.0</span>f <span style="color:#000000">+ (</span>rgb<span style="color:#000000">.</span>x <span style="color:#000000">-</span> rgb<span style="color:#000000">.</span>y<span style="color:#000000">)/</span>delta<span style="color:#000000">;</span>      <span style="color:#838183; font-style:italic">// Between magenta &amp; cyan</span>
+    <span style="color:#000000">}</span>
+    hsv<span style="color:#000000">.</span>x <span style="color:#000000">*=</span> <span style="color:#b07e00">60.0</span>f<span style="color:#000000">;</span>     <span style="color:#838183; font-style:italic">// Convert to degrees</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>hsv<span style="color:#000000">.</span>x <span style="color:#000000">&lt;</span> <span style="color:#b07e00">0.0</span>f<span style="color:#000000">)</span> hsv<span style="color:#000000">.</span>x <span style="color:#000000">+=</span> <span style="color:#b07e00">360.0</span>f<span style="color:#000000">;</span>
+    <span style="color:#000000; font-weight:bold">return</span> hsv<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

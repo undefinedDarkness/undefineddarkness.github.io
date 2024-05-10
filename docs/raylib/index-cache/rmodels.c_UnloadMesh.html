@@ -1,0 +1,17 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadMesh</span><span style="color:#000000">(</span>Mesh mesh<span style="color:#000000">){</span>
+    <span style="color:#838183; font-style:italic">// Unload rlgl mesh vboId data</span>
+    <span style="color:#010181">rlUnloadVertexArray</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vaoId<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vboId <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> MAX_MESH_VERTEX_BUFFERS<span style="color:#000000">;</span> i<span style="color:#000000">++)</span> <span style="color:#010181">rlUnloadVertexBuffer</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vboId<span style="color:#000000">[</span>i<span style="color:#000000">]);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vboId<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>vertices<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>texcoords<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>normals<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>colors<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>tangents<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>texcoords2<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>indices<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>animVertices<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>animNormals<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>boneWeights<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>mesh<span style="color:#000000">.</span>boneIds<span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

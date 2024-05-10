@@ -1,0 +1,539 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+@font-face {
+    font-family: "Victor Mono";
+    src: url('./VictorMono-MediumItalic.woff2');
+}
+
+.halt-animation {
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+}
+
+.halt-animation * {
+    animation-delay: 0ms !important;
+    animation-duration: 0ms !important;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    /* allow all elements to inherit box-sizing */
+    box-sizing: inherit;
+}
+
+body {
+	/*-- Required to move mouse if box is moved too --*/
+    --box-x: 0px;
+    --box-y: 0px;
+    --box-width: 30vw;
+    --box-height: 25vh;
+
+	/*-- State --*/
+    --cursor-size: 40px;
+    --options-menu-position-x: min(75vw, 800px);
+    --offset-x: calc(max(var(--popout-size), var(--box-width)) + 6em);
+    --imagebox-position-x: calc(max(var(--offset-x), 100vw - var(--offset-x)));
+    --popout-size: 32vw;
+    
+	--border-colour: #1976D2;
+	--surface: #1a1a1a;
+
+    margin: 0;
+    position: relative;
+
+    color: #fafafa ;
+    font-family: "Space Mono", 'Courier New', Courier, monospace;
+}
+
+.viewport {
+    max-height: 100vh;
+    /* Grid Background */
+    background-image:
+        linear-gradient(to right, #222  1px, transparent 1px),
+        linear-gradient(to bottom, #222  1px, transparent 1px);
+    background-color: #000;
+    background-size: 40px 40px;
+}
+
+.viewport#stack {
+	padding: 1em;
+	display: flex;
+}
+
+.viewport#stack > * { flex: 1; }
+
+.tech-grid {
+	display: grid;
+	gap: 1em;
+	grid-auto-rows: 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.quad {
+	display: grid;
+	gap: 0.3em;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	aspect-ratio: 1/1;
+}
+
+.tech-grid a {
+	display: block;
+	aspect-ratio: 1/1;
+	background: var(--surface);
+	font-size: 6em;
+	text-align:center;
+	padding: 2rem;
+}
+
+.view-scroller {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    background-color: #3a3a3a;
+    border-radius: 25px;
+    padding: 0.5em;
+    color: white;
+    z-index: 999;
+    /* box-shadow: 0px 0px 3px white; */
+}
+
+.view-scroller > button {
+    cursor: pointer;
+    border: none;
+    color: inherit;
+    background-color: inherit;
+}
+
+.hidden {
+	display: none !important;
+}
+
+body,
+html,
+.viewport {
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.viewport {
+	overflow: hidden;
+	padding: 1em;
+}
+
+span.special {
+    font-family: 'Victor Mono';
+    background: linear-gradient(to right, orange, orangered);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#rectangle,
+#cursor,
+#options-menu {
+    position: absolute;
+}
+
+.box {
+	box-shadow: 16px 16px 20px -6px rgba(0,0,0,0.5);
+    border-radius: 4px;
+	z-index: 5 !important;
+    background-color: var(--surface);
+    user-select: none;
+	border: 3px solid var(--border-colour);
+}
+
+#rectangle {
+	--textbox-width: min-content;
+    animation: rectangle-mouse-expand 2s,
+	rectangle-with-child-expand 5s 5s steps(20, end);
+    animation-fill-mode: forwards;
+    display: flex;
+    transform-origin: top left;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    max-width: min-content;
+	width: 0;
+	height: 0;
+	translate: var(--box-x) var(--box-y);
+}
+
+@keyframes rectangle-with-child-expand {
+	from {
+		width: var(--box-width);
+	}
+	to {
+		width: 100%;
+	}
+}
+
+@keyframes rectangle-mouse-expand {
+    from {
+        display: none;
+        min-height: 0;
+		min-width: 0;
+    }
+
+    to {
+        display: block;
+		min-height: var(--box-height);
+    	min-width: var(--box-width);
+	}
+}
+
+/*
+    Mouse Movement:
+    1) Drag and resize box 4s t=0
+    2) Click 0.5 t=4s
+    2.5) TYPING 4s t=4.5s
+    3) Move to position 2 1s t=8.5s
+    4) Open options menu 0.5s t=9.5s
+    5) Click for imagebox 1s t=10s
+    5.5) IMAGEBOX SLIDE IN 1s
+    6) Move to side button 1s t=12s
+*/
+
+#cursor {
+    display: block;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    background-color: tomato;
+    border-radius: 100%;
+    animation: mouse-drag 4s, /* expand box and move back */
+        mouse-click 0.5s linear 4s,
+        mouse-move-to-options-menu 1s 8.5s,
+        mouse-click 0.5s linear 9.5s,
+        mouse-click 0.5s 11s,
+        mouse-close-options-menu-and-move-to-popout-btn 1s 12s,
+        mouse-click 0.5s 13s, /* animation takes 0.8 + 1 s to complete */
+		mouse-disappear 0.5s 14.8s;
+    animation-fill-mode: forwards;
+    z-index: 999;
+    position: absolute;
+}
+
+@keyframes mouse-disappear {
+	from {
+		opacity: 1;
+		z-index: 999;
+	}
+	to {
+		opacity: 0;
+		z-index: -1;
+	}
+}
+
+@keyframes mouse-close-options-menu-and-move-to-popout-btn {
+    from {
+        translate: var(--options-menu-position-x) 30px;
+    }
+
+    to {
+        translate: 0 calc(50vh - 2em);
+    }
+}
+
+@keyframes mouse-move-to-options-menu {
+    from {
+        translate: var(--box-x) var(--box-y);
+    }
+
+    to {
+        translate: var(--options-menu-position-x) 30px;
+    }
+}
+
+@keyframes mouse-drag {
+    from {
+        translate: none;
+    }
+
+    50% {
+        translate: calc(var(--box-width)) calc(var(--box-height));
+    }
+
+    to {
+        translate: var(--box-x) var(--box-y);
+    }
+}
+
+@keyframes mouse-click {
+    50% {
+        scale: 1.5;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+#textbox {
+	margin: 1em;
+	width: 0;
+    overflow: hidden;
+    animation: textbox-typing 3s 4.5s steps(20, end),
+        blink-cursor 0.5s step-end 4.5s infinite;
+    animation-fill-mode: forwards;
+    white-space: nowrap;
+    font-size: 3em;
+    max-width: max-content;
+    border-right: 5px solid transparent;
+}
+
+@keyframes textbox-typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-cursor {
+
+    from,
+    to {
+        border-right-color: none;
+    }
+
+    50% {
+        border-right-color: orange;
+    }
+}
+
+#options-menu {
+    overflow: hidden;
+    height: 0;
+    width: 0;
+    translate: var(--options-menu-position-x) 20px;
+    background-color: white;
+    color: black;
+    animation: options-menu-reveal 1s 9.5s, options-menu-reveal 1s 13s reverse;
+    animation-fill-mode: forwards;
+    max-height: 110px;
+    list-style: none;
+    padding: 0;
+    z-index: 2;
+    margin: 0;
+    max-width: max-content;
+}
+
+@keyframes options-menu-reveal {
+    from {
+        height: 0;
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#options-menu li:first-child {
+    background-color: #42A5F5;
+    color: white;
+}
+
+#options-menu li {
+    padding: 1em;
+}
+
+#imagebox {
+    aspect-ratio: 1/1;
+    animation: slide-in 1s 11s;
+    animation-fill-mode: forwards;
+    /* z-index: 5; */
+    left: 110%;
+	position: relative;
+}
+
+#imagebox img {
+    object-fit: contain;
+    max-width: 100%;
+	max-height: 100%;
+}
+
+#imagebox div {
+    padding: 1em;
+	width: fit-content;
+	max-width: 35vw;
+}
+
+@keyframes slide-in {
+    to {
+        left: var(--imagebox-position-x);
+    }
+}
+
+#foldoutbutton {
+    position: absolute;
+    background-color: #3a3a3a;
+    border-radius: 0 50% 50% 0;
+    width: 4em;
+    height: 4em;
+    background-image: url(/assets/other/chevron.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+	animation: foldoutbtn-rotate 0.5s 13.5s forwards;
+    top: calc(50vh - 2em);
+    left: 0;
+	transition: all 0.3s ease;
+}
+
+#foldoutbutton.flip {
+	animation: foldoutbtn-rotate 0.5s 1s forwards;
+	animation-direction: reverse;
+}
+
+@keyframes foldoutbtn-rotate {
+	from {
+    background-image: url(/assets/other/chevron.svg);
+	}
+	to {
+		background-image: url(/assets/other/chevron-inv.svg);
+	}
+}
+
+#popout {
+	min-width: min-content;
+	min-height: min-content;
+	position: absolute;
+    top: calc(50vh - 2em);
+    left: -100%;
+    animation: popout-slide-out 1s 13.8s forwards;
+    padding: 1em;
+    font-size: 1.5em;
+    width: var(--popout-size);
+	transition: margin-left 1s ease;
+	margin-left: 0;
+}
+
+#popout.slide-out {
+	margin-left: -100%;
+}
+
+h2 {
+    margin: 0.4em 0;
+}
+
+p {
+    margin: 0;
+}
+
+@keyframes popout-slide-out {
+	from {
+		left: -100%;
+	}
+    to {
+        left: 0;
+    }
+}
+
+
+/* VIEW 2 */
+
+.card-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5em;
+    padding: 3em 5em;
+    perspective: 1000px;
+}
+
+.card {
+    border-radius: 25px;
+    flex: 1;
+    color: transparent;
+    aspect-ratio: 9/16;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+.card > *:last-child {
+    transform: rotateY(180deg);
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    padding: 1em 1em;
+    font-size: 1em;
+}
+
+.card > *:last-child h3 {
+    margin: 0;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.card > *:last-child {
+    background-position: left;
+    background-size: cover;
+
+    background:  linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), url('https://images.unsplash.com/photo-1700685188583-bbd552984349?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+} 
+
+.card-bg {
+    border-radius: 25px;
+    box-shadow: 0 0 0 10px #f0f0f0;
+    background-color:#556;
+    background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+    background-size:80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+#ani-card-group {
+    display: flex;
+    position: absolute;
+    top: calc(-1.5 * (16/9 * 15vw));
+    left: 50%;
+}
+
+
+#ani-card-group > * {
+    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15vw;
+    aspect-ratio: 9/16;
+}
+
+#ani-card-3 {
+    rotate: 30deg;
+}
+#ani-card-2 {
+    rotate: 15deg;
+}

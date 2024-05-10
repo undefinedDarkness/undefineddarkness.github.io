@@ -1,0 +1,5 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">EndMode2D</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+    <span style="color:#010181">rlDrawRenderBatchActive</span><span style="color:#000000">();</span>      <span style="color:#838183; font-style:italic">// Update and draw internal render batch</span>
+    <span style="color:#010181">rlLoadIdentity</span><span style="color:#000000">();</span>               <span style="color:#838183; font-style:italic">// Reset current matrix (modelview)</span>
+    <span style="color:#010181">rlMultMatrixf</span><span style="color:#000000">(</span><span style="color:#010181">MatrixToFloat</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>screenScale<span style="color:#000000">));</span> <span style="color:#838183; font-style:italic">// Apply screen scaling if required</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,21 @@
+Image <span style="color:#010181">LoadImage</span><span style="color:#000000">(</span><span style="color:#0057ae">const char</span> <span style="color:#000000">*</span>fileName<span style="color:#000000">){</span>
+    Image image <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_PNG) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_BMP) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_TGA) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_JPG) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_GIF) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_PIC) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_HDR) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_PNM) || \</span>
+<span style="color:#008200">    defined(SUPPORT_FILEFORMAT_PSD)</span>
+    <span style="color:#008200">#define STBI_REQUIRED</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#838183; font-style:italic">// Loading file to memory</span>
+    <span style="color:#0057ae">unsigned int</span> fileSize <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#0057ae">unsigned char</span> <span style="color:#000000">*</span>fileData <span style="color:#000000">=</span> <span style="color:#010181">LoadFileData</span><span style="color:#000000">(</span>fileName<span style="color:#000000">, &amp;</span>fileSize<span style="color:#000000">);</span>
+    <span style="color:#838183; font-style:italic">// Loading image from memory data</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>fileData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span> image <span style="color:#000000">=</span> <span style="color:#010181">LoadImageFromMemory</span><span style="color:#000000">(</span><span style="color:#010181">GetFileExtension</span><span style="color:#000000">(</span>fileName<span style="color:#000000">),</span> fileData<span style="color:#000000">,</span> fileSize<span style="color:#000000">);</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>fileData<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">return</span> image<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

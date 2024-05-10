@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>Playing around with Stable Diffusion</title>
+	<meta property="og:title" content="Playing around with Stable Diffusion" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/out/2023/sd.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul><li><a href='#installation'>Installation</a></li></ul>
+	</nav>
+	<article>
+
+
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
+<img src="/assets/images/dump/00004-2303370661.png" alt="Rei on bike" title="Rei on bike" loading="lazy" />
+<header>
+<h1>Playing around with Stable Diffusion</h1>
+</header>
+</header>
+<br/>
+Recently I finally got my hands on a new laptop for college that has a an actual honest to goodness GPU in it!<br/>
+This allowed me to explore many things that I couldn't do before such as Vulkan, AVX2 SIMD and running AI models locally among others.<br/>
+<br/>
+Granted my GPU doesn't have the copius amounts of VRAM necessary to have a good experience with Stable Diffussion (gonna call it SD now) but still<br/>
+<br/>
+<mark>This guide is just a combination of my own thoughts and a small guide to whet your appetite, If you're interested, you can find detailed guides at <a href="https://stable-diffusion-art.com/tutorials/">stable diffusion art</a></mark><br/>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>
+Getting it running was a pretty simple task, You need to simply follow the instructions from <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">automatic1111</a>, Which for Windows anyway involves simply downloading an archive prepackaged with Python and whatever else you need, After that's installed, You'll need to get some Models to actually generate your images and some LORAs to tweak said images, You can think of them this way:<br/>
+<br/>
+<ul>
+<li>A model is the thing that actually takes in all your parameters and does its "thing" to generate an image<br/>
+</li>
+<li>A LORA is like a small companion that tweaks the math in a model to increase or introduce the influence of a "concept", Examples of LORAs can be to have a very detailed image, A specific type of clothing, A specific pose, A specific facial expression things like that<br/>
+</li>
+<li>A negative embedding is the same but for things you don't want in your image<br/>
+</li>
+</ul><br/>You can find these on <a href="https://civitai.com/models">CivitAI</a><br/>
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+

@@ -1,0 +1,122 @@
+/* Small helper classes */
+.txt-c {
+    text-align: center;
+}
+
+.block-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset {
+    font-weight: normal;
+}
+
+.pxl,
+.pxl-art {
+    image-rendering: crisp-edges;
+}
+
+/* Position something in the margin of content */
+.in-margin {
+    position: absolute;
+    left: 2em;
+    user-select: none;
+    display: inline-block;
+    font-family: var(--serif);
+}
+
+.demo .split-e>*,
+.demo .quad>*,
+.demo .split>* {
+    border: 2.5px solid coral;
+    text-align: center;
+}
+
+
+/* Split section vertically */
+.split,
+.split-e {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+}
+
+.split-e {
+    grid-template-columns: 19em 19em;
+}
+
+/* Fit as many items as possible */
+
+.quad-e,
+.quad {
+    grid-template-columns: repeat(auto-fit, 19em);
+    grid-template-rows: 1fr 1fr;
+    display: grid;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+}
+
+.quad-e {
+    grid-template-columns: repeat(auto-fit, 17em);
+}
+
+/* Arrange children horizontally */
+.horizontal:not(p)>p,
+.horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1em;
+    row-gap: 1em;
+}
+
+.img-sml {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+/* Show scrollbars as required */
+.ovr-x {
+    overflow-x: auto;
+}
+
+/*
+.katex-html {
+    display: none;
+}
+*/
+
+.linklist a {
+    text-decoration: none;
+    border-right: 2px solid #888;
+    font-style: italic;
+    padding: 0 8px;
+}
+
+.linklist a:last-of-type {
+    border-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .quad {
+        grid-template-columns: unset;
+    }
+
+    .split-e {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .force-break {
+        grid-template-columns: 1fr !important;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .hide-m {
+        display: none;
+    }
+}

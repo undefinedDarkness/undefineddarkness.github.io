@@ -1,0 +1,120 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">CloseWindow</span><span style="color:#000000">(</span><span style="color:#0057ae">void</span><span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(SUPPORT_GIF_RECORDING)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>gifRecording<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        MsfGifResult result <span style="color:#000000">=</span> <span style="color:#010181">msf_gif_end</span><span style="color:#000000">(&amp;</span>gifState<span style="color:#000000">);</span>
+        <span style="color:#010181">msf_gif_free</span><span style="color:#000000">(</span>result<span style="color:#000000">);</span>
+        gifRecording <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_MODULE_RTEXT) &amp;&amp; defined(SUPPORT_DEFAULT_FONT)</span>
+    <span style="color:#010181">UnloadFontDefault</span><span style="color:#000000">();</span>        <span style="color:#838183; font-style:italic">// WARNING: Module required: rtext</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#010181">rlglClose</span><span style="color:#000000">();</span>                <span style="color:#838183; font-style:italic">// De-init rlgl</span>
+<span style="color:#008200">#if defined(PLATFORM_DESKTOP) || defined(PLATFORM_WEB)</span>
+    <span style="color:#010181">glfwDestroyWindow</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>handle<span style="color:#000000">);</span>
+    <span style="color:#010181">glfwTerminate</span><span style="color:#000000">();</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(_WIN32) &amp;&amp; defined(SUPPORT_WINMM_HIGHRES_TIMER) &amp;&amp; !defined(SUPPORT_BUSY_WAIT_LOOP)</span>
+    <span style="color:#010181">timeEndPeriod</span><span style="color:#000000">(</span><span style="color:#b07e00">1</span><span style="color:#000000">);</span>           <span style="color:#838183; font-style:italic">// Restore time period</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_ANDROID) || defined(PLATFORM_RPI)</span>
+    <span style="color:#838183; font-style:italic">// Close surface, context and display</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device <span style="color:#000000">!=</span> EGL_NO_DISPLAY<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">eglMakeCurrent</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">,</span> EGL_NO_SURFACE<span style="color:#000000">,</span> EGL_NO_SURFACE<span style="color:#000000">,</span> EGL_NO_CONTEXT<span style="color:#000000">);</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface <span style="color:#000000">!=</span> EGL_NO_SURFACE<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">eglDestroySurface</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface<span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface <span style="color:#000000">=</span> EGL_NO_SURFACE<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context <span style="color:#000000">!=</span> EGL_NO_CONTEXT<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">eglDestroyContext</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context<span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context <span style="color:#000000">=</span> EGL_NO_CONTEXT<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">eglTerminate</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device <span style="color:#000000">=</span> EGL_NO_DISPLAY<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_DRM)</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevFB<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">drmModeRmFB</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fd<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevFB<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevFB <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevBO<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">gbm_surface_release_buffer</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmSurface<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevBO<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>prevBO <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmSurface<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">gbm_surface_destroy</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmSurface<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmSurface <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmDevice<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">gbm_device_destroy</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmDevice<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>gbmDevice <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>connector<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">drmModeSetCrtc</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fd<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">-&gt;</span>crtc_id<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">-&gt;</span>buffer_id<span style="color:#000000">,</span>
+                CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">-&gt;</span>x<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">-&gt;</span>y<span style="color:#000000">, &amp;</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>connector<span style="color:#000000">-&gt;</span>connector_id<span style="color:#000000">,</span> <span style="color:#b07e00">1</span><span style="color:#000000">, &amp;</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">-&gt;</span>mode<span style="color:#000000">);</span>
+            <span style="color:#010181">drmModeFreeConnector</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>connector<span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>connector <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">drmModeFreeCrtc</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>crtc <span style="color:#000000">=</span> NULL<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fd <span style="color:#000000">!= -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">close</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fd<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>fd <span style="color:#000000">= -</span><span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#838183; font-style:italic">// Close surface, context and display</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device <span style="color:#000000">!=</span> EGL_NO_DISPLAY<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface <span style="color:#000000">!=</span> EGL_NO_SURFACE<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">eglDestroySurface</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface<span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>surface <span style="color:#000000">=</span> EGL_NO_SURFACE<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context <span style="color:#000000">!=</span> EGL_NO_CONTEXT<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">eglDestroyContext</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">,</span> CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context<span style="color:#000000">);</span>
+            CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>context <span style="color:#000000">=</span> EGL_NO_CONTEXT<span style="color:#000000">;</span>
+        <span style="color:#000000">}</span>
+        <span style="color:#010181">eglTerminate</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>device <span style="color:#000000">=</span> EGL_NO_DISPLAY<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(PLATFORM_RPI) || defined(PLATFORM_DRM)</span>
+    <span style="color:#838183; font-style:italic">// Wait for mouse and gamepad threads to finish before closing</span>
+    <span style="color:#838183; font-style:italic">// NOTE: Those threads should already have finished at this point</span>
+    <span style="color:#838183; font-style:italic">// because they are controlled by CORE.Window.shouldClose variable</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>shouldClose <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">true</span><span style="color:#000000">;</span>   <span style="color:#838183; font-style:italic">// Added to force threads to exit when the close window is called</span>
+    <span style="color:#838183; font-style:italic">// Close the evdev keyboard</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Keyboard<span style="color:#000000">.</span>fd <span style="color:#000000">!= -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#010181">close</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Keyboard<span style="color:#000000">.</span>fd<span style="color:#000000">);</span>
+        CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Keyboard<span style="color:#000000">.</span>fd <span style="color:#000000">= -</span><span style="color:#b07e00">1</span><span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">for</span> <span style="color:#000000">(</span><span style="color:#0057ae">int</span> i <span style="color:#000000">=</span> <span style="color:#b07e00">0</span><span style="color:#000000">;</span> i <span style="color:#000000">&lt;</span> <span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>eventWorker<span style="color:#000000">)/</span><span style="color:#000000; font-weight:bold">sizeof</span><span style="color:#000000">(</span>InputEventWorker<span style="color:#000000">); ++</span>i<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>eventWorker<span style="color:#000000">[</span>i<span style="color:#000000">].</span>threadId<span style="color:#000000">)</span>
+        <span style="color:#000000">{</span>
+            <span style="color:#010181">pthread_join</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>eventWorker<span style="color:#000000">[</span>i<span style="color:#000000">].</span>threadId<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+        <span style="color:#000000">}</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>threadId<span style="color:#000000">)</span> <span style="color:#010181">pthread_join</span><span style="color:#000000">(</span>CORE<span style="color:#000000">.</span>Input<span style="color:#000000">.</span>Gamepad<span style="color:#000000">.</span>threadId<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_EVENTS_AUTOMATION)</span>
+    <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>events<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+    CORE<span style="color:#000000">.</span>Window<span style="color:#000000">.</span>ready <span style="color:#000000">=</span> <span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">;</span>
+    <span style="color:#010181">TRACELOG</span><span style="color:#000000">(</span>LOG_INFO<span style="color:#000000">,</span> <span style="color:#bf0303">&quot;Window closed successfully&quot;</span><span style="color:#000000">);</span>
+<span style="color:#000000">}</span>

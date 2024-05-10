@@ -1,0 +1,14 @@
+Wave <span style="color:#010181">WaveCopy</span><span style="color:#000000">(</span>Wave wave<span style="color:#000000">){</span>
+    Wave newWave <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+    newWave<span style="color:#000000">.</span>data <span style="color:#000000">=</span> <span style="color:#010181">RL_MALLOC</span><span style="color:#000000">(</span>wave<span style="color:#000000">.</span>frameCount<span style="color:#000000">*</span>wave<span style="color:#000000">.</span>channels<span style="color:#000000">*</span>wave<span style="color:#000000">.</span>sampleSize<span style="color:#000000">/</span><span style="color:#b07e00">8</span><span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>newWave<span style="color:#000000">.</span>data <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// NOTE: Size must be provided in bytes</span>
+        <span style="color:#010181">memcpy</span><span style="color:#000000">(</span>newWave<span style="color:#000000">.</span>data<span style="color:#000000">,</span> wave<span style="color:#000000">.</span>data<span style="color:#000000">,</span> wave<span style="color:#000000">.</span>frameCount<span style="color:#000000">*</span>wave<span style="color:#000000">.</span>channels<span style="color:#000000">*</span>wave<span style="color:#000000">.</span>sampleSize<span style="color:#000000">/</span><span style="color:#b07e00">8</span><span style="color:#000000">);</span>
+        newWave<span style="color:#000000">.</span>frameCount <span style="color:#000000">=</span> wave<span style="color:#000000">.</span>frameCount<span style="color:#000000">;</span>
+        newWave<span style="color:#000000">.</span>sampleRate <span style="color:#000000">=</span> wave<span style="color:#000000">.</span>sampleRate<span style="color:#000000">;</span>
+        newWave<span style="color:#000000">.</span>sampleSize <span style="color:#000000">=</span> wave<span style="color:#000000">.</span>sampleSize<span style="color:#000000">;</span>
+        newWave<span style="color:#000000">.</span>channels <span style="color:#000000">=</span> wave<span style="color:#000000">.</span>channels<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+    <span style="color:#000000; font-weight:bold">return</span> newWave<span style="color:#000000">;</span>
+<span style="color:#000000">}</span>

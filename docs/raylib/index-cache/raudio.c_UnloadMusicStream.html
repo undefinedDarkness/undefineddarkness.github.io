@@ -1,0 +1,28 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">UnloadMusicStream</span><span style="color:#000000">(</span>Music music<span style="color:#000000">){</span>
+    <span style="color:#010181">UnloadAudioStream</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">);</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span><span style="color:#000000; font-weight:bold">false</span><span style="color:#000000">) { }</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_WAV)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_WAV<span style="color:#000000">)</span> <span style="color:#010181">drwav_uninit</span><span style="color:#000000">((</span>drwav <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_OGG)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_OGG<span style="color:#000000">)</span> <span style="color:#010181">stb_vorbis_close</span><span style="color:#000000">((</span>stb_vorbis <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MP3)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_MP3<span style="color:#000000">) {</span> <span style="color:#010181">drmp3_uninit</span><span style="color:#000000">((</span>drmp3 <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">); }</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_QOA)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_QOA<span style="color:#000000">)</span> <span style="color:#010181">qoaplay_close</span><span style="color:#000000">((</span>qoaplay_desc <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_FLAC)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_AUDIO_FLAC<span style="color:#000000">)</span> <span style="color:#010181">drflac_free</span><span style="color:#000000">((</span>drflac <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">,</span> NULL<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_XM)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_MODULE_XM<span style="color:#000000">)</span> <span style="color:#010181">jar_xm_free_context</span><span style="color:#000000">((</span>jar_xm_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_FILEFORMAT_MOD)</span>
+        <span style="color:#000000; font-weight:bold">else if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxType <span style="color:#000000">==</span> MUSIC_MODULE_MOD<span style="color:#000000">) {</span> <span style="color:#010181">jar_mod_unload</span><span style="color:#000000">((</span>jar_mod_context_t <span style="color:#000000">*)</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">);</span> <span style="color:#010181">RL_FREE</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>ctxData<span style="color:#000000">); }</span>
+<span style="color:#008200">#endif</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

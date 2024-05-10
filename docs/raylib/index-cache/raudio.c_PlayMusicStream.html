@@ -1,0 +1,12 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">PlayMusicStream</span><span style="color:#000000">(</span>Music music<span style="color:#000000">){</span>
+    <span style="color:#000000; font-weight:bold">if</span> <span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer <span style="color:#000000">!=</span> NULL<span style="color:#000000">)</span>
+    <span style="color:#000000">{</span>
+        <span style="color:#838183; font-style:italic">// For music streams, we need to make sure we maintain the frame cursor position</span>
+        <span style="color:#838183; font-style:italic">// This is a hack for this section of code in UpdateMusicStream()</span>
+        <span style="color:#838183; font-style:italic">// NOTE: In case window is minimized, music stream is stopped, just make sure to</span>
+        <span style="color:#838183; font-style:italic">// play again on window restore: if (IsMusicStreamPlaying(music)) PlayMusicStream(music);</span>
+        ma_uint32 frameCursorPos <span style="color:#000000">=</span> music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>frameCursorPos<span style="color:#000000">;</span>
+        <span style="color:#010181">PlayAudioStream</span><span style="color:#000000">(</span>music<span style="color:#000000">.</span>stream<span style="color:#000000">);</span>  <span style="color:#838183; font-style:italic">// WARNING: This resets the cursor position.</span>
+        music<span style="color:#000000">.</span>stream<span style="color:#000000">.</span>buffer<span style="color:#000000">-&gt;</span>frameCursorPos <span style="color:#000000">=</span> frameCursorPos<span style="color:#000000">;</span>
+    <span style="color:#000000">}</span>
+<span style="color:#000000">}</span>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>Vi IMproved</title>
+	<meta property="og:title" content="Vi IMproved" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/out/2021/vim.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul><li><a href='#plugins'>Plugins</a></li><li><a href='#configuration'>Configuration</a></li></ul>
+	</nav>
+	<article>
+
+
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
+<img class="img-sml" alt="art by u/astrellon3" src="/assets/images/dump/fd1bdbbb-2de7-4d24-ab5a-e883d5f2f103.webp" />
+<!-- TODO: recreate myself -->
+<h1>Vi IMproved</h1>
+</header>
+<i>This is just a bunch of neat stuff I find related to Vim, maybe plugins, scripts or just neat settings.</i><br/>
+Speaking of which, I found this neat article on the history of vim:<br/>
+<a href="https://twobithistory.org/2018/08/05/where-vim-came-from.html">https://twobithistory.org/2018/08/05/where-vim-came-from.html</a><br/>
+Might be a fun read.<br/>
+<br/>
+<h2 id="plugins">Plugins</h2>
+<p>
+<br/>
+<ul>
+<li><a href="https://github.com/dense-analysis/ale">🍻 Asynchronous Linting Engine</a><br/>
+  A great plugin that takes care of Linting, Formatting & Autocompletion<br/>
+  Quite customizable but some bits are a bit dated by default.<br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/ap/vim-css-color">CSS Color</a><br/>
+  Highlight hex codes & web names for colors with the actual color :), works really well<br/>
+  Lacks support for some languages (lua) but that can be easily fixed via autocommand.<br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/sheerun/vim-polyglot">Polygot</a><br/>
+  Language pack for vim,<br/>
+  A good one to have since you do not notice it much unless you're very worried about startup times<br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/mattn/emmet-vim">Emmet</a><br/>
+  Essential if you edit HTML, You probably already know about this one.<br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/eraserhd/parinfer-rust">Parinfer</a><br/>
+  Infer your parenthesis!<br/>
+  True bliss if you ever edit lisp code 😳<br/>
+  Also use this, it helps a lot: <a href="https://github.com/junegunn/rainbow_parentheses.vim">junegunn/rainbow_parentheses.vim</a><br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/lambdalisue/fern.vim">🌵 Fern</a><br/>
+  Great alternative to NERDTree / netrw and imo a much better one<br/>
+  Feels pretty clean and nice to use,<br/>
+  If you're using neovim, <a href="kyazdani42/nvim-tree.lua">nvim-tree</a> will work much better for you & it has some nicer features.<br/>
+</li>
+</ul><br/><!-- Replace with something better -->
+<br/>
+<ul>
+<li><a href="https://github.com/itchyny/lightline.vim">Lightline</a><br/>
+  I don't use a status line but if I did I would use lightline, it works really well and is easy to customize IM:<a href="https://i.imgflip.com/5pb8qw.jpg">M</a><br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/nvim-telescope/telescope.nvim">🔭 Telescope</a><br/>
+  I wish I had learnt about this before, its a really nice plugin, it generates a menu for you that allows to<br/>
+  search through files, content of files, anything and it can be mightly handy instead of fiddling with the wildmenu all day.<br/>
+  Vim users have <a href="junegunn/fzf.vim">fzf.vim</a> which does some similar stuff.<br/>
+</li>
+</ul><br/><ul>
+<li><a href="https://github.com/folke/zen-mode.nvim">Zen Mode</a><br/>
+  This is an interesting one, What it does is slim down vim's UI so it becomes very bare bones, this is really useful<br/>
+  for when you are editing documents instead of code and need vim to done down the hacker man aesthetic.<br/>
+  This plugin is <a href="https://github.com/junegunn/goyo.vim">goyo</a> for vim users.<br/>
+</li>
+</ul><br/></p>
+<h2 id="configuration">Configuration</h2>
+<p>
+<br/>
+Making the most out of vanilla vim features<br/>
+<br/>
+
+<details>
+	<summary>
+		<h4>NetRW</h4>
+	</summary>
+	<p>
+		Using NetRW as a file tree.<br/>
+From <a href="https://shapeshed.com/vim-netrw/">this post</a><br/>
+tldr:<br/>
+<br/>
+<pre>
+<code class="language-vim">let g:netrw_banner &equals; 0 " Hide the banner
+let g:netrw_browse_split &equals; 3 " Open in new tab
+let g:netrw_winsize &equals; 25 " Size
+let g:netrw_liststyle &equals; 3 " Show files in tree form	</code>
+</pre>
+<br/>
+See what each option does with <code>:help netrw-browser-settings</code><br/>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>:Grep</h4>
+	</summary>
+	<p>
+		Improving the :grep command to work similar to how <a href="https://github.com/mileszs/ack.vim">ack.vim</a> works<br/>
+See the <a href="https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3">full gist</a>, it explains everything<br/>
+final snippet:<br/>
+<br/>
+<pre>
+<code class="language-vim">function! Grep(...)
+	return system(join(&lsqb;&grepprg&rsqb; + &lsqb;expandcmd(join(a:000, ' '))&rsqb;, ' '))
+endfunction
+command! -nargs&equals;+ -complete&equals;file_in_path -bar Grep  cgetexpr Grep(&lt;f-args&gt;)
+command! -nargs&equals;+ -complete&equals;file_in_path -bar LGrep lgetexpr Grep(&lt;f-args&gt;)
+augroup quickfix
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+	autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END	</code>
+</pre>
+<br/>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>Tab Indicator</h4>
+	</summary>
+	<p>
+		If and only if you indent with tabs, vim can bestow upon you a slick tab line:<br/>
+<code>set list lcs=tab:\│\ " There is a space here :)</code><br/>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>Export to HTML</h4>
+	</summary>
+	<p>
+		This is a pretty neat capability I did not know vim had,<br/>
+By the power of an included plugin, You can run <code>:TOhtml</code> to convert the entire current file to a HTML with all of vim's<br/>
+syntax highlighted goodness,<br/>
+And you can script it! Like so:<br/>
+<br/>
+<pre>
+<code class="language-sh">lang&equals;"$2"
+f&equals;$(mktemp)
+echo "$0" | head -n -1 | nvim -n --headless \
+	+"let g:html_no_progress &equals; 0"\
+	+"let g:html_ignore_folding &equals; 0"\
+	+'let g:html_prevent_copy &equals; "fn"'\
+	+"set ft&equals;$1"\
+	+"runtime! syntax/2html.vim"\
+	+"wq! $f"\
+	+"q!" - 1&gt; /dev/null	</code>
+</pre>
+<br/>
+You can see more options for it here: <a href="https://vimhelp.org/syntax.txt.html#%3ATOhtml">https://vimhelp.org/syntax.txt.html#%3ATOhtml</a> ,<br/>
+<a href="/assets/make.html">Here</a> is a example file from the make script of this website.<br/>
+<br/>
+<ul>
+<li>✏ <strike>This is now used to generate code syntax highlighting for this site.</strike> - Turns out it was way too slow<br/>
+</li>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>Improving :help and :Man</h4>
+	</summary>
+	<p>
+		I find vim's help pages annoying to navigate since by default, its difficult to navigate between sections, this fixes it:<br/>
+<code>au FileType help,man nnoremap &lt;buffer&gt; &lt;CR&gt; &lt;C-]&gt;</code><br/>
+This makes it so hitting enter in a help buffer will try to just to the currently selected word<br/>
+(the world the cursor is on.)<br/>
+Here are some more nice shortcuts: <a href="https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation">https://vim.fandom.com/wiki/Learn_to_use_help#Simplify_help_navigation</a><br/>
+<br/>
+</p>
+<h4 id="using-vim-as-a-man-pager">Using vim as a man pager</h4>
+<p>
+There are lots of ways to do it (documented <a href="https://vim.fandom.com/wiki/Using_vim_as_a_man-page_viewer_under_Unix">here</a> but<br/>
+the simplest way I found is to simple alias <code>man</code>, like so in your shell configuration file:<br/>
+<br/>
+<pre>
+<code class="language-sh">man () {
+	nvim +"Man $2 $1" +"only"
+}	</code>
+</pre>
+<br/>
+If you use vim, remember to add this to your vimrc:<br/>
+<code>runtime ftplugin/man.vim</code><br/>
+as <code>:help ft-man-plugin</code> instructs you to.<br/>
+<br/>
+<ul>
+<li>This has some issues like files like <code>./local.man</code> but I do not often use this so its not a problem for me.<br/>
+</li>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>Linting</h4>
+	</summary>
+	<p>
+		Here are a few useful gists on the topic:<br/>
+<a href="https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252">https://gist.github.com/romainl/2f748f0c0079769e9532924b117f9252</a><br><br/>
+<a href="https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29">https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29</a><br/>
+<br/>
+What I did to get <code>shellcheck</code> to work:<br/>
+<br/>
+<ul>
+<li>Setup an autocommand to set the <code>compiler</code> to <code>shellcheck -f gcc</code> for any shell files<br/>
+</li>
+<li>Used <a href="https://github.com/mh21/errormarker.vim">https://github.com/mh21/errormarker.vim</a> to get ALE like markings<br/>
+</li>
+<li>From error marker's readme: <code>let &errorformat="%f:%l:%c: %t%&ast;[^:]:%m,%f:%l: %t%&ast;[^:]:%m," . &errorformat</code><br/>
+</li>
+<li>Made vim run <code>:make</code> on file write.<br/>
+</li>
+</ul><br/>✏ Actually I have reconsidered this, its way too painful for anything complicated over multiple lines, its a lot<br/>
+simpler to just use ALE for those, fine for stuff like GCC or Shell check tho<br/>
+	</p>
+</details>
+<br/>
+
+<details>
+	<summary>
+		<h4>Spell Checking & Dictionary Completion</h4>
+	</summary>
+	<p>
+		As much as I hate to link a luke smith video, this one actually explains stuff so here you go: <a href="https://www.youtube.com/watch?v=ez1XBUqbS68">https://www.youtube.com/watch?v=ez1XBUqbS68</a><br/>
+But basically:<br/>
+<br/>
+<ul>
+<li>Enable spell checking with <code>:set spell</code><br/>
+</li>
+<li>Add words to the white list with <code>zg</code><br/>
+</li>
+<li>Add words to the black list with <code>zug</code><br/>
+</li>
+<li>Go through the suggest corrections with <code>z=</code> while your cursor is over misspelled word.<br/>
+</li>
+</ul><br/>For dictionary completion, you can use the following snippet:<br/>
+You might need to rewrite it in vim script for vim...<br/>
+<br/>
+<pre>
+<code class="language-lua">local spell_complete &equals; vim.api.nvim_replace_termcodes('&lt;C-x&gt;&lt;C-k&gt;', true, true, true)
+local M &equals; {}
+function M.spell()
+	if vim.opt.spell
+	and (vim.fn.pumvisible() &equals;&equals; 0)
+	and ((vim.v.char &gt;&equals; 'a' and vim.v.char &lt;&equals; 'z')
+	or (vim.v.char &gt;&equals; 'A' and vim.v.char &lt;&equals; 'Z')) then
+		vim.fn.feedkeys(spell_complete, 'n')
+	end
+end
+function M.setup_spell()
+	vim.opt.spell &equals; true
+	vim.cmd &lsqb;&lsqb;
+	autocmd InsertCharPre &#42; lua require('auto').spell() " You'll need to change this
+	&rsqb;&rsqb;
+end
+
+-- And this too:
+vim.cmd &lsqb;&lsqb; au FileType markdown,html lua require('auto').setup_spell() &rsqb;&rsqb;
+
+return M	</code>
+</pre>
+<br/>
+It works, fairly <strike>well.</strike> badly, it has lots of issues when you have multiple buffers open...<br/>
+	</p>
+</details>
+<br/>
+<hr />
+<br/>
+<center><i>~ More to come.. Maybe 🚧 ~</i></center>
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+

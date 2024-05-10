@@ -1,0 +1,33 @@
+<span style="color:#0057ae">void</span> <span style="color:#010181">WaitTime</span><span style="color:#000000">(</span><span style="color:#0057ae">double</span> seconds<span style="color:#000000">){</span>
+<span style="color:#008200">#if defined(SUPPORT_BUSY_WAIT_LOOP) || defined(SUPPORT_PARTIALBUSY_WAIT_LOOP)</span>
+    <span style="color:#0057ae">double</span> destinationTime <span style="color:#000000">=</span> <span style="color:#010181">GetTime</span><span style="color:#000000">() +</span> seconds<span style="color:#000000">;</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#008200">#if defined(SUPPORT_BUSY_WAIT_LOOP)</span>
+    <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#010181">GetTime</span><span style="color:#000000">() &lt;</span> destinationTime<span style="color:#000000">) { }</span>
+<span style="color:#008200">#else</span>
+    <span style="color:#008200">#if defined(SUPPORT_PARTIALBUSY_WAIT_LOOP)</span>
+        <span style="color:#0057ae">double</span> sleepSeconds <span style="color:#000000">=</span> seconds <span style="color:#000000">-</span> seconds<span style="color:#000000">*</span><span style="color:#b07e00">0.05</span><span style="color:#000000">;</span>  <span style="color:#838183; font-style:italic">// NOTE: We reserve a percentage of the time for busy waiting</span>
+    <span style="color:#008200">#else</span>
+        <span style="color:#0057ae">double</span> sleepSeconds <span style="color:#000000">=</span> seconds<span style="color:#000000">;</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#838183; font-style:italic">// System halt functions</span>
+    <span style="color:#008200">#if defined(_WIN32)</span>
+        <span style="color:#010181">Sleep</span><span style="color:#000000">((</span><span style="color:#0057ae">unsigned long</span><span style="color:#000000">)(</span>sleepSeconds<span style="color:#000000">*</span><span style="color:#b07e00">1000.0</span><span style="color:#000000">));</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__EMSCRIPTEN__)</span>
+        <span style="color:#0057ae">struct</span> timespec req <span style="color:#000000">= {</span> <span style="color:#b07e00">0</span> <span style="color:#000000">};</span>
+        <span style="color:#0057ae">time_t</span> sec <span style="color:#000000">=</span> sleepSeconds<span style="color:#000000">;</span>
+        <span style="color:#0057ae">long</span> nsec <span style="color:#000000">= (</span>sleepSeconds <span style="color:#000000">-</span> sec<span style="color:#000000">)*</span><span style="color:#b07e00">1000000000L</span><span style="color:#000000">;</span>
+        req<span style="color:#000000">.</span>tv_sec <span style="color:#000000">=</span> sec<span style="color:#000000">;</span>
+        req<span style="color:#000000">.</span>tv_nsec <span style="color:#000000">=</span> nsec<span style="color:#000000">;</span>
+        <span style="color:#838183; font-style:italic">// NOTE: Use nanosleep() on Unix platforms... usleep() it&apos;s deprecated.</span>
+        <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#010181">nanosleep</span><span style="color:#000000">(&amp;</span>req<span style="color:#000000">, &amp;</span>req<span style="color:#000000">) == -</span><span style="color:#b07e00">1</span><span style="color:#000000">)</span> <span style="color:#000000; font-weight:bold">continue</span><span style="color:#000000">;</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(__APPLE__)</span>
+        <span style="color:#010181">usleep</span><span style="color:#000000">(</span>sleepSeconds<span style="color:#000000">*</span><span style="color:#b07e00">1000000.0</span><span style="color:#000000">);</span>
+    <span style="color:#008200">#endif</span>
+    <span style="color:#008200">#if defined(SUPPORT_PARTIALBUSY_WAIT_LOOP)</span>
+        <span style="color:#000000; font-weight:bold">while</span> <span style="color:#000000">(</span><span style="color:#010181">GetTime</span><span style="color:#000000">() &lt;</span> destinationTime<span style="color:#000000">) { }</span>
+    <span style="color:#008200">#endif</span>
+<span style="color:#008200">#endif</span>
+<span style="color:#000000">}</span>

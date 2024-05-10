@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>Fast Inverse Square Root (Quake III Arena)</title>
+	<meta property="og:title" content="Fast Inverse Square Root (Quake III Arena)" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/out/todo/fisr.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul><li><a href='#binary-reprentation-of-numbers'>Binary Reprentation of Numbers</a></li><li class='toc-subheading'><a href='#integers'>Integers</a></li></ul>
+	</nav>
+	<article>
+
+
+		<!-- KATEX LOADING -->
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="
+			renderMathInElement(document.body, {
+				output: 'mathml'
+			});
+		"></script>
+		
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
+<h1>Fast Inverse Square Root (Quake III Arena)</h1>
+</header>
+<br/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/OpenArena-Rocket.jpg/1024px-OpenArena-Rocket.jpg" class="inline">
+In 1999, The Source code for the game quake 3 arena was released, containing a rather ingenious algoritm for calculating the inverse square root of a number (\(\frac{1}{\sqrt{x}}\)), In a case, its required to calculate this very often for vector calculations and when quake 3 was being made, it was an expensive calculation that required approximation.
+
+<pre>
+<code class="language-c">float Q_rsqrt( float number )
+{
+	int32_t i;
+	float x2, y;
+	const float threehalfs &equals; 1.5F;
+
+	x2 &equals; number &#42; 0.5F;
+	y  &equals; number;
+	i  &equals; &#42; ( int32_t &#42; ) &y;                       // evil floating point bit level hacking
+	i  &equals; 0x5f3759df - ( i &gt;&gt; 1 );               // what the fuck? 
+	y  &equals; &#42; ( float &#42; ) &i;
+	y  &equals; y &#42; ( threehalfs - ( x2 &#42; y &#42; y ) );   // 1st iteration
+//	y  &equals; y &#42; ( threehalfs - ( x2 &#42; y &#42; y ) );   // 2nd iteration, this can be removed
+
+	return y;
+}	</code>
+</pre>
+
+To understand this bit of trickery, we need to know a few things,
+<ul>
+<li>Binary reprensentation of integers and floating point numbers
+</li>
+<li>Math behind it
+</li>
+<li>C trickery
+</li>
+</ul><br/><h2 id="binary-reprentation-of-numbers">Binary Reprentation of Numbers</h2>
+<p>
+</p>
+<h3 id="integers">Integers</h3>
+<p>
+A <code>int32_t</code> as the name implies is 32 bits long
+<img src="/assets/images/binary.svg" alt="" title="" loading="lazy" />
+
+
+\[
+
+\]
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+
