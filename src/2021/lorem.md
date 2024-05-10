@@ -2,6 +2,8 @@
 # Lorem Ipsum: Test Page
 </header>
 
+==TEST FOR GITHUB ACTION==
+
 <!-- You can use markdown in HTML blocks, no problem  -->
 <div class='txt-c'>[View Page Source](/src/lorem.md)</div>
 
