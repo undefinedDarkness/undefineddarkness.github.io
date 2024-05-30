@@ -20,11 +20,11 @@ if [ "${PWD##*/}" = "ricing-guide" ]; then
 	is_in_ricing_guide=1
 fi
 
-fin () {
+fin() {
 	[ -n "${report_individual_builds:-}" ] && printf '\e[32m\e[1mBuilt\e[0m %s\n' "$1"
 }
 
-clean_markup () {
+clean_markup() {
 	local -n ptr=${1}
 	ptr=${ptr//'<span class="reset">'/}
 	ptr=${ptr//'</span>'/}
@@ -35,13 +35,12 @@ clean_markup () {
 	ptr=${ptr//'<img'*'>'/}
 }
 
-slugify () {
-    echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
+slugify() {
+	echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
 }
 
-
 base_url="https://nes.is-a.dev/${output_dir}/"
-format_doc_heading () {
+format_doc_heading() {
 	doc_path=${1#'./src/'}
 	doc_path=${doc_path%'.'*}
 
@@ -62,96 +61,149 @@ format_doc_heading () {
 		local without_heading=${heading#$level }
 		local slug=$(slugify "${without_heading}")
 		case "$heading" in
-			'## '*)
-				toc+="<li><a href='#${slug}'>${without_heading}</a></li>"
-				;;
-			'### '*)
-				toc+="<li class='toc-subheading'><a href='#${slug}'>${without_heading}</a></li>"
-				;;
+		'## '*)
+			toc+="<li><a href='#${slug}'>${without_heading}</a></li>"
+			;;
+		'### '*)
+			toc+="<li class='toc-subheading'><a href='#${slug}'>${without_heading}</a></li>"
+			;;
 		esac
-	done < <( grep -P "##+" $2 )
+	done < <(grep -P "##+" $2)
 	toc+='</ul>'
 	doc_heading=${doc_heading/'!TABLEOFCONTENT!'/"$toc"}
 }
 
 # Tasks:
-build_md () {
+build_md() {
 	out=${1/src/"$output_dir"}
 	out=${out/.md/.html}
 	markup=""
-	if [ "$is_in_ricing_guide" -eq 1 ]; then 
+	if [ "$is_in_ricing_guide" -eq 1 ]; then
 		markup="$(python3 ./.tooling/gfm.py "$1")"
 	else
 		markup=$(quiet=true bash ./.tooling/pond.sh "$1")
 	fi
 	format_doc_heading "$out" "$1"
 	mkdir -p "$(dirname "$out")"
-	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" > "$out"
+	printf '%s\n%s\n%s' "$doc_heading" "$markup" "$template_post_content" >"$out"
 	fin "$1"
 }
 
-build_html () {
+build_html() {
 	out=${1/src/"$output_dir"}
 	cp "$1" "$out"
 	fin "$1"
 }
 
-
 #=======================
-# Generic Build Function 
+# Generic Build Function
 #=======================
 
-build () {
+build() {
 	file=$1
 	case "${file##*.}" in
-		'org')
-			build_org "$file" 
-			;;
-		'html')
-			build_html "$file" &
-			;;
-		'md')
-			build_md "$file" &
-			;;
-		*)
-			return
-			;;
+	'org')
+		build_org "$file"
+		;;
+	'html')
+		build_html "$file" &
+		;;
+	'md')
+		build_md "$file" &
+		;;
+	*)
+		return
+		;;
 	esac
 }
 
-generate_org_full () {
+generate_org_full() {
 	emacs "${emacs_arguments[@]}" >/dev/null 2>&1
 }
 
 count=0
-generate_index () {
-	cp ./src/index.html ./$output_dir/index.html 2> /dev/null
+generate_index() {
+	cp ./src/index.html ./$output_dir/index.html 2>/dev/null
 	find $output_dir/ \
 		-maxdepth 1 \
 		-type d \
-		-not -path "$output_dir/"\
-		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2  | while read -r folder; do
-			local posts=""
-			while read -r match; do
-				# printf "FOUND: %s\n" $match
-				file=${match%%:*}
-				title=${match#*:}
+		-not -path "$output_dir/" \
+		-printf '%T@ %p\n' | sort -n | cut -d' ' -f2 | while read -r folder; do
+		local posts=""
+		while read -r match; do
+			file=${match%%:*}
+			title=${match#*:}
 
-				clean_markup title
+			clean_markup title
 
-				[ -z "${title/ /}" ] && continue
-				posts+="<li><a class='special' href='/$file'>$title</a></li>\n"
-				((count++))
-			done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}" )
-			folder=${folder#*/}
-			sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./$output_dir/index.html"
-		done
+			[ -z "${title/ /}" ] && continue
+			posts+="<li><a class='special' href='/$file'>$title</a></li>\n"
+			((count++))
+		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}")
+		folder=${folder#*/}
+		sed -i "s\`!POSTS-${folder^^}!\`$posts\`g" "./$output_dir/index.html"
+	done
 
-		printf "\r\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
-		cp ./$output_dir/index.html ./index.html 
-	}
+	printf "\r\e[33m\e[1mBUILT\e[0m %d files.\n" "$count"
+	cp ./$output_dir/index.html ./index.html
+}
 
-	liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
+generate_rss() {
+	local rss_file="./rss.xml"
+	local site_url="http://nes.is-a.dev"
+	local site_title="Nes's Personal Site"
+	local site_description="My little corner of the internet"
+	local pub_date=$(date -R)
+
+	{
+		echo '<?xml version="1.0" encoding="UTF-8" ?>'
+		echo '<rss version="2.0">'
+		echo '    <channel>'
+		echo "        <title>$site_title</title>"
+		echo "        <link>$site_url</link>"
+		echo "        <description>$site_description</description>"
+		echo "        <language>en-us</language>"
+		echo "        <pubDate>$pub_date</pubDate>"
+		echo "        <lastBuildDate>$pub_date</lastBuildDate>"
+	} >$rss_file
+
+	find $output_dir/ \
+		-maxdepth 1 \
+		-type d \
+		-not -path "$output_dir/" \
+		-printf '%T@ %p\n' | sort -nr | cut -d' ' -f2 | while read -r folder; do
+		while read -r match; do
+			file=${match%%:*}
+			title=${match#*:}
+
+			clean_markup title
+
+			[ -z "${title/ /}" ] && continue
+
+			item_link="$site_url/${file#$output_dir/}"
+			item_pub_date=$(date -R -r "$file")
+
+			{
+				echo '        <item>'
+				echo "            <title>$title</title>"
+				echo "            <link>$item_link</link>"
+				echo "            <description>$title</description>"
+				echo "            <pubDate>$item_pub_date</pubDate>"
+				echo "            <guid>$item_link</guid>"
+				echo '        </item>'
+			} >>$rss_file
+		done < <(grep -ProH '<h1.*?>.*</h1>' "${folder}")
+	done
+
+	{
+		echo '    </channel>'
+		echo '</rss>'
+	} >>$rss_file
+}
+
+generate_index
+
+liveStartMessage="\n\033[43m\033[30m LIVE BUILD \e[0m"
 
 # Default: Build All Files
 
@@ -165,32 +217,32 @@ while read -r line; do
 		continue
 	fi
 	intermediate+=$line$IFS
-done < ./template.html
+done <./template.html
 template_post_content=$intermediate
 
 case "$1" in
-	"dbg")
-		quiet=true pond_debug=true bash ./.tooling/pond.sh "$2" 1> /dev/null
-		exit
-		;;
-	"rm")
-		rm -r ./$output_dir/${2}.html
-		rm -r ./$output_dir/${2}.md
-		generate_index
-		exit
-		;;
-	"winfix")
-		find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix 
-		exit
-		;;
-	"serve")
-		python3 -m http.server 5050
-		exit
-		;;
-	"live")
-		python3 ./.tooling/hs.py
-		exit
-		;;
+"dbg")
+	quiet=true pond_debug=true bash ./.tooling/pond.sh "$2" 1>/dev/null
+	exit
+	;;
+"rm")
+	rm -r ./$output_dir/${2}.html
+	rm -r ./$output_dir/${2}.md
+	generate_index
+	exit
+	;;
+"winfix")
+	find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix
+	exit
+	;;
+"serve")
+	python3 -m http.server 5050
+	exit
+	;;
+"live")
+	python3 ./.tooling/hs.py
+	exit
+	;;
 esac
 
 mkdir -p $output_dir
@@ -202,7 +254,7 @@ oifs=$IFS
 IFS=" "
 for file in ${files_to_build}; do
 	build "$file"
-	count=$(( count + 1 ))
+	count=$((count + 1))
 done
 IFS=$oifs
 
@@ -213,5 +265,6 @@ done
 # POST BUILD TASKS
 
 generate_index
+generate_rss
 
 exit
