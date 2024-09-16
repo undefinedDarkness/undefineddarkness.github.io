@@ -1,6 +1,6 @@
+@import url("typography.css");
 @import url("extras.css");
 @import url("minor.css");
-@import url("typography.css");
 
 /* -- GLOBAL -- */
 
@@ -127,10 +127,28 @@ main {
     line-height: 1.5;
 }
 
+body > article:first-child {
+    padding-top: 2em;
+}
+
 main ul,
 article ul,
 p {
     margin-top: 0;
+}
+
+li > ul {
+    margin-top: 0;
+}
+
+li > ul:not(:empty) {
+    margin-bottom: 1em;
+}
+
+iframe {
+    border: 1px dashed;
+    width: 100%;
+    height: 100%;
 }
 
 a {

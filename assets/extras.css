@@ -118,8 +118,27 @@ td:not(:last-of-type) {
 	display: flex;
 }
 
-/*
-.slides::-webkit-scrollbar {
-  display: none;
+button {
+  display: inline-block;
+  padding: 1rem;
+  background-color: coral;
+  font-weight: bold;
+  width: fit-content;
+  font-family: inherit;
+  border-radius: 8px;
+  font-size: 1em;
 }
-*/
+
+pre[data-language] {
+  position: relative;
+}
+
+pre[data-language]::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.1em;
+  color: dimgrey;
+  font-weight: bolder;
+  content: attr(data-language);
+}
