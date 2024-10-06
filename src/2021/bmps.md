@@ -70,3 +70,28 @@ And there you go, kinda working bitmap fonts!
 
 To use them, `fc-list` can find the xft font description to string and their font names.
 `xfontsel` can also be used but iirc thats only in the case of .pcf.gz fonts installed directly into X11
+
+---
+### Addenum
+A better example is
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+    <match target="font"> 
+        <test name="family" qual="any">
+            <string>Ark Pixel Font 16</string>
+        </test>
+        <edit name="hinting" mode="assign">
+            <bool>false</bool>
+        </edit>
+        <edit name="antialias" mode="assign">
+            <bool>false</bool>
+        </edit>
+        <edit name="lcdfilter" mode="assign">
+            <const>lcddefault</const>
+        </edit> 
+    </match>
+</fontconfig>
+```
+A way to convert BDF & PCF files to OTB (OpenType Bitmap), a format that has better support is [Documented here](https://gist.github.com/Earnestly/6bc5bad7666f7bf8816d054b7b76112e), You can also try using [Bits'nPicas](https://github.com/kreativekorp/bitsnpicas) to convert the font or even to make your own, it's just pixels on a grid after all 😉

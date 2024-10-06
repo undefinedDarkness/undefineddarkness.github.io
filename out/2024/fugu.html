@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="author" content="nes" />
+	<title>2024, What can the web do? 🐡</title>
+	<meta property="og:title" content="2024, What can the web do? 🐡" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="https://nes.is-a.dev/out/2024/fugu.html" />
+	<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+	<link rel="stylesheet" href="/assets/styles.css" />
+</head>
+
+<body>
+	<nav class="toc">
+		<ul><li><a href='#file-system-access'>📂 File System Access</a></li><li><a href='#compression-streams'>Compression Streams</a></li><li><a href='#real-time-communication'>🗃️ Real Time Communication</a></li><li><a href='#pwa-share-url-scheme-custom-titlebar'>PWA: Share, URL Scheme, Custom titlebar</a></li><li class='toc-subheading'><a href='#share-target'>Share Target</a></li><li class='toc-subheading'><a href='#custom-titlebar'>Custom titlebar</a></li></ul>
+	</nav>
+	<article>
+
+
+		<!-- HIGHLIGHTJS LOADING -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+		<script defer src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" onload="hljs.highlightAll();"></script>
+		<header>
+<header>
+<h1>2024, What can the web do? 🐡</h1>
+</header>
+</header>
+<br/>
+Lately, I've been really interested in PWAs and how the web platform keeps becoming a platform for a very wide array of apps, removing much of the reason people use things like Electron or Tauri and decoupling web apps from the user's system & exposing powerful capabilities from within the sandbox.<br/>
+<br/>
+<h2 id="file-system-access">📂 File System Access</h2>
+<p>
+This is one of the most exciting ones for me, With this API, a user can grant access to a specified directory in their local file system, This API also encompasses a save file API to replace the standard hidden download button trick and an API for easily opening a system file picker to allow the web app access to a specific file.<br/>
+<br/>
+This can be very useful in an app like Photopea and it might even be enough for many electron applications to be only web apps, for example Obsidian comes to mind, you could grant it access to a VAULT folder and (to my belief) it could function almost entirely as a website<br/>
+<br/>
+To use it, you need to run <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker"><code>window.showOpenFilePicker</code></a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker"><code>window.showOpenDirectoryPicker</code></a> on button activation, If it's to save a single file you can instead use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showSaveFilePicker"><code>window.showSaveFilePicker</code></a>, From there you get a File or Directory Handle which can be used to read / write to the file / directory.<br/>
+<br/>
+Unfortunatley, This hasn't been implemented by Mozilla (<a href="https://mozilla.github.io/standards-positions/#native-file-system">Mozilla's Position</a>) & WebKit (<a href="https://github.com/WebKit/standards-positions/issues/28">WebKit's Position</a>) :/, Which is reasonable since most websites don't need access to a user's file system and careless users could easily cause irreparable harm, I think it's still quite useful :P<br/>
+<br/>
+Here's an example:<br/>
+<iframe src='/experiments/fsa.html'></iframe><br/>
+<ul>
+<li><a href="https://fs.spec.whatwg.org/">WhatWG Standard</a><br/>
+</li>
+<li><a href="https://developer.chrome.com/docs/capabilities/web-apis/file-system-access">Chrome Documentation</a><br/>
+</li>
+</ul><br/></p>
+<h2 id="compression-streams">Compression Streams</h2>
+<p>
+These recently added streams allow you to read and write compressed data to streams (think blobs / files), Right now only <code>gzip</code>, <code>deflate</code> or <code>deflate-raw</code> are supported options, But I'm keeping my fingers crossed for brotli or zstd to be added 🤞<br/>
+<br/>
+In the meantime, people have been compressing <a href="https://purplesyringa.moe/blog/webp-the-webpage-compression-format/">their web pages by storing it inside a WebP image</a>, I wonder what result's one would get with AVIF though I don't imagine them to be <i>too</i> different <br/>
+<br/>
+<iframe class='nb' src='https://bcd-table.neswk.workers.dev/?style=true&key=api.CompressionStream'></iframe><br/>
+<ul>
+<li><a href="https://github.com/whatwg/compression/issues/54">Issue for zstd</a><br/>
+</li>
+<li><a href="https://github.com/whatwg/compression/issues/54">Issue for brotli</a><br/>
+</li>
+<li><a href="https://compression.spec.whatwg.org/#compressionstream">WhatWG Standard</a><br/>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API">MDN</a><br/>
+</li>
+</ul><br/></p>
+<h2 id="real-time-communication">🗃️ Real Time Communication </h2>
+<p>
+Ever wanted to easily connect 2 instances of your website and transfer arbitrary data between them or even Audio / Video streams? Well with WebRTC, you can, you only need a signalling server for some initial communication between the clients, which can be easily done with a library like <strike><a href="https://peerjs.com/">peer.js</a></strike> <a href="https://github.com/feross/simple-peer">feross/simple-peer</a>,<br/>
+<br/>
+Once the connection is established, data can be transferred in <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel">RTCDataChannels</a> or a media (video / auto) stream can be mostly handled by the browser itself and then rendered in a canvas.<br/>
+<br/>
+This is what powers stuff like <a href="https://webtorrent.io/">WebTorrent</a> & <a href="https://github.com/szimek/sharedrop">ShareDrop</a><br/>
+<br/>
+<iframe class='nb' src='https://bcd-table.neswk.workers.dev/?style=true&key=api.RTCPeerConnection'></iframe><br/>
+<ul>
+<li><a href="https://fireship.io/lessons/webrtc-firebase-video-chat/">Firebase course for WebRTC</a><br/>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API">MDN</a><br/>
+</li>
+</ul><br/></p>
+<h2 id="pwa-share-url-scheme-custom-titlebar">PWA: Share, URL Scheme, Custom titlebar</h2>
+<p>
+This is just a few of the <i>many</i> PWA APIs that I find especially cool or useful<br/>
+<br/>
+<a href="https://web.dev/learn/pwa/capabilities">A full list from web.dev</a><br/>
+<a href="https://developer.chrome.com/docs/capabilities/fugu-showcase">Project Fugu Showcase</a><br/>
+<br/>
+</p>
+<h3 id="share-target">Share Target</h3>
+<p>
+Essentially this lets you add an entry to your system's share menu, you'd be most familiar with this on mobile devices, where you want to share a file, a url or anything to a friend through this menu<br/>
+<br/>
+A few notes on usage, this API allows your app to recieve both files and textual data like links and what not, but if you're dealing with a file, it must be a <b>POST</b> request to an endpoint in your app, <i>Hint: Making this a service worker will make your life a lot easier I promise</i> otherwise if it's a GET request, any binary data is discarded and textual data are inserted as URL query parameters as per what's defined in your <code>manifest.json</code><br/>
+<br/>
+This one is quite useful on mobile devices, kinda mid on desktop, but the real pity is it seems to be pretty inconsistent, I've used this with a personal PWA I've made to make file sharing friction-less (Goodbye, slow af notion uploads) and when I tried installing it on my Android phone through the Brave browser (My usual browser), It doesn't work :/, After some research I discovered the cause to be that as brave is a user installed application, It can't register <i>new</i> share targets of it's own, Chrome being a system installed app has the appropriate permissions to do so and works without a hitch, Even then behaviour was a little off, on my development Windows 10 machine, The share target worked just fine but on my friend's Windows 11 machine, It installed fine but the app was missing from the share menu, I'm not entirely sure why and I haven't had time to research since right now the PWA fulfills exactly what I wanted to do.<br/>
+<br/>
+<iframe class='nb' src='https://bcd-table.neswk.workers.dev/?style=true&key=html.manifest.share_target'></iframe><br/>
+<ul>
+<li><a href="https://developer.chrome.com/docs/capabilities/web-apis/web-share-target">Chrome Article</a><br/>
+</li>
+</ul><br/></p>
+<h3 id="custom-titlebar">Custom titlebar</h3>
+<p>
+I remember seeing this in one the issues for <a href="https://github.com/gluon-framework/gluon/issues/13">gluon</a>, It's an API that allows the PWA to draw on the "titlebar" of it's application window with the browser just providing window controls (close/minimize/maximize).<br/>
+<br/>
+Again seems to only be implemented by Chromium though :/<br/>
+<br/>
+<img src="/assets/images/image.png" alt="Custom titlebar example" title="Custom titlebar example" loading="lazy" /><br/>
+<br/>
+<iframe class='nb' src='https://bcd-table.neswk.workers.dev/?style=true&key=api.WindowControlsOverlay'></iframe><br/>
+<a href="https://web.dev/articles/window-controls-overlay">Web.dev Article</a><br/>
+		<footer style="margin-bottom: 2em;">
+			<a class="special" href="/index.html">Return To Index</a>
+		</footer>
+	</article>
+</body>
+

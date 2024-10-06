@@ -151,6 +151,10 @@ iframe {
     height: 100%;
 }
 
+iframe.nb {
+    border: 0;
+}
+
 a {
     color: #aaa;
     text-decoration: none;

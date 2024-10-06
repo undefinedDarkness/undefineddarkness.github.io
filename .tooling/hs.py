@@ -119,7 +119,10 @@ async def watch():
             # print(process.stderr)
             applicable = [conn for conn in sockets if conn[0] == fp.stem] 
             for socket in applicable:
-                await socket[1].send_str("UPDATE")
+                try:
+                    await socket[1].send_str("UPDATE")
+                except:
+                    pass
 
 async def main():
 
