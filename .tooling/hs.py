@@ -119,7 +119,10 @@ async def watch():
             # print(process.stderr)
             applicable = [conn for conn in sockets if conn[0] == fp.stem] 
             for socket in applicable:
-                await socket[1].send_str("UPDATE")
+                try:
+                    await socket[1].send_str("UPDATE")
+                except:
+                    pass
 
 async def main():
 
@@ -128,7 +131,7 @@ async def main():
     await runner.setup()
     site = web.TCPSite(runner, "localhost", 5000)
     await site.start()
-    print(prefix + "Server Started @ \u001b[31mlocalhost:5000\u001b[0m")
+    print(prefix + "Server Started @ \u001b[31mhttp://127.0.0.1:5000\u001b[0m")
 
     # Initialize File Watcher
     await watch()

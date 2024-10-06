@@ -18,7 +18,7 @@ final_transformer() {
 		s!\[\[man:(.+?)\]\]!<a href="https://man.openbsd.org/\1">manpage</a>!g;
 		s!\[(.+?)\]\((.+?)\)!<a href="\2">\1</a>!g;
 		s!\*(.+?)\*!<i>\1</i>!g;
-		s!(?<\!")(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
+		s!(?<\![\"'\''])(https?://[^<\s\),]+)!<a href="\1">\1</a>!g;
 		s!~~(.+?)~~!<strike>\1</strike>!g;
         s!==(.+?)==!<mark>\1</mark>!g;
 	' <<< "$content"

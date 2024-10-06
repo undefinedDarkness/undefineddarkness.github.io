@@ -16,7 +16,7 @@
 
 <body>
 	<nav class="toc">
-		<ul><li><a href='#reenabling'>Reenabling</a></li></ul>
+		<ul><li><a href='#reenabling'>Reenabling</a></li><li class='toc-subheading'><a href='#addenum'>Addenum</a></li></ul>
 	</nav>
 	<article>
 
@@ -98,6 +98,33 @@ And there you go, kinda working bitmap fonts!<br/>
 <br/>
 To use them, <code>fc-list</code> can find the xft font description to string and their font names.<br/>
 <code>xfontsel</code> can also be used but iirc thats only in the case of .pcf.gz fonts installed directly into X11<br/>
+<br/>
+<hr />
+</p>
+<h3 id="addenum">Addenum</h3>
+<p>
+A better example is<br/>
+<pre>
+<code class="language-xml"></fontconfig>
+&lt;?xml version&equals;"1.0"?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd"&gt;
+&lt;fontconfig&gt;
+    &lt;match target&equals;"font"&gt; 
+        &lt;test name&equals;"family" qual&equals;"any"&gt;
+            &lt;string&gt;Ark Pixel Font 16&lt;/string&gt;
+        &lt;/test&gt;
+        &lt;edit name&equals;"hinting" mode&equals;"assign"&gt;
+            &lt;bool&gt;false&lt;/bool&gt;
+        &lt;/edit&gt;
+        &lt;edit name&equals;"antialias" mode&equals;"assign"&gt;
+            &lt;bool&gt;false&lt;/bool&gt;
+        &lt;/edit&gt;
+        &lt;edit name&equals;"lcdfilter" mode&equals;"assign"&gt;
+            &lt;const&gt;lcddefault&lt;/const&gt;
+        &lt;/edit&gt; 
+    &lt;/match&gt;	</code>
+</pre>
+A way to convert BDF & PCF files to OTB (OpenType Bitmap), a format that has better support is <a href="https://gist.github.com/Earnestly/6bc5bad7666f7bf8816d054b7b76112e">Documented here</a>, You can also try using <a href="https://github.com/kreativekorp/bitsnpicas">Bits'nPicas</a> to convert the font or even to make your own, it's just pixels on a grid after all 😉<br/>
 		<footer style="margin-bottom: 2em;">
 			<a class="special" href="/index.html">Return To Index</a>
 		</footer>
