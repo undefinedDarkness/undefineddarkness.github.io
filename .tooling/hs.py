@@ -6,7 +6,7 @@ import asyncio
 import subprocess
 import platform
 
-prefix="\033[41m  🔥  \033[0m  " 
+prefix="\033[1m\033[31mHS\033[0m  " 
 
 # A terribly simple little hot server
 
