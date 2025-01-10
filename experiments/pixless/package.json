@@ -1,0 +1,21 @@
+{
+  "name": "pixless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^3.4.17"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:js": "esbuild ./src/index.ts --outfile=./index.js --bundle --minify --loader:.glsl=text",
+    "build:css": "tailwindcss -i ./src/styles/index.css -o ./styles.css",
+    "dev:js": "esbuild ./src/index.ts --outfile=./index.js --watch --bundle --loader:.glsl=text",
+    "dev:css": "tailwindcss -i ./src/styles/index.css -o ./styles.css -w",
+    "develop": "npm-run-all --parallel dev:js dev:css"
+  },
+  "author": "",
+  "license": "ISC"
+}
