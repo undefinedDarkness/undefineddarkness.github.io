@@ -363,10 +363,8 @@ generate_sitemap() {
 	done < <(printf '%s' "$article_lines" | sort -t $'\t' -k1,1 -rn)
 
 	# experiments/ — hand-written static HTML, not built into out/ but still
-	# public pages (FSA, serial, etc.). Add every *.html under experiments/
-	# so they appear in sitemap.xml. experiments/index.html is just a
-	# redirect stub to /portfolio.html — skip it (portfolio is hardcoded
-	# above).
+	# public pages (index, icon-creator, FSA, serial, etc.). Add every *.html
+	# under experiments/ so they appear in sitemap.xml.
 	if [ -d "experiments" ]; then
 		while IFS= read -r exp_file; do
 			[ -z "$exp_file" ] && continue
@@ -380,7 +378,7 @@ generate_sitemap() {
 			[ -z "$exp_lastmod" ] && exp_lastmod="$now"
 			local exp_url="$site_url/${exp_file}"
 			echo "    <url><loc>${exp_url}</loc><lastmod>${exp_lastmod}</lastmod></url>" >>$sitemap_file
-		done < <(find experiments -type f -name "*.html" ! -path "experiments/index.html" | sort)
+		done < <(find experiments -type f -name "*.html" | sort)
 	fi
 
 	echo '</urlset>' >>$sitemap_file

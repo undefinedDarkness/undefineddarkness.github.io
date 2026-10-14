@@ -1,3 +1,4 @@
+![](/assets/images/dump/Mira.png)
 #HEADER Mira: Autonomous Underwater Vehicle for SAUVC & TAC date=2026-10-09
 Lessons learned designing, building, and programming Mira, an autonomous underwater vehicle for SAUVC and TAC.
 #END HEADER

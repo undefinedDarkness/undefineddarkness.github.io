@@ -3,11 +3,490 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="refresh" content="0; url=/portfolio.html">
-	<link rel="canonical" href="/portfolio.html">
-	<title>Portfolio</title>
+	<title>Experiments & Web Toys — Nes</title>
+	<meta name="description" content="Interactive browser experiments, internal tools, hardware consoles, and prototypes by David (nes)." />
+	<link rel="apple-touch-icon" sizes="57x57" href="/favicon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon-60x60-cd64c1cb61.avif">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon-72x72-7ff6cafce5.avif">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon-76x76-b9eeb0c813.avif">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon-114x114-cf822c2305.avif">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon-120x120-d106cfd634.avif">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon-144x144-b777144398.avif">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon-152x152-ec823b7baa.avif">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180x180-eb9df58816.avif">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16-90bd142fb1.avif">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32-1154a98a98.avif">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96-34ee223fb8.avif">
+	<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192-b2c835c722.avif">
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+	<link rel="stylesheet" href="/assets/styles.css">
+	<style>
+		:root {
+			--accent: coral;
+		}
+
+		article {
+			min-width: 0;
+			overflow-wrap: break-word;
+			padding: 2rem 16vw 4rem;
+		}
+
+		@media only screen and (max-width: 768px) {
+			article {
+				padding: 1.5rem 5vw 3rem !important;
+			}
+		}
+
+		.nav-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1em;
+			margin: 0.5em 0 1.5em;
+			font-family: var(--display-font);
+		}
+
+		.nav-links a {
+			color: var(--gray);
+			text-decoration: underline;
+		}
+
+		.experiments-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+			gap: 2em;
+			margin-top: 1.5em;
+		}
+
+		.experiment-card-wrapper {
+			display: flex;
+			align-items: flex-start;
+			height: 100%;
+			min-width: 0;
+		}
+
+		.experiment-card {
+			width: 100%;
+			border: 1px solid #444;
+			border-radius: 5px;
+			overflow: hidden;
+			background: var(--white-lighter);
+			transition: transform 0.2s ease, border-color 0.2s ease;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.experiment-card:hover {
+			transform: translateY(-4px);
+			border-color: #666;
+		}
+
+		.experiment-card.featured {
+			border-color: var(--accent);
+		}
+
+		.experiment-preview {
+			width: 100%;
+			height: 200px;
+			border: none;
+			border-bottom: 1px solid #444;
+			background: #111;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+		}
+
+		.experiment-preview iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+			pointer-events: none;
+		}
+
+		.experiment-preview img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		.experiment-info {
+			padding: 1em;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+		}
+
+		.experiment-info h3 {
+			margin: 0 0 0.4em 0;
+			font-size: 1.15em;
+		}
+
+		.experiment-info h3 a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.experiment-info h3 a:hover {
+			text-decoration: underline;
+		}
+
+		.experiment-footer {
+			display: flex;
+			align-items: center;
+			gap: 0.8em;
+			margin-top: auto;
+			padding-top: 0.8em;
+		}
+
+		.experiment-footer p {
+			flex: 1;
+			margin: 0;
+			color: var(--gray);
+			font-size: 0.88em;
+			line-height: 1.4;
+		}
+
+		.experiment-link {
+			display: inline-flex;
+			align-items: center;
+			flex-shrink: 0;
+			color: var(--black);
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 1.2em;
+			padding: 0.2em;
+		}
+
+		.experiment-link:hover {
+			color: var(--accent);
+		}
+
+		.github-link {
+			display: inline-flex;
+			align-items: center;
+			flex-shrink: 0;
+			color: var(--black);
+			text-decoration: none;
+			opacity: 0.75;
+			transition: opacity 0.15s ease;
+		}
+
+		.github-link:hover {
+			opacity: 1;
+		}
+
+		.github-link svg {
+			width: 1.2em;
+			height: 1.2em;
+			fill: currentColor;
+		}
+
+		.tag-filters {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5em;
+			margin: 1.5em 0;
+		}
+
+		.tag-filter {
+			outline: none;
+			border: 1px solid var(--gray);
+			border-radius: 999px;
+			background: transparent;
+			color: var(--black);
+			padding: 0.3em 0.85em;
+			font-size: 0.82em;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.15s ease;
+		}
+
+		.tag-filter:hover {
+			border-color: var(--black);
+		}
+
+		.tag-filter.active {
+			background: var(--black);
+			color: var(--white);
+			border-color: var(--black);
+			font-weight: 600;
+		}
+
+		.experiment-card-wrapper.hidden {
+			display: none;
+		}
+
+		.section-head {
+			margin-top: 2.5em;
+			margin-bottom: 0.2em;
+		}
+
+		.section-desc {
+			margin: 0 0 1em 0;
+			color: var(--gray);
+			font-size: 0.9em;
+		}
+
+		/* Pixel art preview banner for Icon Creator */
+		.pixel-banner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1.2rem;
+			width: 100%;
+			height: 100%;
+			background: #111;
+			background-image: repeating-linear-gradient(0deg, #181818 0px, #181818 1px, transparent 1px, transparent 16px),
+			                  repeating-linear-gradient(90deg, #181818 0px, #181818 1px, transparent 1px, transparent 16px);
+		}
+
+		.pixel-banner img {
+			width: 48px;
+			height: 48px;
+			image-rendering: pixelated;
+			filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+			transition: transform 0.2s;
+		}
+
+		.experiment-card:hover .pixel-banner img {
+			transform: scale(1.15);
+		}
+
+		footer {
+			margin-top: 3em;
+			padding-top: 1.5em;
+			border-top: 1px solid #333;
+			color: var(--gray);
+			font-size: 0.9em;
+		}
+
+		footer a {
+			color: inherit;
+		}
+	</style>
 </head>
 <body>
-	<p>Moved to <a href="/portfolio.html">/portfolio.html</a>.</p>
+	<article>
+		<h1>Experiments</h1>
+		<div class="nav-links">
+			<a href="/">← Home</a>
+			<a href="/portfolio.html">Portfolio</a>
+			<a href="/out/about.html">About</a>
+			<a href="/rss.xml">RSS</a>
+		</div>
+
+		<p style="color: var(--gray); max-width: 700px; margin-top: 0;">
+			Interactive prototypes, internal developer tools, web experiments, and hardware interfaces hosted directly under <code>/experiments/</code>.
+		</p>
+
+		<div class="tag-filters" id="tag-filters"></div>
+
+		<section class="project-section" id="section-local">
+			<div class="experiments-grid">
+				<!-- Icon Creator -->
+				<div class="experiment-card-wrapper" data-tags="Tools,Pixel Art,Canvas">
+					<div class="experiment-card featured">
+						<a href="/experiments/icon-creator/index.html" class="experiment-preview" aria-label="Open Pixel Art Icon Creator">
+							<div class="pixel-banner">
+								<img src="/assets/icon-fugu-fb77b2babd.avif" alt="Fugu icon" />
+								<img src="/assets/icon-sin-5708411f4d.avif" alt="Sin icon" />
+								<img src="/assets/icon-bitmap-ff64d1cc87.avif" alt="Bitmap icon" />
+								<img src="/assets/icon-sd-4fec5e74b1.avif" alt="SD icon" />
+							</div>
+						</a>
+						<div class="experiment-info">
+							<h3><a href="/experiments/icon-creator/index.html">Pixel Art Icon Creator</a></h3>
+							<div class="experiment-footer">
+								<p>A simple 16×16 canvas for making article icons. Left click to draw, right click to erase (transparent), and download as PNG.</p>
+								<a href="/experiments/icon-creator/index.html" class="experiment-link" aria-label="Open Icon Creator">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ASCII Model Viewer -->
+				<div class="experiment-card-wrapper" data-tags="3D,Graphics,WebGL">
+					<div class="experiment-card">
+						<iframe class="experiment-preview" src="/experiments/ascii-model-viewer/index.html" loading="lazy" scrolling="no"></iframe>
+						<div class="experiment-info">
+							<h3><a href="/experiments/ascii-model-viewer/index.html">ASCII Model Viewer</a></h3>
+							<div class="experiment-footer">
+								<p>Renders 3D <code>.obj</code> and <code>.glb</code> models as monospace terminal ASCII art — supporting octant, braille, and custom glyph ramps with drag rotation.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/tree/master/experiments/ascii-model-viewer" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="/experiments/ascii-model-viewer/index.html" class="experiment-link" aria-label="Open ASCII Model Viewer">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Code Highlight Playground -->
+				<div class="experiment-card-wrapper" data-tags="Tools,Web">
+					<div class="experiment-card">
+						<iframe class="experiment-preview" src="/experiments/code-highlight-cp/index.html" loading="lazy" scrolling="no"></iframe>
+						<div class="experiment-info">
+							<h3><a href="/experiments/code-highlight-cp/index.html">Code Highlight Playground</a></h3>
+							<div class="experiment-footer">
+								<p>Paste code snippets and test out syntax highlighting with customizable themes and instant copy.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/tree/master/experiments/code-highlight-cp" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="/experiments/code-highlight-cp/index.html" class="experiment-link" aria-label="Open Code Highlight Playground">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Web Serial Console -->
+				<div class="experiment-card-wrapper" data-tags="Hardware,Web API">
+					<div class="experiment-card">
+						<iframe class="experiment-preview" src="/experiments/serial.html" loading="lazy" scrolling="no"></iframe>
+						<div class="experiment-info">
+							<h3><a href="/experiments/serial.html">Web Serial Console</a></h3>
+							<div class="experiment-footer">
+								<p>Communicate with microcontrollers and serial devices directly from the browser using the Web Serial API.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/blob/master/experiments/serial.html" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="/experiments/serial.html" class="experiment-link" aria-label="Open Web Serial Console">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- File System Access -->
+				<div class="experiment-card-wrapper" data-tags="Web API,Filesystem">
+					<div class="experiment-card">
+						<iframe class="experiment-preview" src="/experiments/fsa.html" loading="lazy" scrolling="no"></iframe>
+						<div class="experiment-info">
+							<h3><a href="/experiments/fsa.html">File System Access Explorer</a></h3>
+							<div class="experiment-footer">
+								<p>Inspect local directories and file trees safely from client-side JavaScript via the File System Access API.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/blob/master/experiments/fsa.html" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="/experiments/fsa.html" class="experiment-link" aria-label="Open File System Access">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Remote Sensing Quiz -->
+				<div class="experiment-card-wrapper" data-tags="Tools,Education">
+					<div class="experiment-card">
+						<div class="experiment-preview" style="font-family: var(--display-font); color: var(--gray); text-align: center; padding: 1em;">
+							<div style="font-size: 2.2em; margin-bottom: 0.2em;">🛰️</div>
+							<div>Remote Sensing &amp; GIS Quiz</div>
+						</div>
+						<div class="experiment-info">
+							<h3><a href="/experiments/remotesensing.html">Remote Sensing &amp; GIS Quiz</a></h3>
+							<div class="experiment-footer">
+								<p>Interactive study and practice quiz application for NPTEL Remote Sensing &amp; GIS exam prep.</p>
+								<a href="/experiments/remotesensing.html" class="experiment-link" aria-label="Open Quiz">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- TinyC Binary Size -->
+				<div class="experiment-card-wrapper" data-tags="C,Optimization">
+					<div class="experiment-card">
+						<div class="experiment-preview" style="font-family: var(--mono-font, monospace); color: var(--gray); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5em;">
+							<span style="font-size: 2em;">⚡</span>
+							<code style="color: var(--accent);">&lt; 10 KB Binaries</code>
+						</div>
+						<div class="experiment-info">
+							<h3><a href="https://github.com/davidnoronha1/undefineddarkness.github.io/tree/master/experiments/tinyc">TinyC Binary Minimization</a></h3>
+							<div class="experiment-footer">
+								<p>Experiments in minimizing graphical C binary sizes using Tigr and extreme GCC/Clang linker optimization flags.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/tree/master/experiments/tinyc" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/tree/master/experiments/tinyc" class="experiment-link" aria-label="View TinyC on GitHub">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Hardware Video Encoder Check -->
+				<div class="experiment-card-wrapper" data-tags="Hardware,Python,Video">
+					<div class="experiment-card">
+						<div class="experiment-preview" style="font-family: var(--mono-font, monospace); color: var(--gray); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5em;">
+							<span style="font-size: 2em;">🎬</span>
+							<code>hw_encoder_check.py</code>
+						</div>
+						<div class="experiment-info">
+							<h3><a href="https://github.com/davidnoronha1/undefineddarkness.github.io/blob/master/experiments/hw_encoder_check.py">HW Encoder Check</a></h3>
+							<div class="experiment-footer">
+								<p>Python diagnostic utility to inspect Linux hardware video encoding acceleration across VA-API, NVENC, and V4L2.</p>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/blob/master/experiments/hw_encoder_check.py" class="github-link" aria-label="View source on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="/experiments/github.svg#github"></use></svg></a>
+								<a href="https://github.com/davidnoronha1/undefineddarkness.github.io/blob/master/experiments/hw_encoder_check.py" class="experiment-link" aria-label="View script on GitHub">→</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<p><a href="/">← Return to Homepage</a> | <a href="/portfolio.html">Portfolio</a> | <a href="https://github.com/davidnoronha1">GitHub</a></p>
+		</footer>
+	</article>
+
+	<script>
+		(function () {
+			const cards = Array.from(document.querySelectorAll('.experiment-card-wrapper'));
+			const filterBar = document.getElementById('tag-filters');
+			const tags = Array.from(new Set(cards.flatMap(c => c.dataset.tags.split(',')))).sort();
+			const active = new Set();
+
+			// Read URL query params e.g. ?tools
+			new URLSearchParams(location.search).forEach((_, key) => {
+				const match = tags.find(t => t.toLowerCase() === key.toLowerCase());
+				if (match) active.add(match);
+			});
+
+			function syncUrl() {
+				const url = new URL(location.href);
+				url.search = Array.from(active).map(t => t.toLowerCase()).join('&');
+				history.replaceState(null, '', url);
+			}
+
+			function render() {
+				cards.forEach(card => {
+					const cardTags = card.dataset.tags.split(',');
+					const visible = active.size === 0 || cardTags.some(t => active.has(t));
+					card.classList.toggle('hidden', !visible);
+				});
+			}
+
+			const allBtn = document.createElement('button');
+			allBtn.className = 'tag-filter' + (active.size === 0 ? ' active' : '');
+			allBtn.textContent = 'All';
+			allBtn.addEventListener('click', () => {
+				active.clear();
+				filterBar.querySelectorAll('.tag-filter').forEach(b => b.classList.remove('active'));
+				allBtn.classList.add('active');
+				render();
+				syncUrl();
+			});
+			filterBar.appendChild(allBtn);
+
+			tags.forEach(tag => {
+				const btn = document.createElement('button');
+				btn.className = 'tag-filter' + (active.has(tag) ? ' active' : '');
+				btn.textContent = tag;
+				btn.addEventListener('click', () => {
+					if (active.has(tag)) {
+						active.delete(tag);
+						btn.classList.remove('active');
+					} else {
+						active.add(tag);
+						btn.classList.add('active');
+					}
+					allBtn.classList.toggle('active', active.size === 0);
+					render();
+					syncUrl();
+				});
+				filterBar.appendChild(btn);
+			});
+
+			render();
+		})();
+	</script>
 </body>
 </html>

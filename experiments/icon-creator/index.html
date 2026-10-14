@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Creator — Experiments</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    body {
+      background: #111;
+      color: #fafafa;
+      font-family: var(--display-font, Georgia, serif);
+      margin: 0;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    header {
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    header a {
+      color: var(--gray, #888);
+      font-size: 0.9em;
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6em;
+      font-weight: normal;
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      background-image: repeating-conic-gradient(#202020 0% 25%, #141414 0% 50%);
+      background-size: 24px 24px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      user-select: none;
+      touch-action: none;
+    }
+
+    canvas {
+      display: block;
+      cursor: crosshair;
+      image-rendering: pixelated;
+    }
+
+    .controls {
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 420px;
+      justify-content: space-between;
+    }
+
+    .controls-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: 1px solid #555;
+      width: 38px;
+      height: 38px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+      padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 3px;
+    }
+
+    button.btn {
+      background: #222;
+      border: 1px solid #444;
+      color: #fafafa;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    button.btn:hover {
+      background: #333;
+      border-color: #666;
+    }
+
+    button.download-btn {
+      background: coral;
+      color: #111;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 0.95em;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    button.download-btn:hover {
+      background: #ff926b;
+    }
+
+    .preview-card {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 1.2rem;
+      padding: 0.8rem 1rem;
+      background: #181818;
+      border: 1px solid #333;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-sizing: border-box;
+    }
+
+    .preview-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      color: var(--gray, #888);
+      font-family: var(--mono-font, monospace);
+    }
+
+    .preview-item img,
+    .preview-mockup img {
+      image-rendering: pixelated;
+      background: #111;
+      border: 1px solid #282828;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .preview-mockup {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding-left: 1rem;
+      border-left: 1px solid #333;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .preview-title {
+      font-size: 0.92em;
+      color: #fafafa;
+      text-decoration: underline;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preview-desc {
+      font-size: 0.75em;
+      color: var(--gray, #888);
+      margin-top: 0.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hint {
+      margin-top: 0.9rem;
+      color: var(--gray, #888);
+      font-size: 0.85em;
+      font-family: var(--mono-font, monospace);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Icon Creator</h1>
+    <a href="/experiments/index.html">← Experiments</a>
+  </header>
+
+  <div class="canvas-wrapper">
+    <canvas id="canvas" width="384" height="384"></canvas>
+  </div>
+
+  <div class="controls">
+    <div class="controls-left">
+      <input type="color" id="color" value="#ffffff" title="Drawing color">
+      <button class="btn" id="clear" title="Clear canvas">Clear</button>
+    </div>
+    <button class="download-btn" id="download">Download PNG</button>
+  </div>
+
+  <div class="preview-card">
+    <div class="preview-item">
+      <img id="preview-16" src="" alt="16px" width="16" height="16">
+      <span>16px</span>
+    </div>
+    <div class="preview-item">
+      <img id="preview-32" src="" alt="32px" width="32" height="32">
+      <span>32px</span>
+    </div>
+    <div class="preview-mockup">
+      <img id="preview-mock" src="" alt="icon" width="36" height="36">
+      <div>
+        <div class="preview-title">Article Title</div>
+        <div class="preview-desc">Article preview on blog</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint">Left click: draw · Right click: erase</p>
+
+  <script>
+    (function () {
+      const SIZE = 16;
+      const CELL_SIZE = 24; // 16 * 24 = 384px
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const colorInput = document.getElementById('color');
+      const clearBtn = document.getElementById('clear');
+      const downloadBtn = document.getElementById('download');
+
+      const p16 = document.getElementById('preview-16');
+      const p32 = document.getElementById('preview-32');
+      const pMock = document.getElementById('preview-mock');
+
+      // Grid data: 16x16, null = transparent
+      const grid = Array.from({ length: SIZE }, () => Array(SIZE).fill(null));
+
+      let isDrawing = false;
+      let drawMode = 'draw'; // 'draw' or 'erase'
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw colored pixels
+        for (let y = 0; y < SIZE; y++) {
+          for (let x = 0; x < SIZE; x++) {
+            if (grid[y][x]) {
+              ctx.fillStyle = grid[y][x];
+              ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            }
+          }
+        }
+
+        // Draw grid lines
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= SIZE; i++) {
+          ctx.beginPath();
+          ctx.moveTo(i * CELL_SIZE + 0.5, 0);
+          ctx.lineTo(i * CELL_SIZE + 0.5, canvas.height);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(0, i * CELL_SIZE + 0.5);
+          ctx.lineTo(canvas.width, i * CELL_SIZE + 0.5);
+          ctx.stroke();
+        }
+
+        updatePreview();
+      }
+
+      function updatePreview() {
+        const off = document.createElement('canvas');
+        off.width = SIZE;
+        off.height = SIZE;
+        const offCtx = off.getContext('2d');
+
+        for (let y = 0; y < SIZE; y++) {
+          for (let x = 0; x < SIZE; x++) {
+            if (grid[y][x]) {
+              offCtx.fillStyle = grid[y][x];
+              offCtx.fillRect(x, y, 1, 1);
+            }
+          }
+        }
+
+        const url = off.toDataURL('image/png');
+        p16.src = url;
+        p32.src = url;
+        pMock.src = url;
+      }
+
+      function getCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.floor((e.clientX - rect.left) / CELL_SIZE);
+        const y = Math.floor((e.clientY - rect.top) / CELL_SIZE);
+        return {
+          x: Math.max(0, Math.min(SIZE - 1, x)),
+          y: Math.max(0, Math.min(SIZE - 1, y))
+        };
+      }
+
+      function applyPixel(e) {
+        const { x, y } = getCoords(e);
+        grid[y][x] = drawMode === 'draw' ? colorInput.value : null;
+        render();
+      }
+
+      canvas.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.button !== 2) return;
+        isDrawing = true;
+        drawMode = e.button === 2 ? 'erase' : 'draw';
+        applyPixel(e);
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isDrawing) return;
+        applyPixel(e);
+      });
+
+      window.addEventListener('pointerup', () => {
+        isDrawing = false;
+      });
+
+      canvas.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        for (let y = 0; y < SIZE; y++) {
+          for (let x = 0; x < SIZE; x++) {
+            grid[y][x] = null;
+          }
+        }
+        render();
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        const off = document.createElement('canvas');
+        off.width = SIZE;
+        off.height = SIZE;
+        const offCtx = off.getContext('2d');
+
+        for (let y = 0; y < SIZE; y++) {
+          for (let x = 0; x < SIZE; x++) {
+            if (grid[y][x]) {
+              offCtx.fillStyle = grid[y][x];
+              offCtx.fillRect(x, y, 1, 1);
+            }
+          }
+        }
+
+        const link = document.createElement('a');
+        link.download = 'icon.png';
+        link.href = off.toDataURL('image/png');
+        link.click();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
