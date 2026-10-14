@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>https://nes.is-a.dev/</loc><lastmod>2026-10-09</lastmod></url>
-    <url><loc>https://nes.is-a.dev/about.html</loc><lastmod>2026-10-09</lastmod></url>
-    <url><loc>https://nes.is-a.dev/portfolio.html</loc><lastmod>2026-10-09</lastmod></url>
+    <url><loc>https://nes.is-a.dev/</loc><lastmod>2026-10-13</lastmod></url>
+    <url><loc>https://nes.is-a.dev/about.html</loc><lastmod>2026-10-13</lastmod></url>
+    <url><loc>https://nes.is-a.dev/portfolio.html</loc><lastmod>2026-10-13</lastmod></url>
     <url><loc>https://nes.is-a.dev/2025/mira.html</loc><lastmod>2026-10-09</lastmod></url>
     <url><loc>https://nes.is-a.dev/2025/cheapino.html</loc><lastmod>2026-09-28</lastmod></url>
     <url><loc>https://nes.is-a.dev/2025/robotic-arm-system-design.html</loc><lastmod>2026-09-28</lastmod></url>
@@ -29,9 +29,12 @@
     <url><loc>https://nes.is-a.dev/2021/godot.html</loc><lastmod>2026-08-05</lastmod></url>
     <url><loc>https://nes.is-a.dev/2021/emacs.html</loc><lastmod>2026-08-05</lastmod></url>
     <url><loc>https://nes.is-a.dev/2021/bmps.html</loc><lastmod>2026-08-05</lastmod></url>
-    <url><loc>https://nes.is-a.dev/experiments/ascii-model-viewer/index.html</loc><lastmod>2026-10-09</lastmod></url>
+    <url><loc>https://nes.is-a.dev/experiments/ascii-model-viewer/index.html</loc><lastmod>2026-10-13</lastmod></url>
     <url><loc>https://nes.is-a.dev/experiments/code-highlight-cp/index.html</loc><lastmod>2026-08-05</lastmod></url>
     <url><loc>https://nes.is-a.dev/experiments/fsa.html</loc><lastmod>2026-08-06</lastmod></url>
+    <url><loc>https://nes.is-a.dev/experiments/icon-creater/index.html</loc><lastmod>2026-10-13</lastmod></url>
+    <url><loc>https://nes.is-a.dev/experiments/icon-creator/index.html</loc><lastmod>2026-10-13</lastmod></url>
+    <url><loc>https://nes.is-a.dev/experiments/index.html</loc><lastmod>2026-10-13</lastmod></url>
     <url><loc>https://nes.is-a.dev/experiments/remotesensing.html</loc><lastmod>2026-09-28</lastmod></url>
     <url><loc>https://nes.is-a.dev/experiments/serial.html</loc><lastmod>2026-08-06</lastmod></url>
 </urlset>
